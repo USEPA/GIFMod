@@ -1,0 +1,319 @@
+Green Infrastructure Flexible Modeling System
+//Generated Script: Build-up.GIFM
+//Global/Solver Settings
+path=D:\Dropbox\GUI\GIFMOD User's manual\Examples\Build-up\
+precipitation=precipitation.txt
+outputpath=D:\Dropbox\GUI\GIFMOD User's manual\Examples\Build-up\
+negative_concentration_allowed=0
+pos_def_limit=0
+w=0.5
+nr_failure_criteria=200
+forward=1
+dt=0.01
+max_j_update_interval=40
+tol=0.001
+mass_balance_check=1
+colloid_transport=1
+water_quality=1
+nr_iteration_treshold_min=20
+nr_iteration_treshold_max=50
+restore_interval=20
+time_min=40723
+time_max=40754
+solution_method=0
+wiggle_tolerance=0.01
+dt_change_failure=0.1
+dt_change_rate=0.8
+uniformoutput=1
+write_details=0
+steady_state_hydro=0
+detoutfilename_hydro = hydro_output.txt
+detoutfilename_wq = wq_output.txt
+detoutfilename_prtcle = prtcl_output.txt
+detoutfilename_obs = observed_output.txt
+log_file_name = log.txt
+//Unkown Parameters
+//Observations
+Block=Catchment, {id=Catchment (8); a=9; z0=-0.0777777; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (1); a=9; z0=0; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (9); a=9; z0=-0.0888888; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (3); a=9; z0=-0.0222222; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (7); a=9; z0=-0.0666666; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (2); a=9; z0=-0.0111111; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (5); a=9; z0=-0.0444444; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (54); a=9; z0=-0.0888888; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (55); a=9; z0=-0.0999999; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (56); a=9; z0=-0.111111; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (57); a=9; z0=-0.122222; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (58); a=9; z0=-0.133333; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (59); a=9; z0=-0.144444; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (60); a=9; z0=-0.155555; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (61); a=9; z0=-0.0666666; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (62); a=9; z0=-0.0777777; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (63); a=9; z0=-0.0888888; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (64); a=9; z0=-0.0999999; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (65); a=9; z0=-0.111111; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (66); a=9; z0=-0.122222; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (67); a=9; z0=-0.133333; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (68); a=9; z0=-0.144444; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (69); a=9; z0=-0.155555; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (70); a=9; z0=-0.166666; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (71); a=9; z0=-0.0777777; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (72); a=9; z0=-0.0888888; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (73); a=9; z0=-0.0999999; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (74); a=9; z0=-0.111111; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (75); a=9; z0=-0.122222; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (4); a=9; z0=-0.0333333; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (6); a=9; z0=-0.0555555; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (10); a=9; z0=-0.0999999; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (11); a=9; z0=-0.0111111; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (12); a=9; z0=-0.0222222; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (13); a=9; z0=-0.0333333; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (14); a=9; z0=-0.0444444; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (15); a=9; z0=-0.0555555; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (16); a=9; z0=-0.0666666; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (17); a=9; z0=-0.0777777; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (18); a=9; z0=-0.0888888; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (19); a=9; z0=-0.0999999; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (20); a=9; z0=-0.111111; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (21); a=9; z0=-0.0222222; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (22); a=9; z0=-0.0333333; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (23); a=9; z0=-0.0444444; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (24); a=9; z0=-0.0555555; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (25); a=9; z0=-0.0666666; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (26); a=9; z0=-0.0777777; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (27); a=9; z0=-0.0888888; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (28); a=9; z0=-0.0999999; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (29); a=9; z0=-0.111111; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (30); a=9; z0=-0.122222; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (31); a=9; z0=-0.0333333; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (32); a=9; z0=-0.0444444; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (33); a=9; z0=-0.0555555; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (34); a=9; z0=-0.0666666; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (35); a=9; z0=-0.0777777; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (36); a=9; z0=-0.0888888; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (37); a=9; z0=-0.0999999; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (38); a=9; z0=-0.111111; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (39); a=9; z0=-0.122222; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (40); a=9; z0=-0.133333; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (41); a=9; z0=-0.0444444; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (42); a=9; z0=-0.0555555; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (43); a=9; z0=-0.0666666; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (44); a=9; z0=-0.0777777; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (45); a=9; z0=-0.0888888; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (46); a=9; z0=-0.0999999; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (47); a=9; z0=-0.111111; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (48); a=9; z0=-0.122222; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (49); a=9; z0=-0.133333; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (50); a=9; z0=-0.144444; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (51); a=9; z0=-0.0555555; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (52); a=9; z0=-0.0666666; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (53); a=9; z0=-0.0777777; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Pond, {id=Pond (1); a=100; z0=-1; depression=0; h0=0.01; precipitation=0; vapour_diffusion=0; light=1; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (76); a=9; z0=-0.133333; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (77); a=9; z0=-0.144444; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (78); a=9; z0=-0.155555; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (79); a=9; z0=-0.166666; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (80); a=9; z0=-0.177777; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (81); a=9; z0=-0.0888888; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (82); a=9; z0=-0.0999999; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (83); a=9; z0=-0.111111; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (84); a=9; z0=-0.122222; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (85); a=9; z0=-0.133333; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (86); a=9; z0=-0.144444; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (87); a=9; z0=-0.155555; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (88); a=9; z0=-0.166666; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (89); a=9; z0=-0.177777; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (90); a=9; z0=-0.188888; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (91); a=9; z0=-0.0999999; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (92); a=9; z0=-0.111111; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (93); a=9; z0=-0.122222; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (94); a=9; z0=-0.133333; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (95); a=9; z0=-0.144444; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (96); a=9; z0=-0.155555; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (97); a=9; z0=-0.166666; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (98); a=9; z0=-0.177777; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (99); a=9; z0=-0.188888; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Block=Catchment, {id=Catchment (100); a=9; z0=-0.199999; buildup=Build-up; bd=1; depression=0; h0=0; precipitation=1; vapour_diffusion=0; nmanning=1.27315e-06; width=3; light=1; width=3; light_reduction_factor=1; perform_rxn=1}
+Connector=Default, {id=Catchment (1) - Catchment (2); block1=Catchment (1); block2=Catchment (2); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (2) - Catchment (3); block1=Catchment (2); block2=Catchment (3); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (3) - Catchment (4); block1=Catchment (3); block2=Catchment (4); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (4) - Catchment (5); block1=Catchment (4); block2=Catchment (5); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (5) - Catchment (6); block1=Catchment (5); block2=Catchment (6); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (74) - Catchment (75); block1=Catchment (74); block2=Catchment (75); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (66) - Catchment (76); block1=Catchment (66); block2=Catchment (76); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (75) - Catchment (76); block1=Catchment (75); block2=Catchment (76); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (67) - Catchment (77); block1=Catchment (67); block2=Catchment (77); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (76) - Catchment (77); block1=Catchment (76); block2=Catchment (77); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (68) - Catchment (78); block1=Catchment (68); block2=Catchment (78); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (77) - Catchment (78); block1=Catchment (77); block2=Catchment (78); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (69) - Catchment (79); block1=Catchment (69); block2=Catchment (79); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (78) - Catchment (79); block1=Catchment (78); block2=Catchment (79); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (70) - Catchment (80); block1=Catchment (70); block2=Catchment (80); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (79) - Catchment (80); block1=Catchment (79); block2=Catchment (80); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (71) - Catchment (81); block1=Catchment (71); block2=Catchment (81); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (72) - Catchment (82); block1=Catchment (72); block2=Catchment (82); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (81) - Catchment (82); block1=Catchment (81); block2=Catchment (82); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (73) - Catchment (83); block1=Catchment (73); block2=Catchment (83); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (82) - Catchment (83); block1=Catchment (82); block2=Catchment (83); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (74) - Catchment (84); block1=Catchment (74); block2=Catchment (84); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (83) - Catchment (84); block1=Catchment (83); block2=Catchment (84); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (75) - Catchment (85); block1=Catchment (75); block2=Catchment (85); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (84) - Catchment (85); block1=Catchment (84); block2=Catchment (85); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (76) - Catchment (86); block1=Catchment (76); block2=Catchment (86); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (6) - Catchment (7); block1=Catchment (6); block2=Catchment (7); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (7) - Catchment (8); block1=Catchment (7); block2=Catchment (8); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (8) - Catchment (9); block1=Catchment (8); block2=Catchment (9); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (9) - Catchment (10); block1=Catchment (9); block2=Catchment (10); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (1) - Catchment (11); block1=Catchment (1); block2=Catchment (11); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (2) - Catchment (12); block1=Catchment (2); block2=Catchment (12); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (11) - Catchment (12); block1=Catchment (11); block2=Catchment (12); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (3) - Catchment (13); block1=Catchment (3); block2=Catchment (13); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (12) - Catchment (13); block1=Catchment (12); block2=Catchment (13); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (4) - Catchment (14); block1=Catchment (4); block2=Catchment (14); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (13) - Catchment (14); block1=Catchment (13); block2=Catchment (14); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (5) - Catchment (15); block1=Catchment (5); block2=Catchment (15); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (14) - Catchment (15); block1=Catchment (14); block2=Catchment (15); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (6) - Catchment (16); block1=Catchment (6); block2=Catchment (16); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (15) - Catchment (16); block1=Catchment (15); block2=Catchment (16); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (7) - Catchment (17); block1=Catchment (7); block2=Catchment (17); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (16) - Catchment (17); block1=Catchment (16); block2=Catchment (17); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (8) - Catchment (18); block1=Catchment (8); block2=Catchment (18); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (17) - Catchment (18); block1=Catchment (17); block2=Catchment (18); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (9) - Catchment (19); block1=Catchment (9); block2=Catchment (19); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (18) - Catchment (19); block1=Catchment (18); block2=Catchment (19); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (10) - Catchment (20); block1=Catchment (10); block2=Catchment (20); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (19) - Catchment (20); block1=Catchment (19); block2=Catchment (20); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (11) - Catchment (21); block1=Catchment (11); block2=Catchment (21); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (12) - Catchment (22); block1=Catchment (12); block2=Catchment (22); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (21) - Catchment (22); block1=Catchment (21); block2=Catchment (22); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (13) - Catchment (23); block1=Catchment (13); block2=Catchment (23); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (22) - Catchment (23); block1=Catchment (22); block2=Catchment (23); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (14) - Catchment (24); block1=Catchment (14); block2=Catchment (24); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (23) - Catchment (24); block1=Catchment (23); block2=Catchment (24); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (15) - Catchment (25); block1=Catchment (15); block2=Catchment (25); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (24) - Catchment (25); block1=Catchment (24); block2=Catchment (25); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (16) - Catchment (26); block1=Catchment (16); block2=Catchment (26); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (25) - Catchment (26); block1=Catchment (25); block2=Catchment (26); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (17) - Catchment (27); block1=Catchment (17); block2=Catchment (27); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (26) - Catchment (27); block1=Catchment (26); block2=Catchment (27); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (18) - Catchment (28); block1=Catchment (18); block2=Catchment (28); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (27) - Catchment (28); block1=Catchment (27); block2=Catchment (28); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (19) - Catchment (29); block1=Catchment (19); block2=Catchment (29); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (28) - Catchment (29); block1=Catchment (28); block2=Catchment (29); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (20) - Catchment (30); block1=Catchment (20); block2=Catchment (30); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (29) - Catchment (30); block1=Catchment (29); block2=Catchment (30); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (21) - Catchment (31); block1=Catchment (21); block2=Catchment (31); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (22) - Catchment (32); block1=Catchment (22); block2=Catchment (32); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (31) - Catchment (32); block1=Catchment (31); block2=Catchment (32); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (23) - Catchment (33); block1=Catchment (23); block2=Catchment (33); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (32) - Catchment (33); block1=Catchment (32); block2=Catchment (33); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (24) - Catchment (34); block1=Catchment (24); block2=Catchment (34); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (33) - Catchment (34); block1=Catchment (33); block2=Catchment (34); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (25) - Catchment (35); block1=Catchment (25); block2=Catchment (35); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (34) - Catchment (35); block1=Catchment (34); block2=Catchment (35); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (26) - Catchment (36); block1=Catchment (26); block2=Catchment (36); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (35) - Catchment (36); block1=Catchment (35); block2=Catchment (36); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (27) - Catchment (37); block1=Catchment (27); block2=Catchment (37); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (36) - Catchment (37); block1=Catchment (36); block2=Catchment (37); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (28) - Catchment (38); block1=Catchment (28); block2=Catchment (38); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (37) - Catchment (38); block1=Catchment (37); block2=Catchment (38); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (29) - Catchment (39); block1=Catchment (29); block2=Catchment (39); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (38) - Catchment (39); block1=Catchment (38); block2=Catchment (39); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (30) - Catchment (40); block1=Catchment (30); block2=Catchment (40); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (39) - Catchment (40); block1=Catchment (39); block2=Catchment (40); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (31) - Catchment (41); block1=Catchment (31); block2=Catchment (41); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (32) - Catchment (42); block1=Catchment (32); block2=Catchment (42); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (41) - Catchment (42); block1=Catchment (41); block2=Catchment (42); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (33) - Catchment (43); block1=Catchment (33); block2=Catchment (43); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (42) - Catchment (43); block1=Catchment (42); block2=Catchment (43); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (34) - Catchment (44); block1=Catchment (34); block2=Catchment (44); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (43) - Catchment (44); block1=Catchment (43); block2=Catchment (44); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (35) - Catchment (45); block1=Catchment (35); block2=Catchment (45); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (44) - Catchment (45); block1=Catchment (44); block2=Catchment (45); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (36) - Catchment (46); block1=Catchment (36); block2=Catchment (46); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (45) - Catchment (46); block1=Catchment (45); block2=Catchment (46); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (37) - Catchment (47); block1=Catchment (37); block2=Catchment (47); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (46) - Catchment (47); block1=Catchment (46); block2=Catchment (47); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (38) - Catchment (48); block1=Catchment (38); block2=Catchment (48); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (47) - Catchment (48); block1=Catchment (47); block2=Catchment (48); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (39) - Catchment (49); block1=Catchment (39); block2=Catchment (49); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (48) - Catchment (49); block1=Catchment (48); block2=Catchment (49); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (40) - Catchment (50); block1=Catchment (40); block2=Catchment (50); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (49) - Catchment (50); block1=Catchment (49); block2=Catchment (50); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (41) - Catchment (51); block1=Catchment (41); block2=Catchment (51); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (42) - Catchment (52); block1=Catchment (42); block2=Catchment (52); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (51) - Catchment (52); block1=Catchment (51); block2=Catchment (52); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (43) - Catchment (53); block1=Catchment (43); block2=Catchment (53); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (52) - Catchment (53); block1=Catchment (52); block2=Catchment (53); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (44) - Catchment (54); block1=Catchment (44); block2=Catchment (54); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (53) - Catchment (54); block1=Catchment (53); block2=Catchment (54); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (45) - Catchment (55); block1=Catchment (45); block2=Catchment (55); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (54) - Catchment (55); block1=Catchment (54); block2=Catchment (55); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (46) - Catchment (56); block1=Catchment (46); block2=Catchment (56); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (55) - Catchment (56); block1=Catchment (55); block2=Catchment (56); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (47) - Catchment (57); block1=Catchment (47); block2=Catchment (57); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (56) - Catchment (57); block1=Catchment (56); block2=Catchment (57); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (48) - Catchment (58); block1=Catchment (48); block2=Catchment (58); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (57) - Catchment (58); block1=Catchment (57); block2=Catchment (58); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (49) - Catchment (59); block1=Catchment (49); block2=Catchment (59); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (58) - Catchment (59); block1=Catchment (58); block2=Catchment (59); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (50) - Catchment (60); block1=Catchment (50); block2=Catchment (60); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (59) - Catchment (60); block1=Catchment (59); block2=Catchment (60); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (51) - Catchment (61); block1=Catchment (51); block2=Catchment (61); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (52) - Catchment (62); block1=Catchment (52); block2=Catchment (62); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (61) - Catchment (62); block1=Catchment (61); block2=Catchment (62); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (53) - Catchment (63); block1=Catchment (53); block2=Catchment (63); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (62) - Catchment (63); block1=Catchment (62); block2=Catchment (63); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (54) - Catchment (64); block1=Catchment (54); block2=Catchment (64); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (63) - Catchment (64); block1=Catchment (63); block2=Catchment (64); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (55) - Catchment (65); block1=Catchment (55); block2=Catchment (65); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (64) - Catchment (65); block1=Catchment (64); block2=Catchment (65); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (56) - Catchment (66); block1=Catchment (56); block2=Catchment (66); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (65) - Catchment (66); block1=Catchment (65); block2=Catchment (66); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (57) - Catchment (67); block1=Catchment (57); block2=Catchment (67); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (66) - Catchment (67); block1=Catchment (66); block2=Catchment (67); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (58) - Catchment (68); block1=Catchment (58); block2=Catchment (68); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (67) - Catchment (68); block1=Catchment (67); block2=Catchment (68); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (59) - Catchment (69); block1=Catchment (59); block2=Catchment (69); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (68) - Catchment (69); block1=Catchment (68); block2=Catchment (69); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (60) - Catchment (70); block1=Catchment (60); block2=Catchment (70); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (69) - Catchment (70); block1=Catchment (69); block2=Catchment (70); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (61) - Catchment (71); block1=Catchment (61); block2=Catchment (71); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (62) - Catchment (72); block1=Catchment (62); block2=Catchment (72); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (71) - Catchment (72); block1=Catchment (71); block2=Catchment (72); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (63) - Catchment (73); block1=Catchment (63); block2=Catchment (73); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (72) - Catchment (73); block1=Catchment (72); block2=Catchment (73); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (64) - Catchment (74); block1=Catchment (64); block2=Catchment (74); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (73) - Catchment (74); block1=Catchment (73); block2=Catchment (74); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (65) - Catchment (75); block1=Catchment (65); block2=Catchment (75); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (85) - Catchment (86); block1=Catchment (85); block2=Catchment (86); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (77) - Catchment (87); block1=Catchment (77); block2=Catchment (87); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (86) - Catchment (87); block1=Catchment (86); block2=Catchment (87); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (78) - Catchment (88); block1=Catchment (78); block2=Catchment (88); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (87) - Catchment (88); block1=Catchment (87); block2=Catchment (88); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (79) - Catchment (89); block1=Catchment (79); block2=Catchment (89); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (88) - Catchment (89); block1=Catchment (88); block2=Catchment (89); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (80) - Catchment (90); block1=Catchment (80); block2=Catchment (90); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (89) - Catchment (90); block1=Catchment (89); block2=Catchment (90); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (81) - Catchment (91); block1=Catchment (81); block2=Catchment (91); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (82) - Catchment (92); block1=Catchment (82); block2=Catchment (92); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (91) - Catchment (92); block1=Catchment (91); block2=Catchment (92); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (83) - Catchment (93); block1=Catchment (83); block2=Catchment (93); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (92) - Catchment (93); block1=Catchment (92); block2=Catchment (93); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (84) - Catchment (94); block1=Catchment (84); block2=Catchment (94); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (93) - Catchment (94); block1=Catchment (93); block2=Catchment (94); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (85) - Catchment (95); block1=Catchment (85); block2=Catchment (95); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (94) - Catchment (95); block1=Catchment (94); block2=Catchment (95); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (86) - Catchment (96); block1=Catchment (86); block2=Catchment (96); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (95) - Catchment (96); block1=Catchment (95); block2=Catchment (96); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (87) - Catchment (97); block1=Catchment (87); block2=Catchment (97); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (96) - Catchment (97); block1=Catchment (96); block2=Catchment (97); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (88) - Catchment (98); block1=Catchment (88); block2=Catchment (98); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (97) - Catchment (98); block1=Catchment (97); block2=Catchment (98); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (89) - Catchment (99); block1=Catchment (89); block2=Catchment (99); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (98) - Catchment (99); block1=Catchment (98); block2=Catchment (99); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (90) - Catchment (100); block1=Catchment (90); block2=Catchment (100); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (99) - Catchment (100); block1=Catchment (99); block2=Catchment (100); nmanning=0.11; width=3; d=3; settling=0; presc_flow=0}
+Connector=Default, {id=Catchment (100) - Pond (1); block1=Catchment (100); block2=Pond (1); nmanning=1.27315e-06; width=3; d=3; settling=0; presc_flow=0}
+Constituent=Pb

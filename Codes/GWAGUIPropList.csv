@@ -1,0 +1,90 @@
+//ModelSpace,Gui,Type,SubType,Description,Name,Code,Unit,Model Default Unit,Type,Defaults,Delegate,Category,Input,Experiment Dependent,Description Code,Condition,WE,Warning
+1,Block,Well,*,Well Name,Name,id,!,!,string,!,TextBox,Geometry,Input,No,200010,,,
+1,Block,Well,*,!,Fraction Old,f,!,!,float+Estimate?,!,TextBox,Material,Input,No,200020,,,
+1,Block,Well,*,!,Fraction from Mineral Dissolution,fm,!,!,float+Estimate?,!,TextBox,Material,Input,No,200030,,,
+1,Block,Well,*,!,vz_delay,vz_delay,!,!,float+Estimate,!,TextBox,Geometry,Input,No,200040,,,
+1,Block,Well,*,!,Age Old,age_old,!,!,float+Estimate,!,TextBox,Geometry,Input,No,200050,,,
+1,Block,Well,*,Default  Values Template,SubType,!,!,!,string,populate at runtime; SubType,ComboBox,Geometry,Select,No,200060,,,
+1,Block,Well,Dirac,!,age,param[0],!,!,float+Estimate,!,TextBox,Statistical,Input,No,200070,>0,E,Distribution Parameter should be positive
+1,Block,Well,Exponential,!,Mean Age,param[0],!,!,float+Estimate,!,TextBox,Statistical,Input,No,200080,>0,E,Distribution Parameter should be positive
+1,Block,Well,Log Normal,!,Geometrical Mean (exp(~mu)),param[0],!,!,float+Estimate,!,TextBox,Statistical,Input,No,200090,>0,E,Distribution Parameter should be positive
+1,Block,Well,Log Normal,!,Standard Deviation,param[1],!,!,float+Estimate,!,TextBox,Statistical,Input,No,200100,>0,E,Distribution Parameter should be positive
+1,Block,Well,Inverse Gaussian,!,Mean,param[0],!,!,float+Estimate,!,TextBox,Statistical,Input,No,200110,>0,E,Distribution Parameter should be positive
+1,Block,Well,Inverse Gaussian,!,Standard Deviation (~sigma),param[1],!,!,float+Estimate,!,TextBox,Statistical,Input,No,200120,>0,E,Distribution Parameter should be positive
+1,Block,Well,Levy,!,Scale Parameter (C),param[0],!,!,float+Estimate,!,TextBox,Statistical,Input,No,200130,>0,E,Distribution Parameter should be positive
+1,Block,Well,Shited Levy,!,Scale Parameter (C),param[0],!,!,float+Estimate,!,TextBox,Statistical,Input,No,200140,>0,E,Distribution Parameter should be positive
+1,Block,Well,Shited Levy,!,Location Parameter,param[1],!,!,float+Estimate,!,TextBox,Statistical,Input,No,200150,>0,E,Distribution Parameter should be positive
+1,Block,Well,Shifted Exponential,!,Standard Deviation,param[0],!,!,float+Estimate,!,TextBox,Statistical,Input,No,200160,>0,E,Distribution Parameter should be positive
+1,Block,Well,Shifted Exponential,!,Shift Parameter,param[1],!,!,float+Estimate,!,TextBox,Statistical,Input,No,200170,>0,E,Distribution Parameter should be positive
+1,Block,Well,Generalized Inverse Gamma,!,p,param[0],!,!,float+Estimate,!,TextBox,Statistical,Input,No,200180,>0,E,Distribution Parameter should be positive
+1,Block,Well,Generalized Inverse Gamma,!,a,param[1],!,!,float+Estimate,!,TextBox,Statistical,Input,No,200190,>0,E,Distribution Parameter should be positive
+1,Block,Well,Generalized Inverse Gamma,!,b,param[2],!,!,float+Estimate,!,TextBox,Statistical,Input,No,200200,>0,E,Distribution Parameter should be positive
+1,Block,Well,Gamma,!,k,param[0],!,!,float+Estimate,!,TextBox,Statistical,Input,No,200210,>0,E,Distribution Parameter should be positive
+1,Block,Well,Gamma,!,~theta,param[1],!,!,float+Estimate,!,TextBox,Statistical,Input,No,200220,>0,E,Distribution Parameter should be positive
+1,Entity,Global Settings,Global Settings,!,Working Path,path,!,!,directory,.,DirBrowser,Global,Input,No,200230,,,
+1,Entity,Global Settings,Global Settings,!,Forward/Inverse Simulation,forward,!,!,string,Forward;Inverse,ComboBox,Global,Select,No,200240,,,
+1,Entity,Genetic Algorithm,Genetic Algorithm,!,Name,Name,!,!,string,!,TextBox,Global,Input,No,200250,,,
+1,Entity,Markov Chain Monte Carlo,Markov Chain Monte Carlo,!,Acceptance rate parameter for MCMC sampling,acceptance_rate,!,!,float,0.2,TextBox,Global,Input,No,200260,(0:1),E,Acceptance rate parameter must be between zero and one
+1,Entity,Markov Chain Monte Carlo,Markov Chain Monte Carlo,!,Add noise to output realizations,noise_realization_writeout ,!,!,string,No;Yes,ComboBox,Global,Select,No,200270,,,
+1,Entity,Markov Chain Monte Carlo,Markov Chain Monte Carlo,!,Calculate posterior correlation,calculate_correlation      ,!,!,string,Yes;No,ComboBox,Global,Select,No,200280,,,
+1,Entity,Markov Chain Monte Carlo,Markov Chain Monte Carlo,!,Calculate posterior distributions,calc_distributions         ,!,!,string,Yes;No,ComboBox,Global,Select,No,200290,,,
+1,Entity,Markov Chain Monte Carlo,Markov Chain Monte Carlo,!,Calculate posterior percentiles,calculate_percentile       ,!,!,bool,Yes;No,ComboBox,Global,Select,No,200300,,,
+1,Entity,Markov Chain Monte Carlo,Markov Chain Monte Carlo,!,Calculate realization percentiles,calc_output_percentiles    ,!,!,string+estimates,0.025:0.50:0.975,TextBox,Global,Input,No,200310,,,
+1,Entity,Markov Chain Monte Carlo,Markov Chain Monte Carlo,!,Continue MCMC sampling,continuemcmc               ,!,!,string,No;Yes,ComboBox,Global,Select,No,200320,,,
+1,Entity,Genetic Algorithm,Genetic Algorithm,!,Cross-over probability,pcross                     ,!,!,float+Estimate,1,TextBox,Global,Input,No,200330,(0:1],E,Cross-over probability must be between 0 and 1 and non-zero
+1,Entity,Genetic Algorithm,Genetic Algorithm,!,GA output file,outputfile                 ,!,!,filename,./GAout.txt,Browser,Global,Input,No,200340,not empty,W,GA output file is not defined.
+1,Entity,Genetic Algorithm,Genetic Algorithm,!,Generate output realizations,mcmc_realization           ,!,!,string,Yes;No,ComboBox,Global,Select,No,200350,,,
+1,Entity,Genetic Algorithm,Genetic Algorithm,!,initial GA population,initial_population         ,!,!,filename,!,TextBox,Global,Input,No,200360,not empty,W,initial GA population input file is not defined.
+1,Entity,Markov Chain Monte Carlo,Markov Chain Monte Carlo,!,Initial purturbation,noinipurt                  ,!,!,string,Yes;No,ComboBox,Global,Select,No,200370,,,
+1,Entity,Markov Chain Monte Carlo,Markov Chain Monte Carlo,!,MCMC burn-out  number,burnout                    ,!,!,integer,0,TextBox,Global,Input,No,200380,>=0;<{nmcmcsamples},E;E,burn-out must be non-negative;burn-out must be less than number of MCMC samples
+1,Entity,Markov Chain Monte Carlo,Markov Chain Monte Carlo,!,MCMC number of chains,nchains                    ,!,!,integer,8,TextBox,Global,Input,No,200390,>0;<{nmcmcsamples},E;E,Number of chains must be a positive number;Number of chains must be less than number of MCMC samples
+1,Entity,Markov Chain Monte Carlo,Markov Chain Monte Carlo,!,MCMC data file,mcmcoutputfile             ,!,!,filename,./mcmcoutput.txt,Browser,Global,Input,No,200400,not empty,W,MCMC output file is not defined.
+1,Entity,Markov Chain Monte Carlo,Markov Chain Monte Carlo,!,MCMC purturbation reduction scale,purtscale                  ,!,!,float,0.75,TextBox,Global,Input,No,200410,(0:1),E,MCMC purturbation reduction scale must be between 0 and 1
+1,Entity,Markov Chain Monte Carlo,Markov Chain Monte Carlo,!,MCMC purturbation scale reduction factor,purtfac                    ,!,!,float+Estimate,0.05,TextBox,Global,Input,No,200420,>0,E,Purturbation factor must be positive
+1,Entity,Markov Chain Monte Carlo,Markov Chain Monte Carlo,!,MCMC sample output interval,writeinterval              ,!,!,integer,1,TextBox,Global,Input,No,200430,>0,E,MCMC sample output interval must be greater than 0
+1,Entity,Genetic Algorithm,Genetic Algorithm,!,Mutation probability,pmute                      ,!,!,float+Estimate,0.008,TextBox,Global,Input,No,200440,(0:0.01],E,Mutation probability must be between 0 and 0.01
+1,Entity,Markov Chain Monte Carlo,Markov Chain Monte Carlo,!,Number of bins used for calculating posterior distributions,no_bins                    ,!,!,integer,20,TextBox,Global,Input,No,200450,>0,E,Number of bins must be positive integer
+1,Entity,Genetic Algorithm,Genetic Algorithm,!,Number of Generations,ngen                       ,!,!,integer,50,TextBox,Global,Input,No,200460,>0,E,Number of generations must be a postive integer
+1,Entity,Markov Chain Monte Carlo,Markov Chain Monte Carlo,!,Number of MCMC samples,nmcmcsamples               ,!,!,integer,500,TextBox,Global,Input,No,200470,>0,E,Number of MCMC samples must be positive integer
+1,Entity,Markov Chain Monte Carlo,Markov Chain Monte Carlo,!,number of realization for MCMC post-processing,nrealizations              ,!,!,integer,100,TextBox,Global,Input,No,200480,>0,E,number of realization for MCMC post-processing must be positive
+1,Entity,Markov Chain Monte Carlo,Markov Chain Monte Carlo,!,Only read the MCMC outputs from file,justreadmcmc               ,!,!,string,No;Yes,ComboBox,Global,Select,No,200490,,,
+1,Entity,Markov Chain Monte Carlo,Markov Chain Monte Carlo,!,Perform global sensitivity analysis,global_sensitivity         ,!,!,string,No;Yes,ComboBox,Global,Select,No,200500,,,
+1,Entity,Genetic Algorithm,Genetic Algorithm,!,Perform local sensitivity analysis,calculate_sensitivity      ,!,!,string,No;Yes,ComboBox,Global,Select,No,200510,,,
+1,Entity,Markov Chain Monte Carlo,Markov Chain Monte Carlo,!,Perform MCMC simulation,mcmc_run                   ,!,!,string,Yes;No,ComboBox,Global,Select,No,200520,,,
+1,Entity,Genetic Algorithm,Genetic Algorithm,!,Population,maxpop                     ,!,!,integer,40,TextBox,Global,Input,No,200530,>1,E,Population must be greater than equal to two and an even number
+1,Entity,Genetic Algorithm,Genetic Algorithm,!,Read GA analysis from file,readfromgafile             ,!,!,filename,!,Browser,Global,Select,No,200540,not empty,W,GA input file is not defined.
+1,Entity,Genetic Algorithm,Genetic Algorithm,!,Save realization outputs in a file,obs_realization_writeout   ,!,!,string,Yes;No,ComboBox,Global,Select,No,200550,,,
+1,Entity,Markov Chain Monte Carlo,Markov Chain Monte Carlo,!,Sensititivy-based purturbation factor,sensbasedpurt              ,!,!,string,No;Yes,ComboBox,Global,Select,No,200560,,,
+1,Entity,Markov Chain Monte Carlo,Markov Chain Monte Carlo,!,Sensitivity purturbation factor,dp_sensitivity             ,!,!,float+Estimate,0.001,TextBox,Global,Input,No,200570,>0,E,Sensitivity purturbation factor must be greater than zero
+1,Entity,Genetic Algorithm,Genetic Algorithm,!,Shake-scale,shakescale                 ,!,!,float+Estimate,0.05,TextBox,Global,Input,No,200580,>=0,E,Shake-scale must be non-negative
+1,Entity,Genetic Algorithm,Genetic Algorithm,!,shake-scale reduction factor,shakescalered              ,!,!,float+Estimate,0.2,TextBox,Global,Input,No,200590,(0:1),E,Shake-scale reduction factor must be between 0 and 1
+1,Entity,Genetic Algorithm,Genetic Algorithm,!,Number of Threads,number_of_threads,!,!,integer,16,TextBox,Global,Input,No,200600,>0,E,Number of threads should be positive
+1,Block,Tracer,Tracer,Block Name,Name,id,!,!,string,!,TextBox,Geometry,Input,No,200610,,,
+1,Block,Tracer,Tracer,!,Decay Rate,decay,!,!,float+Estimate,!,TextBox,Material,Input,No,200620,,,
+1,Block,Tracer,Tracer,!,Mineral Dissolution,fm,!,!,string,No;Yes,ComboBox,Geometry,Select,No,200630,,,
+1,Block,Tracer,Tracer,!,Source,source,!,!,string,populate at runtime;blank+Tracers,ComboBox,Material,Select,No,200640,,,
+1,Block,Tracer,Tracer,!,Constant Atmospheric Input,constant_input,!,!,string,No;Yes,ComboBox,Material,Select,No,200650,,,
+1,Block,Tracer,Tracer,!,Constant Atmospheric Input Value,constant_input_val,!,!,float+Estimate,!,TextBox,Material,Input,No,200660,,,
+1,Block,Tracer,Tracer,!,Atmospheric Record,input,!,!,filename,!,Browser;time series;age,Material,Select,No,200670,,,
+1,Block,Tracer,Tracer,!,Concentration in Mineral Dissolution,cm,!,!,float+Estimate,!,TextBox,Material,Input,No,200680,,,
+1,Block,Tracer,Tracer,!,retard,retard,!,!,float,1,TextBox,Material,Select,No,200690,>=1,E,Retardation factor should be grater than 1.
+1,Block,Tracer,Tracer,!,input_multiplier,input_multiplier,!,!,float,1,TextBox,Material,Input,No,200700,,,
+1,Block,Tracer,Tracer,!,linear_prod,linear_prod,!,!,string,No;Yes,ComboBox,Material,Select,No,200710,,,
+1,Block,Tracer,Tracer,!,vz_delay,vz_delay,!,!,float+Estimate,!,TextBox,Material,Input,No,200720,,,
+1,Entity,Observation,Observation,!,Name,name,!,!,string,!,TextBox,Global,Input,No,200730,,,
+1,Entity,Observation,Observation,!,well,well,!,!,string,populate at runtime;Wells,ComboBox,Geometry,Select,No,200740,,,
+1,Entity,Observation,Observation,!,tracer,tracer,!,!,string,populate at runtime;Tracers,ComboBox,Geometry,Select,No,200750,,,
+1,Entity,Observation,Observation,!,Standard deviation ID,std_no,!,!,string,!,TextBox,Global,Input,No,200760,,,
+1,Entity,Observation,Observation,!,Error Structure,error_structure,!,!,string,Normal;Log Normal,ComboBox,Geometry,Select,No,200770,,,
+1,Entity,Observation,Observation,!,Observed Data,observed_data,!,!,filename,!,Browser;time series,Global,Select,No,200780,not empty,E,Observation file is not defined.
+1,Entity,Global Settings,Global Settings,!,Projection start,project_start,!,!,string,2000,TextBox,Global,Input,No,200790,,,
+1,Entity,Global Settings,Global Settings,!,Projection end,project_end,!,!,string,2040,TextBox,Global,Input,No,200800,,,
+1,Entity,Global Settings,Global Settings,!,Projection interval,project_interval,!,!,string,1,TextBox,Global,Input,No,200810,,,
+1,Entity,Markov Chain Monte Carlo,Markov Chain Monte Carlo,!,Realized parameters Output File,realizedparam,!,!,string,!,Browser,Global,Input,No,200820,,,
+1,Entity,Parameter,Parameter,!,Name,!,!,!,string,!,TextBox,Global,Input,No,200830,,,
+//1,Entity,Parameter,Parameter,!,Apply to All Cases,applytoall,!,!,boolean,Yes;No,CheckBox,Global,Select,No,200840,,,
+1,Entity,Parameter,Parameter,!,Minimum Value,low,!,!,float,!,TextBox,Global,Input,No,200850,,,
+1,Entity,Parameter,Parameter,!,Maximum Value,high,!,!,float,!,TextBox,Global,Input,No,200860,>{low},E,Upper limit must be larger than the lower limit
+1,Entity,Parameter,Parameter,!,Prior Distribution,log,!,!,string,Normal;Log-Normal;Uniform,ComboBox,Global,Select,No,200870,,,
+1,Entity,Parameter,Parameter,!,Value,value,!,!,float,!,TextBox,Global,Input,No,200880,,,
+1,Entity,Observation,Observation,!,Minimum Error Standard Deviation,minstdev,!,!,float,0.1,TextBox,Global,Select,No,200890,,,

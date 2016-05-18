@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1177</width>
+    <height>791</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="mouseTracking">
+   <bool>true</bool>
+  </property>
+  <property name="windowTitle">
+   <string>Versatile Water Quality Modeling (WQVers)</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>Icons/GWA.ico</normaloff>Icons/GWA.ico</iconset>
+  </property>
+  <property name="windowOpacity">
+   <double>1.000000000000000</double>
+  </property>
+  <property name="toolTipDuration">
+   <number>1</number>
+  </property>
+  <property name="iconSize">
+   <size>
+    <width>30</width>
+    <height>30</height>
+   </size>
+  </property>
+  <property name="documentMode">
+   <bool>false</bool>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Rounded</enum>
+  </property>
+  <property name="unifiedTitleAndToolBarOnMac">
+   <bool>false</bool>
+  </property>
+  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1177</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="action_New"/>
+    <addaction name="action_Open"/>
+    <addaction name="action_Save"/>
+    <addaction name="actionSave_As"/>
+    <addaction name="separator"/>
+    <addaction name="actionE_xit"/>
+   </widget>
+   <widget class="QMenu" name="menu_Help">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="actionContact_Us"/>
+    <addaction name="actionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menu_Edit">
+    <property name="title">
+     <string>&amp;Edit</string>
+    </property>
+    <addaction name="action_Undo"/>
+    <addaction name="action_redo"/>
+    <addaction name="separator"/>
+    <addaction name="actionSelect_All"/>
+    <addaction name="separator"/>
+    <addaction name="action_Cut"/>
+    <addaction name="action_Copy"/>
+    <addaction name="action_Paste"/>
+   </widget>
+   <widget class="QMenu" name="menu_Window">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <addaction name="actionZoom_In"/>
+    <addaction name="actionZoom_Out"/>
+    <addaction name="actionZoom_All"/>
+    <addaction name="separator"/>
+    <addaction name="action_Select"/>
+    <addaction name="action_Pan"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menu_Model">
+    <property name="title">
+     <string>&amp;Model</string>
+    </property>
+    <widget class="QMenu" name="menuAdd_Block">
+     <property name="title">
+      <string>Block</string>
+     </property>
+     <addaction name="actionAdd_Pond"/>
+     <addaction name="actionAdd_Soil"/>
+     <addaction name="actionAdd_Catchment_Area"/>
+     <addaction name="actionAdd_Darcy_Block"/>
+     <addaction name="actionAdd_Stora_ge"/>
+     <addaction name="actionAdd_St_ream"/>
+    </widget>
+    <widget class="QMenu" name="menuArray">
+     <property name="title">
+      <string>Array</string>
+     </property>
+     <addaction name="actionSoil"/>
+     <addaction name="actionDarcy"/>
+     <addaction name="actionStream"/>
+    </widget>
+    <widget class="QMenu" name="menuGrid">
+     <property name="title">
+      <string>Grid</string>
+     </property>
+     <addaction name="actionSoil_2"/>
+     <addaction name="actionDarcy_2"/>
+     <addaction name="actionCatchment_2"/>
+     <addaction name="actionStream_2"/>
+    </widget>
+    <addaction name="menuAdd_Block"/>
+    <addaction name="actionAdd_Connector"/>
+    <addaction name="menuArray"/>
+    <addaction name="menuGrid"/>
+    <addaction name="actionParticulate_Phase"/>
+    <addaction name="actionConstituents"/>
+    <addaction name="actionReactions"/>
+    <addaction name="separator"/>
+    <addaction name="actionRun_Model"/>
+    <addaction name="actionExport_to_Script_Language"/>
+    <addaction name="actionlogWindow"/>
+   </widget>
+   <widget class="QMenu" name="menu_Post_Processing">
+    <property name="title">
+     <string>&amp;Post Processing</string>
+    </property>
+    <addaction name="action_Hydraulic_Outputs"/>
+   </widget>
+   <widget class="QMenu" name="menuParameter_Estimation">
+    <property name="title">
+     <string>Parameter Estimation</string>
+    </property>
+    <addaction name="actionDeterministic"/>
+    <addaction name="actionBayesian"/>
+   </widget>
+   <widget class="QMenu" name="menuPreferences">
+    <property name="title">
+     <string>Preferences</string>
+    </property>
+    <addaction name="actionSolver"/>
+   </widget>
+   <addaction name="menu_File"/>
+   <addaction name="menu_Edit"/>
+   <addaction name="menu_Window"/>
+   <addaction name="menu_Model"/>
+   <addaction name="menu_Post_Processing"/>
+   <addaction name="menuParameter_Estimation"/>
+   <addaction name="menuPreferences"/>
+   <addaction name="menu_Help"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <property name="mouseTracking">
+    <bool>true</bool>
+   </property>
+   <property name="windowOpacity">
+    <double>1.000000000000000</double>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_New"/>
+   <addaction name="action_Open"/>
+   <addaction name="action_Save"/>
+   <addaction name="separator"/>
+   <addaction name="action_Undo"/>
+   <addaction name="action_redo"/>
+   <addaction name="separator"/>
+   <addaction name="action_Cut"/>
+   <addaction name="action_Copy"/>
+   <addaction name="action_Paste"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionAdd_Well"/>
+   <addaction name="separator"/>
+   <addaction name="actionAdd_Tracer"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar_2">
+   <property name="windowTitle">
+    <string>toolBar_2</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>LeftToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionZoom_In"/>
+   <addaction name="actionZoom_Out"/>
+   <addaction name="actionZoom_All"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar_3">
+   <property name="windowTitle">
+    <string>toolBar_3</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>LeftToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QToolBar" name="toolBar_4">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="windowTitle">
+    <string>toolBar_4</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>LeftToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionRun_Model"/>
+   <addaction name="actionRun_Inverse_Model"/>
+   <addaction name="actionlogWindow"/>
+   <addaction name="separator"/>
+   <addaction name="actionExport_to_Script_Language"/>
+   <addaction name="actionRun_Model_from_Script"/>
+  </widget>
+  <action name="action_New">
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/Document-Blank-icon.png</normaloff>Icons/Document-Blank-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;New</string>
+   </property>
+  </action>
+  <action name="action_Open">
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/open.png</normaloff>
+     <normalon>Icons/open.ico</normalon>Icons/open.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Open</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="action_Save">
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/Save.png</normaloff>Icons/Save.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Save</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionSave_As">
+   <property name="text">
+    <string>Save &amp;As</string>
+   </property>
+  </action>
+  <action name="actionE_xit">
+   <property name="text">
+    <string>E&amp;xit</string>
+   </property>
+  </action>
+  <action name="action_Undo">
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/undo.png</normaloff>Icons/undo.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Undo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="action_redo">
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/1439255778_Redo.png</normaloff>Icons/1439255778_Redo.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Redo</string>
+   </property>
+  </action>
+  <action name="action_Cut">
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/cut-icon.png</normaloff>Icons/cut-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>C&amp;ut</string>
+   </property>
+  </action>
+  <action name="action_Copy">
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/copy.png</normaloff>Icons/copy.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Copy</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="action_Paste">
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/Paste.png</normaloff>Icons/Paste.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Paste</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+V</string>
+   </property>
+  </action>
+  <action name="action_Select">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/arrow.png</normaloff>Icons/arrow.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Select</string>
+   </property>
+  </action>
+  <action name="actionSelect_All">
+   <property name="text">
+    <string>Select &amp;All</string>
+   </property>
+  </action>
+  <action name="actionZoom_In">
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/zoom_in.png</normaloff>Icons/zoom_in.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom &amp;In</string>
+   </property>
+  </action>
+  <action name="actionZoom_Out">
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/zoom_out.png</normaloff>Icons/zoom_out.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom &amp;Out</string>
+   </property>
+  </action>
+  <action name="action_Pan">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/pan-icon.gif</normaloff>Icons/pan-icon.gif</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Pan</string>
+   </property>
+  </action>
+  <action name="actionContact_Us">
+   <property name="text">
+    <string>Contact &amp;Us</string>
+   </property>
+  </action>
+  <action name="actionAdd_Pond">
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/well.png</normaloff>Icons/well.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add &amp;Pond</string>
+   </property>
+  </action>
+  <action name="actionAdd_Soil">
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/atom.png</normaloff>Icons/atom.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add &amp;Soil</string>
+   </property>
+  </action>
+  <action name="actionAdd_Connector">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/draw-connector.png</normaloff>Icons/draw-connector.png</iconset>
+   </property>
+   <property name="text">
+    <string>Interface</string>
+   </property>
+  </action>
+  <action name="actionZoom_All">
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/Full_screen_view.png</normaloff>Icons/Full_screen_view.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom &amp;All</string>
+   </property>
+  </action>
+  <action name="actionlogWindow">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/log_icon.png</normaloff>Icons/log_icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open Log Window</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="actionAdd_Catchment_Area">
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/catchment.png</normaloff>Icons/catchment.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add Catchment</string>
+   </property>
+  </action>
+  <action name="actionAdd_Darcy_Block">
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/Darcy.png</normaloff>Icons/Darcy.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add &amp;Darcy Block</string>
+   </property>
+  </action>
+  <action name="actionAdd_Stora_ge">
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/Storage.png</normaloff>Icons/Storage.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add Stora&amp;ge</string>
+   </property>
+  </action>
+  <action name="actionAdd_St_ream">
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/Stream.png</normaloff>Icons/Stream.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add St&amp;ream</string>
+   </property>
+  </action>
+  <action name="actionDeterministic">
+   <property name="text">
+    <string>Deterministic</string>
+   </property>
+  </action>
+  <action name="actionBayesian">
+   <property name="text">
+    <string>Bayesian</string>
+   </property>
+  </action>
+  <action name="actionSoil">
+   <property name="text">
+    <string>Soil</string>
+   </property>
+  </action>
+  <action name="actionDarcy">
+   <property name="text">
+    <string>Darcy</string>
+   </property>
+  </action>
+  <action name="actionStream">
+   <property name="text">
+    <string>Stream</string>
+   </property>
+  </action>
+  <action name="actionSoil_2">
+   <property name="text">
+    <string>Soil</string>
+   </property>
+  </action>
+  <action name="actionDarcy_2">
+   <property name="text">
+    <string>Darcy</string>
+   </property>
+  </action>
+  <action name="actionCatchment_2">
+   <property name="text">
+    <string>Catchment</string>
+   </property>
+  </action>
+  <action name="actionStream_2">
+   <property name="text">
+    <string>Stream</string>
+   </property>
+  </action>
+  <action name="actionSolver">
+   <property name="text">
+    <string>Solver Options</string>
+   </property>
+  </action>
+  <action name="actionParticulate_Phase">
+   <property name="text">
+    <string>Particulate Phase</string>
+   </property>
+  </action>
+  <action name="actionConstituents">
+   <property name="text">
+    <string>Constituents</string>
+   </property>
+  </action>
+  <action name="actionReactions">
+   <property name="text">
+    <string>Reactions</string>
+   </property>
+  </action>
+  <action name="actionRun_Model">
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/gear_run.png</normaloff>
+     <normalon>Icons/gear_run.png</normalon>Icons/gear_run.png</iconset>
+   </property>
+   <property name="text">
+    <string>Run Model</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
+   </property>
+  </action>
+  <action name="actionLoad_Reaction_Network">
+   <property name="text">
+    <string>Load Reaction Network</string>
+   </property>
+  </action>
+  <action name="actionSave_Reaction_Network">
+   <property name="text">
+    <string>Save Reaction Network</string>
+   </property>
+   <property name="toolTip">
+    <string>Save Reaction Network</string>
+   </property>
+  </action>
+  <action name="actionClear_Reaction_Network">
+   <property name="text">
+    <string>Clear Reaction Network</string>
+   </property>
+  </action>
+  <action name="actionRun_Model_from_Script">
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/runScript.png</normaloff>Icons/runScript.png</iconset>
+   </property>
+   <property name="text">
+    <string>Run Model from Script</string>
+   </property>
+  </action>
+  <action name="action_Hydraulic_Outputs">
+   <property name="text">
+    <string>&amp;Hydraulic Outputs</string>
+   </property>
+  </action>
+  <action name="actionExport_to_Script_Language">
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/generate script.png</normaloff>Icons/generate script.png</iconset>
+   </property>
+   <property name="text">
+    <string>Export to &amp;Script Language</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About WQVers</string>
+   </property>
+  </action>
+  <action name="actionAdd_Well">
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/well.png</normaloff>Icons/well.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add &amp;Well</string>
+   </property>
+   <property name="toolTip">
+    <string>Add Well</string>
+   </property>
+  </action>
+  <action name="actionAdd_Tracer">
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/atom.png</normaloff>Icons/atom.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add &amp;Tracer</string>
+   </property>
+   <property name="toolTip">
+    <string>Add Tracer</string>
+   </property>
+  </action>
+  <action name="actionRun_Inverse_Model">
+   <property name="icon">
+    <iconset>
+     <normaloff>Icons/backwards-running.png</normaloff>Icons/backwards-running.png</iconset>
+   </property>
+   <property name="text">
+    <string>runInverse</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

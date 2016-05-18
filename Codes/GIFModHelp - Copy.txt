@@ -1,0 +1,53 @@
+helpCode: 0
+Welcome to the Help window.
+helpCode: 100001
+User-specified block name. 
+helpCode: 100002
+Predefined block types. The available types include soil, pond, storage, stream, catchment, Darcy, and storage. The type of block governs the hydraulic head as a function of storage (H-S relationship). The free surface block types and storage block type indicates a hydrostatic H-S relationship. Soil H-S relationship is based on van Genuchten soil water retention model. The Darcy type indicates saturated soil condition where the H-S relationship is based on storitivity. The H-S relationship can be overwritten by inserting an expression into the "H-S relationship" property. Pond can be used for any surface water component in a green infrastructure.  
+helpCode: 100004
+User-Specified connector name. A connector indicates presence of an interface between two block. By default the flow-hydraulic head (Q-S) relationship and area-hydraulic head relationships are set based on the types of the blocks connected. This relationship can be over-written by the user using the "flow expression" property.   
+helpCode: 100005
+Other default connector types such as weir (rating curve) and pipes or normal flow can be specified when they represent the interface between the two blocks.
+helpCode: 100006
+The surface/horizontal area of the block. 
+helpCode: 100013
+The elevation of the lowest point of the block. 
+helpCode: 100018
+Reference the pre-constructed build up model defined under "Build-up" branch. Selecting a build-up model indicates that the build-up will take place in this block according to the build-up model selected. 
+helpCode: 100019
+Bulk density of soil or solid matrix. 
+helpCode: 100020
+The initial concentration of water quality constituents can be specified here. 
+helpCode: 100021
+Depression Storage: The value entered here indicates the depression storage to be used for this block. Flow will not occur until the water depth in the block exceeds the depression storage. 
+helpCode: 100023
+External Flux: This indicates the external flux model that will be applied to this block. A pre-defined external flux model should be selected. External fluxes of water quality components can be defined under the "External Flux" branch of model explorer. 
+helpCode: 100024
+Flow Expression: The user can enter an expression representing the relationship between heads and flow (Q-H) of connected blocks here. This expression will be over-written if the expression is specified for the connector connecting this block to other blocks. 
+helpCode: 100025
+Head-Storage relationship: The user can enter the expression to be used for computing hydraulic head as a function of storage. Entering an expression here will overwrite the default expression selected based on the block type. 
+helpCode: 100026
+Inflow time series: The inflow time-series entering a block can be selected here. The selected file can contain multiple series containing flow rate and concentration of constituents. The first line of the file must include the name of each of the time-series to be used consistent with the name of constituents or particle types specified in the model.
+helpCode: 100027
+Initial moisture content: This specify the initial moisture content for soil and Darcy blocks. The moisture content of Darcy blocks is by default equal to the porosity unless another value is entered by the user. 
+helpCode: 100028
+Initial water depth: Initial water depth in surface water blocks and storage. 
+helpCode: 100032
+This is only used if a grid is later made from this block. The value indicates the horizontal distance of adjacent blocks when a grid is made of the blocks. 
+helpCode: 100034
+Depth: The user must enter the vertical depth of non-surface water blocks here. The volume of the blocks will be determined as the product of depth and area. 
+helpCode: 100040
+Initial Particle Concentration: This dialog box allows users to enter the initial concentration of any of the particle types in the block in any of the phases. 
+helpCode: 100041
+Precipitation: Indicates whether a blocks receives direct precipitation or not. By default surface water blocks (catchment, pond, stream) receive direct precipitation and sub-surface blocks (soil, Darcy, storage) do not. 
+helpCode: 100047
+Residual Moisture content: The residual moisture content ( θ_r) to be used in the van Genuchten-Mualem model.  
+helpCode: 100048
+Saturated Hydraulic conductivity: The saturate hydraulic conductivity of soil K_s. This will be overwritten if hydraulic conductivity for the connectors connecting the block and another block is also provided. 
+helpCode: 100049
+Hydraulic conductivity: Hydraulic conductivity for Darcy and Storage blocks. This will be overwritten if hydraulic conductivity for the connectors connecting the block and another block is also provided.
+helpCode: 100051
+Saturated moisture content: Indicates the saturated moisture content 〖(θ〗_s) of sub-surface blocks (soil, Darcy, storage). Typically can be assumed to be equal to the porosity. 
+helpCode: 100056
+van Genuchten's n parameter. The range of the values for different soil textures can be found in (van Genuchten, M. Th., F. J. Leij, and L. J. Lund (eds.), Proc.  Int. Workshop, Indirect Methods for Estimating the Hydraulic Properties of Unsaturated Soils. pp. 359-368, University of California, Riverside. , http://www.ars.usda.gov/SP2UserFiles/Place/20360500/pdf_pubs/P1285.pdf).
+

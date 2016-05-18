@@ -1,0 +1,3 @@
+helpCode: 0
+Welcome to the Help window.
+

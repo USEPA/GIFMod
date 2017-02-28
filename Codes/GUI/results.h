@@ -6,7 +6,7 @@
 #include "GWidget.h"
 #include "enums.h"
 //class CMediumSet;
-#ifdef WQV
+#ifdef GIFMOD
 class CMediumSet;
 //#include "MediumSet.h"
 //#include "medium.h"
@@ -37,7 +37,7 @@ public:
 	~Results() {
 	
 	}
-#ifdef WQV
+#ifdef GIFMOD
 	CMediumSet *model;
 #endif
 #ifdef GWA
@@ -49,18 +49,19 @@ public:
 	vector<CBTCSet> youngAgeDistributionRealizations, youngAgeDistributionRealizationPercentiles, cumulativeYoungAgeDistributionRealizations, cumulativeYoungAgeDistributionRealizationPercentiles;
 	vector<CBTCSet> projectedTracerConcentrations, projectedTracerConcentrationPercentiles;
 	CBTCSet ANS_obs, projected;
+	CBTCSet posteriors;
+	CBTCSet priors;
+	QStringList observations;
 	percentileData percentile(const QString &parameter) const{
 		int index = indexOf(parameter);
 		if (index != -1)
 			return percentiles[index];
 	}
-	CBTCSet posteriors;
 	CBTC& posterior(const QString &parameter) {
 		int index = indexOf(parameter);
 		if (index != -1)
 			return posteriors.BTC[index];
 	}
-	CBTCSet priors;
 	CBTC& prior(const QString &parameter) {
 		int index = indexOf(parameter);
 		if (index != -1)
@@ -92,14 +93,14 @@ public:
 	bool hasRealizationPercentile(const QString &observation);
 	bool hasNoiseRealization(const QString &observation);
 	bool hasNoiseRealizationPercentile(const QString &observation);
-	QStringList observations;
 /*	void setObservations(const vector<string> &measurements){
 		observations.clear();
 		for (int i = 0; i < measurements.size(); i++)
 			observations
 	}*/
-	QMap<QString, QVariant> compact() const;
-	static Results* unCompact(QMap<QString, QVariant>, GraphWidget *gwidget);
+
+	QMap<QString, QVariant> Results::compact() const;
+	static Results* Results::unCompact(QMap<QString, QVariant>);
 
 
 protected:

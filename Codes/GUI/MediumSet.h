@@ -1,11 +1,15 @@
 #pragma once
 
 #include "Medium.h"
-
+#include "Sensor.h"
+#include "Controller.h"
 //GUI
 #include "GWidget.h"
 class GraphWidget;
 class runtimeWindow;
+#include "qmap.h"
+#include "StringOP.h"
+#include "ObjectiveFunction.h"
 
 struct  Solver_parameters
 {
@@ -13,6 +17,7 @@ struct  Solver_parameters
 	double tol;
 	double dt;
 	int solution_method;
+	bool sorption;
 	int nr_iteration_treshold_max;
 	int nr_iteration_treshold_min;
 	double dt_change_rate;
@@ -30,6 +35,7 @@ struct  Solver_parameters
 	bool pos_def_limit;
 	bool negative_concentration_allowed;
 	bool steady_state_hydro = false;
+	bool check_oscillation=true;
 };
 
 struct  file_info
@@ -73,6 +79,13 @@ struct _set_features
 	bool buildup = false;
 };
 
+struct _control
+{
+	vector<CObjectiveFunction> ObjectiveFunctions; 
+	vector<CSensor> Sensors; 
+	vector<CController> Controllers; 
+};
+
 class CMediumSet
 {
 public:
@@ -94,6 +107,7 @@ public:
 	void set_formulas();
 	CRxnNetwork RXN;
 	vector <CBTCSet*> ANS_hyd;
+	vector <CBTCSet*> ANS_control;
 	CBTCSet ANS_obs;
 	CBTCSet ANS_obs_noise;
 	vector <CBTCSet*> ANS_colloids;
@@ -109,10 +123,13 @@ public:
 	void CMediumSet::f_get_buildup(CLIDconfig &lid_config);
 	void CMediumSet::f_get_external_flux(CLIDconfig &lid_config);
 	void CMediumSet::f_get_evaporation_model(CLIDconfig &lid_config);
+	void CMediumSet::f_get_sensors(CLIDconfig &lid_config);
+	void CMediumSet::f_get_controller(CLIDconfig &lid_config);
 	_set_features set_features;
 	void CMediumSet::writetolog(string S);
 	int CMediumSet::lookup_parameters(string S);
-//	int CMediumSet::lookup_external_flux(string S);
+	int CMediumSet::lookup_controllers(string S);
+	//	int CMediumSet::lookup_external_flux(string S);
 //	int CMediumSet::lookup_particle_type(string S);
 //	int CMediumSet::lookup_buildup(string S);
 //	int CMediumSet::lookup_evaporation(string S);
@@ -122,6 +139,7 @@ public:
 	vector<CEnvExchange> externalflux;
 	vector<CEvaporation> evaporation_model;
 	void CMediumSet::set_param(int param_no, double _value);
+	void CMediumSet::set_control_param(int controller_no, int experiment_id); //setting control parameters
 	int CMediumSet::lookup_medium(string S);
 	double CMediumSet::calc_log_likelihood(); //calculate sum log likelihood for time series data ts
 	double CMediumSet::calc_log_likelihood(int i); //calculate sum log likelihood for observed quantity i
@@ -131,10 +149,13 @@ public:
 
 //GUI
 	GraphWidget *gw = 0;
+	void g_get_controllers();
 	CMediumSet(GraphWidget* gw, runtimeWindow* rtw);
 	void g_get_environmental_params();
 	void g_get_params();
 	void g_get_observed();
+	void g_get_sensors();
+	void g_get_objective_functions();
 	void g_get_particle_types();
 	void g_get_constituents();
 	void g_get_reactions();
@@ -142,6 +163,10 @@ public:
 	void g_get_external_flux();
 	void g_get_evapotranspiration();
 	void solve(runtimeWindow *rtw);
+	QMap<string, int> blockIndex;
+	QMap<string, int> connectorIndex;
+	_control Control;
+	
 
 
 };

@@ -3,6 +3,7 @@
 #include "PropModel.h"
 #include "Proplist.h"
 #include "XString.h"
+#include "enums.h"
 
 //#include "GWidget.h"
 //using namespace std;
@@ -38,13 +39,14 @@ public:
 		delete constituentInitialConditions;
 
 	}
-
+	objectColor color;
 	Node operator=(const Node &);
 	void addEdge(Edge *edge);
 
 	QList<Edge *> edges() const { return edgeList; };
 
 	mPropList getmList(const mProp &_filter) const;
+	mPropList getmList(const QList<mProp>_filter) const;
 
 	enum { Type = UserType + 1 };
     int type() const Q_DECL_OVERRIDE { return Type; }
@@ -55,6 +57,7 @@ public:
 	mPropList mpropList()  const;
 	QString Name() const { return name; };
 	bool setName(const QString &Name);
+	void setBold(const bool _Bold = true);
 
 	bool setObjectType(const QString &);
 	bool setObjectSubType(const QString &);
@@ -64,10 +67,15 @@ public:
 	void setWidth(const int &Width) { width = Width; update(); };
 	void setHeight(const int &Height) { height = Height; update(); };
 	mProp Filter() const { return ObjectType(); };
-	void setBold(const bool _Bold = true) {
-			bold = _Bold;
-			update();		};
+	QList<mProp> Filter(const QList<Node*> nodes) const { 
+		QList<mProp> objectTypes;
+		for each (Node* n in nodes)
+			objectTypes.append(n->ObjectType());
+		return objectTypes; };
+
+
 	QVariant getProp(const QString &propName, const int role = Qt::DisplayRole) const;
+	QVariant getProp(const QString &propName, const QList<Node*> nodes, const int role = Qt::DisplayRole) const;
 	XString getValue(const QString &propName) const;
 	bool setProp(const QString &propName, const QVariant &Value, const int role = Qt::EditRole) ;
 	bool setValue(const QString &propName, const XString &Value);
@@ -84,7 +92,7 @@ public:
 	QList<ConstituentInitialConditionItem> &constituentInitialCondition(QString experimentName = "") const;
 	QList<ConstituentInitialConditionItem> &constituentInitialCondition(QString experimentName = "");
 	QMap<QString, QVariant> compact() const;
-	static Node* unCompact(QMap<QString, QVariant>, GraphWidget *gwidget);
+	static Node* unCompact(QMap<QString, QVariant>, GraphWidget *gwidget, bool oldVersion = false);
 	static Node* unCompact10(QMap<QString, QVariant>, GraphWidget *gwidget);
 	QStringList codes() const;
 	QMap<QString, condition> variableNameConditions() const;
@@ -98,7 +106,6 @@ public:
 	XString val(const QString & code) const;
 
 	GraphWidget *parent;
-	bool bold = false;
 	QString GUI;
 	Object_Types itemType;
 	QMap<QString, QList<ParticleInitialConditionItem>>* particleInitialConditions;
@@ -109,6 +116,16 @@ public:
 	PropModel<Node> *model;
 	QMap<QString, QString> warnings, errors;
 	int minH = 30, minW = 40;
+	bool oldVersionLoad = false;
+	bool isPorous() {
+		QStringList Porous;
+		Porous << "Soil" << "Darcy" << "Storage";// << "" << "";
+		if (Porous.contains(ObjectType().ObjectType))
+			return true;
+		else 
+			return false;
+	}
+	QString middleText = "";
 
 protected:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) Q_DECL_OVERRIDE;
@@ -128,6 +145,7 @@ private:
 //	GraphWidget *graph;
 	void changed();
 //	QMap<QString, QString> warnings, errors;
+	bool bold = false;
 
 
 };

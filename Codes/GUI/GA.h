@@ -3,7 +3,7 @@
 #include "individual.h"
 #include "Distribution.h"
 #include <stdio.h>
-#ifdef WQV
+#ifdef GIFMOD
 #include "Medium.h"
 #include "MediumSet.h"
 #endif
@@ -95,7 +95,7 @@ public:
 	vector<CIndividual> Ind;
 	vector<CIndividual> Ind_old;
 	vector<string> paramname;
-#ifdef WQV
+#ifdef GIFMOD
 	vector<CMediumSet> Sys1;
 	CMediumSet Sys_out;
 	CMediumSet Sys;
@@ -114,7 +114,7 @@ public:
 
 	CGA CGA::operator=(CGA &C);
 
-#ifdef WQV
+#ifdef GIFMOD
 	CGA::CGA(string filename, CMediumSet &Sys);
 	vector<CMediumSet>& CGA::assignfitnesses_p(vector<double> inp);
 	CGA(CMediumSet *model, runtimeWindow* progress);

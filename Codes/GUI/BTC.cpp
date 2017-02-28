@@ -9,6 +9,8 @@
 #include <fstream>
 #include "StringOP.h"
 #include "NormalDist.h"
+#include "qfile.h"
+#include "qdatastream.h"
 
 using namespace std;
 
@@ -18,7 +20,7 @@ using namespace std;
 
 CBTC::CBTC()
 {
-	n=0;
+	n = 0;
 	structured = true;
 	max_fabs = 0;
 }
@@ -97,7 +99,7 @@ CBTC::CBTC(string Filename)
 //			return;
 		}
 		if (s.size()>=2)
-		if (s[0].substr(0,2)!="//")
+		if ((s[0].substr(0,2)!="//") && (tolower(s[0])!="names"))
 		{
 			t.push_back(atof(s[0].c_str()));
 			C.push_back(atof(s[1].c_str()));
@@ -182,6 +184,8 @@ double CBTC::interpol(double x)
 		}
 		else
 		{
+			if (x < t[0]) return C[0];
+			if (x > t[n - 1]) return C[n - 1];
 			double dt = t[1]-t[0];
 			int i = int((x-t[0])/dt);
 			if (i>=n-1) r=C[n-1];
@@ -753,8 +757,8 @@ double CBTC::maxfabs()
 	{
 		double max = -1e32;
 		for (int i=0; i<n; i++)
-		{	if (fabs(C[i])>max)
-				max = fabs(C[i]);
+		{	if (std::fabs(C[i])>max)
+				max = std::fabs(C[i]);
 		}
 		return max;
 	}
@@ -816,6 +820,41 @@ double CBTC::integrate()
 	return sum;
 }
 
+double CBTC::integrate(double tt)
+{
+	double sum = 0;
+	for (int i = 1; i<n; i++)
+	{
+		if (t[i]<=tt) sum += (C[i] + C[i - 1]) / 2.0*(t[i] - t[i - 1]);
+	}
+	return sum;
+}
+
+double CBTC::integrate(double t1, double t2)
+{
+	if (structured)
+	{
+		int i1 = int(t1 - t[0]) / (t[1] - t[0]);
+		int i2 = int(t1 - t[0]) / (t[1] - t[0]);
+		double sum;
+		for (int i = i1; i <= i2; i++)
+			sum += C[i] / (i2+1 - i1)*(t2-t1);
+		return sum;
+	}
+	else
+	{
+
+
+	}
+}
+
+int CBTC::lookupt(double _t)
+{
+	for (int i = 0; i < n - 1; i++)
+		if ((t[i]<_t) && (t[i + 1]>_t))
+			return i;
+}
+
 double CBTC::average()
 {
 	if (n>0)
@@ -823,6 +862,20 @@ double CBTC::average()
 	else
 		return 0;
 }
+
+double CBTC::average(double tt)
+{
+	if (n>0)
+		return integrate(tt) / (max(tt,t[n - 1]) - t[0]);
+	else
+		return 0;
+}
+
+double CBTC::slope(double tt)
+{
+	return (C[n - 1] - C[n - 2]) / (t[n - 1] - t[n - 2]);
+}
+
 
 
 double CBTC::percentile(double x)
@@ -838,8 +891,8 @@ double CBTC::percentile(double x, int limit)
 	vector<double> C1(C.size()-limit);
 	for (int i=0; i<C1.size(); i++)
 		C1[i] = C[i+limit];
-	vector<double> X = QSort(C1);
-//	vector<double> X = bubbleSort(C1);
+	vector<double> X = bubbleSort(C1);
+	//vector<double> X = bubbleSort(C1);
 //	vector<double> X = C1;
 	int ii = int(x*double(X.size()));
 	return X[ii];
@@ -867,7 +920,7 @@ void CBTC::append(double x)
 	n++;
 	t.push_back(0);
 	C.push_back(x);
-	max_fabs = max(max_fabs,fabs(x));
+	max_fabs = max(max_fabs,std::fabs(x));
 
 }
 
@@ -879,7 +932,7 @@ void CBTC::append(double tt, double xx)
 	if (n>2) 
 		if (t[n-1]-t[n-2]!=t[n-2]-t[n-3]) 
 			structured = false;
-	max_fabs = max(max_fabs,fabs(xx));
+	max_fabs = max(max_fabs,std::fabs(xx));
 }
 void CBTC::append(CBTC &CC)
 {
@@ -1080,10 +1133,48 @@ void CBTC::clear()
 double CBTC::wiggle()
 {
 	if (n>2)
-		return 3*(fabs(C[n-1])*(t[n-2]-t[n-3])-fabs(C[n-2])*(t[n-1]-t[n-3])+fabs(C[n-3])*(t[n-1]-t[n-2]))/(t[n-1]-t[n-3])/max(maxfabs(),1e-7);
+		return 3*(std::fabs(C[n-1])*(t[n-2]-t[n-3])-std::fabs(C[n-2])*(t[n-1]-t[n-3])+std::fabs(C[n-3])*(t[n-1]-t[n-2]))/(t[n-1]-t[n-3])/max(maxfabs(),1e-7);
 	else
 		return 0;
 
+}
+
+double CBTC::wiggle_corr(int _n)
+{
+	if (n < _n) return 0; 
+	double sum=0;
+	double var = 0;
+	double C_m=0;
+	for (int i = 0; i < _n; i++)
+	{
+		C_m += C[n - i-1] / double(_n);
+	}
+	for (int i = 0; i < _n-1; i++)
+	{
+		sum += (C[n - i-1] - C_m)*(C[n - i - 2] - C_m);
+	}
+	for (int i = 0; i < _n ; i++)
+	{
+		var += pow(C[n - i-1] - C_m,2);
+	}
+	if (var == 0)
+		return 0;
+	else
+		return sum / var;
+}
+
+bool CBTC::wiggle_sl(double tol)
+{
+	if (n < 4) return false;
+	double mean = std::fabs(C[n - 1] + C[n - 2] + C[n - 3] + C[n - 4]) / 4.0+tol/100;
+	double slope1 = (C[n - 1] - C[n - 2]) / (t[n - 1] - t[n - 2])/mean;
+	double slope2 = (C[n - 2] - C[n - 3]) / (t[n - 2] - t[n - 3])/mean;
+	double slope3 = (C[n - 3] - C[n - 4]) / (t[n - 3] - t[n - 4])/mean;
+	if (std::fabs(slope1) < tol && std::fabs(slope2) < tol && std::fabs(slope3) < tol) return false;
+	if ((slope1*slope2 < 0) && (slope2*slope3 < 0))
+		return true;
+	else
+		return false; 
 }
 
 void CBTC::knock_out(double tt)
@@ -1155,6 +1246,17 @@ CBTC CBTC::Exp()
 	return BTC;
 }
 
+CBTC CBTC::fabs()
+{
+	CBTC BTC = CBTC(n);
+	for (int i = 0; i<n; i++)
+	{
+		BTC.t[i] = t[i];
+		BTC.C[i] = std::fabs(C[i]);
+	}
+	return BTC;
+}
+
 double R2_c(CBTC BTC_p, CBTC BTC_d)
 {
 	double sumcov = 0;
@@ -1196,4 +1298,81 @@ CBTC operator>(CBTC BTC1, CBTC BTC2)
 		S.C[i] = BTC1.C[i] - BTC2.C[i];
 
 	return S;
+}
+void CBTC::compact(QDataStream &data) const
+{
+	QMap<QString, QVariant> r;
+	r.insert("n", n);
+	//r.insert("t", t.size());
+	//r.insert("C", C.size());
+	//r.insert("D", D.size());
+	r.insert("structured", structured);
+	r.insert("name", QString::fromStdString(name));
+	r.insert("unit", QString::fromStdString(unit));
+	r.insert("defaultUnit", QString::fromStdString(defaultUnit));
+	QStringList uList;
+	for (int i = 0; i < unitsList.size(); i++)
+		uList.push_back(QString::fromStdString(unitsList[i]));
+	r.insert("UnitsList", uList);
+	r.insert("error", error);
+	data << r;
+	
+	QList<QVariant> tList;
+	for (int i = 0; i < t.size(); i++)
+		tList.append(t[i]);
+	data << tList;
+
+	QList<QVariant> CList;
+	for (int i = 0; i < C.size(); i++)
+		tList.append(C[i]);
+	data << CList;
+
+	QList<QVariant> DList;
+	for (int i = 0; i < D.size(); i++)
+		tList.append(D[i]);
+	data << DList;
+	
+	return;
+}
+
+CBTC CBTC::unCompact(QDataStream &data)
+{
+	QMap<QString, QVariant> r;
+	data >> r;
+
+	CBTC b;
+	b.n = r["n"].toInt();
+	b.structured = r["structured"].toBool();
+	b.name = r["name"].toString().toStdString();
+	b.unit = r["unit"].toString().toStdString();
+	b.defaultUnit = r["defaultUnit"].toString().toStdString();
+	QStringList uList = r["UnitsList"].toStringList();
+	for (int i = 0; i < uList.size(); i++)
+		b.unitsList.push_back(uList[i].toStdString());
+	b.error = r["error"].toBool();
+
+	//int tSize, CSize, DSize;
+
+	//tSize = r["t"];
+	//CSize = r["C"];
+	//DSize = r["D"];
+
+	QList<QVariant> tList, CList, DList;
+
+	data >> tList;
+	data >> CList;
+	data >> DList;
+
+
+	for (int i = 0; i < tList.size(); i++)
+		b.t.push_back(tList[i].toDouble());
+
+
+	for (int i = 0; i < DList.size(); i++)
+		b.D.push_back(DList[i].toDouble());
+
+	for (int i = 0; i < CList.size(); i++)
+		b.C.push_back(CList[i].toDouble());
+
+	return b;
 }

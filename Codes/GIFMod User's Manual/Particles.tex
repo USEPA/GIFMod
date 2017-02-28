@@ -1,0 +1,209 @@
+Several particle types can be introduced in GIFMod each having different properties and different constitutive models can be assigned to each group. The transport of particles in a GI system is governed by the following general mass balance equation: 
+\begin{equation}
+\label{eq:20}
+\begin{split}
+\frac{d\Gamma_{i,l} G_{p,l,i}}{dt} =\\ \beta_{p,l} \bigg[\sum_{j=1}^{nj} pos \big(Q_{ij}+v_{s,p,ij}A_{ij}\big)G_{p,l,j}-\sum_{j=1}^{nj} pos \big(-Q_{ij}-v_{s,p,ij}A_{ij}\big)G_{p,l,i}\bigg]\\
+-S_i \big(\sum_{l'=1}^{nl_p}\textbf{K}_{p,l,l'}G_{p,l,i}-\sum_{l'=1}^{nl_p}\textbf{K}_{p,l,l'}G_{p,l',i}\big) + \beta_{p,l} \sum_{j=1}^{nj} A_{ij}\frac{D_{p,ij}}{d_{ij}}(G_{p,l,j}-G_{p,l,i})
+\end{split}
+\end{equation}
+In Eq. \ref{eq:20}, the first term on the right hand side is advection due to flow and settling, the second term represents the exchange of particles between phases (i.e. mobile, attached, etc.), and the last term represent dispersion and diffusion of particles. 
+Three pre-defined models for particle transport are provided in GIFMod respectively named Single Phase, Dual Phase and Triple Phase. In the single phase model a particle is assumed to only reside in mobile phase with no interaction with the solid phases. If a particle type is designated to be controlled by a dual phase model, it can interact between mobile phase and attached phase. Finally a triple phase model means that particles can be in mobile, reversibly attached and irreversibly attached phases. 
+\begin{itemize}
+    \item \textbf{Single phase mode: } If a particle type is assigned to have a single phase model, there will be only one phase with $\alpha_{p,1}=1$ and there will be no mass exchange between phases. The interaction between aqueous particles and the air-water interface is assumed to occur instantaneously based on an aqueous -AWI partitioning coefficient $K_{aw}$. $\Gamma$ in Eq. \ref{eq:20} in this case will be a single member vector equal to $S_i + K_{aw} S_{aw}$. By default the air-water interface area is assumed to be proportional to the volume of air-phase (i.e. $S_aw = \sout{V}_i - S_i$) under unsaturated condition in the unsaturated soil block.  
+    \item \textbf{Dual phase model: } In a dual phase models particles can be in two phases including mobile and attached. $\Gamma$, $\textbf{K}$ matrix and $\alpha_p$ will respectively be: 
+    \begin{equation}
+    \label{eq:21}
+    \vec{\Gamma}_i = 
+    \begin{bmatrix} 
+    S_i \\ 
+    \sout{V}_i \rho_i 
+    \end{bmatrix}
+    \end{equation}
+    \\
+    \begin{equation}
+    \label{eq:22}
+    \vec{K}_p = 
+    \begin{bmatrix} 
+    0 & f_i \alpha_p \eta_p \  |v_i| \ (1-\frac{G_{p,s}}{G_{s,max}}) \\ 
+    f_i k_{p,rel}  pos(|v_i|-v_{crit}) & 0\\
+    \end{bmatrix}
+    \end{equation}
+    \\
+    \begin{equation}
+    \label{eq:23}
+    \vec{\beta}_p = 
+    \begin{bmatrix} 
+    1 \\ 
+    0 \\
+    \end{bmatrix}
+    \end{equation}
+    
+    \item \textbf{Triple phase model: } In a triple phase models particles can be in three phases including mobile and irreversibly attached and reversibly attached. $\Gamma$, $\textbf{K}$ matrix and $\alpha_p$ will respectively be: 
+    \begin{equation}
+    \label{eq:24}
+    \vec{\Gamma}_i = 
+    \begin{bmatrix} 
+    S_i \\ 
+    \sout{V}_i \rho_i \\
+    \sout{V}_i \rho_i 
+    \end{bmatrix}
+    \end{equation}
+    \\
+    \noindent
+    \begin{equation}
+    \label{eq:25}
+    \noindent
+    \vec{K}_p = 
+    \begin{bmatrix} 
+    0 & \zeta_p f_i \alpha_p \eta_p \  |v_i| \ (1-\frac{G_{p,s}}{G_{s,max}}) & (1-\zeta_p) f_i \alpha_p \eta_p \  |v_i| \ (1-\frac{G_{p,s}}{G_{s,max}})\\ 
+    0 & 0 & 0\\
+    f_i k_{p,rel}  pos(|v_i|-v_{crit}) & 0 & 0\\
+    \end{bmatrix}
+    \end{equation}
+    \\
+    \begin{equation}
+    \label{eq:26}
+    \vec{\beta}_p = 
+    \begin{bmatrix} 
+    1 \\ 
+    0 \\
+    0 \\
+    \end{bmatrix}
+    \end{equation}
+\end{itemize}
+\subsection{Particle properties}
+\begin{itemize}
+\item \textbf{Attachment efficiency: } or sticking efficiency $\alpha_p$ in Eqs. \ref{eq:22} and \ref{eq:25}. This is the probability of a particle encountering a collector to stick to it. Not available for single phase particle model. 
+\item \textbf{Collection efficiency: } or transport efficiency $\eta_p$ in Eqs. \ref{eq:22} and \ref{eq:25}. The probability of a particle approaching a collector to encounter it. Not available for single phase particle model. 
+\item \textbf{Critical velocity for release: } Attached particles will start getting released when the velocity exceeds this value. The rate of release of attached particles is proportional to difference between the velocity in a block and the critical velocity (Eqs. \ref{eq:22} and \ref{eq:25}. Not available for single phase particle model. 
+\item \textbf{Diffusion coefficient: } $D_c$, Diffusion coefficient of the particle type beind defined. 
+\item \textbf{Dispersivity: } Dispersivity of the particle type. The mechanical dispersion coefficient will be calculated as: $D_{p,ij} = \alpha_{D,p} |v_ij| + D_{c,p}$; 
+\item \textbf{Irreversible collection fraction: } $\zeta_p$; in Eq. \ref{eq:25}. Only availble for the triple-phase particle model. 
+\item \textbf{Medium bulk density: } if entered this over-writes the bulk density specified in block properties in particle transport module. 
+\item \textbf{Partitioning coefficient to air-water interface: } The value of $k_aw$. 
+\item \textbf{Settling velocity: } Settling velocity $v_{s,p}$ in Eq. \ref{eq:20}. 
+\item \textbf{Specific surface area: } $f$ in Eqs. \ref{eq:22} and \ref{eq:25}
+\end{itemize}
+
+\subsection{Example: Colloid transport in a one dimensional saturated soil column under steady flow condition: } 
+In this example we show the creation of a simple model of multi-disperse particle transport and filtration in a one-dimensional column under steady-state flow condition using GIFMod. The column will be assumed to have $50cm$ lenght and an area of $100cm^2$ and it which is  descretized into 10 layers. A dummy reservoir will also be added a the bottom of the column to ease imposition of downstream boundary condition through prescribed flow feature.   
+\begin{itemize}
+\item \textbf{Create the first block and assign the properties: } Add a Darcy block from the top menu. Set the following properties: 
+- \textbf{Bottom Area: }\textit{$0.01m^2$}
+- \textbf{Depth: }\textit{$0.05m$}
+- \textbf{Bulk Density: }\textit{$1600 kg/m^3$}
+- \textbf{Saturated moisture content: } \textit{$0.4$}
+- \textbf{Initial moisture content: } \textit{$0.4$}
+- \textbf{storitivity: } \textit{1$m^{-1}$} 
+\item \textbf{Create a vertical array: } Right-click on the block that was just created and then click on "Make grid of blocks" item. Select "Vertical 2D Grid" and then change the number of rows to 10. Click "Ok". \\
+- \textbf{Note: } When a vertical grid is made the bottom area of the original block will be copied as the interface area of the connectors. 
+\item \textbf{Introducing particles: } We will model three different particle types with three different sticking rate coefficients $alpha_p$ values. In order to introduce the particles, from the Project Explorer right-click on \textbf{Water Quality}$\rightarrow$\textbf{Particles} and then select "Add Particles" from the drop-down menu. 
+\item \textbf{Setting particle properties: } Set the following properties for the particle: 
+- \textbf{Name: } \textit{Particle I} 
+- \textbf{Attachment Efficiency: }\textit{1}
+- \textbf{Collection Efficiency: } \textit{1e-6}
+- \textbf{Model: }\textit{Dual Phase}
+- \textbf{Specific Surface Area: }\textit{10000$m^-1$}
+\\\\
+Add two more particle types with the following properties:
+- \textbf{Name: }\textit{Particle II} 
+- \textbf{Attachment Efficiency: }\textit{1}
+- \textbf{Collection Efficiency: }\textit{1e-5}
+- \textbf{Model: }\textit{Dual Phase}
+- \textbf{Specific Surface Area: }\textit{10000$m^-1$}
+\\\\
+- \textbf{Name: }\textit{Particle III} 
+- \textbf{Attachment Efficiency: }\textit{1}
+- \textbf{Collection Efficiency: }\textit{1e-4}
+- \textbf{Model: }\textit{Dual Phase}
+- \textbf{Specific Surface Area: }\textit{10000$m^-1$}
+\item \textbf{Save: } It is now a good time to save the work. 
+\item \textbf{Inflow file: } Here we create the inflow file. It is assumed that the flow rate is constant and equal to $0.01m^3/day$ which results in a velocity of $2.5m/day$ over the entire experiment which takes 1 day and the particle concentration for all three types of particles in $10mg/L$ for a period of 1hr and which is followed by no particles in the inflow. The inflow file will look like figure \ref{fig:12}. 
+\begin{figure}[!ht]\label{fig:12}
+\begin{center}
+\includegraphics[width=8cm]{Images/Figure12.png} \\
+\caption{Inflow file for particle transport in soil example} 
+\end{center}
+\end{figure}
+Create or download "inflow.txt" from the example folder. Click on block \textbf{Darcy (1)} and choose the inflow file from inflow time series field in the properties dialog box. \\
+Right-click on the \textbf{Darcy (1)} block and visualize the time series using \textbf{Plot Inflow Properties} menu item. The inflow concentration for particle I for example should look like Figure \ref{fig:13}
+\begin{figure}[!ht]\label{fig:13}
+\begin{center}
+\includegraphics[width=8cm]{Images/Figure13.png} \\
+\caption{Concentration of Particle I in the inflow} 
+\end{center}
+\end{figure}
+\item \textbf{Outflow: } In order to impose the outflow boundary condition a dummy reservoir will be added to the bottom of the soil column. The type of the block used for this reservoir is not important because we will use the \textbf{prescribed flow} feature to control the outflow. Let's use a storage block to create the dummy outflow reservoir. Add a storage by clicking on the storage icon \includegraphics[width=0.5cm]{Icons/storage_icon.png} on the top tool bar. Move the newly added storage block to the bottom of the column and connect it to the block named \textbf{Darcy (10)}. \\
+- Enter a non-zero \textbf{length} for the newly added connector and non-zero \textbf{bottom area} and  \textbf{depth} for the newly added storage block. These two values are required for the model to run. Also to prevent the storage block to become over-saturated enter a value of zero in the \textbf{Head-Storage relationship} property of the newly added storage block and set the bulk density of the storage block to \textit{1600$kg/m^3$}. //
+\textbf{Note: } Note that if the value of \textbf{Medium Bulk Density} is entered in particle properties of a particle type, it will be used as the media density when performing the mass-balance for that particle class. 
+\item \textbf{Outflow rate time-series: } We want the outflow rate to be equal to the inflow rate. This can be accomplished in two ways. One is to turn on the "Steady State Hydraulics" in the \textbf{Setting$\rightarrow$Project Settings} or by assigning a \textbf{prescribed flow} to the bottom connector. We are going to use the second approach here. The flow time series to be prescribed to the \textbf{Darcy (10)-Pond (1)} connector should look like Figure \ref{fig:14}. Name the file "outflow.txt". 
+\begin{figure}[!ht]\label{fig:14}
+\begin{center}
+\includegraphics[width=8cm]{Images/Figure14.png} \\
+\caption{Outflow file} 
+\end{center}
+\end{figure}
+Please note that the heading file in figure \label{fig:14} is ignored by the program and is only necessary for user documentation. \\
+- Click on the \textbf{Darcy (10)-Pond (1)} connector, and choose "outflow.txt" from the \textbf{Prescribed flow} property. \\
+- Set \textbf{Use Prescribed Flow} to "Yes". \\
+- Save the project. 
+- Now the model is ready to run. Click on the run icon \includegraphics[width=0.5cm]{Icons/run_icon.png} on the left side tool bar and wait for the simulation to end. \\
+- Right-click on the block named \textbf{Darcy (10)} and choose \textbf{Water Quality Results$\rightarrow$ Pericles I$\rightarrow$ Mobile} to see the breakthrough curve for particle type I \\
+Do the same thing for \textbf{Particle II} and \textbf{Particle III}. 
+Right-click on the graph containing particle II results and click on \textbf{Copy Curve} item, then click on the graph containing particle type I results, right-click and select \textbf{Paste} item. \\ - Do the same thing with particle III to see the three breakthrough curves for the three particle types in a single graph. You can change the format of each curve by right-clicking on the graph and selecting the name of each curve (fig \ref{fig:30}).
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=8cm]{Images/Figure30.png} \\
+\caption{Particle breakthrough curves for the three particle classes}\label{fig:30}
+\end{center}
+\end{figure}
+
+\end{itemize}
+\newpage
+\subsection{Example: Particle settling in a one-dimensional water body: } 
+In this example we create a simple model of particles settling in a one dimensional water column. Similar to the previous example, three particles classes will be considered but this time their settling velocities will be different. We will use an array of storage block to create water column. The water column is assumed to have a height of 1.5m which is descritized into 10 equally sized layers each represented by a single storage block. The particles are assumed to be initially uniformly distributed and are allowed to settle under gravity. 
+\begin{itemize}
+\item \textbf{Create a new project} \\
+\item \textbf{Introducing particle classes: } 
+From the \textbf{Project Explorer} right-click on \textbf{Water Quality}$\rightarrow$\textbf{Particles} and then select "Add Particles" from the drop-down menu. 
+\item \textbf{Setting particle properties: } Set the following properties for the particle: 
+- \textbf{Name: } \textit{Particle I} 
+- \textbf{Model: }\textit{Single Phase}
+- \textbf{Settling velocity: }\textit{10$m/day$}
+\\\\
+Add two more particle types with the following properties:
+- \textbf{Name: } \textit{Particle II} 
+- \textbf{Model: }\textit{Single Phase}
+- \textbf{Settling velocity: }\textit{1$m/day$}
+\\\\
+- \textbf{Name: } \textit{Particle III} 
+- \textbf{Model: }\textit{Single Phase}
+- \textbf{Settling velocity: }\textit{0.1$m/day$}
+
+\item \textbf{Save: } It is now a good time to save the
+\item \textbf{Create a storage block and set the properties: } Add a storage by clicking on the storage icon \includegraphics[width=0.5cm]{Icons/storage_icon.png} on the top tool bar. \\
+- Set the following properties for the storage block:
+- \textbf{Bottom Area: }\textit{10$m^2$}
+- \textbf{Depth: }\textit{0.15m} \\
+- \textbf{Initial water depth: }\textit{0.15m} \\
+- \textbf{Saturated moisture content: } \textit{1} (There is no solid media in the storage blocks) \\ 
+- \textbf{Initial particle concentration: } Click on the "..." symbol in front of the \textbf{Particle Initial Concentration} label in properties windows and enter a concentration of 10 for the three particle classes as is shown in figure \ref{fig:17}.  \\
+\begin{figure}[!ht]\label{fig:17}
+\begin{center}
+\includegraphics[width=8cm]{Images/Figure17.png} \\
+\caption{Particle initial concentration} 
+\end{center}
+\end{figure}
+- \textbf{Creating an array of storage blocks: } Right-click on the storage block that was just created and choose \textbf{Make Grid of Blocks} item from the menu. Choose \textbf{vertical 2D grid} option and enter 10 in the \textbf{Number of rows} box. 
+\item \textbf{Turn settling on for all the connectors: } By default the settling option for the connectors is set to \textbf{No}. In order to allow settling transport to occur via connectors the \textbf{Settling} option should be turned to \textbf{Yes}. Select all the connectors one by one and set the \textbf{Settling} property to \textbf{Yes}.
+\item \textbf{Run the model: } Click on the run bottom on the left hand side tool bar \includegraphics[width=0.5cm]{Icons/run_icon.png} and wait for the simulation to end. 
+\item \textbf{Checking the results: } Right click on the \textbf{Storage (10)} block and choose \textbf{Plot Water Quality Results}$\rightarrow$\textbf{Particle I}$\rightarrow$\textbf{Mobile} to see the temporal variation of \textbf{Particle I} particle class at the bottom of the column. Do the same thing for \textbf{Particle II} and \textbf{Particle III} particle groups. You can copy and paste all curves into one window to compare the results for each particle class (Figure \ref{fig:31}). 
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=8cm]{Images/Figure31.png} \\
+\caption{Particle initial concentration}\label{fig:31} 
+\end{center}
+\end{figure}
+\item \textbf{Adding particle diffusion: } Change \textbf{Diffusion coefficient} for all the particles to 0.1$m^2/day$ by clicking on each particle size from \textbf{Project Explorer}$\rightarrow$\textbf{Water Quality}$\rightarrow$\textbf{Particles}$\rightarrow$ and changing the \textbf{diffusion coefficient} property of all particles to 0.1$m^2/day$ .Run the simulation again. The diffusion should prevent all particles to settle to the bottom block. 
+
+\end{itemize}

@@ -9,7 +9,7 @@ Process::Process(QString name, GraphWidget *parent)
 	this->parent = parent;
 	this->name = newProcessName(name, &parent->Processes);
 	parent->Processes.append(this);
-	parent->log(QString("One Precess created in Reaction Netetwork, name: %1.").arg(name));
+	parent->log(QString("One Process created in Reaction Netetwork, name: %1.").arg(name));
 }
 QString Process::newProcessName(const QString name, QList<Process*> *processes) const
 {

@@ -7,6 +7,7 @@
 #include "qmessagebox.h"
 #include <iostream>
 #include <fstream>
+#include "texToHtml.h"
 
 helpWindow::helpWindow(GraphWidget *parent, QString title, string helpFile) :
   QDialog(parent),
@@ -22,6 +23,7 @@ helpWindow::helpWindow(GraphWidget *parent, QString title, string helpFile) :
  // ui->textEdit->
   if (!loadHelpFile(alternateHelpFile))
 	  loadHelpFile(helpFile);
+  ui->save->hide();
   updateButtons();
 }
 bool helpWindow::loadHelpFile(string helpFile)
@@ -58,6 +60,14 @@ void helpWindow::append(vector<string> text)
 		list.append(QString::fromStdString(text[i]));
 	append(list);
 }
+
+void helpWindow::setHtml(QString html)
+{
+//	QString Html = QString::fromStdString(html);
+	ui->textEdit->setHtml(html);
+	qDebug() << ui->textEdit->toHtml();
+}
+
 void helpWindow::setHtml(vector<string> text)
 {
 	QString html;
@@ -77,13 +87,15 @@ void helpWindow::showHelp(int code, string variableName, bool appendtoList)
 
 	ui->textEdit->setText("");
 	showingVariableName = QString::fromStdString(variableName);
-	ui->textEdit->append(showingVariableName);
-	append(search(code));
+	//ui->textEdit->append(showingVariableName);
+	setWindowTitle(QString("Help: %1").arg(showingVariableName));
+	setHtml(search2Html(code));
 	updateButtons();
 	show();
 }
 vector<string> helpWindow::search(int code)
 {
+#ifdef GWA
 	showingItemCode = code;
 	vector<string> r;
 	for (int i = 0; i < text.size(); i++)
@@ -102,8 +114,81 @@ vector<string> helpWindow::search(int code)
 		r.push_back( "No content defined yet.");
 	}
 	return r;
-}
+#endif
+#ifdef GIFMOD
+	showingItemCode = code;
+	vector<string> r;
+	for (int i = 0; i < text.size(); i++)
+	{
+		if (text[i].contains("%help:") && text[i].contains(QString::number(code)))
+			for (int j = i + 1; j < text.size(); j++)
+			{
+				r.push_back(text[j].toStdString());
+				if (text[j].contains("%help:end"))
+					return r;
+			}
+	}
+	if (!r.size())
+	{
+		//text.push_back(QString("helpCode: %1").arg(code));
+		r.push_back("No contents found for this subject.");
+	}
+	
+	return r;
+#endif
 
+}
+QString helpWindow::search2Html(int code)
+{
+#ifdef GWA
+	showingItemCode = code;
+	vector<string> r;
+	for (int i = 0; i < text.size(); i++)
+	{
+		if (text[i].contains("helpCode: ") && text[i].contains(QString::number(code)))
+			for (int j = i + 1; j < text.size(); j++)
+			{
+				if (text[j].contains("helpCode: "))
+					return r;
+				r.push_back(text[j].toStdString());
+			}
+	}
+	if (!r.size())
+	{
+		text.push_back(QString("helpCode: %1").arg(code));
+		r.push_back("No content defined yet.");
+	}
+	return r;
+#endif
+#ifdef GIFMOD
+	showingItemCode = code;
+	vector<string> r;
+	for (int i = 0; i < text.size(); i++)
+	{
+		if (text[i].contains("%help:") && text[i].contains(QString::number(code)))
+			for (int j = i + 1; j < text.size(); j++)
+			{
+				r.push_back(text[j].toStdString());
+				if (text[j].contains("%help:end"))
+				{
+					string tex;
+					for (int i = 0; i < r.size(); i++)
+						tex = tex + r[i] + '\n';
+					QString html = tex2Html(tex);
+
+					return html;
+				}
+			}
+	}
+	if (!r.size())
+	{
+		//text.push_back(QString("helpCode: %1").arg(code));
+		r.push_back("No contents found for this subject.");
+	}
+	return "";
+#endif
+
+}
 void helpWindow::on_back_clicked()
 {
 	codes.back();

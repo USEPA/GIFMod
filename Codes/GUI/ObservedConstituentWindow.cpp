@@ -1,4 +1,4 @@
-#ifdef WQV
+#ifdef GIFMOD
 #include "ObservedConstituentWindow.h"
 #include "ui_ObservedConstituentWindow.h"
 #include "qtableview.h"

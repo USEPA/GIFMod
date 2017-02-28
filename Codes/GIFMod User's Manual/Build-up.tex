@@ -1,0 +1,28 @@
+Build-up objects allows modeling accumulation of contaminants on the surfaces throughout the simulation period. In order to assign build-up to an block object, the user first should introduce a build-up object by right-clicking \textbf{Project Explorer}$\rightarrow$\textbf{Water Quality}$\rightarrow$\textbf{Build-ups} and then clicking on \textbf{Add Build-up}. Build-up can be applied to both constituents and particles. Two pre-defined build-up models have been provided in the model including \textbf{Linear} and \textbf{Exponential} models: 
+
+\begin{itemize}
+\item \textbf{Linear build-up model: } In the linear model it is assumed that the build-up occurs at a constant rate. So the accumulation term in the mass-balance equation will be:
+\begin{equation}
+\label{eq:34}
+\dot{m} = k_{bld} A_s 
+\end{equation}
+
+\item \textbf{Exponential build-up model: } This model is based on the widely accepted assumption based on several observations that the built-up mass on surfaces reaches a plateau after a certain times due to the resuspension of the accumulated pollutants as a result of wind or traffic \citep{alley1981}. The form of the equation is as follows: 
+\begin{equation}
+\label{eq:35}
+\dot{m} = k_{bld} A_s (1-\frac{C}{C_{bsat}})
+\end{equation}
+in this equation $C$ is surface concentration of the accumulating contaminant typically considered as sorbed to the surface of a catchment segment and $C_{bsat}$ is the saturation accumulation concentration. 
+\end{itemize}
+\subsubsection{Properties of a build-up object: }
+In this subsection the properties of build-up objects are described: 
+\begin{itemize}
+    
+\item \textbf{Name: } This indicates the name of a build-up object. The name is used when assigning build-up to blocks. 
+\item \textbf{Accumulation Rate: } The build-up rate constant $k_{bld}$ is entered here. 
+\item \textbf{Constituent: } This indicate which constituent to be accumulated based on the build-up mode. Multiple build-up objects can be assigned to a single block. 
+\item \textbf{Model: } Using this property, the user can specify what model to be used to model build-up. 
+\item \textbf{Saturation: } The saturation concentration $C_{bsat}$ in Eq. \ref{eq:35}.
+\item \textbf{Sorbed/Attached: } Indicates whether the build-up should be considered as sorbed to the solid phase. The recommendation is to set this property to \textit{Yes} since build-up typically occur during dry periods when there is no aqueous phase available. 
+\end{itemize}
+\input{build-up-ex.tex}

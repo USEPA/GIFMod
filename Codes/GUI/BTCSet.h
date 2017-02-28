@@ -19,7 +19,7 @@ public:
 	CBTCSet& CBTCSet::operator = (const CBTCSet &C);
 	vector<string> names;
 	bool unif;
-	void CBTCSet::writetofile(string outputfile);
+	void CBTCSet::writetofile(string outputfile, bool writeColumnHeaders = false);
 	void CBTCSet::writetofile(string outputfile, int writeinterval);
 	vector<double> CBTCSet::interpolate(double t);
 	vector<double> CBTCSet::interpolate(double t, int fnvars);
@@ -29,11 +29,14 @@ public:
 	vector<double> CBTCSet::getrandom();
 	vector<double> CBTCSet::percentile(double x);
 	vector<double> CBTCSet::mean(int limit);
+	vector<double> CBTCSet::mean(int limit, vector<int> index);
 	vector<double> CBTCSet::std(int limit);
+	vector<double> CBTCSet::std(int limit, vector<int> index);
 	CMatrix CBTCSet::correlation(int limit, int n);
 	vector<double> CBTCSet::integrate();
 	vector<double> CBTCSet::average();
 	vector<double> CBTCSet::percentile(double x, int limit);
+	vector<double> CBTCSet::percentile(double x, int limit, vector<int> index);
 	vector<double> CBTCSet::getrandom(int burnin);
 	void CBTCSet::append(double t, vector<double> c);
 	CBTC CBTCSet::add(vector<int> ii);
@@ -47,6 +50,8 @@ public:
 	CBTCSet CBTCSet::add_noise(vector<double> std, bool logd);
 	void CBTCSet::clear();
 	vector<double> CBTCSet::max_wiggle();
+	vector<double> CBTCSet::max_wiggle_corr(int _n = 10);
+	vector<int> CBTCSet::max_wiggle_sl(int ii, double tol);
 	CBTCSet CBTCSet::getflow (double A);
 	void CBTCSet::knockout(double t);
 	int CBTCSet::lookup(string S);
@@ -65,7 +70,8 @@ public:
 	void pushBackName(string name);
 	void append(CBTC &BTC, string name = "");
 	CBTCSet sort(int burnOut = 0);
-public:
+	void CBTCSet::compact(QDataStream &data) const;
+	static CBTCSet CBTCSet::unCompact(QDataStream &data);
 	~CBTCSet(void);
 };
 

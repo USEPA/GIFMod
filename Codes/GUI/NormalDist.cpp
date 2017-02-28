@@ -17,17 +17,26 @@ CNormalDist::~CNormalDist(void)
 
 double CNormalDist::unitrandom()
 {
-	double x1 = rand();
-	double x2 = rand();
-	return (x1+x2*(double(RAND_MAX)-1))/(double(RAND_MAX)*double(RAND_MAX));
+	int randmax1 = 1435;
+	int randmax2 = 1533;
+	double x1 = rand()%randmax1;
+	double x2 = rand()%randmax2;
+	int i = rand() % 2;
+	if (i==1)
+		return (x1+x2*(randmax1-1))/(double(randmax2)*double(randmax1-1));
+	else
+		return double(1) - (x1 + x2*(randmax1 - 1)) / (double(randmax2)*double(randmax1 - 1));
 }
 
 double CNormalDist::getstdnormalrand()
 {
+	double x3 = unitrandom();
+	double signn;
+	if (x3 > 0.5) signn = 1; else signn = -1;
 	double x1 = unitrandom();
 	double x2 = unitrandom();
 	double pi = atan(1.0)*4;
-	double y1 = sqrt(-2*log(x1))*cos(2*pi*x2);
+	double y1 = signn*sqrt(-2*log(x1))*cos(2*pi*x2);
 	return y1;
 }
 

@@ -1,4 +1,4 @@
-#ifdef WQV
+#ifdef GIFMOD
 #ifndef REACTIONWINDOW_H
 #define REACTIONWINDOW_H
 

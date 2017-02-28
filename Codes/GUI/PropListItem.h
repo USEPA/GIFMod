@@ -30,7 +30,7 @@ public:
 		QMap<QString, QString> r;
 		for each (QString key in list.keys())
 		{
-			r[key] = list[key].compact();
+			r[key.toLower()] = list[key].compact();
 		}
 		return r;
 	}
@@ -51,7 +51,7 @@ public:
 					list << klist[i].toLower();
 				newKey = list.join(' ');
 			}
-			r[newKey] = XString::unCompact(c[key].toString());
+			r[newKey.toLower()] = XString::unCompact(c[key].toString());
 		}
 		return r;
 	}

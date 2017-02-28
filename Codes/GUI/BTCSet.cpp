@@ -7,6 +7,8 @@
 #include "Vector.h"
 #include "Matrix.h"
 #include "qdebug.h"
+#include "qdatastream.h"
+
 using namespace std;
 
 CBTCSet::CBTCSet(void)
@@ -89,15 +91,22 @@ void CBTCSet::writetofile(char outputfile[])
 
 }
 
-void CBTCSet::writetofile(string outputfile)
+void CBTCSet::writetofile(string outputfile, bool writeColumnNameHeaders)
 {
 	FILE *Fil;
 	Fil = fopen(outputfile.c_str() , "w");
+	if (writeColumnNameHeaders)
+	{
+		fprintf(Fil, "names, ");
+		for (int i = 0; i < names.size(); i++)
+			fprintf(Fil, "%s, ", names[i].c_str());
+		fprintf(Fil, "\n");
+	}
 	fprintf(Fil , "//");
 	for (int i=0; i<names.size(); i++)
 		fprintf(Fil , "t, %s, ", names[i].c_str());
 	fprintf(Fil, "\n"); 
-	for (int j=0; j<maxnumpoints(); j++)
+	for (int j = 0; j<maxnumpoints(); j++)
 	{
 		for (int i=0; i<nvars; i++)
 		{
@@ -383,7 +392,7 @@ double CBTCSet::mintime()
 
 double diff(CBTCSet B1, CBTCSet B2)
 {
-	int sum = 0;
+	double sum = 0;
 	for (int i=0; i<B1.nvars; i++)
 		sum += diff(B1.BTC[i],B2.BTC[i]);
 
@@ -447,11 +456,29 @@ vector<double> CBTCSet::mean(int limit)
 
 }
 
+vector<double> CBTCSet::mean(int limit, vector<int> index)
+{
+	vector<double> v;
+	for (int i = 0; i<index.size(); i++)
+		v.push_back(BTC[index[i]].mean(limit));
+	return v;
+
+}
+
 vector<double> CBTCSet::std(int limit)
 {
 	vector<double> v;
 	for (int i=0; i<nvars; i++)
 		v.push_back(BTC[i].std(limit));
+	return v;
+
+}
+
+vector<double> CBTCSet::std(int limit, vector<int> index)
+{
+	vector<double> v;
+	for (int i = 0; i<index.size(); i++)
+		v.push_back(BTC[index[i]].std(limit));
 	return v;
 
 }
@@ -494,6 +521,16 @@ vector<double> CBTCSet::percentile(double x, int limit)
 
 	return v;
 }
+
+vector<double> CBTCSet::percentile(double x, int limit, vector<int> index)
+{
+	vector<double> v;
+	for (int i = 0; i<index.size(); i++)
+		v.push_back(BTC[index[i]].percentile(x, limit));
+
+	return v;
+}
+
 CBTCSet CBTCSet::sort(int burnOut)
 {
 	CBTCSet r(nvars);
@@ -810,6 +847,40 @@ vector<double> CBTCSet::max_wiggle()
 	return out;
 }
 
+vector<double> CBTCSet::max_wiggle_corr(int _n)
+{
+	double max_wig = 0;
+	int wiggle_id = -1;
+	for (int i = 0; i<nvars; i++)
+	{
+		double a = exp(-5*(1+BTC[i].wiggle_corr(_n)));
+		if (a>max_wig) wiggle_id = i;
+		max_wig = max(max_wig, a);
+
+	}
+	vector<double> out;
+	out.push_back(max_wig);
+	out.push_back(wiggle_id);
+	return out;
+}
+
+vector<int> CBTCSet::max_wiggle_sl(int ii, double tol)
+{
+	double max_wig = 0;
+	int wiggle_id = -1;
+	for (int i = 0; i<min(ii,nvars); i++)
+	{
+		int a = int(BTC[i].wiggle_sl(tol));
+		if (a==1) wiggle_id = i;
+		max_wig = max_wig || a;
+
+	}
+	vector<int> out;
+	out.push_back(max_wig);
+	out.push_back(wiggle_id);
+	return out;
+}
+
 int max_n_vars(vector<CBTCSet> &BTC)
 {
 	int k = 0;
@@ -889,4 +960,50 @@ void CBTCSet::setname(int index, string name)
 	names[index] = name;
 	BTC[index].name = name;
 
+}
+
+void CBTCSet::compact(QDataStream &data) const
+{
+	QMap<QString, QVariant> r;
+	r.insert("nvars",nvars);
+	QStringList namesList;
+	for (int i = 0; i < names.size(); i++)
+		namesList.append(QString::fromStdString(names[i]));
+	r.insert("names", namesList);
+	r.insert("unif",unif);
+//omp_set_num_threads(16);
+//#pragma omp parallel for
+	data << r;
+for (int i = 0; i < nvars; i++)
+	{
+//		QString code = QString("BTC %1").arg(i);
+		//r.insert(code, BTC[i].compact());
+		BTC[i].compact(data);
+	}
+	return;
+	
+}
+CBTCSet CBTCSet::unCompact(QDataStream &data)
+{
+	QMap<QString, QVariant> r;
+	data >> r;
+	CBTCSet c;
+	c.nvars = r["nvars"].toInt();
+	//c.BTC.resize(c.nvars);
+	
+	QStringList namesList = r["names"].toStringList();
+	for (int i = 0; i < namesList.size(); i++)
+		c.names.push_back(namesList[i].toStdString());
+
+	c.unif = r["unif"].toBool();
+
+//	omp_set_num_threads(16);
+//#pragma omp parallel for
+	for (int i = 0; i < c.nvars; i++)
+	{
+	//	QString code = QString("BTC %1").arg(i);
+		c.BTC.push_back(CBTC::unCompact(data));
+	}
+
+	return c;
 }

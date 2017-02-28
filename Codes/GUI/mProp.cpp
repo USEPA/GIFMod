@@ -50,7 +50,7 @@ bool mProp::operator==(const mProp &mP) const
 	if (QL.size() != mPQL.size())
 		return false;
 	for (int i = 0; i < QL.size(); ++i)
-		if ((QL[i] != "*") && (mPQL[i] != "*") && (QL[i] != mPQL[i]))
+		if ((QL[i] != "*") && (mPQL[i] != "*") && (QL[i].toLower() != mPQL[i].toLower()))
 			return false;
 	return r;
 }
@@ -62,7 +62,7 @@ bool mProp::operator%=(const mProp &mP) const
 		return false;
 
 	for (int i = 0; i < QL.size(); ++i)
-		if (QL[i] != mPQL[i])
+		if (QL[i].toLower() != mPQL[i].toLower())
 			return (r = false);
 	return r;
 }
@@ -177,7 +177,7 @@ QList<XString> mProp::DefaultValuesList(mPropList *mPL, mProp* filter, GraphWidg
 			r1.append(gWidget->EntityNames("Constituent"));
 		if (DefaultValues.toLower().contains("build-up"))
 			r1.append(gWidget->EntityNames("Build-up"));
-		if (DefaultValues.toLower().contains("External flux"))
+		if (DefaultValues.toLower().contains("external flux"))
 			r1.append(gWidget->EntityNames("External flux"));
 		if (DefaultValues.toLower().contains("evapotranspiration"))
 			r1.append(gWidget->EntityNames("Evapotranspiration"));
@@ -189,6 +189,10 @@ QList<XString> mProp::DefaultValuesList(mPropList *mPL, mProp* filter, GraphWidg
 			r1.append(gWidget->edgeNames());
 		if (DefaultValues.toLower().contains("experiment"))
 			r1.append(gWidget->experimentsList());
+		if (DefaultValues.toLower().contains("sensor"))
+			r1.append(gWidget->EntityNames("Sensor"));
+		if (DefaultValues.toLower().contains("controller"))
+			r1.append(gWidget->EntityNames("Controller"));
 		if (DefaultValues.toLower().contains("cg[const]"))
 			for each (QString c in gWidget->EntityNames("Constituent")) r.append(QString("cg[%1]").arg(c));
 		if (DefaultValues.toLower().contains("subtype") || DefaultValues.toLower().contains("distribution")){
@@ -325,4 +329,14 @@ bool conditionConformed(QString condition, QString value, GraphWidget *gw)
 		if (condition.contains(']')) return ((value.toFloat() > condition.remove('(').remove(']').split(':')[0].toFloat()) && (value.toFloat() <= condition.remove('(').remove(']').split(':')[1].toFloat()));
 		if (condition.contains(')')) return ((value.toFloat() > condition.remove('(').remove(')').split(':')[0].toFloat()) && (value.toFloat() < condition.remove('(').remove(')').split(':')[1].toFloat()));
 	}
+}
+
+bool mProp::areTheSame(const QList<mProp>a, const QList<mProp>b)
+{
+	if (a.count() != b.count())
+		return false;
+	for (int i = 0; i < a.size(); i++)
+		if (!(a[i] %= b[i]))
+			return false;
+	return true;
 }

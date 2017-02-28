@@ -29,6 +29,8 @@ public:
 
 	bool mProp::operator==(const mProp &mP) const;
 	bool mProp::operator %=(const mProp &mP) const; // exact comparison of to filter variable wo considering wildcards *
+	static bool mProp::areTheSame(const QList<mProp>a, const QList<mProp>b);
+
 	void setValue(const QStringList &);
 	void setValue(const QString &QS);
 	QStringList getList() const;

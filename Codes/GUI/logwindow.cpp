@@ -19,6 +19,11 @@ logWindow::logWindow(MainWindow *parent, QString title, QString fileType, bool m
   mainWindow = parent;
   setModal(modal);
   ui->textEdit->setLineWrapMode(QTextEdit::NoWrap);
+  if (title == "Log Window")
+  {
+	  ui->textEdit->setPalette(QPalette(Qt::black));
+	  ui->textEdit->setTextColor(QColor(Qt::green));
+  }
 
 }
 void logWindow::append(QString text)

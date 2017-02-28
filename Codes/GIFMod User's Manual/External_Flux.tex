@@ -1,0 +1,61 @@
+In this section it is explained how to impose an external flux or atmospheric exchange of one or a few constituents into the model. This feature can be used to for example incorporate the flux of dissolved oxygen as a result of aeration in a water quality model or to model the influx of contaminant, organic matter and nutrients separate from the inflows. Several influx models are provided in GIFMod as described below: 
+\begin{itemize}
+\item \textbf{Constant influx model: } In this model the flux is assumed to be constant: 
+\begin{equation}
+\label{eq:28}
+J_{ext} = k_{ext}
+\end{equation}
+So the external influx of a constituent will be calculated as: 
+\begin{equation}
+\label{eq:29}
+\dot{m} = A_s k_{ext}
+\end{equation}
+
+\item \textbf{Constant rate model: } In this model the flux is assumed to be proportional to the difference between the concentration of a constituent and a saturation concentration $C_s$: 
+\begin{equation}
+\label{eq:30}
+J_{ext} = k_{ext}(C_s-C)
+\end{equation}
+Which is applied volumetrically. So the external influx of a constituent will be calculated as: 
+ \begin{equation}
+\label{eq:30a}
+\dot{m} = k_{ext}(C_s-C) \sout{V}
+\end{equation}
+
+\item \textbf{Free surface model: } The free surface model is used for open-channel reaeration where the flow depth and velocity affect the rate of aeration. The for of the flux equation is consistent with the forms suggested by \citep{oconnor1956,churchill1964,owens1964some,isaacs1968,langbein1967}:
+\begin{equation}
+\label{eq:31}
+J_{ext} = k_{ext}v^{\alpha_{ext}}H^{\beta_{ext}}(C_s-C)
+\end{equation}
+
+
+\item \textbf{Soil model: } Aeration in soils is expected to be limited by the area of air-water interface. In this model it is assumed that the area of the air-water interface is proportional to the moisture content and air content of the soil. The external flux equation for soils is therefore considered as: 
+
+\begin{equation}
+\label{eq:32}
+J_{ext} = k_{ext}\theta (\theta_s-\theta) (C_s-C)
+\end{equation}
+Which is applied volumetrically. So the external influx of a constituent will be calculated as: 
+ \begin{equation}
+\label{eq:33}
+\dot{m} = k_{ext}\theta (\theta_s-\theta) (C_s-C) \sout{V}
+\end{equation}
+\end{itemize}
+\subsubsection{External Flux Properties: }
+An external flux model must be added by right-clicking \textbf{Project Explorer}$\rightarrow$\textbf{Water Quality}$\rightarrow$\textbf{External Fluxes} and clicking on \textbf{Add External Flux} and then be assigned to individual blocks through the \textbf{External Flux} property of the block. 
+
+Below properties that can be assigned to a \textbf{External flux} model are described: 
+
+\begin{itemize}
+\item \textbf{Name: } This is the name of the external flux model. The name is used to assign the model to individual blocks. 
+\item \textbf{Coefficient: } Here the value of $k_{ext}$ in Eqs. (\ref{eq:28}, \ref{eq:30}, \ref{eq:31}, \ref{eq:32}) can be entered. This is needed for all external flux models. 
+\item \textbf{Constituent: } This indicate the constituent that will be released as a result of the external flux. 
+\item \textbf{Depth exponent: } The value of $\beta_{ext}$ in the free surface model. 
+\item \textbf{Model: } Here the type of the model to be used for the external flux will be selected. 
+\item \textbf{Saturation: } The value of saturation concentration $C_s$ used in the \textbf{constant rate}, \textbf{free surface}, \textbf{soil} will be entered here. 
+\textbf{Solid: } Indicates the solid phase (soil or particles) that the external flux will be assigned to. If left empty the influx occur as dissolved. 
+\item \textbf{Transfer Rate Expression: } This property allows the user to type in an expression to be used for the calculation of the external flux rates. 
+\item \textbf{Velocity Exponent: } The value of $\alpha_{ext}$ in free surface model (Eq. \ref{eq:31}). 
+\end{itemize}
+
+\input{Aeration_ex.tex}

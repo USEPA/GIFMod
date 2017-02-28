@@ -22,7 +22,7 @@ CMCMC::~CMCMC(void)
 	logp1.clear();
 	logp.clear();
 }
-#ifdef WQV
+#ifdef GIFMOD
 vector<CBTCSet*> CMCMC::model(vector<double> par)
 {
 	double sum = 0;
@@ -95,7 +95,7 @@ vector<CBTCSet> CMCMC::model_lumped(vector<double> par)
 
 	for (int ts=0; ts<1; ts++)	
 	{
-#ifdef WQV
+#ifdef GIFMOD
 		CMediumSet G1 = G;
 #endif
 #ifdef GWA
@@ -127,7 +127,7 @@ vector<CBTCSet> CMCMC::model_lumped(vector<double> par)
 	}
 	return res;
 }
-#ifdef WQV
+#ifdef GIFMOD
 	vector<CBTCSet> CMCMC::model_lumped(vector<double> par, CMedium &G) const
 #endif
 #ifdef GWA
@@ -139,7 +139,7 @@ vector<CBTCSet> CMCMC::model_lumped(vector<double> par)
 
 	for (int ts = 0; ts<1; ts++)
 	{
-#ifdef WQV
+#ifdef GIFMOD
 		CMedium G1 = G;
 #endif
 #ifdef GWA
@@ -179,7 +179,7 @@ double CMCMC::posterior(vector<double> par)
 	double sum = 0;	
 	for (int ts=0; ts<1; ts++)	
 	{
-#ifdef WQV
+#ifdef GIFMOD
 		CMediumSet G1 = G;
 		G1.FI.write_details = false;
 #endif
@@ -189,21 +189,11 @@ double CMCMC::posterior(vector<double> par)
 #endif
 		for (int i=0; i<nActParams; i++)
 		{
-			if (apply_to_all[i] == true)	
-			{	if (MCMCParam[i].type == 0) sum -= pow(par[getparamno(i,ts)]-MCMCParam[i].mean,2)/(2.0*pow(MCMCParam[i].std,2))/1;
-				if (MCMCParam[i].type == 1) sum -= pow(log(par[getparamno(i,ts)])-log(MCMCParam[i].mean),2)/(2.0*pow(MCMCParam[i].std,2))/1;
-				if (MCMCParam[i].type == 2) 
-					if (par[getparamno(i, ts)]<MCMCParam[i].low || par[getparamno(i, ts)]>MCMCParam[i].high) sum -= 3000;
-				G1.set_param(i,par[getparamno(i,0)]);
-			}
-			else
-			{
 				if (MCMCParam[i].type == 0) sum -= pow(par[getparamno(i,ts)]-MCMCParam[i].mean,2)/(2.0*pow(MCMCParam[i].std,2));
 				if (MCMCParam[i].type == 1) sum -= pow(log(par[getparamno(i,ts)])-log(MCMCParam[i].mean),2)/(2.0*pow(MCMCParam[i].std,2));
 				if (MCMCParam[i].type == 2)
 					if (par[getparamno(i, ts)]<MCMCParam[i].low || par[getparamno(i, ts)]>MCMCParam[i].high) sum -= 3000;
 				G1.set_param(i,par[getparamno(i,ts)]);
-			}	
 		}
 		G1.finalize_set_param();
 		sum+=G1.calc_log_likelihood();
@@ -213,7 +203,7 @@ double CMCMC::posterior(vector<double> par)
 
 double CMCMC::posterior(vector<double> par, bool out)
 {
-#ifdef WQV
+#ifdef GIFMOD
 	CMediumSet G1 = G;
 #endif
 #ifdef GWA
@@ -357,13 +347,13 @@ bool CMCMC::step(int k)
 	double logp_1 = logp_0;
 	bool res;
 	
-	if (ND.unitrandom()<exp(logp_0-logp[k-n_chains]))
+	if (ND.unitrandom() <exp(logp_0-logp[k-n_chains]))
 	{
 		res=true;
 		Params[k] = X;
 		logp[k] = logp_0;
 		logp1[k] = logp_1;
-		accepted_count = 0.99*accepted_count+1;
+		accepted_count += 1;
 	}
 	else
 	{
@@ -371,10 +361,10 @@ bool CMCMC::step(int k)
 		Params[k] = Params[k-n_chains];
 		logp[k] = logp[k-n_chains];
 		logp1[k] = logp_1;
-		accepted_count = 0.99*accepted_count;
+		accepted_count = accepted_count;
 
 	}
-	total_count = 0.99*total_count + 1;
+	total_count += 1;
 	return res;
 }
 
@@ -400,7 +390,7 @@ bool CMCMC::step(int k, int nsamps, string filename, runtimeWindow *rtw)
 	{	file = fopen(filename.c_str(),"w");
 		fclose(file);
 	}
-	
+	QCoreApplication::processEvents();
 	
 	char buffer[33];
 	if (continue_mcmc == false)
@@ -420,18 +410,19 @@ bool CMCMC::step(int k, int nsamps, string filename, runtimeWindow *rtw)
 	ini_purt_fact = pertcoeff[0];
 	for (int kk=k; kk<k+nsamps+n_chains; kk+=n_chains)
 	{
+		QCoreApplication::processEvents();
 		if (rtw->stopTriggered)
 			break;
 		omp_set_num_threads(numberOfThreads);
 #pragma omp parallel
 		{
-			srand(int(time(NULL)) ^ omp_get_thread_num());
+			srand(int(time(NULL)) ^ omp_get_thread_num()+kk);
 #pragma omp for
 
 			for (int jj = kk; jj < min(kk + n_chains, nsamples); jj++)
 			{
 				bool stepstuck = !step(jj);
-
+				QCoreApplication::processEvents();
 				if (stepstuck == true)
 				{
 					stuckcounter[jj - kk]++;
@@ -443,24 +434,37 @@ bool CMCMC::step(int k, int nsamps, string filename, runtimeWindow *rtw)
 #pragma omp critical
 				if (jj%writeinterval == 0)
 				{
+					QCoreApplication::processEvents();
 					file = fopen(filename.c_str(), "a");
 					fprintf(file, "%i, ", jj);
 					for (int i = 0; i < n; i++)
 						fprintf(file, "%le, ", Params[jj][i]);
 					fprintf(file, "%le, %le, %f,", logp[jj], logp1[jj], stuckcounter[jj - kk]);
 					for (int j = 0; j < pertcoeff.size(); j++) fprintf(file, "%le,", pertcoeff[j]);
+					//fprintf(file, "%le", u[jj]);
 					// plot pertcoeff of each param vs jj
 					// plot acceptance_count/jj
 					fprintf(file, "\n");
 					fclose(file);
 				}
-
+				QCoreApplication::processEvents();
 				cout << jj << "," << pertcoeff[0] << "," << stuckcounter.max() << "," << stuckcounter.min() << endl;
 				qDebug() << jj << "," << pertcoeff[0] << "," << stuckcounter.max() << "," << stuckcounter.min();
-				double error = double(accepted_count) / double(total_count) - acceptance_rate;
-				for (int i = 0; i < nActParams; i++) pertcoeff[i] /= pow(purtscale, error);
+				//if (jj<n_burnout)
+				if (jj % 500 == 0)
+				{
+					if (double(accepted_count) / double(total_count)>acceptance_rate) 
+						for (int i = 0; i < nActParams; i++) pertcoeff[i] /= purtscale;
+					else
+						for (int i = 0; i < nActParams; i++) pertcoeff[i] *= purtscale;
+					accepted_count = 0;
+					total_count = 0;
 
+				}
+				//double error = double(accepted_count) / double(total_count) - acceptance_rate;
+				//for (int i = 0; i < nActParams; i++) pertcoeff[i] /= pow(purtscale, error);
 
+				QCoreApplication::processEvents();
 
 			}
 		}
@@ -683,7 +687,7 @@ CMatrix CMCMC::sensitivity_mat_lumped(double d, vector<double> par)
  	return X;
 }
 
-#ifdef WQV
+#ifdef GIFMOD
 CMatrix CMCMC::sensitivity_mat_lumped(double d, vector<double> par, CMedium &G) const
 #endif
 #ifdef GWA
@@ -807,100 +811,112 @@ CBTCSet CMCMC::prior_distribution(int n_bins)
 
 void CMCMC::getrealizations(CBTCSet &MCMCout)
 {
-	qDebug() << 601;
 	BTCout_obs.resize(1);
-	qDebug() << 602;
 	BTCout_obs_noise.resize(1);
-	qDebug() << 603;
 	int n_BTCout_obs = G.measured_quan.size();
-	qDebug() << 604;
-	for (int i = 0; i<1; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		BTCout_obs[i].resize(n_BTCout_obs);
 		BTCout_obs_noise[i].resize(n_BTCout_obs);
 	}
-	qDebug() << 605;
-	qDebug() << "n_BTCout_obs" << n_BTCout_obs;
-	qDebug() << "n_realizations" << n_realizations;
-	for (int i = 0; i<n_BTCout_obs; i++)
-		for (int j = 0; j<1; j++)
-		{
-			BTCout_obs[j][i] = CBTCSet(n_realizations);
-			BTCout_obs_noise[j][i] = CBTCSet(n_realizations);
-			BTCout_obs[j][i].names.clear();
-			BTCout_obs_noise[j][i].names.clear();
-		}
-	qDebug() <<606;
+	for (int i = 0; i < n_BTCout_obs; i++)
+	{
+		BTCout_obs[0][i] = CBTCSet(n_realizations);
+		BTCout_obs_noise[0][i] = CBTCSet(n_realizations);
+		BTCout_obs[0][i].names.clear();
+		BTCout_obs_noise[0][i].names.clear();
+	}
 
-#ifdef WQV
-	vector<vector<CMediumSet>> Sys1(n_realizations);
-#endif
-#ifdef GWA
-	vector<vector<CGWA>> Sys1(n_realizations);
-#endif
-	qDebug() << 607;
-	for (int i = 0; i < n_realizations; i++) Sys1[i].resize(1);
-	qDebug() << 608;
 	realized_paramsList = CBTCSet(MCMCout.nvars);
-	qDebug() << 609;
 	paramsList = CBTCSet(MCMCout.nvars);
-	qDebug() << 610;
+	qDebug() << "paramsList.names.size()" << paramsList.names.size();
 	paramsList.names = MCMCout.names;
-	qDebug() << 611;
+	qDebug() << "MCMCout.names.size()" << MCMCout.names.size();
+
 	for (int j = 0; j < n_realizations; j++)
 	{
 		vector<double> param = MCMCout.getrandom(n_burnout);
 		realized_paramsList.append(j, param);
 	}
 	qDebug() << 612;
-omp_set_num_threads(numberOfThreads);
-#pragma omp parallel for 
-	for (int j = 0; j < n_realizations; j++)
+	//progress->setValue(0);
+	double pValue = 0;
+	double inc = 100.0 / n_realizations;
+	for (int jj = 0; jj <= n_realizations/numberOfThreads; jj++)
 	{
-		cout << "Realization Sample No. : " << j << endl;
-		qDebug() << "Realization Sample No. : " << j;
-		vector<double> param = realized_paramsList.getrow(j);
-		for (int ts = 0; ts < 1; ts++)
+#ifdef GIFMOD
+		vector<vector<CMediumSet>> Sys1(numberOfThreads);
+#endif
+#ifdef GWA
+		vector<vector<CGWA>> Sys1(numberOfThreads);
+#endif
+		for (int i = 0; i < numberOfThreads; i++) Sys1[i].resize(1);
+
+		omp_set_num_threads(numberOfThreads);
+#pragma omp parallel for 
+		for (int j = 0; j < min(numberOfThreads, n_realizations - jj*numberOfThreads); j++)
 		{
-			Sys1[j][ts] = G;
-#ifdef WQV
-			Sys1[j][ts].FI.write_details = false;
+			int realizationNumber = jj*numberOfThreads + j;
+			cout << "Realization Sample No. : " << realizationNumber << endl;
+			qDebug() << "Realization Sample No. : " << realizationNumber;
+			vector<double> param = realized_paramsList.getrow(realizationNumber);
+			Sys1[j][0] = G;
+#ifdef GIFMOD
+			Sys1[j][0].FI.write_details = false;
 #endif
 #ifdef GWA
 			Sys1[j][ts].project = false;
 #endif
-			//Sys1[j][ts].write_details = true;
 			int l = 0;
 			for (int i = 0; i < nActParams; i++)
-				Sys1[j][ts].set_param(i, param[getparamno(i, ts)]);
-			Sys1[j][ts].finalize_set_param();
-			Sys1[j][ts].calc_log_likelihood();
-		}
+				Sys1[j][0].set_param(i, param[i]);
+			Sys1[j][0].finalize_set_param();
+			Sys1[j][0].calc_log_likelihood();
 
-		if (global_sensitivity == true)
-			global_sens_lumped.push_back(sensitivity_mat_lumped(dp_sens, param));
+			if (global_sensitivity == true)
+				global_sens_lumped.push_back(sensitivity_mat_lumped(dp_sens, param));
 
-
-		for (int i = 0; i<n_BTCout_obs; i++)
-		{
-			for (int ts = 0; ts<1; ts++)
+			for (int i = 0; i < n_BTCout_obs; i++)
 			{
-				BTCout_obs[ts][i].BTC[j] = Sys1[j][ts].ANS_obs.BTC[i];
-				BTCout_obs[ts][i].names.push_back(Sys1[j][ts].ANS_obs.names[i] + "_" + to_string(j));
-
-				if (noise_realization_writeout)
+				for (int ts = 0; ts < 1; ts++)
 				{
-					BTCout_obs_noise[ts][i].BTC[j] = Sys1[j][ts].ANS_obs_noise.BTC[i];
-					BTCout_obs_noise[ts][i].names.push_back(Sys1[j][ts].ANS_obs_noise.names[i] + "_" + to_string(j));
+					BTCout_obs[ts][i].BTC[realizationNumber] = Sys1[j][ts].ANS_obs.BTC[i];
+					BTCout_obs[ts][i].names.push_back(Sys1[j][ts].ANS_obs.names[i] + "_" + to_string(realizationNumber));
+
+					if (noise_realization_writeout)
+					{
+						BTCout_obs_noise[ts][i].BTC[realizationNumber] = Sys1[j][ts].ANS_obs_noise.BTC[i];
+						BTCout_obs_noise[ts][i].names.push_back(Sys1[j][ts].ANS_obs_noise.names[i] + "_" + to_string(realizationNumber));
+					}
 				}
 			}
+			qDebug() << "Realization Completed : " << realizationNumber << endl;
+			cout << "Realization Completed : " << realizationNumber;
+			qDebug() << "Progress: " << pValue << inc;
+			pValue += inc;
+			qDebug() << "Progress: " << pValue;
 		}
-		qDebug() << 613;
-		qDebug() << "Realization Completed : " << j << endl;
-		cout << "Realization Completed : " << j;
+		qDebug() << "Progress: " << pValue << inc;
+		pValue += inc*numberOfThreads;
+		qDebug() << "Progress: " << pValue;
+		if (rtw)
+		{
+			QMap<QString, QVariant> vars;
+			vars["mode"] = "MCMC";
+			vars["progress"] = pValue;
+			rtw->update(vars);
+		}
 	}
-
+	if (rtw)
+	{
+		QMap<QString, QVariant> vars;
+		vars["mode"] = "MCMC";
+		vars["progress"] = 100;
+		vars["finished"] = 1;	
+		rtw->update(vars);
+	}
 }
+
 void CMCMC::get_outputpercentiles(CBTCSet &MCMCout)
 {
 	qDebug() << 501;
@@ -917,8 +933,8 @@ void CMCMC::get_outputpercentiles(CBTCSet &MCMCout)
 			for (int j = 0; j < 1; j++)
 			{
 				BTCout_obs_prcntle[j][i] = BTCout_obs[j][i].getpercentiles(calc_output_percentiles);
-#ifdef WQV
-				BTCout_obs_prcntle[j][i].writetofile(G.FI.outputpathname + "BTC_obs_prcntl" + to_string(i) + "_" + to_string(j) + ".txt", G.FI.write_interval);
+#ifdef GIFMOD
+				BTCout_obs_prcntle[j][i].writetofile(G.FI.outputpathname + "BTC_obs_prcntl_" + G.measured_quan[i].name + ".txt", G.FI.write_interval);
 #endif
 #ifdef GWA
 				BTCout_obs_prcntle[j][i].writetofile(G.pathname + "BTC_obs_prcntl" + to_string(i) + "_" + to_string(j) + ".txt", G.writeinterval);
@@ -926,8 +942,8 @@ void CMCMC::get_outputpercentiles(CBTCSet &MCMCout)
 
 				if (noise_realization_writeout)
 					BTCout_obs_prcntle_noise[j][i] = BTCout_obs_noise[j][i].getpercentiles(calc_output_percentiles);
-#ifdef WQV
-				BTCout_obs_prcntle_noise[j][i].writetofile(G.FI.outputpathname + "BTC_obs_prcntl_noise" + to_string(i) + "_" + to_string(j) + ".txt", G.FI.write_interval);
+#ifdef GIFMOD
+				BTCout_obs_prcntle_noise[j][i].writetofile(G.FI.outputpathname + "BTC_obs_prcntl_noise_" + G.measured_quan[i].name + ".txt", G.FI.write_interval);
 #endif
 #ifdef GWA
 				BTCout_obs_prcntle_noise[j][i].writetofile(G.pathname + "BTC_obs_prcntl_noise" + to_string(i) + "_" + to_string(j) + ".txt", G.writeinterval);

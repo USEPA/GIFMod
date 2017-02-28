@@ -1,24 +1,17 @@
 #pragma once
-
-
 #include <QModelIndex>
 #include <QVariant>
 #include <QAbstractItemModel>
-//#include <QModelIndex>
-//#include "QVariant.h"
-//#include "mProplist.h"
-//#include "treeitem.h"
-//#include "GWidget.h"
-class GraphWidget;
 #include "node.h";
-//class Node;
-//class Edge;
-//class TreeItem;
 #include "qdebug.h"
 #include "treeitem.h"
 
-template <class T>
-class Branch;
+class GraphWidget;
+
+
+//template <class T>
+//class Branch;
+
 class TreeModel : public QAbstractItemModel 
 {
     Q_OBJECT
@@ -40,7 +33,8 @@ public:
 	bool hasChildren(const QModelIndex & parent = QModelIndex()) const;
 	TreeItem *itemFromIndex(const QModelIndex &index) const;
 	void prepareToAddFromMenu(const QString  name);
-	void update() { emit reset; };
+	void update() { 
+		emit reset; };
 	void addChildFromMenu(const QString name, QModelIndex *parentIndex);
 	void deleteNode(int row, QModelIndex &parent, QString name);
 	void deleteNode(Node *node);
@@ -60,9 +54,9 @@ public:
 //	{
 //		return rootItem;
 //	}
-#ifdef WQV	
+#ifdef GIFMOD	
 	TreeItem *rootItem, *settings, *blocks, *connectors, *evapotranspiration, *waterQuality, *constituent, *buildUp, *extrenalFlux, *particle,
-		 *projectSetting, *climateSetting, *solverSetting, *reactions, *reaction, *reactionNetwork, *reactionParameter, *GA, *MCMC, *inverseModeling, *parameter,
+		 *projectSettings, *climateSettings, *solverSettings, *reactions, *reaction, *reactionNetwork, *reactionParameter, *GA, *MCMC, *inverseModeling, *control, *sensor, *objectiveFunction, *controller, *parameter,
 		 *observed, *wells, *tracers;
 #endif
 #ifdef GWA

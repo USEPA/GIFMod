@@ -1,0 +1,2 @@
+Run Time :  1.911 sec
+Epoch count: 7

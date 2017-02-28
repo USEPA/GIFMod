@@ -1,4 +1,4 @@
-#ifdef WQV
+#ifdef GIFMOD
 #include "wizardDialog.h"
 #include "ui_wizardDialog.h"
 #include "GWidget.h"

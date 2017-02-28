@@ -1,6 +1,11 @@
+#ifndef GIFMOD_VERSION
+#define GIFMOD_VERSION "0.1.12"
+#endif
+#define RECENT "recentFiles.txt"
 #include "mainwindow.h"
-#ifdef WQV
-#include "ui_mainwindowWQV.h"
+#ifdef GIFMOD
+#include "ui_mainwindowGIFMod.h"
+#include "csvEditor.h"
 #endif
 #ifdef GWA
 #include "ui_mainwindowGWA.h"
@@ -29,9 +34,10 @@
 #include "helpWindow.h"
 #include "qinputdialog.h"
 
-#ifdef WQV
+#ifdef GIFMOD
 #include "Medium.h"
 #include "MediumSet.h"
+#include "wizard.h"
 #endif
 
 #include "plotWindow.h"
@@ -41,7 +47,7 @@
 //#ifdef GWA
 #include "mainwindow.h"
 #include "entity.h"
-
+#include "folders.h"
 
 
 void MainWindow::on_actionAdd_Well_triggered()
@@ -56,29 +62,29 @@ void MainWindow::on_actionAdd_Tracer_triggered()
 	new Node(mainGraphWidget, "Tracer", QString("Tracer (%1)").arg(Tracers++), -1, 1300, 700, 80, 80);
 }
 
-MainWindow::MainWindow(QWidget *parent, QString applicationName, QString shortName, QString extension, QString metafilename, QString modelfilename):
-QMainWindow(parent),
-ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent, QString applicationName, QString shortName, QString extension, QString metafilename, QString modelfilename) :
+	QMainWindow(parent),
+	ui(new Ui::MainWindow)
 {
 	this->metafilename = metafilename;
-	this->applicationName = applicationName; 
+	this->applicationName = applicationName;
 	this->fileExtension = extension;
 	this->applicationShortName = shortName;
 	log = new logWindow(this);
-//	QDesktopWidget *d = QApplication::desktop();
-/*	if (d->screenCount() > 1)
-	{
-		int left = d->screen(0)->width() + 35;
-		int width = d->screen(1)->width() * 0.4;
-		int height = d->screen(1)->height() * 0.9;
-		int top = 35;
-		log->setFixedHeight(height);
-		log->setFixedWidth(width);
-		log->move(left, top);
-	}
-*/
-//	QString a = QString("Screen 0 width(%1), height(%2), Screen 1 width(%3), height(%4)").arg(d->screen(0)->width()).arg(d->screen(0)->height()).arg(d->screen(1)->width()).arg(d->screen(1)->height());
-//	log->append(a);
+	//	QDesktopWidget *d = QApplication::desktop();
+	/*	if (d->screenCount() > 1)
+		{
+			int left = d->screen(0)->width() + 35;
+			int width = d->screen(1)->width() * 0.4;
+			int height = d->screen(1)->height() * 0.9;
+			int top = 35;
+			log->setFixedHeight(height);
+			log->setFixedWidth(width);
+			log->move(left, top);
+		}
+	*/
+	//	QString a = QString("Screen 0 width(%1), height(%2), Screen 1 width(%3), height(%4)").arg(d->screen(0)->width()).arg(d->screen(0)->height()).arg(d->screen(1)->width()).arg(d->screen(1)->height());
+	//	log->append(a);
 	log->show();
 	log->append("Program started.");
 
@@ -187,7 +193,7 @@ ui(new Ui::MainWindow)
 	//	projectExplorer->setItemDelegate(mDelegate);
 
 	Qt::WindowFlags flags = this->windowFlags();
-	qDebug() << 3.2; 
+	qDebug() << 3.2;
 	qDebug() << 3.3;
 	setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint);
 
@@ -216,32 +222,97 @@ ui(new Ui::MainWindow)
 	//projectExplorer->.setChildIndicatorPolicy(QTreeWidgetItem.ShowIndicator)
 	setWindowTitle(applicationName);
 	centerWidget();
-//	if (modelfilename != "")
-//		loadModel(modelfilename);
+	//	if (modelfilename != "")
+	//		loadModel(modelfilename);
 	qDebug() << 5;
 	ui->setupUi(this);
 	mainGraphWidget->experiments = new QComboBox(ui->experimentsToolbar);
-	mainGraphWidget->experiments->addItem("Global");
+	mainGraphWidget->experiments->addItem("All experiments");
 	mainGraphWidget->experiments->addItem("experiment1");
-//	mainGraphWidget->experiments->addItem("experiment2");
+	//	mainGraphWidget->experiments->addItem("experiment2");
 	connect(mainGraphWidget->experiments, SIGNAL(currentIndexChanged(const QString&)), mainGraphWidget, SLOT(experimentSelect(const QString&)));
 	if (ui->experimentsToolbar->height() < mainGraphWidget->experiments->height())
 		ui->experimentsToolbar->setMinimumHeight(mainGraphWidget->experiments->height());
 	ui->experimentsToolbar->setMinimumWidth(250);
 	QRect rect = mainGraphWidget->experiments->geometry();
-	rect.setLeft(rect.left() + 95);
+	rect.setLeft(rect.left() + 130);
 	rect.setWidth(140);
 	int i = ui->experimentsToolbar->height();
 	int j = mainGraphWidget->experiments->height();
 	int k = (ui->experimentsToolbar->height() - mainGraphWidget->experiments->height()) / 2;
 	rect.setTop((ui->experimentsToolbar->height() - mainGraphWidget->experiments->height()) / 2 + 8);
-	
+
 	mainGraphWidget->experiments->setGeometry(rect);
 	mainGraphWidget->experiments->show();
-//	ui->experimantsToolbar->insertWidget()
+	//	ui->experimantsToolbar->insertWidget()
 	mainGraphWidget->add_to_undo_list();
 	mainGraphWidget->trackingUndo = true;
+	connect(ui->menuWaterQuality->menuAction(), SIGNAL(hovered()), this, SLOT(menuWaterQuality_hovered()));
+	connect(ui->menuWaterQuality, SIGNAL(triggered()), this, SLOT(menuWaterQuality_triggered()));
+
+
+	//removeIt
+//	csvEditor *a = new csvEditor(this);
+	
 }
+
+void MainWindow::readRecentFilesList()
+{
+//	qDebug() << localAppFolderAddress();
+//	QString add = localAppFolderAddress();
+	ifstream file(localAppFolderAddress().toStdString()+RECENT);
+	if (file.good())
+	{
+		string line;
+		while (!file.eof())
+		{
+			getline(file, line);
+			QString fileName = QString::fromStdString(line);
+			qDebug() << fileName; QString::fromStdString(line);
+			addToRecentFiles(fileName, false);
+			//QAction * a= new QAction()
+		}
+		file.close();
+//		QAction * selected = ui->menuRecent->exec();
+//		if (selected)
+//			qDebug() << selected->text();
+	}
+}
+void MainWindow::addToRecentFiles(QString fileName, bool addToFile) 
+{
+	bool rewriteFile = false;
+	if (recentFiles.contains(fileName.toLower()) && fileName.trimmed() != "")
+		if (recentFiles.indexOf(fileName.toLower()) != recentFiles.count()-1)
+		{
+			ui->menuRecent->removeAction(ui->menuRecent->actions()[recentFiles.size() - 1 - recentFiles.indexOf(fileName.toLower())]);
+			recentFiles.removeOne(fileName.toLower());
+			addToFile = false;
+			rewriteFile = true;
+		}
+
+	if (!recentFiles.contains(fileName.toLower()) && fileName.trimmed() != "")
+	{
+		recentFiles.append(fileName.toLower());
+		//		QAction * a = ui->menuRecent->addAction(fileName);// , this, SLOT(recentItem()));
+		QAction * fileNameAction = new QAction(fileName, 0);
+		if (ui->menuRecent->actions().size())
+			ui->menuRecent->insertAction(ui->menuRecent->actions()[0], fileNameAction);
+		else
+			ui->menuRecent->addAction(fileNameAction);
+		QObject::connect(fileNameAction, SIGNAL(triggered()), this, SLOT(on_actionRecent_triggered()));
+
+		if (addToFile)
+		{
+			ofstream file(localAppFolderAddress().toStdString() + RECENT, fstream::app);
+			if (file.good())
+				file << fileName.toStdString() << endl;
+			file.close();
+		}
+		if (rewriteFile)
+			writeRecentFilesList();
+	}
+}
+
 void MainWindow::centerWidget()
 {
 	if (isFullScreen())
@@ -276,10 +347,10 @@ void MainWindow::on_action_New_triggered()
 	setModelFileName("");
 //	setModelFileName("Untitled." + fileExtension);
 
-#ifdef WQV
-	new Entity("Solver setting", "Solver setting", mainGraphWidget);
-	new Entity("Climate setting", "Climate setting", mainGraphWidget);
-	new Entity("Project setting", "Project setting", mainGraphWidget);
+#ifdef GIFMOD
+	new Entity("Solver settings", "Solver settings", mainGraphWidget);
+	new Entity("Climate settings", "Climate settings", mainGraphWidget);
+	new Entity("Project settings", "Project settings", mainGraphWidget);
 
 #endif
 #ifdef GWA
@@ -296,8 +367,35 @@ void MainWindow::on_action_New_triggered()
 
 	log->show();
 	log->append("New Model Created.");
-	mainGraphWidget->deleteSolution();
+	mainGraphWidget->deleteSolutionResults();
 	mainGraphWidget->changedState = false;
+}
+
+void MainWindow::on_actionNew_from_template_triggered()
+{
+	wizard w(this);
+
+//	QDialog w;
+//	w.
+	int result = w.exec();
+	if (result == w.Rejected)
+		return;
+
+
+	QFileDialog fd;
+	fd.setModal(Qt::Popup);
+	fd.setFileMode(QFileDialog::ExistingFile);
+	QString folder = QDir::currentPath() + "/icons/wizards";
+//	fd.setDirectory(mainGraphWidget->defaultDir() + "/wizards"); // / Icons / Wizards");
+//	qDebug() << QDir::currentPath();
+	fd.setDirectory(folder);
+	fd.setViewMode(QFileDialog::List);
+	fd.setFilter(QDir::Files);
+	fd.setNameFilters(QStringList() << "*.png");
+
+	fd.exec();
+
+
 }
 
 void MainWindow::on_action_Open_triggered()
@@ -312,7 +410,72 @@ void MainWindow::on_action_Open_triggered()
 		tr("Model (*.").append(fileExtension).append(");;All Files (*)"));
 	loadModel(fileName);
 	on_actionZoom_All_triggered();
+	mainGraphWidget->updateNodeCoordinates();
+	addToRecentFiles(fileName);
 }
+bool MainWindow::loadModel(QString modelfilename)
+{
+	if (modelfilename.isEmpty())
+		return false;
+	else {
+		QFile file(modelfilename);
+		if (!file.open(QIODevice::ReadOnly)) {
+			QMessageBox::information(this, tr("Unable to open file"),
+				file.errorString());
+			return false;
+		}
+		QDataStream in(&file);
+		in.setVersion(QDataStream::Qt_4_5);
+		QString fileHeader;
+		in >> fileHeader;
+//		if ((fileExtension == "GIFMod" && fileHeader != "GIM Data File version 1.0" && fileHeader != "GIFMod Data File version 1.0" && fileHeader != "GIFMod Data File version 1.1") ||
+//			(fileExtension == "GWA" && fileHeader != "GWA Data File version 1.0"))
+//		{
+//			QMessageBox::information(this, tr("Unable to open file"),
+//	/			"Wrong Data file or the file is corrupted.");
+//			return false;
+//		}
+		QList <QMap<QString, QVariant>> dataMap;
+
+		in >> dataMap;
+		file.close();
+
+
+
+		mainGraphWidget->trackingUndo = false;
+		mainGraphWidget->clear();
+		if (fileHeader.contains("1.0")){
+//			in >> dataMap;
+			mainGraphWidget->unCompact10(dataMap);
+		}
+		else if (fileHeader.contains("1.1")){
+//			in >> dataMap;
+			mainGraphWidget->unCompact(dataMap, true);
+		}
+		else if (fileHeader.contains("1.2") || fileHeader.contains("1.3")){
+//			in >> dataMap;
+			mainGraphWidget->unCompact(dataMap);// dataMap);
+		}
+		else if (fileHeader.contains("1.3")){
+//			in >> dataHash;
+			mainGraphWidget->unCompact(dataMap);
+		}
+		else
+		{
+			log->append("Bad file, could not openned.");
+			return false;
+		}
+		setModelFileName(modelfilename);
+		
+		
+	}
+
+	//	updateInterface(NavigationMode);
+	mainGraphWidget->changedState = false;
+	mainGraphWidget->trackingUndo = true;
+	return true;
+}
+/*
 bool MainWindow::loadModel(QString modelfilename)
 {
 	if (modelfilename.isEmpty())
@@ -331,13 +494,13 @@ bool MainWindow::loadModel(QString modelfilename)
 		in.setVersion(QDataStream::Qt_4_5);
 		QString fileHeader;
 		in >> fileHeader;
-//		if ((fileExtension == "WQV" && fileHeader != "GIM Data File version 1.0" && fileHeader != "WQV Data File version 1.0" && fileHeader != "WQV Data File version 1.1") ||
-//			(fileExtension == "GWA" && fileHeader != "GWA Data File version 1.0"))
-//		{
-//			QMessageBox::information(this, tr("Unable to open file"),
-//	/			"Wrong Data file or the file is corrupted.");
-//			return false;
-//		}
+		//      if ((fileExtension == "GIFMod" && fileHeader != "GIM Data File version 1.0" && fileHeader != "GIFMod Data File version 1.0" && fileHeader != "GIFMod Data File version 1.1") ||
+		//          (fileExtension == "GWA" && fileHeader != "GWA Data File version 1.0"))
+		//      {
+		//          QMessageBox::information(this, tr("Unable to open file"),
+		//  /           "Wrong Data file or the file is corrupted.");
+		//          return false;
+		//      }
 		QList<QMap<QString, QVariant>> data;
 		in >> data;
 		mainGraphWidget->trackingUndo = false;
@@ -345,7 +508,7 @@ bool MainWindow::loadModel(QString modelfilename)
 		if (fileHeader.contains("1.0"))
 			mainGraphWidget->unCompact10(data);
 		else if (fileHeader.contains("1.1"))
-			mainGraphWidget->unCompact(data);
+			mainGraphWidget->unCompact(data, true);
 		else if (fileHeader.contains("1.2"))
 			mainGraphWidget->unCompact(data);
 		else
@@ -354,40 +517,55 @@ bool MainWindow::loadModel(QString modelfilename)
 			return false;
 		}
 		setModelFileName(modelfilename);
-		mainGraphWidget->add_to_undo_list();
-//		if (mainGraphWidget->entity("Project setting")->getValue("Working path") == ".")
-//			mainGraphWidget->entity("Project setting")->setValue("Working path", OnlyPath(modelfilename));
+		//mainGraphWidget->add_to_undo_list(data);
+		//      if (mainGraphWidget->entity("Project setting")->getValue("Working path") == ".")
+		//          mainGraphWidget->entity("Project setting")->setValue("Working path", OnlyPath(modelfilename));
 
 
-		//		expandNode(projModel->index(-1, -1), true);
-		//		else {
-		//			QMap<QString, QString>::iterator i = contacts.begin();
-		//			nameLine->setText(i.key());
-		//			addressText->setText(i.value());
-		//		}
+		//      expandNode(projModel->index(-1, -1), true);
+		//      else {
+		//          QMap<QString, QString>::iterator i = contacts.begin();
+		//          nameLine->setText(i.key());
+		//          addressText->setText(i.value());
+		//      }
+		for (int i = 0; i < data.size(); i++)
+			data[i] = QMap<QString, QVariant>();
 	}
-
-	//	updateInterface(NavigationMode);
+	//  updateInterface(NavigationMode);
 	mainGraphWidget->changedState = false;
 	mainGraphWidget->trackingUndo = true;
 	return true;
-}
+}*/
 void MainWindow::on_action_Save_triggered()
 {
 	QString fileName = (!mainGraphWidget->modelFilename.isEmpty()) ? mainGraphWidget->modelFilename : QFileDialog::getSaveFileName(this,
 		tr("Save ").append(applicationName), mainGraphWidget->modelPathname(),
 		tr("Model (*.").append(fileExtension).append(");;All Files (*)"));
-	saveModel(fileName);
-	setModelFileName(fileName);
+	if (saveModel(fileName))
+	{
+		setModelFileName(fileName);
+		if (fileName.right(4) != "temp")
+			addToRecentFiles(fileName);
+	}
 }
 void MainWindow::on_actionSave_As_triggered()
 {
 	QString fileName = QFileDialog::getSaveFileName(this,
 		tr("Save ").append(applicationName), mainGraphWidget->modelPathname(),
 		tr("Model (*.").append(fileExtension).append(");;All Files (*)"));
+	Entity *e = mainGraphWidget->entityByName("Project settings (1)");
+	//	delete e;
+	mainGraphWidget->Entities.removeOne(e);
+	qDebug() << "**************************start saving model";
 	saveModel(fileName);
-	setModelFileName(fileName);
+	qDebug() << "**************************model saved";
+	if (saveModel(fileName))
+	{
+		setModelFileName(fileName);
+		if (fileName.right(4) != "temp")
+			addToRecentFiles(fileName);
 	}
+}
 
 
 void MainWindow::on_actionZoom_In_triggered()
@@ -552,9 +730,10 @@ void MainWindow::on_projectExplorer_clicked(const QModelIndex &index)
 
 void MainWindow::on_projectExplorer_customContextMenuRequested(const QPoint &pos)
 {
+	QMenu *menu = new QMenu;
 	if (projectExplorer->indexAt(pos).data(Role::TreeItemType) == TreeItem::Type::Branch)
 	{
-		QMenu *menu = new QMenu;
+		//QMenu *menu = new QMenu;
 		TreeModel *model = projModel;
 		TreeItem *item = model->itemFromIndex(projectExplorer->indexAt(pos));
 		QString type = projModel->singularform(projectExplorer->indexAt(pos).data().toString());
@@ -564,17 +743,29 @@ void MainWindow::on_projectExplorer_customContextMenuRequested(const QPoint &pos
 		{
 			if (mainGraphWidget->results->percentiles.size())
 			{
-				plotAllPercentileData(mainGraphWidget->results->percentiles, "Percentiles data");
-				menu->addAction(QString("Plot percentiles data"), this, SLOT(plotAllPercentileData()));
+				plotAllPercentileData(mainGraphWidget->results->percentiles, "Percentiles");
+				menu->addAction(QString("Plot percentiles"), this, SLOT(plotAllPercentileData()));
 				menu->addSeparator();
 			}
 		}
+		if (type == "Parameter" && mainGraphWidget->results)
+		{
+			if (mainGraphWidget->results->globalSensitivityMatrix.getnumrows())
+				menu->addAction(QString("Show global sensitivity matrix"), this, SLOT(showGlobalSensitivityMatrix()));
+			if (mainGraphWidget->results->localSensitivityMatrix.getnumrows())
+				menu->addAction(QString("Show local sensitivity matrix"), this, SLOT(showLocalSensitivityMatrix()));
+			if (mainGraphWidget->results->correlationMatrix.getnumrows())
+				menu->addAction(QString("Show correlation matrix"), this, SLOT(showCorrelationMatrix()));
+			if (mainGraphWidget->results->localSensitivityMatrix.getnumrows() || mainGraphWidget->results->globalSensitivityMatrix.getnumrows() || mainGraphWidget->results->correlationMatrix.getnumrows())
+				menu->addSeparator();
+		}
+
 		menu->addAction(QString("Add %1").arg(type) , this, SLOT(addProjectExplorerTreeItem()));
-		menu->exec(projectExplorer->mapToGlobal(pos));
+//		menu->exec(projectExplorer->mapToGlobal(pos));
 	}
 	if (projectExplorer->indexAt(pos).data(Role::TreeItemType) == TreeItem::Type::NodeItem)
 	{
-		QMenu *menu = new QMenu;
+		//QMenu *menu = new QMenu;
 		TreeModel *model = projModel;
 		TreeItem *item = model->itemFromIndex(projectExplorer->indexAt(pos));
 		QString name = projectExplorer->indexAt(pos).data().toString();
@@ -585,7 +776,7 @@ void MainWindow::on_projectExplorer_customContextMenuRequested(const QPoint &pos
 	}
 	if (projectExplorer->indexAt(pos).data(Role::TreeItemType) == TreeItem::Type::EdgeItem)
 	{
-		QMenu *menu = new QMenu;
+		//QMenu *menu = new QMenu;
 		TreeModel *model = projModel;
 		TreeItem *item = model->itemFromIndex(projectExplorer->indexAt(pos));
 		QString name = projectExplorer->indexAt(pos).data().toString();
@@ -596,7 +787,7 @@ void MainWindow::on_projectExplorer_customContextMenuRequested(const QPoint &pos
 	}
 	if (projectExplorer->indexAt(pos).data(Role::TreeItemType) == TreeItem::Type::Item)
 	{
-		QMenu *menu = new QMenu;
+		//QMenu *menu = new QMenu;
 		TreeModel *model = projModel;
 		TreeItem *item = model->itemFromIndex(projectExplorer->indexAt(pos));
 		if (item->Name() == "Markov chain Monte Carlo")
@@ -613,7 +804,7 @@ void MainWindow::on_projectExplorer_customContextMenuRequested(const QPoint &pos
 	}
 	if (projectExplorer->indexAt(pos).data(Role::TreeItemType) == TreeItem::Type::EntityItem)
 	{
-		QMenu *menu = new QMenu;
+		//QMenu *menu = new QMenu;
 		TreeModel *model = projModel;
 		TreeItem *item = model->itemFromIndex(projectExplorer->indexAt(pos));
 		QString name = projectExplorer->indexAt(pos).data().toString();
@@ -632,18 +823,18 @@ void MainWindow::on_projectExplorer_customContextMenuRequested(const QPoint &pos
 				menu->addAction(QString("Plot observation data").arg(name), this, SLOT(plotObservationData()));
 				addSeparator = true;
 			}
-			if (mainGraphWidget->model != nullptr)
-#ifdef WQV
-				if (mainGraphWidget->model->ANS_obs.nvars)
+			if (mainGraphWidget->modelSet != nullptr)
+#ifdef GIFMOD
+				if (mainGraphWidget->modelSet->ANS_obs.nvars)
 			{
 				int index = -1;
-				for (int i = 0; i<mainGraphWidget->model->ANS_obs.nvars;i++)
-					if (mainGraphWidget->model->ANS_obs[i].name == name.toStdString())
+				for (int i = 0; i<mainGraphWidget->modelSet->ANS_obs.nvars;i++)
+					if (mainGraphWidget->modelSet->ANS_obs[i].name == name.toStdString())
 					{
-						plotModeledData(mainGraphWidget->model->ANS_obs[i], data[0], QString("%1").arg(name));
+						plotModeledData(mainGraphWidget->modelSet->ANS_obs[i], data[0], QString("%1").arg(name));
 						menu->addAction(QString("Plot modeled data").arg(name), this, SLOT(plotModeledData()));
 
-						plotAgreementPlotData(data[0], mainGraphWidget->model->ANS_obs[i].interpol(data[0]), QString("Agreement plot %1").arg(name));
+						plotAgreementPlotData(data[0], mainGraphWidget->modelSet->ANS_obs[i].interpol(data[0]), QString("Agreement plot %1").arg(name));
 						menu->addAction(QString("Plot agreement plot").arg(name), this, SLOT(plotAgreementPlotData()));
 						addSeparator = true;
 					}
@@ -704,7 +895,80 @@ void MainWindow::on_projectExplorer_customContextMenuRequested(const QPoint &pos
 			if (addSeparator) menu->addSeparator();
 		}
 
+//		*********
 
+		if (item->parent()->Name() == "Controllers")
+		{
+			bool addSeparator = false;
+			Entity *controller = mainGraphWidget->entity(name, "Controller");
+			//QString file = obs->getValue("Observed data").toQString();
+			QString file = QString("./control_output_%1.txt").arg(mainGraphWidget->experimentName());
+			CBTCSet data = CBTCSet(file.replace("./", modelPathname().append('/')).toStdString(), 1);
+			if (data.nvars)
+			{
+				for (int i = 0; i < data.nvars; i++)
+				{
+					if (data[i].name == controller->name.toStdString())
+					{
+						plotControllerData(data[i], QString::fromStdString(data[i].name));
+						menu->addAction(QString("Plot control data").arg(name), this, SLOT(plotControllerData()));
+						addSeparator = true;
+					}
+				}
+			}
+			/*				if (mainGraphWidget->modelSet != nullptr)
+								if (mainGraphWidget->modelSet->ANS_obs.nvars)
+								{
+									int index = -1;
+									for (int i = 0; i<mainGraphWidget->modelSet->ANS_obs.nvars; i++)
+										if (mainGraphWidget->modelSet->ANS_obs[i].name == name.toStdString())
+										{
+											plotModeledData(mainGraphWidget->modelSet->ANS_obs[i], data[0], QString("%1").arg(name));
+											menu->addAction(QString("Plot modeled data").arg(name), this, SLOT(plotModeledData()));
+
+											plotAgreementPlotData(data[0], mainGraphWidget->modelSet->ANS_obs[i].interpol(data[0]), QString("Agreement plot %1").arg(name));
+											menu->addAction(QString("Plot agreement plot").arg(name), this, SLOT(plotAgreementPlotData()));
+											addSeparator = true;
+										}
+								}
+
+							if (addSeparator) menu->addSeparator();
+							if (mainGraphWidget->results)
+							{
+								//				mainGraphWidget->log(obs->name);
+								if (mainGraphWidget->results->hasRealization(obs->name))
+								{
+									plotRealization(mainGraphWidget->results->realization(obs->name), QString("Realization %1").arg(obs->name));
+									menu->addAction(QString("Plot realization data").arg(obs->name), this, SLOT(plotRealization()));
+									addSeparator = true;
+								}
+								if (mainGraphWidget->results->hasRealizationPercentile(obs->name))
+								{
+									plotRealizationPercentile(mainGraphWidget->results->realizationPercentile(obs->name), QString("Realization percentile %1").arg(obs->name));
+									menu->addAction(QString("Plot prediction 95 percentile").arg(obs->name), this, SLOT(plotRealizationPercentile()));
+									addSeparator = true;
+								}
+								if (mainGraphWidget->results->hasNoiseRealization(obs->name))
+								{
+									plotNoiseRealization(mainGraphWidget->results->noiseRealization(obs->name), QString("Realization (Noise) %1").arg(obs->name));
+									menu->addAction(QString("Plot realization (Noise)").arg(obs->name), this, SLOT(plotNoiseRealization()));
+									addSeparator = true;
+								}
+								if (mainGraphWidget->results->hasNoiseRealizationPercentile(obs->name))
+								{
+									plotNoiseRealizationPercentile(mainGraphWidget->results->noiseRealizationPercentile(obs->name), QString("Realization percentile (Noise) %1").arg(obs->name));
+									menu->addAction(QString("Plot prediction 95 percentile (Noise)").arg(obs->name), this, SLOT(plotNoiseRealizationPercentile()));
+									addSeparator = true;
+								}
+
+							}
+							if (addSeparator) menu->addSeparator();
+						}
+
+
+
+						***************/
+		}
 		if (item->parent()->Name() == "Parameters" && mainGraphWidget->results)
 		{
 			bool addSeparator = false;
@@ -712,12 +976,12 @@ void MainWindow::on_projectExplorer_customContextMenuRequested(const QPoint &pos
 			if (mainGraphWidget->results->hasPercentile(par->name))
 			{
 				plotPercentileData(mainGraphWidget->results->percentile(par->name), par->name);
-				menu->addAction(QString("Plot percentile data").arg(name), this, SLOT(plotPercentileData()));
+				menu->addAction(QString("Plot percentiles").arg(name), this, SLOT(plotPercentileData()));
 				addSeparator = true;
 			}
 			if (mainGraphWidget->results->hasPrior(par->name))
 			{
-				plotPriorHistogram(mainGraphWidget->results->prior(par->name), QString ("Propr distribution of %1").arg(par->name));
+				plotPriorHistogram(mainGraphWidget->results->prior(par->name), QString ("Prior distribution of %1").arg(par->name));
 				menu->addAction(QString("Plot prior distribution histogram").arg(name), this, SLOT(plotPriorHistogram()));
 				addSeparator = true;
 			}
@@ -736,11 +1000,17 @@ void MainWindow::on_projectExplorer_customContextMenuRequested(const QPoint &pos
 	}
 	if (projectExplorer->indexAt(pos).data(Role::TreeItemType) == TreeItem::Type::ReactionNetworkItem)
 	{
-		QMenu *menu = new QMenu;
+		//QMenu *menu = new QMenu;
 		menu->addAction(QString("Open reaction network window"), this, SLOT(openRXNWindow()));
 		menu->exec(projectExplorer->mapToGlobal(pos));
 	}
+	menu->exec(projectExplorer->mapToGlobal(pos));
 }
+void MainWindow::on_actionmenuRecent_triggered()//QString fileName)
+{
+	qDebug() << "fileName";// act->text();
+}
+
 void MainWindow::tablePropShowContextMenu(const QPoint&pos)
 {
 	QModelIndex i1 = tableProp->indexAt(pos);
@@ -757,6 +1027,8 @@ void MainWindow::tablePropShowContextMenu(const QPoint&pos)
 		menu->addSeparator();
 		if (i2.data(VariableTypeRole).toString().toLower().contains("getnumber"))
 		{
+			double initial = i2.data(Qt::ToolTipRole).toDouble();
+			getNumber(initial);
 			menu->addAction("Input number", this, SLOT(getNumber()));
 			addParameterIndex(i1); // tableProp->indexAt(pos));
 			menu->addSeparator();
@@ -772,6 +1044,28 @@ void MainWindow::tablePropShowContextMenu(const QPoint&pos)
 			connect(estimatesMenu, SIGNAL(triggered(QAction*)), this, SLOT(addParameter(QAction*)));
 			estimatesMenu->setEnabled(true);
 		}
+		QMenu *controlsMenu = new QMenu("Controls");
+		menu->addMenu(controlsMenu);
+		controlsMenu->setEnabled(false);
+		if (i2.data(VariableTypeRole).toString().toLower().contains("control"))
+		{
+			for each (QString item in mainGraphWidget->EntityNames("Controller"))
+				controlsMenu->addAction(QString("%1").arg(item));// , this, SLOT(addParameter()));
+			addParameterIndex(i1); // tableProp->indexAt(pos));
+			connect(controlsMenu, SIGNAL(triggered(QAction*)), this, SLOT(addParameter(QAction*)));
+			controlsMenu->setEnabled(true);
+		}
+/*		QMenu *objectiveFunctionsMenu = new QMenu("Objective functions");
+		menu->addMenu(objectiveFunctionsMenu);
+		objectiveFunctionsMenu->setEnabled(false);
+		if (i2.data(VariableTypeRole).toString().toLower().contains("control"))
+		{
+			for each (QString item in mainGraphWidget->EntityNames("Controller"))
+				controlsMenu->addAction(QString("%1").arg(item));// , this, SLOT(addParameter()));
+			addParameterIndex(i1); // tableProp->indexAt(pos));
+			connect(controlsMenu, SIGNAL(triggered(QAction*)), this, SLOT(addParameter(QAction*)));
+			controlsMenu->setEnabled(true);
+		}*/
 		menu->exec(tableProp->mapToGlobal(pos));
 	}
 	if (i1.column() == 1 && i1.data(TypeRole).toString().toLower().contains("time series"))
@@ -782,9 +1076,9 @@ void MainWindow::tablePropShowContextMenu(const QPoint&pos)
 		fullfile = fullFilename(fullfile, mainGraphWidget->modelPathname());
 		//QString fullfile = fullFilename(QString("./%1").arg(file), modelPathname());
 		CBTCSet data;
-#ifdef WQV
+#ifdef GIFMOD
 		if (i1.data(TypeRole).toString().toLower().contains("precipitation"))
-			data = CPrecipitation(fullfile.toStdString()).getflow(1);
+			data = CPrecipitation(fullfile.toStdString()).getflow(1,1.0/24.0/4.0);
 		else
 #endif
 			data = CBTCSet(fullfile.toStdString(), 1);
@@ -795,9 +1089,10 @@ void MainWindow::tablePropShowContextMenu(const QPoint&pos)
 				graphNames.append(QString::fromStdString(name));
 			else mainGraphWidget->warning(QString("Duplicate header %1 in time series, file %1").arg(QString::fromStdString(name)).arg(file));
 		}
+		QMenu *menu = new QMenu;
+		menu->addAction("Edit time series");
 		if (graphNames.count())
 		{
-			QMenu *menu = new QMenu;
 			bool convertXtoTime = true;
 			if (i1.data(TypeRole).toString().toLower().contains("age"))
 				convertXtoTime = false;
@@ -808,8 +1103,13 @@ void MainWindow::tablePropShowContextMenu(const QPoint&pos)
 				plotTimeSeries(action, data[subTitle.toStdString()], subTitle, convertXtoTime);
 			}
 			connect(menu, SIGNAL(triggered(QAction*)), this, SLOT(plotTimeSeries(QAction*)));
-			menu->exec(tableProp->mapToGlobal(pos));
 		}
+		QAction *action = menu->exec(tableProp->mapToGlobal(pos));
+		bool precipitation = (i1.data(TypeRole).toString().toLower().contains("precipitation")) ? true : false;
+		if (action)
+			if (action->text() == "Edit time series")
+				csvEditor *editor = new csvEditor(this, precipitation, fullfile, fullfile, tableProp, tableProp->indexAt(pos));
+
 	}
 }
 void MainWindow::showHelp(int code, QString variableName)
@@ -838,9 +1138,16 @@ void MainWindow::addParameter(QAction* item)
 	tableProp->model()->setData(addParameterIndex(), parameter, setParamRole);
 }
 
-void MainWindow::getNumber()
+void MainWindow::getNumber(double initial)
 {
-	double value = QInputDialog::getDouble(this, "Input Dialog Box", "Enter number:", 0, 0, 2147483647, 4);// item->text();
+	static double initialValue = 1;
+	if (initial != -1)
+	{
+		initialValue = initial;
+		return;
+	}
+
+	double value = QInputDialog::getDouble(this, "Input Dialog Box", "Enter number:", initialValue, 0, 2147483647, 4);// item->text();
 
 	tableProp->model()->setData(addParameterIndex(), value);
 }
@@ -877,7 +1184,9 @@ void MainWindow::plotTimeSeries(QAction* action, CBTC data, QString name, bool c
 			if (action == graphs[i].action)
 			{
 				plotWindow *plot = new plotWindow(mainGraphWidget);
-				plot->addScatterPlot(graphs[i].data, graphs[i].name, graphs[i].convertXtoTime, plotformat());
+				plotformat format;
+				format.xAxisTimeFormat = graphs[i].convertXtoTime;
+				plot->addScatterPlot(graphs[i].data, graphs[i].name, format);
 				plot->show();
 				return;
 			}
@@ -1097,10 +1406,34 @@ void MainWindow::plotObservationData(CBTC data, QString name)
 #ifdef GWA
 		convertTime = false;
 #endif
-		plot->addScatterPlot(_data, _name + "(Observation)", convertTime);
+		plotformat format;
+		format.xAxisTimeFormat = convertTime;
+		plot->addScatterPlot(_data, _name + "(Observation)", format);
+		//plot->addScatterPlot(_data, _name + "(Observation)", convertTime);
+		plot->show();
+	}
+	return;
+}
+
+void MainWindow::plotControllerData(CBTC data, QString name)
+{
+	static CBTC _data;
+	static QString _name;
+	if (data.n)
+	{
+		_data = data;
+		_name = name;
+		return;
+	}
+	else
+	{
+		plotWindow *plot = new plotWindow(mainGraphWidget);
+		bool convertTime = true;
+		plot->addScatterPlot(_data, _name + "(Controll)", convertTime);
 		plot->show();
 	}
 }
+
 void MainWindow::plotModeledData(CBTC modeled, CBTC observed, QString _name)
 {
 	static CBTC model, obs;
@@ -1120,15 +1453,16 @@ void MainWindow::plotModeledData(CBTC modeled, CBTC observed, QString _name)
 		format.lineStyle = QCPGraph::LineStyle::lsNone;
 		format.color = Qt::blue;
 		format.scatterStyle = QCPScatterStyle::ssPlusCircle;
-		bool convertTime = true;
+		format.xAxisTimeFormat = true;
 #ifdef GWA
 		convertTime = false;
 #endif
-		plot->addScatterPlot(obs, name + "(Observed)", convertTime, format);
+		plot->addScatterPlot(obs, name + "(Observed)", format);
 		
 		format2.penStyle = Qt::SolidLine;
 		format2.scatterStyle = QCPScatterStyle::ssNone;
-		plot->addScatterPlot(model, name, convertTime, format2);
+		format2.xAxisTimeFormat = true;
+		plot->addScatterPlot(model, name, format2);
 		plot->show();
 	}
 }
@@ -1151,15 +1485,16 @@ void MainWindow::plotModeledDataDot(CBTC modeled, CBTC observed, QString _name)
 		format.lineStyle = QCPGraph::LineStyle::lsNone;
 		format.color = Qt::blue;
 		format.scatterStyle = QCPScatterStyle::ssPlusCircle;
-		bool convertTime = true;
+		format.xAxisTimeFormat = true;
 #ifdef GWA
 		convertTime = false;
 #endif
-		plot->addScatterPlot(obs, name + "(Observation)", convertTime, format);
+		plot->addScatterPlot(obs, name + "(Observation)", format);
 	
 		format2.penStyle = Qt::SolidLine;
 		format2.scatterStyle = QCPScatterStyle::ssPlusCircle;
-		plot->addScatterPlot(model, name + "(Modeled)", convertTime, format2);
+		format2.xAxisTimeFormat = true;
+		plot->addScatterPlot(model, name + "(Modeled)", format2);
 		plot->show();
 	}
 }
@@ -1187,11 +1522,13 @@ void MainWindow::plotAgreementPlotData(CBTC observation, CBTC modeled, QString n
 			format.color = Qt::blue;
 			format.xAxisLabel = "Observation";
 			format.yAxisLabel = "Modeled";
+			format.xAxisTimeFormat = true;
 
 			plot->addDotPlot(_obs.C, _mod.C, "Agreement Plot", format);
 			CBTC regLine(reg["a"], reg["b"], _obs.C);
 			format2.scatterStyle = QCPScatterStyle::ssNone;
-			plot->addScatterPlot(regLine, "Agreement regression", false, format2);
+			format2.xAxisTimeFormat = false;
+			plot->addScatterPlot(regLine, "Agreement regression", format2);
 			plot->show();
 		}
 	}
@@ -1215,13 +1552,14 @@ void MainWindow::plotRealization(CBTCSet data, QString name)
 		plotformat format;
 		format.legend = false;
 		format.penWidth = 1;
-		bool convertTime = true;
+		format.xAxisTimeFormat = true;
 #ifdef GWA
 		convertTime = false;
 #endif
 		for (int i = 0; i < _data.nvars; i++)
 		{
-			plot->addScatterPlot(_data[i], QString::fromStdString(_data[i].name), convertTime, format);
+			qDebug() << QString::fromStdString(_data[i].name);
+			plot->addScatterPlot(_data[i], QString::fromStdString(_data[i].name), format);
 		}
 		plot->show();
 	}
@@ -1275,10 +1613,10 @@ void MainWindow::plotRealizationPercentile(CBTCSet data, QString name)
 			plotformat format;
 			format.penWidth = 1;
 			format.color = Qt::GlobalColor(i);
-			
+			format.xAxisTimeFormat = convertTime;
 			if (i == _data.nvars - 1)
 				format.fillGraph = g1;
-			g2 = plot->addScatterPlot(_data[i], QString::fromStdString(_data[i].name), convertTime, format);
+			g2 = plot->addScatterPlot(_data[i], QString::fromStdString(_data[i].name), format);
 			if (i == 1)
 				g1 = g2;
 		}
@@ -1467,16 +1805,63 @@ bool MainWindow::saveModel(QString &fileName)
 		}
 		QDataStream out(&file);
 		out.setVersion(QDataStream::Qt_4_5);
-#ifdef WQV
-		out << QString("GIFMod Data File version 1.2"); //1.1 with defaultUnit // 1.2 Multi experiment
+#ifdef GIFMOD
+		out << QString("GIFMod Data File version 1.3"); //1.1 with defaultUnit // 1.2 Multi experiment
 #endif
 #ifdef GWA
 		out << QString("GWA Data File version 1.2"); // with defaultUnit
 #endif
 		//		modelConfig mC(mainGraphWidget);
-		out << mainGraphWidget->compact();
-		setModelFileName(fileName);
-		mainGraphWidget->changedState = false;
+		clock_t t0, t1;		t0 = clock();
+
+		{
+
+//			QList<QMap<QString, QVariant>> tmp = mainGraphWidget->compact();
+
+			t1 = clock() - t0;		float run_time = ((float)t1) / CLOCKS_PER_SEC;		QString st = " sec";		if (run_time >= 60) { run_time /= 60; st = " min"; }
+			if (run_time >= 60) { run_time /= 60; st = " hr"; }		QString r = QString("%1 %2").arg(run_time).arg(st);
+
+//			qDebug() << "getWhole data " << r;
+//			getTime();
+
+			qDebug() << "start to getWhole data ";
+			getTime();
+			out << mainGraphWidget->compact();
+			qDebug() << "write data to file " << getTime();
+			file.flush();
+			qDebug() << "file flushed." << getTime();
+
+//			setModelFileName(fileName);
+//			mainGraphWidget->changedState = false;
+
+			file.close();
+			qDebug() << "file closed." << getTime();
+/*			for (int i = tmp.size()-1; i >= 0; i--)
+			{
+				qDebug() << "is going to clear tmp[" << i << "]" << getTime();
+				if (i)
+					tmp[i].clear();
+				else
+				{
+					for each (QString key in tmp[i].keys())
+					{
+						qDebug() << "is going to remove " << key << getTime();
+						tmp[i].remove(key);
+						qDebug() <<  key << " removed" << getTime();
+
+					}
+				}
+				qDebug() << "tmp [" << i << "] has been cleared." << getTime();
+			}
+
+			tmp.clear();
+			*/
+			qDebug() << "file size is " << file.size() << ", in " << getTime();
+			qDebug() << "end of Bracket " << getTime();
+
+		}
+		qDebug() << "returning from save " << getTime();
+
 		return true;
 	}
 }
@@ -1562,6 +1947,12 @@ void MainWindow::on_actionSave_Reaction_Network_triggered()
 
 }
 
+void MainWindow::on_actionReactions_triggered()
+{
+	openRXNWindow();
+}
+
+
 void MainWindow::on_actionNewExperiment_triggered()
 {
 	//QStringList globalEntitiesList;
@@ -1590,10 +1981,33 @@ void MainWindow::addExperiment(QString sourceExperiment)
 	mainGraphWidget->experiments->setCurrentText(name);
 }
 
+void MainWindow::on_actionremoveCurrentExperiment_triggered()
+{
+	if (mainGraphWidget->experimentName() == "All experiments")
+	{
+		QMessageBox::information(this, tr("Remove experiment"),
+			"Experiments should be removed one by one.");// , QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::No)
+		return;
+	}
+	if (mainGraphWidget->experimentsList().count() == 1)
+	{
+		QMessageBox::information(this, tr("Remove experiment"),
+			"At least one experiment should be left.");// , QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::No)
+		return;
+	}
+	if (QMessageBox::question(this, tr("Remove experiment"),
+		QString("%1 is going to be removed from the model.\nAre you sure?").arg(mainGraphWidget->experimentName()), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::No)
+		return;
+
+	//remove current experiment
+	mainGraphWidget->experiments->removeItem(mainGraphWidget->experimentID());
+	mainGraphWidget->experimentSelect(mainGraphWidget->experimentName());
+	emit mainGraphWidget->changed();
+}
 
 void MainWindow::openRXNWindow()
 {
-#ifdef WQV
+#ifdef GIFMOD
 	QMainWindow *rxnW = new ReactionWindow(mainGraphWidget, this);
 	rxnW->show();
 #endif
@@ -1601,6 +2015,7 @@ void MainWindow::openRXNWindow()
 
 void MainWindow::on_actionRun_Model_triggered()
 {
+	mainGraphWidget->tableProp->setModel(0);
 	if (!mainGraphWidget->allowRun)
 	{
 		statusBar()->showMessage("Unable to run Model.");
@@ -1608,13 +2023,14 @@ void MainWindow::on_actionRun_Model_triggered()
 		mainGraphWidget->allowRun = true;
 		return;
 	}
+
 	if (!mainGraphWidget->Nodes().size())
 	{
 		statusBar()->showMessage("Unable to run Model.");
 		mainGraphWidget->log("The model should have at least one block to run.");
 		return;
 	}
-#ifdef WQV
+#ifdef GIFMOD
 	QString fileName = mainGraphWidget->modelFilename;
 	mainGraphWidget->modelFilename.replace(QString(".").append(fileExtension), ".temp");
 	on_action_Save_triggered();
@@ -1646,8 +2062,8 @@ void MainWindow::on_actionRun_Model_triggered()
 	statusBar()->showMessage("Assembling model configuration.");
 	mainGraphWidget->logW->writetotempfile();
 	QCoreApplication::processEvents();
-	runtimeWindow *rtw = new runtimeWindow(mainGraphWidget);
-	mainGraphWidget->deleteSolution();
+	rtw = new runtimeWindow(mainGraphWidget);
+	mainGraphWidget->deleteSolutionResults();
 	mainGraphWidget->modelSet = new CMediumSet(mainGraphWidget, rtw);
 	rtw->show();
 	mainGraphWidget->log("Running Simulation.");
@@ -1711,7 +2127,7 @@ void MainWindow::on_actionRun_Model_from_Script_triggered()
 		return;
 	}
 
-#ifdef WQV
+#ifdef GIFMOD
 	QString fileName = QFileDialog::getOpenFileName(this,
 		tr("Open Green InfraStructure Script Text"), "",
 		tr("Script Text (*.txt);;All Files (*)"));
@@ -1732,7 +2148,7 @@ void MainWindow::on_actionRun_Inverse_Model_triggered()
 		return;
 	}
 
-#ifdef WQV
+#ifdef GIFMOD
 	QString fileName = mainGraphWidget->modelFilename;
 	mainGraphWidget->modelFilename.replace(QString(".").append(fileExtension), ".temp");
 	on_action_Save_triggered();
@@ -1773,8 +2189,8 @@ void MainWindow::on_actionRun_Inverse_Model_triggered()
 	statusBar()->showMessage("Assembling model configuration.");
 	mainGraphWidget->logW->writetotempfile();
 	QCoreApplication::processEvents();
-	runtimeWindow *rtw = new runtimeWindow(mainGraphWidget, "inverse");
-	mainGraphWidget->deleteSolution();
+	rtw = new runtimeWindow(mainGraphWidget, "inverse");
+	mainGraphWidget->deleteSolutionResults();
 	mainGraphWidget->modelSet = new CMediumSet(mainGraphWidget, rtw);
 	rtw->show();
 	mainGraphWidget->log("Running Simulation.");
@@ -1841,23 +2257,23 @@ void MainWindow::on_action_Hydraulic_Outputs_triggered()
 	plot->show();
 }
 
-void MainWindow::on_actionProjectSetting_triggered()
+void MainWindow::on_actionProjectSettings_triggered()
 {
-	Entity * e = mainGraphWidget->entityByName("Project setting");
+	Entity * e = mainGraphWidget->entityByName("Project settings");
 	if (e)
 		e->setSelected(true);
 }
 
-void MainWindow::on_actionClimateSetting_triggered()
+void MainWindow::on_actionClimateSettings_triggered()
 {
-	Entity * e = mainGraphWidget->entityByName("Climate setting");
+	Entity * e = mainGraphWidget->entityByName("Climate settings");
 	if (e)
 		e->setSelected(true);
 }
 
-void MainWindow::on_actionSolverSetting_triggered()
+void MainWindow::on_actionSolverSettings_triggered()
 {
-	Entity * e = mainGraphWidget->entityByName("Solver setting");
+	Entity * e = mainGraphWidget->entityByName("Solver settings");
 	if (e)
 		e->setSelected(true);
 }
@@ -1884,17 +2300,229 @@ void MainWindow::on_actionExport_to_Script_Language_triggered()
 	setCursor(Qt::ArrowCursor);
 
 }
+
+void MainWindow::on_actionShowRuntimeWindow_triggered()
+{
+	if (rtw)
+		rtw->show();
+}
+
+void MainWindow::on_actionRecent_triggered()
+{
+	QAction* a = static_cast<QAction*> (QObject::sender());
+	QString fileName = a->text();
+	if (loadModel(fileName))
+	{
+		on_actionZoom_All_triggered();
+		mainGraphWidget->updateNodeCoordinates();
+		addToRecentFiles(fileName, false);
+	}
+	else
+		removeFromRecentList(a);
+}
+
+void MainWindow::on_actionReset_colors_triggered()
+{
+	mainGraphWidget->colorSchemeLegend_closed();
+}
+
+
+void MainWindow::menuWaterQuality_hovered()
+{
+	static double t = 0;
+	if (time(0) - t >= 4)
+	{
+		t = time(0);
+		//aqueous
+		QMenu *waterQualitySubMenu = ui->menuWaterQuality;
+		QAction *a;
+
+		qDeleteAll(waterQualitySubMenu->actions());
+		if (!mainGraphWidget->model)
+			return;
+
+		if (mainGraphWidget->model->colloid_transport() && mainGraphWidget->entitiesByType("Particle").count())
+		{
+			for each (Entity *p in mainGraphWidget->entitiesByType("Particle"))
+			{
+				QMenu *particleSubMenu = waterQualitySubMenu->addMenu(p->Name());
+				
+				if (p->getValue("Model").contains("Single"))
+				{
+					a = particleSubMenu->addAction("Mobile");
+					updateAction(a, "Particle", p->Name());
+				}
+				if (p->getValue("Model").contains("Dual"))
+				{
+					a = particleSubMenu->addAction("Mobile");
+					updateAction(a, "Particle", p->Name());
+					a = particleSubMenu->addAction("Attached");
+					updateAction(a, "Particle", p->Name());
+				}
+				if (p->getValue("Model").contains("Triple"))
+				{
+					a = particleSubMenu->addAction("Mobile");
+					updateAction(a, "Particle", p->Name());
+					a = particleSubMenu->addAction("Reversible attached");
+					updateAction(a, "Particle", p->Name());
+					a = particleSubMenu->addAction("Irreversible attached");
+					updateAction(a, "Particle", p->Name());
+				}
+			}
+		}
+		if (mainGraphWidget->model->constituent_transport() && mainGraphWidget->entitiesByType("Constituent").count())
+		{
+			if (mainGraphWidget->model->colloid_transport() && mainGraphWidget->entitiesByType("Particle").count())
+				ui->menuWaterQuality->addSeparator();
+			for each (Entity *e in mainGraphWidget->entitiesByType("Constituent"))
+			{
+				a=waterQualitySubMenu->addAction(e->Name());
+				updateAction(a, "Constituent", "", e->Name(), "");
+			}
+			QMenu *sorbedSubMenu = waterQualitySubMenu->addMenu("Sorbed/Particle associated");
+			QMenu *constituentSorbedSubMenu;
+			for each (Entity *e in mainGraphWidget->entitiesByType("Constituent"))
+			{
+				constituentSorbedSubMenu = sorbedSubMenu->addMenu(e->Name());
+				a=constituentSorbedSubMenu->addAction("Soil");
+				updateAction(a, "Constituent", "Soil", e->Name(), "");
+				for each (Entity *p in mainGraphWidget->entitiesByType("Particle"))
+				{
+					QMenu *particleSubMenu = constituentSorbedSubMenu->addMenu(p->Name());
+					if (p->getValue("Model").contains("Single"))
+					{
+						a =particleSubMenu->addAction("Mobile");
+						updateAction(a, "Constituent", p->Name(), e->Name());
+					}
+					if (p->getValue("Model").contains("Dual"))
+					{
+						a=particleSubMenu->addAction("Mobile");
+						updateAction(a, "Constituent", p->Name(), e->Name());
+						a=particleSubMenu->addAction("Attached");
+						updateAction(a, "Constituent", p->Name(), e->Name());
+					}
+					if (p->getValue("Model").contains("Triple"))
+					{
+						a=particleSubMenu->addAction("Mobile");
+						updateAction(a, "Constituent", p->Name(), e->Name());
+						a=particleSubMenu->addAction("Reversible attached");
+						updateAction(a, "Constituent", p->Name(), e->Name());
+						a=particleSubMenu->addAction("Irreversible attached..");
+						updateAction(a, "Constituent", p->Name(), e->Name());
+					}
+				}
+			}
+		}
+	}
+}
+void MainWindow::updateAction(QAction *a, QString particleConstituent, QString p, QString c, QString phase)
+{
+	QStringList data;
+	data.append(particleConstituent);
+	data.append(p);
+	data.append(c);
+	if (phase == "get from action")
+		data.append(a->text());
+	else
+		data.append(phase);
+	a->setData(data);
+	connect(a, SIGNAL(triggered()), this, SLOT(waterQualityPostProcessing_clicked()));
+}
+void MainWindow::waterQualityPostProcessing_clicked()
+{
+	QAction* a = static_cast<QAction*> (QObject::sender());
+	QStringList list = a->data().toStringList();
+	mainGraphWidget->updateNodesColorCodes_WaterQuality(list, false, "Blue-Red");
+}
+void MainWindow::menuWaterQuality_triggered()
+{
+	int i = 0;
+}
+
+void MainWindow::on_actionContact_Us_triggered()
+{
+	int i = 0;
+}
+
+void MainWindow::on_actionContact_Us_hovered()
+{
+	int i = 0;
+}
+
+void MainWindow::removeFromRecentList(QAction* selectedFileAction)
+{
+	recentFiles.removeAll(selectedFileAction->text());
+	ui->menuRecent->removeAction(selectedFileAction);
+	writeRecentFilesList();
+}
+void MainWindow::writeRecentFilesList()
+{
+	ofstream file(localAppFolderAddress().toStdString() + RECENT);
+	if (file.good())
+	{
+		int i = recentFiles.removeDuplicates();
+		for each (QString fileName in recentFiles)
+			file << fileName.toStdString() << endl;
+	}
+	file.close();
+}
+
 void MainWindow::on_actionAbout_triggered()
 {
 	QString ver;
-#ifdef WQV
-	ver = "Version 0.0.76";
+#ifdef GIFMOD
+	ver = QString("Version %1").arg(GIFMOD_VERSION);
 #endif
 #ifdef GWA
 	ver = "Version 0.0.5";
 #endif
 	QMessageBox::information(this, "About " + applicationName,
 		ver);
+}
+void MainWindow::on_actioncolorCodedResults_triggered()
+{
+}
+void MainWindow::on_actioncolorCodeStorage_triggered()
+{
+	mainGraphWidget->updateNodesColorCodes("Storage", false, "Blue-Red");
+
+}
+void MainWindow::on_actioncolorCodeHead_triggered()
+{
+	mainGraphWidget->updateNodesColorCodes("Head", false, "Blue-Red");
+
+}
+void MainWindow::on_actioncolorCodeMoistureContent_triggered()
+{
+	mainGraphWidget->updateNodesColorCodes("Moisture content", false, "Blue-Red");
+
+}
+void MainWindow::on_actioncolorCodeWaterDepth_triggered()
+{
+	mainGraphWidget->updateNodesColorCodes("Water depth", false, "Blue-Red");
+
+}
+void MainWindow::on_actioncolorCodeEvaporationRate_triggered()
+{
+	mainGraphWidget->updateNodesColorCodes("Evaporation rate", false, "Blue-Red");
+
+}
+void MainWindow::on_actionColorCodeConnectorFlow_triggered()
+{
+	mainGraphWidget->updateEdgesColorCodes("Flow", false, "Blue-Red");
+}
+void MainWindow::on_actionColorCodeConnectorVelocity_triggered()
+{
+	mainGraphWidget->updateEdgesColorCodes("Velocity", false, "Blue-Red");
+}
+void MainWindow::on_actionColorCodeConnectorArea_triggered()
+{
+	mainGraphWidget->updateEdgesColorCodes("Area", false, "Blue-Red");
+
+}
+void MainWindow::on_actionColorCodeConnectorVaporExchangeEate_triggered()
+{
+	mainGraphWidget->updateEdgesColorCodes("Vapor exchange rate", false, "Blue-Red");
 }
 void MainWindow::gwidgetChanged()
 {

@@ -85,8 +85,8 @@ bool ConstituentTableModel::setData(const QModelIndex & index, const QVariant & 
 	{
 		QStringList experimentstobeUpdated;
 		experimentstobeUpdated.append(node->experimentName());
-		if (node->experimentName() == "Global")
-			experimentstobeUpdated.append(node->parent->experimentsList());
+		if (node->experimentName() == "All experiments")
+			experimentstobeUpdated = node->parent->experimentsList();
 
 		if (col == 0)
 		{
@@ -136,11 +136,11 @@ bool ConstituentTableModel::setData(const QModelIndex & index, const QVariant & 
 	item.Value = "0";// value.toFloat();
 	
 	
-	node->constituentInitialCondition().append(item);
+//	node->constituentInitialCondition().append(item);
 	insertRows(rowCount(), 1);
-	if (node->experimentName() != "Global")
+	if (node->experimentName() != "All experiments")
 	{
-		//		node->particleInitialCondition().append(item);
+		node->constituentInitialCondition().append(item);
 		gWidget->log(QString("Constituent initial condition (%1, %2, %3, %4) added to block: %5 for experiment %6.").arg(item.Constituent).arg(item.Particle).arg(item.Model).arg(item.Value).arg(node->Name()).arg(node->experimentName()));
 		return true;
 	}
@@ -159,7 +159,7 @@ bool ConstituentTableModel::removeRows(int firstRow, int lastRow, const QModelIn
 {
 	if (firstRow == -1 || lastRow == -1) return false;
 	beginRemoveRows(parent, firstRow, lastRow);
-	if (node->experimentName() == "Global")
+	if (node->experimentName() == "All experiments")
 		for each(QString experiment in node->parent->experimentsList())
 			node->constituentInitialCondition(experiment).removeAt(firstRow);
 	else

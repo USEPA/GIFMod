@@ -1,4 +1,4 @@
-#ifdef WQV
+#ifdef GIFMOD
 #ifndef FREEZETABLEWIDGET_H
 #define FREEZETABLEWIDGET_H
 

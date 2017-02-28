@@ -204,6 +204,17 @@
             </property>
            </spacer>
           </item>
+          <item>
+           <widget class="QCheckBox" name="refreshPlot">
+            <property name="text">
+             <string>Refresh graph 
+at each time step</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>

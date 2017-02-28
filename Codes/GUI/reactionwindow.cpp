@@ -1,4 +1,4 @@
-#ifdef WQV
+#ifdef GIFMOD
 #include "reactionwindow.h"
 #include <QStringList>
 #include "reactiontablewidget.h"
@@ -31,7 +31,7 @@ struct ReactionWindowPri
 
 ReactionWindow::ReactionWindow(QWidget *parent) : QMainWindow(parent), d(new ReactionWindowPri)
 {   
-	GraphWidget *mainGraphWidget; //it should be replaced in order to work
+	GraphWidget *mainGraphWidget; 
     ReactionTableWidget* rtw = new ReactionTableWidget(mainGraphWidget, d->Constituents, d->Parameters, d->Functions, d->Physical);
     setCentralWidget(rtw);
     resize( 800, 200);

@@ -1,4 +1,4 @@
-#ifdef WQV
+#ifdef GIFMOD
 #pragma once
 
 #include <QtCore/QVariant>
@@ -57,15 +57,17 @@ private slots :
 	void on_radioButtonV_clicked(bool checked);
 	void on_radioButtonH_toggled(bool checked);
 	void on_radioButtonV_toggled(bool checked);
+	void on_radioButtonR_toggled(bool checked);
 
 	void closeEvent(QCloseEvent *event);
 
 signals:
 
 private:
-	XString z0, height;
+	XString z0, height, r0;
 	bool accepted = false;
 	QDoubleValidator *validator;
 	QMap<QString, XString> results;
+	void updateR0Label();
 };
 #endif

@@ -9,7 +9,8 @@
 #include "armadillo"
 #include "StringOP.h"
 #include "qstring.h"
-
+#include "qmap.h"
+#include "qvariant.h"
 
 
 using namespace arma;
@@ -92,8 +93,8 @@ CMatrix::~CMatrix()
 	matr.clear();
 }
 
-int CMatrix::getnumrows() {return numrows;};
-int CMatrix::getnumcols() {return numcols;};	
+int CMatrix::getnumrows() const {return numrows;};
+int CMatrix::getnumcols() const {return numcols;};	
 
 CMatrix& CMatrix::operator=(const CMatrix &m)
 {
@@ -952,6 +953,65 @@ vector<string> CMatrix::toHtml(string format, vector<string> columnHeaders, vect
 
 void CMatrix::setnumcolrows()
 {
-	numcols = matr[0].getsize();
-	numrows = matr.size();
+	if (matr.size())
+	{
+		numcols = matr[0].getsize();
+		numrows = matr.size();
+	}
+	else
+	{
+		numcols = 0;
+		numrows = 0;
+	}
+}
+
+QMap<QString, QVariant> CMatrix::compact() const
+{
+	QMap<QString, QVariant> r;
+	r["nrows"] = numrows;
+	r["ncols"] = numcols;
+	for (int i = 0; i<numrows; ++i)
+	{
+		QStringList rowList;
+		for (int j = 0; j < numcols; j++)
+		{
+			rowList.append(QString::number(matr[i].vec[j]));
+		}
+		QString code = QString("row %1").arg(i);
+		r[code] = rowList;
+	}
+	return r;
+}
+CMatrix CMatrix::unCompact(QMap<QString, QVariant> r)
+{
+	CMatrix m;
+	m.numrows = r["nrows"].toInt();
+	m.numcols = r["ncols"].toInt();
+	m.matr.resize(m.numrows);
+
+	for (int i = 0; i < m.numrows; ++i)
+	{
+		m.matr[i].vec.resize(m.numcols);
+		m.matr[i].num = m.numcols;
+	}
+	for (int i = 0; i < m.numrows; ++i)
+	{
+		QString code = QString("row %1").arg(i);
+		QStringList rowList = r[code].toStringList();
+		for (int j = 0; j < rowList.count(); j++)
+		{
+			m.matr[i].vec[j] = rowList[j].toDouble();
+		}
+	}
+	return m;
+}
+
+CMatrix::CMatrix(CMatrix_arma &M)
+{
+	numrows = M.getnumrows();
+	numcols = M.getnumcols();
+	for (int i = 0; i < numrows; i++)
+		for (int j = 0; j < numcols; j++)
+			matr[i][j] = M(i, j);
+
 }

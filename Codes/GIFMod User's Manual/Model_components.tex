@@ -1,0 +1,353 @@
+In this chapter the main building blocks a GI hydraulic and water quality model are described. The chapter is organized based on the order objects are shown in the "Project Explorer" window. In the first section the items under the "Settings" branch are discussed. These are the settings that determines the general properties of a project including the simulation duration, global time-series data such as precipitation, relative humidity, light, temperature and wind that can affect all of the blocks in a model and also solver setting that are adjusting parameters of the solver engine. In the second section properties of block and connectors as the main building blocks of a model are discussed. In the third section different evapotranspiration models available in GIFMod are explained. In section four, setting up the water quality component are discussed and in section five the inverse modeling capabilities of GIFMod are described. 
+
+\section{Settings}
+There are three branches under the "Settings" main branch in Project Explorer including "Project Settings", "Climate Settings", and "Solver Settings". Below the properties under each of these categories are described. 
+\subsection{Project Settings}
+General required information about a project listed under this group. This includes the start and end times and project description. 
+
+\begin{itemize}
+\item %help:100144
+\textbf{Simulation Start Time: } This indicates the start date of the simulation. If this number is not entered by the user a default value of zero (equivalent to 1/1/1900) will be assigned to the start time of the project. All time series data such as inflows, precipitation, temperature, ... should be organized in a consistent way with the project start and end time. %help:end
+\item %help:100145
+\textbf{Simulation End Time: } This indicates the simulation end time. If this number is not entered, the default value of 1 (equivalent to 1/2/1900) will be automatically assigned. 
+\item \textbf{Project Description: } This item provides a space to enter a memo as a general description about the project. %help:end
+\item %help:100159
+\textbf{Working path: } This indicates the folder where the outputs of the simulation are saved in. All outputs of a simulation including hydraulics, particles, and water quality are saved in this folder as well as some information about the simulation performance that may be needed to debug a model setup. %help:end
+\item %help:100317
+\textbf{Steady-state hydraulics} Switching this option to Yes will result in a quasi steady-state solution of hydraulics. The quasi steady-state solution is based on the assumption of no changes in the storage of blocks and then calculating instantaneous flow rates between the blocks based on this assumption. This option is useful for example when an activated sludge simulation is meant to be performed using GIFMod. %help:end
+\end{itemize}
+\subsection{Climatic Settings}
+This sub-branch allows introducing time-series containing external forcing that can be applied to all (or selected) blocks. These include precipitation, light, humidity, temperature and wind. Light is needed in some of the evapotranspiration models available in GIFMod but also can be included as a limiting factor in transformation processes (reactions) for example when algae growth is meant to be modeled. Humidity and wind also are needed in some of the evapotranspiration models while temperature not only is needed in calculating evaporation it can be specified to affect the value of reaction parameters as it is discussed in section (xx.xx). All of the time-series information in GIFMod must be provided as external text files with .csv format.
+\begin{itemize}
+\item %help:100132
+\textbf{Precipitation: }  The file structure for precipitation data is a comma separated (.csv) text file with three columns. The first and second columns are respectively the start and end times over which the volume of precipitation is given in the third column. The time values should be consistent with the standard time format where the value is the number of days past 1/1/1900. The units of precipitation volume is in (m) units. Figure \ref{fig:8} shows an example precipitation input file. It should be noted that the program converts precipitations to inflow time-series according to the area of the blocks and then interpolate the values at the computational time-steps. So it is important that the dry periods to be included with zero precipitation volume. When the precipitation file is loaded the user can see the time-series graphically by right-clicking on the file-name and clicking on the "Data" item in the drop-down menu. 
+\begin{figure}[!ht]\label{fig:8}
+\begin{center}
+\includegraphics[width=5cm]{Images/Figure8.png} \\
+\caption{A sample precipitation file} 
+\end{center}
+\end{figure} %help:end
+\item %help:100177
+\textbf{Light: } Light is also provided in .csv text format. The time-series data should be arranged in two columns, when the first column represent time and the second light intensity in $(W/m^2)$ or other units as long as it is consistent with other parts of the model. Figure /ref{fig:9} shows an example light time series data. The name field in the first row is optional. 
+\begin{figure}[!ht]\label{fig:9}
+\begin{center}
+\includegraphics[width=5cm]{Images/Figure9.png} \\
+\caption{A sample light intensity time-series file} 
+\end{center}
+\end{figure} %help:end
+\item %help:100178
+\textbf{Humidity: } This is where the relative humidity (vapor pressure/saturation vapor pressure) time-series can be provided to the model. The format of the input file is a two column .csv text file similar to light. In most meteorological databases dew point temperature is provided instead of the relative humidity. In that case, the relative humidity can be calculated as:
+\begin{equation}
+\label{eq:6}
+R_h=exp\big[17.62(\frac{T_d}{243.5+T_d}-\frac{T}{243.5+T}) \big]
+\end{equation}
+where $T$ and $T_d$ are respectively the actual temperature and dew-point temperature in $^oC$. %help:end  
+\item %help:100240
+\textbf{Temperature: } The format of the temperature time-series is the same as light and relative humidity. The values must be provided in $^oC$. %help:end
+\item %help:100241
+\textbf{Wind: } Wind time-series is needed in several of the evapotranspiration models such as the Penman model and the aerodynamic model (section xx.xx). The units should be consistent with the coefficients used in the evaporation model. The format of the wind time-series input data file is the same as temperature, humidity, and light. %help:end
+\end{itemize}
+\subsection{Solver Settings}
+Using solver setting the user can adjust the parameters the solver engine uses to solve the governing equations of the model. In most cases the user can leave the default parameters unchanged. The optimal values of these parameters however are problem dependent and there is no unique setting that works for all model configurations. In the following, each parameter is described briefly:
+\begin{itemize}
+\item \textbf{Allow Negative Concentration: } This option specifies whether the solver allows constituent concentrations to become negative (due mainly to numerical errors) during the simulation. Sometimes small negative values for concentrations can cause problems in reactions while in some models a small negative concentration can be effectively interpreted as a zero concentration and may not affect other constituents. When the option is set to "no" the Newton-Raphson solver rejects any solution that contains a negative concentration and start over with a smaller time-step which may cause slowing down of the computation. 
+\item \textbf{Check Positive Definiteness: } This option specifies whether the solver should adjust the time-step size based on the level of positive-definiteness of the Jacobian matrix related to transport of particles and constituents. Maintaining a positive-definite Jacobian by limiting the time-step resulting in smaller oscillation in the solution but can result in a longer computational time.
+\item \textbf{Time weighting factor: } This option allows specifying the time weighting factor user in temporal discretization. In other words, it determines the weights given to the weight given to the values of the right hand sides of the balance equations evaluated at the current and the previous time-steps. A value of 0 for the Time Weighting Factor indicates a fully implicit scheme while a value of 1 indicates a fully explicit scheme. The default value is 0.5 which results in Crank-Nichoson time weighting scheme. 
+\item \textbf{Failure Criteria number of iterations: } This option indicates the maximum number of Newton-Raphson iterations to be considered a faiure in convergence. When this number of iterations is reached, the solver terminates the iterations, and start over with a smaller time-step and a newly calculated inverse Jacobian matrix. \item \textbf{Initial time step size: }  This value serves two purposes. First it is the time-step that is used initially by the solver engine. It may grow or shrink later depending on the success of the Newton-Raphson algorithm to converge and the number of iterations needed for convergence. The model outputs are also saved based on this time step size if the option "Uniform output interval" is set to yes. 
+\item \textbf{Jacobian update interval: }  This indicate the number of time-steps that the Jacobian matrix is recalculated regardless of the convergence success of the Newton-Raphson method. 
+\item \textbf{Newton-Raphson acceptance tolerance: }  The Newton-Raphson is considered converged when the 2-norm of the residual vector is below this tolerance level. A smaller value results in a more accurate result but a longer simulation time. 
+\item \textbf{Perform mass-balance check: }  Setting this option to Yes results in a file being created in the folder specified in the "Working Path" showing the mass balance errors during the simulation period. 
+\item \textbf{Perform particle transport simulation: } This specifies whether a particle transport simulation to be performed or not. If no particles are introduced, no simulation on particle transport is performed by the program regardless of this switch. If at least one particle type is introduced and the "Perform Water Quality Simulation" is set to Yes, particle transport simulation will also be conducted regardless of this option. 
+\item \textbf{Perform water quality simulation:} Determines whether water quality simulation should be performed or not when at least one constituent is introduced.
+\item \textbf{Preferred lower limit of NR iteration:} The computational engine increases the time step size when the number of iterations needed to achieve convergence is below this number. 
+\item \textbf{Preferred upper limit of NR iteration:} The computational engine decreases the time step size when the number of iterations needed to achieve convergence is above this number. 
+\item \textbf{Restore Interval:} When a convergence is not achieved after twice reducing the time-step by "time step change coefficient in case of failure", the solution time goes back to a restore interval and continue with a smaller time-step. The "Restore interval" are the number of time-step increments at which restore points are recorded.
+\item \textbf{Solution method:} Indicates the solution method used by the solver engine. The only method available at this time is Newton-Raphson. 
+\item \textbf{Solution oscillation tolerance: } This is a criteria that is used to assess whether the wiggles in the solution and to adjust the time-step accordingly. When the second time derivative of any of the state variables normalized by the maximum computed value for that state variable up a given time exceeds this value the time-step size is reduced and the iteration at that time is repeated.
+\item \textbf{Time step change rate coefficient in case of failure: } This indicates the factor by which the time-step size is reduced if the number of iterations to achieve convergence by the Newton-Raphson algorithm exceeds the "Failure Criteria number of iterations" or that a concentration becomes negative when "Allow Negative Concentration" is set to No. This reduction factor is also used when the solution time goes back to a restore point. 
+\item \textbf{Time step change rate coefficient: } The time step is increased or decreased by this factor respectively when the number of iterations to achieve convergence is below "Preferred lower limit of NR iteration" or above "Preferred upper limit of NR iteration". 
+\item \textbf{Uniform output export interval: } Indicates whether the outputs should be saved with uniform intervals given in "Initial time step size" or based on the computational time-steps determined by the adaptive time-step algorithm. Setting this option to yes makes the program to interpolate outputs at uniform intervals and save the uniformly timed outputs in the output files. 
+\item \textbf{Write solution details: } Switching this option to yes, results in the program creating a file named "Solution\_Details.txt" in the working path folder containing some details of the solver perform ace at every computational time-step. This file is useful to find possible bugs in the model structure defined by the user. 
+\item \textbf{Steady-state hydraulics} Switching this option to Yes will result in a quasi steady-state solution of hydraulics. The quasi steady-state solution is based on the assumption of no changes in the storage of blocks and then calculating instantaneous flow rates between the blocks based on this assumption. This option is useful for example when an activated sludge simulation is meant to be performed using GIFMod. 
+\end{itemize}
+\section{Properties of Blocks}
+In this section different media types available in the model are described. Some properties of the blocks are only specific to some of the media types while others may be shared between different blocks. Figure \ref{fig:7} shows different types of media available in GIFMod. The head-storage relationship provided can be altered by the user on a need-based fashion. For example for a pond with a given bathymetry, non-linear head storage relationships may be more appropriate. 
+\begin{figure}[!ht]\label{fig:7}
+\begin{center}
+\begin{tabular}{c c c}
+Storage & Saturated Soil & Pond\\
+\includegraphics[width=4cm]{Images/Figure7a.png} &
+\includegraphics[width=4cm]{Images/Figure7b.png} &
+\includegraphics[width=4cm]{Images/Figure7c.png} \\
+$h=\frac{S}{A_s\theta_s}-\frac{\epsilon}{s_e^{n_e}}$\\$+pos(\theta-\theta_s)/S_s$ & $h=h_0 + \frac{\theta-\theta_S}{S_s}$ & $h=z_0+\frac{S}{A_s}$\\\hline
+\\
+Unsaturated Soil & Stream Segment & Overland flow \\
+\includegraphics[width=4cm]{Images/Figure7d.png} &
+\includegraphics[width=4cm]{Images/Figure7e.png} &
+\includegraphics[width=4cm]{Images/Figure7f.png} \\
+$h=z_0-\frac{H(\theta_s-\theta)}{\alpha}(s_e^{n/(1-n)}-1)^{1/n}$\\$+pos(\theta-\theta_s)/S_s$ & $h=z_0+\frac{S}{A_s}$ &  $h=z_0+\frac{S}{A_s}$\\
+\end{tabular}
+\caption{Media types and the head-storage relationship in GIFMod} 
+\end{center}
+\end{figure}
+When two blocks are connected using a "Connector", GIFMod automatically assigns the a default connector by default. However, the connectors can be later altered by the user. When two blocks are of the same type the choice of connector type is consisted with the type of the blocks. For example when the two blocks connected are "Saturated Soil", the Darcy equation controls the flow rate between them. However, when the types of the blocks are not consistent the choice of the default connector sometimes depend on which one is at a higher elevation. Table \ref{table:1} shows the default governing equations assigned by GIFMod when two blocks of certain type are connected. 
+
+
+\begin{table}[!ht]
+\small
+\begin{center}
+\rotatebox{90}{
+\begin{tabular}{c | c c c c c c}
+bottom\setminus top & \multicolumn{1}{m{2.4cm}}{Unsaturated Soil} & Pond & Storage & \multicolumn{1}{m{2.4cm}}{Overland Flow} & \multicolumn{1}{m{2.2cm}}{Saturated Soil} & \multicolumn{1}{m{2.5cm}}{Stream Segment} \\
+\hline
+Unsaturated Soil & VGM $^*$ & VGM & VGM & VGM & VGM & VGM \\
+Pond & NA$^{**}$ & DWM$^{***}$ & Darcy & DWM & Darcy & DWM \\
+Storage & VGM & Darcy & Darcy & NA & Darcy & NA\\
+Overland Flow & NA & NA & NA & DWM & NA & NA\\
+Saturated Soil & VGM & Darcy & Darcy & NA & Darcy & Darcy\\
+Stream Segment & NA & DWM & NA & DWM & NA & DWM \\
+\end{tabular}
+}
+\caption{Default Q-H relationships based on the blocks connected, *-VGM: Van Genuchten-Maulem, **-NA: No default Q-H equation is available, ***- DWM: Diffusive Wave/Manning}\label{table:1}
+\end{center}
+\end{table}
+
+In Table \ref{table:1}, "NA" indicates that no default relationship will be assigned if two blocks of the types in the row and column heading are connected. For example if a soil block is connected to an overland flow block when the soil block has a higher elevation GIFMod does not assign any Q-H relationship to the connector by default and the flow rate will be zero unless the user provides a Q-H relationship for the connector. VGM indicated Van Genuchten-Mualem equation for flow rate: 
+\begin{equation}
+\label{eq:1}
+Q_{i,j}=A_sK_e\frac{h_i-h_j}{d}
+\end{equation}
+where $Q_{i,j}$ is the flow rate from block $i$ to block $j$ and 
+\begin{equation}
+\label{eq:2}
+K_e=K_s s_e^{\lambda} [1-(1-s_e^{1/m})^m]^2
+\end{equation}
+DWM in Table \ref{table:1} refers to Diffusive Wave/Manning equation based on which the flow rate is calculated as: 
+\begin{equation}
+\label{eq:3}
+Q_{i,j}=n_m \bar{y}^{1+\alpha_m}W\big(\frac{h_i-h_j}{d}\big)^{1/2}
+\end{equation}
+where $n_m$ is the Manning's roughness coefficient and $\alpha_m$ is the exponent for the hydraulic radius in Manning's equation which is by default set to $2/3$ in ponds and streams and $1/2$ for overland flow but can be altered by the user and $bar{y}=1/2(y_i+y_j)$ is the average water depth in the connector where $y_i=h_i-z_{0,i}$ is the water depth in block $i$. 
+A dam can be added to surface water connectors (Stream and Pond) by entering a dam elevation the "Properties" of connectors in which case the Q-H equation becomes: 
+\begin{equation}
+\label{eq:4}
+Q_{i,j}=n_m pos(\bar{y}-H_d)^{1+\alpha_m}W\big(\frac{h_i-h_j}{d}\big)^{1/2}
+\end{equation}
+The Darcy equation computes the flow as: 
+\begin{equation}
+\label{eq:5}
+Q_{i,j}=A_sK_s\frac{h_i-h_j}{d}
+\end{equation}
+\subsection{Common properties of blocks}
+In the following the properties that are shared between all block types are described: 
+\begin{itemize}
+\item \textbf{Name: } All components of the model have a name. When a component is added to the model, GIFMod automatically assigns a name to it which can be changed by the user. These names are used to refer to the components in other components and also in the output files generated by the program. The names in each sub-category must be unique. For example two blocks cannot have the same name. However a block and a constituent can have same names. 
+\item \textbf{Type:} This indicates the type of the media the block represents. When the blocks are added the type is set according to the toolbar icon used to create the block, however it can be changed by the user. The applicable properties of the block then change according to the newly selected type. 
+\item \textbf{SubType:} In soil blocks specifically, the subtype determines the soil type (e.g. loam, sand, etc.) based on which the program assigns default soil parameter values such as saturated hydraulic conductivity and other soil retention parameters. These parameters can be manually altered by the user. 
+\item \textbf{Bottom area:} This indicates the top or bottom area of blocks with media type soil, Darcy, overland flow and storage. For ponds and steams the by default the program assumes that the banks are vertical unless specified by the user through the Head-Storage relationship feature. When external fluxes are calculated for ponds and stream segments, this area is used as the interface area between water and air.  This value must be entered. 
+\item \textbf{Bottom Elevation: } Specifies the bottom elevation of a block. In the cases when the bottom of a block is thought to be sloped the mean bottom elevation can be used. 
+\item \textbf{Build-up: } Using this option, the user can select the contaminant build-up component (section xx.xx) to be assigned to a specific block. In which case the build-up will take place in the block according to the designated build-up component. 
+\item \textbf{Constituent initial concentration: } The initial concentration of concentrations of water quality constituents can be assigned to a block using this option. When clicking a window will show up that allows entering the initial concentration of constituents in dissolved or sorbed phases (to soil matrix or particles) to be specified. 
+\begin{figure}[!ht]\label{fig:10}
+\begin{center}
+\includegraphics[width=8cm]{Images/Figure10.png} \\
+\caption{Initial Concentration Window} 
+\end{center}
+\end{figure}
+\item \textbf{External flux: } This indicates the external flux model to be assigned to this block. External flux components (section xx.xx) can be used to determine the rates at which constituents are entering to a block typically through atmospheric exchange (e.g aeration). 
+\item \textbf{Head-Storage Relationship: } An expression can be entered here to replace the default head-storage relationship for this type of block. 
+\item \textbf{Inflow time series: } The inflow rate and water quality characteristics are introduced using this option. An example showing the format of the text file containing the inflow time series is shown in Figure \ref{fig:5}. 
+\item \textbf{Particle initial concentration: } The initial concentration of particles in all phases available based on the model they are assigned to {Mobile, Reversibly Attached, Irreversibly Attached} can be entered here. By clicking on this box, a window appear where the user can enter the initial condition for all particle types in different phases (Figure \ref{fig:11}). It should be noted that the concentration of attached particles should be expressed as mass of particles per mass of solid phase (soil matrix) in the case of subsurface components (soil, Darcy, storage) and as mass per surface area in the case of surface components (pond, stream, overland flow). 
+\begin{figure}[!ht]\label{fig:11}
+\begin{center}
+\includegraphics[width=8cm]{Images/Figure11.png} \\
+\caption{Initial Particle Concentration Window} 
+\end{center}
+\end{figure}
+\item \textbf{Precipitation: } Indicates whether precipitation will be directly applied to the block or not. By default, surface water blocks (pond, stream, and overland flow) receive direct precipitation while the subsurface blocks (soil, storage, and Darcy) do not. This option allows the user to change this rule. 
+\item \textbf{Vapor diffusion: } The flux between the blocks are modeled by GIFMod is modeled based on the following equation:
+\begin{equation}
+\label{eq:7}
+J_{v,i,j}=D_v(\bar{\theta_s}-\bar{\theta})\frac{\theta_i-\theta_j}{d}
+\end{equation}
+$D_v$ is the vapor diffusion coefficient and $\bar{\theta}=(\theta_i+\theta_j)/2$. 
+\item \textbf{Evapotranspiration: } The evaportranspiration model that applies to the block is selected here. The evapotranspiration model should be first introduced as an Evportranspiration model (section \ref{section:3.3}) and then can be selected to be applied to specific blocks. 
+\item \textbf{Light: } Indicates whether light will be directly applied to the block or not. If the No option is selected the light intensity at the block will be considered zero throughout the simulation. By default, the option is selected as "Yes" for surface water blocks and "No" for subsurface blocks. 
+\item \textbf{Light reduction factor: } The values in the light time-series are multiplied by the value entered in this box to calculate the light intensity at the block. This feature is useful when applying light reduction to deeper layers of a pond for example when light is adsorbed partly at upper layers. The default value is 1. 
+\item \textbf{Conduct Reactions: } The user can turn off reactions in a particular block of the model using this option. 
+\item \textbf{Length: } The value of this property is assigned to connectors when a array of the block is created if the length is not entered in the array dialog box. Otherwise it is ignored. 
+\end{itemize}
+In the following the specific properties of each media type is described. 
+\subsection{Pond: } This component can be used for any zone that can contain surface water even if it is dry during all or part of the simulation. So a surface water component of a bioretention system, a green roof or a permeable pavement can be modeled as pond. In other words any component where water ponding with free surface can occur can be modeled as a pond. Specific properties of a pond are described in the following:
+\begin{itemize}
+\item \textbf{Depression storage: } This is the depth of water that is needed to be reached before a flow from the pond to another pond or another surface water block (i.e. stream, catchment) can be initiated. 
+\item \textbf{Initial water depth: } The initial depth of water at the start time of the simulation is provided here. If left empty, the initial water depth is assumed to be zero. 
+\item \textbf{Manning's roughness coefficient: } This indicates the Manning's roughness coefficient for the block. If Manning's roughness coefficient is given for the connectors connecting the block to other blocks, the value given for the connector overwrites the value given for the block when the flow in that particular connector is being calculated. When a grid of blocks is created the value of Manning's roughness coefficient of the block is automatically copied to all the connectors being created in the grid.
+\item \textbf{Width: } In case connectors connecting the block to other blocks lacks a value for the width property, the value entered here will be used as its width. When grids of blocks are created, the value entered here will be assigned to the connectors created as part of the grid. 
+\end{itemize}
+\subsection{Soil: }
+Specific properties related to blocks with soil media type are described in this sub-section: 
+\begin{itemize}
+\item \textbf{SubType} The soil texture can be selected here. When the soil texture is selected, default values for soil hydraulic properties including Van Genuchten $\lambda$, $n$, $\alpha$, Saturated Hydraulic Conductivity, $K_s$, and saturated and residual moisture contents $\theta_s$ and $\theta_r$ are automatically set based on it. The default values are based on \citep{carsel1988}. The values can be later changed by the user. 
+\item \textbf{Bulk Density: } Bulk density of soil. 
+\item \textbf{Moisture Content: } The user can enter the initial moisture content in the soil block here. 
+\item \textbf{Depth: } This indicates the vertical depth/thickness of the soil block. This value must be entered and must be non-zero. 
+\item \textbf{Van Genuchten $\lambda$ parameter}: Van Genuchten $\lambda$ parameter Eq. \ref{eq:2} can be entered here. The default value for all soil types is 0.5.
+\item \textbf{Storitivity: } The hydraulic head in a block when the soil is super saturated is calculated using the storitivity value. 
+\item \textbf{Residual moisture content: } Residual moisture content $\theta_r$ value. If this value is not entered for the connectors connecting the block to other blocks, this value will be used as the residual moisture content of the connector when calculating the flow rate using Eq. \ref{eq:2}. 
+\item \textbf{Saturated hydraulic conductivity: } Saturated hydraulic conductivity of the soil $K_s$. If this value is not entered for the connectors connecting the block to other blocks, this value will be used as the saturate hydraulic conductivity of the connector when calculating the flow rate using Eq. \ref{eq:2}. Otherwise, it will be over-written by the value entered for the connector. 
+\item \textbf{Saturated moisture content: } Saturated moisture content $\theta_s$ value. If this value is not entered for the connectors connecting the block to other blocks, this value will be used as the saturated moisture content of the connector when calculating the flow rate using Eq. \ref{eq:2}. 
+\item \textbf{Van Genuchten $\alpha$ parameter: } Van Genuchten $\alpha$ parameter used in equation under the unsaturated soil block in figure \ref{fig:7}. 
+\end{itemize}
+\subsection{Darcy: }
+Specific properties related to blocks with Darcy media (Saturated soil) type are described in this sub-section: 
+\begin{itemize}
+\item \textbf{Bulk Density: } Bulk density of soil. 
+\item \textbf{Initial Moisture Content: } The user can enter the initial moisture content in the soil block here. 
+\item \textbf{Depth: } This indicates the vertical depth/thickness of the soil block. If not entered the initial moisture content is assigned to be equal to the saturated moisture content. It should be noted that entering values significantly different than the saturated moisture content can result in very large positive or negative hydraulic heads. 
+\item \textbf{Storitivity: } The hydraulic head in a block when the soil is super saturated is calculated using the storitivity value. 
+\item \textbf{Saturated hydraulic conductivity: } Hydraulic conductivity of the soil $K_s$ used in Eq. \ref{eq:5}. If this value is not entered for the connectors connecting the block to other blocks, this value will be used as the saturate hydraulic conductivity of the connector when calculating the flow rate using Eq. \ref{eq:5}. Otherwise, it will be over-written by the value entered for the connector. 
+\item \textbf{Saturated moisture content: } Saturated moisture content $\theta_s$ value. Typically can be assumed equal to the porosity of the media. If this value is not entered for the connectors connecting the block to other blocks, this value will be used as the saturated moisture content of the connector when calculating the flow rate using Eq. \ref{eq:5}. 
+\end{itemize}
+\subsection{Storage: }
+Specific properties related to storage blocks are described in this sub-section: 
+\begin{itemize}
+\item \textbf{Bulk Density: } Bulk density of storage media. 
+\item \textbf{Initial water depth: } The user can enter the initial water depth of the storage block here. 
+\item \textbf{Depth: } This indicates the vertical depth/thickness of the storage block. If not entered the initial moisture content is assigned to be equal to the saturated moisture content. It should be noted that entering values significantly different than the saturated moisture content can result in very large positive or negative hydraulic heads. 
+\item \textbf{Storitivity: } The hydraulic head in a block when the storage block is super-saturated is calculated using the storitivity value. 
+\item \textbf{Saturated hydraulic conductivity: } Hydraulic conductivity of the soil $K_s$ used in Eq. \ref{eq:5}. If this value is not entered for the connectors connecting the block to other blocks, this value will be used as the saturate hydraulic conductivity of the connector when calculating the flow rate using Eq. \ref{eq:5}. Otherwise, it will be over-written by the value entered for the connector. 
+\item \textbf{Saturated moisture content: } Saturated moisture content $\theta_s$ value. Typically can be assumed equal to the porosity of the media. If this value is not entered for the connectors connecting the block to other blocks, this value will be used as the saturated moisture content of the connector when calculating the flow rate using Eq. \ref{eq:5}. 
+\item \textbf{Suction head coefficient under dry condition: } $\epsilon$ value in figure \ref{fig:7}.
+\item \textbf{Suction head power under dry condition: } $n_e$ value in figure \ref{fig:7}.
+\end{itemize}
+\subsection{Catchment: }
+Specific properties related to catchment blocks representing overland flow are described in this sub-section: 
+\begin{itemize}
+\item \textbf{Depression storage: } This is the depth of water that is needed to be reached before a flow from the pond to another pond or another surface water block (i.e. stream, catchment) can be initiated. 
+\item \textbf{Initial water depth: } The initial depth of water at the start time of the simulation is provided here. If left empty, the initial water depth is assumed to be zero. 
+\item \textbf{Manning's roughness coefficient: } This indicates the Manning's roughness coefficient for the block. If Manning's roughness coefficient is given for the connectors connecting the block to other blocks, the value given for the connector overwrites the value given for the block when the flow in that particular connector is being calculated. When a grid of blocks is created the value of Manning's roughness coefficient of the block is automatically copied to all the connectors being created in the grid.
+\item \textbf{Width: } In case connectors connecting the block to other blocks lacks a value for the width property, the value entered here will be used as its width. When grids of blocks are created, the value entered here will be assigned to the connectors created as part of the grid. 
+\item \textbf{Dimension: } When arrays of catchment blocks are created, the value entered here will be assigned to the connector lengths created as part of the grid.
+\end{itemize}
+\subsection{Stream Segment: }
+Specific properties related to stream segment are described in this sub-section: 
+\begin{itemize}
+\item \textbf{Initial water depth: } The initial depth of water at the start time of the simulation is provided here. If left empty, the initial water depth is assumed to be zero. 
+\item \textbf{Manning's roughness coefficient: } This indicates the Manning's roughness coefficient for the block. If Manning's roughness coefficient is given for the connectors connecting the block to other blocks, the value given for the connector overwrites the value given for the block when the flow in that particular connector is being calculated. When a grid of blocks is created the value of Manning's roughness coefficient of the block is automatically copied to all the connectors being created in the grid.
+\item \textbf{Width: } In case connectors connecting the block to other blocks lacks a value for the width property, the value entered here will be used as its width. When grids of blocks are created, the value entered here will be assigned to the connectors created as part of the grid. 
+\end{itemize}
+
+\section{Properties of Connectors}
+In this section properties of connectors are described. Some of the properties of connectors are only available for non-default  connectors or when connector connect specific types of blocks. In the following first the properties of connectors common between all connectors are described and then properties specific to certain type of connectors are explained. 
+
+\subsection{Common connector properties}
+\begin{itemize}
+    \item \textbf{Name: } This field indicates the name of the connector. Name of a connector is used to refer to a connector by other objects in the model and also when generating outputs. By default when a connector a name consisting of the name of the two blocks being connected separated by a dash "-" will be assigned as its name which can be changed by the user. \\
+    \textbf{Note: } It is important to note the direction of  connectors (i.e. the start and end blocks). When the flow rates in a block is reported a positive value means flow from the starting block to the target block while a negative value for the flow means flow in the opposite direction. 
+    \item \textbf{Type: } Type of a connector dictates its flow-head relationship. When a connector is created the type will be assigned to be "Default". This means that the program automatically assigns a governing equation based on table \ref{table:1}. The non-default connectors include: 
+    - \textbf{Darcy: } Indicates that the flow rate of the connector will be calculated based on Darcy's law regardless of the types of blocks being connected. \\
+    - \textbf{Normal Flow: } Indicates that the flow rate will be calculated by assuming establishment of Normal flow based on Manning's equation. This means that the hydraulic head int the two blocks being connected will not play a role in determining flow rate but only the bottom slope of the connector will be considered:
+    \begin{equation}
+    \label{eq:8}
+    Q_{i,j}=\frac{z_{0,i}-z_{0,j}}{n_m d}\bar{y}^{\alpha_m+1}W
+    \end{equation}
+    -\textbf{Pipe: } Hazen-Williams equation will be used to calculated the flow rate between the two connectors. Accommodations is considered for when the pipe is not fully under pressurized condition. 
+    \begin{equation}
+    \label{eq:9}
+    Q_{i,j}=k_{hw}\pi C (\frac{D_p}{2})^{2.63} sgn(h_i-h_j) (\frac{max(h_i,z_{c,i})-max(h_j,z_{c,j}}{d})^{0.54} f_{hw}(\bar{y}_{pipe})
+    \end{equation}
+    where $y_{pipe}$ is the approximated average depth fraction of the pipe filled: 
+    \begin{equation}
+    \label{eq:10}
+    y_{pipe}=max(\frac{1}{2 D_p}(h_i-z_{c,i}+h_j-z_{c,j}),1) 
+    \end{equation}
+    and $f$ is approximates the fraction filled area of a partially filled piped:
+    \begin{equation}
+    \label{eq:11}
+    f_{hw}(x)=-2.0255 x^4 + 1.9813 x^3 +1.0318 x^2 + 0.0388 x 
+    \end{equation}
+ - \textbf{Rating curve: } This option allows using a power equation between head and flow rate to calculate the flow rate through a connector. The form of the equation is: 
+    \begin{equation}
+    \label{eq:12}
+    Q_{i,j}=\alpha_{rc}(h_i-z_{rc})^{\beta_rc}H(h_i-h_j) - \\ \alpha_{rc}(h_j-z_{rc})^{\beta_rc}H(h_j-h_i);
+    \end{equation}
+- \textbf{User-defined: } The flow will be calculated based on the expression that user enters into the "Flow Expression" field.
+\item \textbf{Interface area: } When a connector connects a subsurface block (Soil, Darcy, Storage) to another block, this value is needed and indicates the area of the interface between the two blocks being connected. When surface water blocks (Pond, Stream segment, Catchment) are connected together, the interface area is calculated automatically based on the depth of water but if a number is entered for this property, the area will be assumed constant and equal to the value entered. The interface area is used to calculate constituent fluxes as a result of diffusion and dispersion.   
+\item \textbf{Dispersion Expression: } The expression used to calculate dispersion coefficient (different than the constitution-dependent diffusion coefficient) in a connector. If not entered the default expression $D_s = \alpha_D |v_{i,j}|$ will be used. 
+\item \textbf{Dispesivity: } The value of dispersivity. If left empty the dispersivity will be considered zero. 
+\item \textbf{Length: } This represent the distance between the centroids of blocks being connected. Length is used to calculate hydraulic gradients in flow relationships as well as concentration gradients needed to calculate diffusive and dispersive fluxes. 
+\item \textbf{Settling: } Indicates whether settling of particles or settlable constituents can occur through a connector. If set to "Yes"m the direction of settling will be determined based on the bottom elevations of the two blocks connected. 
+\item \textbf{Use prescribed flow: } Indicate whether the prescribed flow indicated in the property "Prescribed Flow" to be used as the flow rate or not. If set to "Yes" the flow rates will be taken from the time-series in the input file indicated as "Prescribed Flow". 
+\item \textbf{Prescribed flow: } The file containing the prescribed flow to be imposed on a connector will be entered here. The format if a prescribed flow file is the same as other single time-series such as temperature and light.
+\end{itemize}
+\subsection{Connector properties specific to surface water blocks}
+\begin{itemize}
+\item \textbf{Flow Exponent: } This indicates the value of $\alpha_m$ in equations \ref{eq:3} and \ref{eq:4}. If not entered a value of $2/3$ will be used by default consistent to Manning's equation. 
+\item \textbf{Manning's roughness coefficient: } The value of Manning's roughness coefficient $n_m$ in equations \ref{eq:3} and \ref{eq:4} are to be entered here.
+\item \textbf{Width: } Width of the connector. The width is used in calculating flow and interface area between horizontally connected surface water blocks (Eqs. \ref{eq:3} and \ref{eq:4}). 
+\item \textbf{Dam elevation: } This property can be used to introduce dams between two blocks. The flow will not be initiated until the water level in one of the blocks exceed the dam elevation. The area of the interface between the two blocks connected will also be calculated as a difference between the hydraulic head and the dam elevation.  
+\end{itemize}
+\section{Evapotranspiration}\label{section:3.3}
+Five alternative evaporation and transpiration models are provided in GIFMod. In addition the user can provide potential evaporation time-series in form of external input files. The evaporation models include Penman, Priestly Taylor and Aerodynamic models and the two transpiration models limit the evaporation based on the soil water stress either based on soil suction head or moisture content. Below each model is described. 
+\subsection{Priestly-Taylor model: }
+In Priestly-Taylor model \citep{Priestley1972}, the potential evaporation is calculated as:
+\begin{equation}
+\label{eq:13}
+E_a = 1.3\frac{\Delta}{\Delta+\gamma}E_r 
+\end{equation}
+where $\Delta$ is the gradient of vapor pressure curve:
+\begin{equation}
+\label{eq:14}
+\Delta = \frac{d e_{as}}{dT} = (4098)611\frac{exp(\frac{17.27T}{237.3+T})}{(237.3+T)^2} 
+\end{equation}
+where $\gamma$ is the psychrometric constant (by default equal to 66.8 Pa/$^oC$) and and $E_r$ is calculated as:
+\begin{equation}
+\label{eq:15}
+E_r = k_r\frac{R_n}{l_v \rho}
+\end{equation}
+where $l_v$ is the latent heat of evaporation, and $R_n$ is the solar radiation that will be taken from the light time-series. The coefficient $k_e$ is provided as a calibration coefficient to allow adjusting for shading and other effects. 
+
+\subsection{Aerodynamic model: }
+In aerodynamic model, the evaporation rate is calculated as: 
+\begin{equation}
+\label{eq:16}
+E_a = k_a u_w e_{as} (1 - R_h)
+\end{equation}
+where $e_as$ is calculated as: 
+\begin{equation}
+\label{eq:17}
+e_{as} = 611 exp(\frac{17.27T}{237.3+T})
+\end{equation}
+
+\subsection{Penman model: }
+In Penman model, the potential evaporation is calculated as:
+\begin{equation}
+\label{eq:18}
+E=\frac{\Delta}{\Delta+\gamma}E_r + \frac{\gamma}{\Delta+\gamma}E_a
+\end{equation}
+\subsection{Transpiration based on soil moisture content: }
+The two transpiration models included in GIFMod are used for soils exposed to water uptake by plants and both are based on the aerodynamic model but they limit the transpiration rate based on the soil moisture content or soil matric potential (ref). In the model based on soil moisture content the transpiration through plants is calculated as: 
+\begin{equation}
+\label{eq:19}
+E=E_a min(\frac{\theta-\theta_{wp}}{\theta_{fc}-\theta_{wp}},1)
+\end{equation}
+\subsection{Transpiration based on soil matric potential: }
+In this model, the transpiration through plants is calculated as: 
+\begin{equation}
+\label{eq:20}
+E=E_a min(\frac{h-h_{wp}}{h_{fc}-h_{wp}},1)
+\end{equation}
+It should be noted that the coefficient $k_a$ in the last two models should encompass the effect of leaf area index (LAI). 
+\subsection{Time series: }
+This option allows providing evaporation time-series data as external input file. The format of the input file is the same as other time-series data such as light and temperature. 
+\subsection{Evaporation model properties: }
+\begin{itemize}
+    \item \textbf{Rate Expression: } This option allows the user to enter an expression to be used to calculate the evaporation rate. If an expression is entered here it will over-rule the default expression designated based on the selected evaporation model. 
+    \item \textbf{Time Series: } If the evaporation model is set to "Time Series", the file containing the evaporation time-series data will be selected using this field. 
+    \item \textbf{Uptake Constituents: } This option indicates whether the consitituents should be taken up with the evaporation or not. By default the value of this property is "No" for evaporation models including Penman, Priestly-Taylor, Aerodynamic and time-series and is yes for transpiration models. 
+    \item \textbf{Coefficient: } In the aerodynamic, and transpiration models, this value represent the $k_a$ coefficient in Eq. \ref{eq:16}. In Priestly-Taylor model, it represents $k_r$, the calibration coefficient (Eq. \ref{eq:15}). 
+    \item \textbf{Psychrometric constant: } The psychrometric constant used in calculating radiation-based evaporation. The default value is 66.8 $Pa/^oC$. 
+    \item \textbf{Solar radiation coefficient: } When Penman model is selected, the value of $k_r$ in Eq. \ref{eq:15} can be entered here.
+    \item \textbf{wind coefficient: } When Penman model is selected the value of $k_a$ in Eq. \ref{eq:16} in the Penman model, can be entered here.
+ \end{itemize}

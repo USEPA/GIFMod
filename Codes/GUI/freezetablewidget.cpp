@@ -1,4 +1,4 @@
-#ifdef WQV
+#ifdef GIFMOD
 #include "freezetablewidget.h"
 #include <QScrollBar>
 #include <QHeaderView>

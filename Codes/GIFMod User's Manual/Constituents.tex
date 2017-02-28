@@ -1,0 +1,48 @@
+Constituents are referred to any chemical compound or a group of chemical compounds with assumed effective transport parameters that can present in aqueous phase or be sorbed to soil matrix or particles. In addition some biological agents such as bacteria or algae can also be treated as constituents. There is no pre-defined constituents in GIFMod and the user should introduce them and assign transformation processes to them. In this section the governing equations and different processes that can be assigned to constituents in GIFMod will be described. The general mass balance equation for fate and transport of constituents in GIFMod is:
+\begin{equation}
+\label{eq:26}
+\begin{split}
+\frac{d\Gamma_{i,p,l} C_{p,l,i,k}}{dt} =\\ \beta_{p,l} \sum_{j=1}^{nj} pos \big(Q_{ij}+(v_{s,p,ij}+v_{c,k,ij})A_{ij}\big)\tilde G_{p,l,j}C_{p,l,j,k} \\ -\beta_{p,l} \sum_{j=1}^{nj} pos \big(-Q_{ij}-(v_{s,p,ij}+v_{c,p,ij})A_{ij}\big)\tilde G_{p,l,j}C_{p,l,j,k}\bigg]\\
+-S_i \big(\sum_{l'=1}^{nl_p}\textbf{K}_{p,l,l'}\tilde G_{p,l,i}C_{p,l,i,k}-\sum_{l'=1}^{nl_p}\textbf{K}_{p,l,l'}\tilde G_{p,l',i}C_{p,l',i,k}\big)\\
++ \beta_{p,l} \sum_{j=1}^{nj} A_{ij}\frac{D_{p,ij,k}}{d_{ij}}(\tilde G_{p,l,j}C_{p,l,j,k}-\tilde G_{p,l,i}C_{p,l,i,k}) \\
++ S_i \sum_{p=-1}^{np} \sum_{l'=1}^{nl_p}\kappa_{k,p,p'}\bigg(\frac{C_{p',l',i,k}}{\phi_{k,p'}}-\frac{C_{p,l,i,k}}{\phi_{k,p}}\bigg)  \\ +S_i \sum_{r=1}^{nr} \psi_{r,k}R_r + S_i \xi_{p,l,i,k} \\
++ \sum_j^{ns} pos(Q_{s,j} \tilde G_{p,l,j,in} C_{p,l,j,k,in}) - \sum_j^{ns} pos(-\omega_{p,l,j} Q_{s,j} \tilde G_{p,l,j,in} C_{p,l,j,k,in}) + \dot{m}_{i,p,l,k}
+\end{split}
+\end{equation}
+In Eq. \ref{eq:26}, the first two terms of the right hand side represent dissolved and particle-bound advective transport due to flux and settling, the third term is the mass exchange of constituents between phases due to exchange of particles, the forth term is dispersion due to the dispersion due to both dispersion of particle-bound and dissolved constituents, the fifth term is the mass exchange through adsorption and desroption, the six term represents biogeochemical transformation, the seventh term is external flux (such as aeration), and eight and night terms are respectively sources or sinks due to inflow and outflow or plant uptake. Subscript $p=-1$ represent the solid matrix and $p=0$ represent the aqueous phase while a $p>0$ refer to the particle class. $\tilde G_{p,l,j}$ is the same as $G_{p,l,j}$ in Eq. \ref{eq:20} for $p>0$, is equal to $1$ for $p=0$ (dissolved species) and equal to bulk density, $\rho_i$ for $p=-1$ (soil matrix). Subscript $in$ indicate the values in the inflow. Also in this equation $D_{p,ij,k}$ is the dispersion/diffusion coefficient for particles when $p>0$ (particles) and constituent's dispersion/diffusion coefficient when $p=0$ (dissolved species). Also Sorption capacity, $\phi_{k,p}$, is equal to partitioning coefficient $K_D$ for soil and particles ($p=-1$ and $p>0$ respectively) and equal to 1 for dissolved species ($p=0$).  
+
+\subsection{Constituent properties}
+In this section the properties of constituents are described. To  add a new constituent right-click on \textbf{Project Explorer}$\rightarrow$\textbf{Water Quality}$\rightarrow$\textbf{Constituents} and click on \textbf{Add Constituent}. \\
+Below the properties of constituents are described.
+\begin{itemize}
+\item \textbf{Name: } This is the name of the constituent. Names of constituents should be unique. Constituent names will be used in producing outputs and also when entering the reaction network. 
+\item \textbf{Diffusion coefficient: } This specifies the molecular diffusion coefficient of the constituent. When calculating the mechanical dispersion, this value will be added to the dispersion coefficient calculated based on the dispersivity value entered for each connector. 
+\item \textbf{Exchange rate factor: } This bring a window where the user can enter the solid-aqueous phase rate $\kappa_{k,p,p'}$ in Eq. \ref{eq:26} and partitioning coefficient $K_D$ with respect to soil matrix and each particle class. 
+\item \textbf{Partitioning coefficient: } This bring a window where the user can enter the solid-aqueous phase rate $\kappa_{k,p,p'}$ in Eq. \ref{eq:26} and partitioning coefficient $K_D$ with respect to soil matrix and each particle class. 
+\item \textbf{Settling velocity: } The settling velocity of the constituent, $v_c$. 
+\end{itemize}
+
+\subsection{Reactions}
+In order to define reactions two steps are needed. First some reaction parameters will be defined that can represent reaction rate constants, half-saturation coefficients, stoichiometric constants and other parameters needed in defining the reaction process. It shoule be noted that a user can define reactions by explicitly entering parameter values into reaction expressions however this approach is not advised. The second step is to enter reaction rate expressions and stoichiometric constants into a Petersen matrix \citep{russell2006}. 
+
+\textit{Reactions Parameters: }\\
+To add a reaction parameter right-click on \textbf{Project Explorer}$\rightarrow$\textbf{Water Quality}$\rightarrow$\textbf{Reactions}$\rightarrow$\textbf{Reaction Parameters} and click on \textbf{Add Reaction Parameter} from the drop down menu. Select the reaction parameter that was added to change its properties.
+\begin{itemize}
+\item \textbf{Name: } Name of the reaction parameter to be used in defining reaction expressions. 
+\item \textbf{Temperature correction factor: } Specifies the dependency of the value of the reaction rate parameter to temperature. Under variable temperature condition the value of the reaction parameter entered in the \textbf{Value} field represent the value of the parameter in $20^oC$. The value at other temperatures is calculated as: 
+\begin{equation}
+\label{eq:27}
+k_T = k_{20} \Theta^{T-20}
+\end{equation}
+\item \textbf{Value: } The value of the parameter. Please note that the unit used for the parameter value should be consistent with other units used in the model. The time dimension of the value is always days. 
+\end{itemize}
+\textit{Reactions: }\\
+In order to enter reaction rate expressions and stoichiometric constants right-click on \textbf{Project Explorer}$\rightarrow$\textbf{Water Quality}$\rightarrow$\textbf{Reactions}$\rightarrow$\textbf{Reaction Parameters} and click on \textbf{Open Reaction Network Window} from the drop down menu. A window as shown in Figure \ref{fig:20}. The headings of this table consists of a process name, a process rate and columns each representing the stoichiometric constants for each of the constituents defined in the model. Additional processes (reactions) can be added using the \textbf{Add Processes} at the bottom of the window and existing processes can be removed using the \textbf{Remove Process} bottom. \textbf{Process Name} is were the user-assigned name of the process is entered. In the process rate column the user can enter the rate expression of the process. The rate expression can include concentrations of constituents, reaction parameters and also physical parameters such as light, temperature or even velocity. The values entered under the columns identified by name of constituents indicate how much of a constituent is produced or consumed as a result of a unit progress in the reaction. A negative stoichiometric constant is indicative of consumption of the constituent as a result of the reaction while a positive value results in production of the constituent. The following example shows how to set up a simple reaction in GIFMod. 
+\begin{figure}[!ht]\label{fig:20}
+\begin{center}
+\includegraphics[width=8cm]{Images/Figure20.png} \\
+\caption{Reaction window} 
+\end{center}
+\end{figure}
+
+\input{ASM_ex.tex}

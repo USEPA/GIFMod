@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GIFMod", "GIFMod - Sassan.vcxproj", "{C9E11F71-A776-409F-BEA9-B30830C230B3}"
+EndProject
+Project("{840C416C-B8F3-42BC-B0DD-F6BB14C9F8CB}") = "GIFMod Setup", "Setup Project\GIFMod Setup.aiproj", "{CB1CA2FE-5D92-4CFA-A9AC-9E99B04D36C3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C9E11F71-A776-409F-BEA9-B30830C230B3} = {C9E11F71-A776-409F-BEA9-B30830C230B3}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+		x64_Release|x64 = x64_Release|x64
+		x64_Release|x86 = x64_Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C9E11F71-A776-409F-BEA9-B30830C230B3}.Debug|x64.ActiveCfg = Debug|x64
+		{C9E11F71-A776-409F-BEA9-B30830C230B3}.Debug|x64.Build.0 = Debug|x64
+		{C9E11F71-A776-409F-BEA9-B30830C230B3}.Debug|x86.ActiveCfg = Debug|Win32
+		{C9E11F71-A776-409F-BEA9-B30830C230B3}.Debug|x86.Build.0 = Debug|Win32
+		{C9E11F71-A776-409F-BEA9-B30830C230B3}.Release|x64.ActiveCfg = Release|x64
+		{C9E11F71-A776-409F-BEA9-B30830C230B3}.Release|x64.Build.0 = Release|x64
+		{C9E11F71-A776-409F-BEA9-B30830C230B3}.Release|x86.ActiveCfg = Release|Win32
+		{C9E11F71-A776-409F-BEA9-B30830C230B3}.Release|x86.Build.0 = Release|Win32
+		{C9E11F71-A776-409F-BEA9-B30830C230B3}.x64_Release|x64.ActiveCfg = Release|x64
+		{C9E11F71-A776-409F-BEA9-B30830C230B3}.x64_Release|x64.Build.0 = Release|x64
+		{C9E11F71-A776-409F-BEA9-B30830C230B3}.x64_Release|x86.ActiveCfg = Release|Win32
+		{C9E11F71-A776-409F-BEA9-B30830C230B3}.x64_Release|x86.Build.0 = Release|Win32
+		{CB1CA2FE-5D92-4CFA-A9AC-9E99B04D36C3}.Debug|x64.ActiveCfg = x64_Release
+		{CB1CA2FE-5D92-4CFA-A9AC-9E99B04D36C3}.Debug|x64.Build.0 = x64_Release
+		{CB1CA2FE-5D92-4CFA-A9AC-9E99B04D36C3}.Debug|x86.ActiveCfg = All
+		{CB1CA2FE-5D92-4CFA-A9AC-9E99B04D36C3}.Debug|x86.Build.0 = All
+		{CB1CA2FE-5D92-4CFA-A9AC-9E99B04D36C3}.Release|x64.ActiveCfg = x64_Release
+		{CB1CA2FE-5D92-4CFA-A9AC-9E99B04D36C3}.Release|x64.Build.0 = x64_Release
+		{CB1CA2FE-5D92-4CFA-A9AC-9E99B04D36C3}.Release|x86.ActiveCfg = x64_Release
+		{CB1CA2FE-5D92-4CFA-A9AC-9E99B04D36C3}.Release|x86.Build.0 = x64_Release
+		{CB1CA2FE-5D92-4CFA-A9AC-9E99B04D36C3}.x64_Release|x64.ActiveCfg = x64_Release
+		{CB1CA2FE-5D92-4CFA-A9AC-9E99B04D36C3}.x64_Release|x64.Build.0 = x64_Release
+		{CB1CA2FE-5D92-4CFA-A9AC-9E99B04D36C3}.x64_Release|x86.ActiveCfg = x64_Release
+		{CB1CA2FE-5D92-4CFA-A9AC-9E99B04D36C3}.x64_Release|x86.Build.0 = x64_Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

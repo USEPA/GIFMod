@@ -157,6 +157,35 @@ QStringList mPropList::VariableNames(const mProp& mP)const
 	}
 	 return(uniques(r));
 }
+/*QStringList mPropList::VariableNames(const QList<mProp> objectTypes)const
+{
+	QList<QStringList> r;
+	r.reserve(objectTypes.count());
+	QStringList finalList;
+
+	for (int j = 0; j < objectTypes.size(); j++)
+	{
+		QStringList temp;
+		for (int i = 0; i < List.size(); i++)
+		{
+			if (List[i] == objectTypes[j]) temp << List[i].VariableName;
+		}
+		r[j] = uniques(temp);
+	}
+	for (int i = 0; i < r[0].size(); i++)
+	{
+		bool include = true;
+		for (int j = 1; j < objectTypes.count(); j++)
+			if (!r[j].contains(r[0][i]))
+			{
+				include = false;
+				break;
+			}
+		if (include)
+			finalList.append(r[0][i]);
+	}
+	return(finalList);
+}*/
 QStringList mPropList::VariableUnits(const mProp& mP)const
 {
 	QStringList r;
@@ -227,6 +256,54 @@ mPropList mPropList::filter(const mProp &mP) const
 	}
 //	qDebug() << "filter:" << counter++;
 	return(r);
+}
+mPropList mPropList::filter(const QList<mProp> mP) const
+{
+	static int counter = 0;
+	static QList<mProp> filter;
+	static mPropList r;
+	if (mProp::areTheSame(filter, mP)) return r;
+	filter = mP;
+
+	//find the intersection variable names
+	QList<QStringList> v;
+	for (int i = 0; i < mP.count(); i++)
+		v << QStringList();
+
+	QStringList variableNamesList;
+	for (int j = 0; j < mP.size(); j++)
+		{
+			QStringList temp;
+			for (int i = 0; i < List.size(); i++)
+			{
+				if (List[i] == mP[j]) temp << List[i].VariableName;
+			}
+			v[j] = uniques(temp);
+		}
+		for (int i = 0; i < v[0].size(); i++)
+		{
+			bool include = true;
+			for (int j = 1; j < mP.count(); j++)
+				if (!v[j].contains(v[0][i]))
+				{
+					include = false;
+					break;
+				}
+			if (include)
+				variableNamesList.append(v[0][i]);
+		}
+		//
+
+		r = mPropList();
+		int n = List.size();
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < mP.count(); j++)
+			{
+				if (List[i] == mP[j]) 
+					if (variableNamesList.contains(List[i].VariableName))
+						r.List.append(List[i]);
+			}
+		return r;
 }
 
 int mPropList::setProp(const QString _PropertyName, const XString _Value, const mProp _Filter)

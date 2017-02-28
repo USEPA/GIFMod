@@ -1,0 +1,140 @@
+\subsection{Example: A simple activated sludge model: } 
+ creation of a simple activated sludge model for BOD removal using GIFMod is demonstrated. Figure \ref{fig:21} shows the schematic of the activated sludge system. A two component model with substrate identified by $S$ and biomass identified by $X$ will be created. The parameters of the model are listed in table \ref{table:ASM}.  
+ 
+\begin{figure}[!ht]\label{fig:21}
+\begin{center}
+\includegraphics[width=8cm]{Images/Figure21.png} \\
+\caption{Activated Sludge System schematic} 
+\end{center}
+\end{figure}
+ 
+ 
+\begin{table}
+\caption{Parameters of the activated sludge model example}
+\begin{tabular}{l l}\label{table:ASM}
+parameter & value \\
+\hline
+Volume of aeration tank & 8468$m^3$ \\
+Volume of the clarifier & 60$m^3$ \\
+maximum growth rate ($\mu_{max}$) & 6$day^{-1}$ \\
+Substrate half saturation constant ($k_s$) & 20mg-COD/L \\
+Biomass decay rate ($k_d$) & 0.12$day^{-1}$ \\
+Yield coefficient for heterotrophic growth ($Y$) & 0.4  mgVSS/mgCOD. \\
+Inflow flow rate ($Q_{in})$ & 22464$m^3/day$ \\
+Inflow substrate concentration ($S_{in}$) & 224$mgCOD/L$ \\
+Wasting flow rate ($Q_{WAS}$) & 300 $m^3/day$ \\
+Return flow rate ($Q_{RAS}$) & 13478 $m^3/day$ \\
+Area of the clarifier & 3000$m^2$ \\
+Depth of the clarifier & 2m \\
+Settling velocity of biomass & 100$m/day$ \\
+ \end{tabular}\\
+\end{table}
+
+Steps to create the simple activated sludge model:
+\begin{itemize}
+\item \textbf{Start GIFMod}
+\item \textbf{Setting the duration of the simulation: } We want the simulation to run for 20 days so a 
+steady-state solution is achieved. In order to do so go to \textbf{Project Explorer}$\rightarrow$\textbf{Project Setting} and from the \textbf{Properties} window set the simulation end date to January 20, 1900. This result in a period of simulation from 0 to 20days. 
+\item \textbf{Add Aeration Tank: } We will use the \textbf{Pond} block to create the components of the model including the aeration tank, the clarifier and the reservoirs to hold the effluent and waste flow. Other blocks types could also be used as we will use the \textbf{quasi steady-state} method to calculate flows. \\
+- Add a pond to represent the aeration pond. \\
+- Set the following properties: 
+- \textbf{Name: } \textit{Aeration Tank} \\
+- \textbf{Bottom area: }\textit{8468$m^2$} \\
+- \textbf{Initial water depth: }\textit{1m} \\
+\textbf{Note: } As long as a depth and area result in the required volume of 8468$m^3$, the depth and bottom area will not influence the results. If aeration was to be considered, then the area could determine the rate of dissolved oxygen flux into the pond depending on the external flux model (See section \ref{sssec:ExtFlux}).\\ 
+\item \textbf{Adding other ponds: } The clarifier will be modeled using two vertically connected ponds and two additional ponds will be used to retain waste and effluent flow. A larger number of layers could be used to represent the clarifier but to keep this example simple, it is limited to two ponds. \\
+Add the following pond blocks:\\\\
+\textbf{Clarifier top: }\\
+- \textbf{Name: } \textit{Clarifier top} \\
+- \textbf{Bottom area: }\textit{30$m^2$} \\
+- \textbf{Initial water depth: }\textit{1m} \\\\
+\textbf{Clarifier Bottom: }\\
+- \textbf{Name: } \textit{Clarifier bottom} \\
+- \textbf{Bottom area: }\textit{3000$m^2$} \\
+- \textbf{Initial water depth: }\textit{1m} \\
+- \textbf{Bottom elevation: }\textit{-1m}\\
+\textbf{Note: } The bottom elevation of the lower compartment of the clarifier need to be below the bottom elevation of the top compartment for the settling of biomass to be appropriately calculated in the clarifier.\\\\ 
+\textbf{Waste Storage: }\\
+- \textbf{Name: } \textit{Waste Storage} \\
+- \textbf{Bottom area: }\textit{3000$m^2$} \\
+- \textbf{Initial water depth: }\textit{0} \\\\
+\textbf{Effluent Storage: }\\
+- \textbf{Name: } \textit{Effluent Storage} \\
+- \textbf{Bottom area: }\textit{3000$m^2$} \\
+- \textbf{Initial water depth: }\textit{0} \\
+\item \textbf{Adding Connections: } Connect the following pond blocks together: \\
+- \textbf{Aeration Tank} to \textbf{Clarifier top}\\
+- \textbf{Clarifier Top} to \textbf{Clarifier bottom}\\
+- \textbf{Clarifier Top} to \textbf{Effluent Storage}\\
+- \textbf{Clarifier Bottom} to \textbf{Waste Storage}\\
+- \textbf{Clarifier Bottom} to \textbf{Aeration Tank}\\
+- Enter a length of 1 for all the connectors. 
+
+\textbf{Note: } The length that is entered for the connectors is not actually used in calculations of flow because the quasi-steady state approach will be used. But GIFMod does not allow connectors with zero lengths so the value must be entered. After adding the connectors the model configuration should look like figure \ref{fig:22}.
+- Select the connector from \textbf{Clarifier top} to \textbf{Clarifier bottom} and set the \textbf{Settling} property to \textbf{Yes}. This forces the model to consider settling advective transport in this connector. 
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=10cm]{Images/Figure22.png} \\
+\caption{Activated sludge model configuration in GIFMod}\label{fig:22}
+\end{center}
+\end{figure}
+\item \textbf{Adding constituents: } Two constituents  including substrate (S) and biomass (X) will be considered in the model.
+- Add two constituents by right-clicking on \textbf{Project Explorer}$\rightarrow$\textbf{Water Quality}$\rightarrow$\textbf{Constituents} and then choose \textbf{Add Constituents} from the drop-down menu. Change the name of the first constituent to \textbf{S} and the second one to \textbf{X}. 
+- Change the settling velocity of the \textbf{X} constituent to 100m/day. 
+\item \textbf{Inflow rate and characteristics: } The inflow characteristics input file looks like figure \ref{fig:23}. Create this file or upload it from the example folder and save it in a folder on your hard drive as inflow.csv or any other names you desire. 
+//- Click on the aeration tank and from the \textbf{Inflow time-series} property in the properties window select the file containing the inflow time series. Note that only to time-point are needed because the flow rate and characteristics are assumed to be constant throughout the simulation. 
+\begin{figure}
+\begin{center}
+\includegraphics[width=5cm]{Images/Figure23.png} \\
+\caption{Inflow input file for the activated sludge example}\label{fig:23}
+\end{center}
+\end{figure}
+The quasi steady state hydraulics mode solve the flow rates in each connector by assuming that the summation of inflows and outflows are equal. At this point if we consider a quasi-steady state flow there are 5 connectors while the inflow=outflow condition can only be applied to the three blocks that have more than one connectors connected to them (i.e. Aeration tank, Clarifier top, and Clarifier bottom) and so there is only three equations for five unknowns. However, in activated sludge systems typically the waste and return flows are controlled. We impose the flow rates in the RAS and WAS connectors using prescribed flow. The input prescribed flow files for the two connectors are shown in figure \ref{fig:24}. Create the files and save them respectively as return.csv and waste.csv. 
+\begin{figure}
+\begin{center}
+\begin{tabular}{c c}
+a) \includegraphics[width=5cm]{Images/Figure24.png} & b) \includegraphics[width=5cm]{Images/Figure24b.png}\\
+\end{tabular}
+
+\caption{a) return and b) waste flow input file for the activated sludge example}\label{fig:24}
+\end{center}
+\end{figure}
+Note that the heading line for the prescribed flow input files are not necessary, so deleting the first line in the files will not affect the output. \\\\
+- Click on connector connecting \textbf{Clarifier bottom} to the \textbf{Aeration tank} (i.e. return activated sludge connector). \\\\
+- From the properties window, set \textbf{Use prescribed flow} to \textbf{Yes} and choose return.csv as the \textbf{Prescribed flow time series}. \\\\
+- Do the same for the connector from \textbf{Clarifier bottom} to {Waste Storage} and pick waste.csv as the \textbf{Prescribed flow time series}. \\
+\item \textbf{Biomass Settling in the clarifier: } In order to force the biomass in the clarifier the settling property of the connector connecting the top clarifier compartment to the lower clarifier compartment should be set to \textbf{Yes}. Click on the connector connecting \textbf{Clarifier top} to \textbf{Clarifier bottom} and from the properties window look for the \textbf{Settling} option and set it to \textbf{Yes}. 
+\item \textbf{Biomass initial condition: } The should be some biomass in the clarifier initially for the biomass growth to be possible. We will start from a small (1$mg/L$) concentration of biomass. Click on the aeration tank and click on the box in front of \textbf{Constituent Initial Concentration}. From the window that will pop up, select X as the constituent and enter the value 1 under the value column and then close the window (Figure \ref{fig:26}). 
+\begin{figure}
+\begin{center}
+\includegraphics[width=8cm]{Images/Figure26.png} \\
+\caption{Setting initial biomass concentration in the simple activated sludge model}\label{fig:26} 
+\end{center}
+\end{figure}
+
+\item \textbf{Entering reaction parameters: }\\
+- Right-click on \textbf{Project Explorer}$\rightarrow$\textbf{Water Quality}$\rightarrow$\textbf{Reactions}$\rightarrow$\textbf{Reaction parameters} and click on \textbf{Add reaction parameter} item from the drop-down menu. \\
+- Type "$\sim mu\_max$" in the name field and enter a value of 6. 
+- Similarly add the other reaction parameters including $k_d$, $Y$ and $K_s$ with values of respectively 0.12, 0.4, and 20. 
+\item \textbf{Setting up reactions: }\\
+- Right-click on \textbf{Project Explorer}$\rightarrow$\textbf{Water Quality}$\rightarrow$\textbf{Reactions}$\rightarrow$\textbf{Reaction network} and click on \textbf{Open Reaction Network Window}. \\
+- Enter the processes names, rate expressions and stoichiometric constants as see in figure \ref{fig:27}.
+\begin{figure}
+\begin{center}
+\includegraphics[width=8cm]{Images/Figure27.png} \\
+\caption{Reaction network for the simple activated sludge model}\label{fig:27}
+\end{center}
+\end{figure}
+\item \textbf{Turning off reactions in clarifier and waste and effluent storage blocks}: In most activated sludge models the reactions in claifier is neglected. Also in order to use the waste storage and effluent storage to gain information about the characteristics of effluent and storage it may be desirable to preserve the mass balance in these two blocks by turning off reactions in them. \\
+- Turn off reactions in \textbf{Clarifier top}, \textbf{Clarifier bottom}, \textbf{Waste Storage}, and \textbf{Effluent Storage} blocks by clicking on them and switching the value of \textbf{Conduct reactions} to \textbf{No}. \\
+\item \textbf{Running the simulation} Now the model is ready. Click on the \textbf{forward run} icon icon \includegraphics[width=0.5cm]{Icons/run_icon.png} on the tool bar on the left side of the screen and wait for the simulation to end. 
+\textbf{Inspecting the results: } Right-click on the \textbf{aeration tank} and click \textbf{Water quality results}$\rightarrow$\textbf{S} to see the variation of substrate in the aeration tank. Do the same thing for \textbf{X}. Similar to the previous example you can copy the two graphs unto each other (Figure \ref{fig:32}). 
+\begin{figure}
+\begin{center}
+\includegraphics[width=8cm]{Images/Figure32.png} \\
+\caption{S and X variation in the simple ASM model}\label{fig:32}
+\end{center}
+\end{figure}
+
+\end{itemize}

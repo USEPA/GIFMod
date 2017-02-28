@@ -10,14 +10,14 @@
 TreeModel::TreeModel(GraphWidget *parent) : QAbstractItemModel(parent)
 {
 		Parent = parent;
-#ifdef WQV
+#ifdef GIFMOD
 		if (parent->applicationShortName == "GIFMod")
 		{
 			rootItem = new TreeItem("Root", parent, TreeItem::Type::Root);// , 0);
 			settings = new TreeItem("Settings", parent, TreeItem::Type::SettingsBranch);//, rootItem);
-			projectSetting = new TreeItem("Project setting", parent, TreeItem::Type::Item);//, settings);
-			climateSetting = new TreeItem("Climate setting", parent, TreeItem::Type::Item);//, settings);
-			solverSetting = new TreeItem("Solver setting", parent, TreeItem::Type::Item);//, settings);
+			projectSettings = new TreeItem("Project settings", parent, TreeItem::Type::Item);//, settings);
+			climateSettings = new TreeItem("Climate settings", parent, TreeItem::Type::Item);//, settings);
+			solverSettings = new TreeItem("Solver settings", parent, TreeItem::Type::Item);//, settings);
 			blocks = new TreeItem("Blocks", parent, TreeItem::Type::NodesBranch);//, rootItem);
 			connectors = new TreeItem("Connectors", parent, TreeItem::Type::EdgesBranch);//, rootItem);
 			waterQuality = new TreeItem("Water quality", parent, TreeItem::Type::WaterQualityBranch);//, rootItem);
@@ -35,19 +35,25 @@ TreeModel::TreeModel(GraphWidget *parent) : QAbstractItemModel(parent)
 			MCMC = new TreeItem("Markov chain Monte Carlo", parent, TreeItem::Type::Item);//, inverseModeling);
 			parameter = new TreeItem("Parameters", parent, TreeItem::Type::Branch);//, inverseModeling);
 			observed = new TreeItem("Observations", parent, TreeItem::Type::Branch);//, inverseModeling);
-			
-			QList<TreeItem*> rootNodes, settingsNodes, waterQualityNodes, reactionsNodes, inverseModelingNodes;
-			rootNodes << settings << blocks << connectors << evapotranspiration << waterQuality << inverseModeling;
-			settingsNodes << projectSetting << climateSetting << solverSetting;
+			control = new TreeItem("Control", parent, TreeItem::Type::ControlBranch);//, rootItem);
+			sensor = new TreeItem("Sensors", parent, TreeItem::Type::Branch);
+			objectiveFunction = new TreeItem("Objective functions", parent, TreeItem::Type::Branch);
+			controller = new TreeItem("Controllers", parent, TreeItem::Type::Branch);
+
+			QList<TreeItem*> rootNodes, settingsNodes, waterQualityNodes, reactionsNodes, inverseModelingNodes, controlNodes;
+			rootNodes << settings << blocks << connectors << evapotranspiration << waterQuality << inverseModeling << control;
+			settingsNodes << projectSettings << climateSettings << solverSettings;
 			waterQualityNodes << particle << constituent << buildUp << extrenalFlux << reactions;
 			reactionsNodes << reactionParameter << reactionNetwork;
 			inverseModelingNodes << GA << MCMC << parameter << observed;
+			controlNodes << objectiveFunction << sensor << controller;
 			rootItem->addChild(rootNodes);
 			settings->addChild(settingsNodes);
 			waterQuality->addChild(waterQualityNodes);
 			reactions->addChild(reactionsNodes);
 			inverseModeling->addChild(inverseModelingNodes);
-			
+			control->addChild(controlNodes);
+
 		}
 #endif
 #ifdef GWA
@@ -181,6 +187,12 @@ TreeModel::~TreeModel()
 void TreeModel::addChildFromMenu(const QString name, QModelIndex *parentIndex)
 {
 	TreeItem *parent = 0;
+	if (name == "Controller")
+		parent = this->controller;
+	if (name == "Sensor")
+		parent = this->sensor;
+	if (name == "Objective function")
+		parent = this->objectiveFunction;
 	if (name == "Constituent")
 		parent = this->constituent;
 	if (name == "Particle")
@@ -336,7 +348,7 @@ void TreeModel::deleteNode(Node *node)
 {
 	Parent->log(QString("Deleting %1 block by tree view command.").arg(node->Name()));
 	TreeItem *branch;
-#ifdef WQV
+#ifdef GIFMOD
 	branch = blocks;
 #endif
 #ifdef GWA
@@ -434,7 +446,7 @@ QString TreeModel::singularform(QString name) const
 
 void TreeModel::add(Node *node)
 {
-#ifdef WQV
+#ifdef GIFMOD
 	Parent->log("Adding one block to tree view.");
 	QModelIndex parent = createIndex(rootItem->indexOf(blocks), 0, rootItem);
 	int row = blocks->childCount();
@@ -486,6 +498,12 @@ void TreeModel::add(Edge *edge)
 TreeItem * TreeModel::entityParentItemfromType(QString type) const
 {
 	TreeItem *parent = 0;
+	if (type == "Sensor")
+		parent = this->sensor;
+	if (type == "Objective function")
+		parent = this->objectiveFunction;
+	if (type == "Controller")
+		parent = this->controller;
 	if (type == "Constituent")
 		parent = this->constituent;
 	if (type == "Particle")

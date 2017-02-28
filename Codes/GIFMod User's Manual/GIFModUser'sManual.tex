@@ -1,0 +1,176 @@
+
+\documentclass[letter,11pt]{report}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{array}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Source: http://en.wikibooks.org/wiki/LaTeX/Hyperlinks %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage[english]{babel}
+\usepackage{natbib}
+\usepackage[normalem]{ulem}
+\usepackage{longtable}
+\bibliographystyle{apalike}
+\usepackage{draftwatermark}
+\SetWatermarkText{Working copy}
+\SetWatermarkScale{1}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 'dedication' environment: To add a dedication paragraph at the start of book %
+% Source: http://www.tug.org/pipermail/texhax/2010-June/015184.html            %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{dedication}
+{
+   \cleardoublepage
+   \thispagestyle{empty}
+   \vspace*{\stretch{1}}
+   \hfill\begin{minipage}[t]{0.66\textwidth}
+   \raggedright
+}
+{
+   \end{minipage}
+   \vspace*{\stretch{3}}
+   \clearpage
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Chapter quote at the start of chapter        %
+% Source: http://tex.stackexchange.com/a/53380 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\renewcommand{\@chapapp}{}% Not necessary...
+\newenvironment{chapquote}[2][2em]
+  {\setlength{\@tempdima}{#1}%
+   \def\chapquote@author{#2}%
+   \parshape 1 \@tempdima \dimexpr\textwidth-2\@tempdima\relax%
+   \itshape}
+  {\par\normalfont\hfill--\ \chapquote@author\hspace*{\@tempdima}\par\bigskip}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% First page of book which contains 'stuff' like: %
+%  - Book title, subtitle                         %
+%  - Book author name                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Book's title and subtitle
+\title{\Huge \textbf{User's Manual for Green Infrastructure Flexible Model (GIFMod)}}
+% Author
+
+\author{
+Arash Massoudieh\\
+  \texttt{first1.last1@xxxxx.com}
+  \and
+  Sassan Aflaki\\
+  \texttt{first2.last2@xxxxx.com}
+  \and
+   Srinivas Panguluri\\
+  \texttt{first2.last2@xxxxx.com}
+  \and
+  Project Director: Christopher Nietch 
+}
+
+
+
+
+\begin{document}
+
+
+
+
+
+
+\maketitle
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Auto-generated table of contents, list of figures and list of tables %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents
+\listoffigures
+\listoftables
+
+
+%%%%%%%%%%%
+% Preface %
+%%%%%%%%%%%
+\chapter*{Preface}
+
+we will add short description about each chapter in this book.
+
+
+\section*{About the companion websites}
+
+\begin{itemize}
+  \item GIFMod along with the examples presented in this manual can be downloaded at www.GIFMod.com.
+  \item The source code of the program is available at https://github.com/USEPA/GIFMod.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Give credit where credit is due. %
+% Say thanks!                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Acknowledgements}
+\begin{itemize}
+\item acknowledgments
+\end{itemize}
+\mbox{}\\
+%\mbox{}\\
+\noindent Acknowledgments go here \\
+
+
+
+\newpage
+
+\begin{abstract}
+    
+    GIFMod is an environment for building mechanistic models of hydraulics and water quality processes in various types of stormwater green infrastructure (GIs). This manual aims at 1- providing a detailed description about the features of the program 2- provide a description about different components available to construct a model and their properties 3- the underlying governing equations 4- to provide several tutorial examples that help learning how to construct a model. 
+\end{abstract}
+
+\section{About this Manual}
+The instructions presented in this manual do not cover all details or variations of GIFMod's potential use. The information contained in this manual is subject to change periodically without notice. Any trademarks mentioned or contained in this document belong to their respective owners. The manual is organized as follows: \textbf{Chapter 1} provides an introduction about different capabilities of GIFMod, \textbf{Chapter 2} walks the reader through building a simple pond model, running the model and inspecting the results. this chapter aims at making the user familiar with the modeling environment. \textbf{Chapter 3} provides a detailed description of model setting and the properties that can be assigned to major components a GI model will be represented by namely \textbf{Blocks} and \textbf{Connectors}. \textbf{Chapter 4} covers how the water quality aspect of a model is set up in GIFMod. Water quality modeling in GIFMod is comprised of particle fate and transport and constituent reactive transport. \textbf{Chapter 5} describes the inverse modeling feature of GIFMod and \textbf{Chapter 6} is a tutorial that walks the user through constructing a model of a bio-retention system. 
+\\
+\\
+\\
+\textbf{Disclaimer: } GIFMod is an environment that allows users to construct models of green infrastructure systems. It gives the modeler significant amount of freedom in how to conceptualize and formulate the problem, and which processes to be included or not into the model. The fidelity of a model built using GIFMod depends on how realistic the conceptualization of the system is. 
+
+\chapter{Introduction}
+\input{Introduction.tex}
+
+
+
+
+\chapter{A simple pond model}
+\input{Simple_pond_model.tex}
+
+\chapter{Model Components}
+\input{Model_components.tex}
+
+\chapter{Water Quality Modeling}
+\input{Water_Quality_modeling.tex}
+\chapter{Inverse Modeling}
+\input{Inverse_modeling.tex}
+
+
+
+\chapter{Example I: A simple bioretention model}
+Step-by-step instructions for building a bioretention model will be presented here. 
+
+
+\chapter*{Appendixes: }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Sample table                                        %
+% Source: www1.maths.leeds.ac.uk/latex/TableHelp1.pdf %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{Notations.tex}
+\bibliography{GIFMod}
+
+
+\end{document}

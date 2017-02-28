@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Solid-aqueous exchange parameters</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_4">
    <item>
@@ -29,7 +29,7 @@
       <bool>false</bool>
      </property>
      <property name="title">
-      <string>Solic aqueous exchange parameters</string>
+      <string>Solid aqueous exchange parameters</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>

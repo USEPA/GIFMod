@@ -1,0 +1,38 @@
+GIFMod is a computer program that can be used to construct model for evaluation of the performance of stormwater green infrastructure (GIs) and other types of urban and agricultural best management practices (BMPs). The program is designed to provide a good level of flexibility to the users to set up the model configuration and to select the processes governing the hydraulics and water quality. Therefore, GIFMod can be applied to evaluate a wide variety of GI related water quality problems. A model build using GIFMod should be conceptualized as a interconnected set of different types of media ranging from surface water to vadose zone and groundwater. 
+
+Modeling of GI performance in GIFMod can be done in three levels including hydraulics, particle transport and constituent fate and transport. A GI model can be constructed by a combination of blocks representing surface water ponds, streams, overland flow, unsaturated soil, saturated media and storage that are connected either through natural interfaces, pipes or other user-defined connectors. 
+
+\section{Hydraulic Modeling Capabilities}
+The hydraulic module solves water balance equations for the blocks comprising the model by using constitutive theories expressing the head-storage relationship for each type of block and hydraulic head-flow relationships for flow rates between connected blocks. Briefly, van Genutchten-Maulem \citep{Mualem1976,VanGenuchten1980} equation is used for unsaturated flow, Darcy equation is used for saturated porous media ans storage, and diffusive wave (DW) equation is used for all surface water components including streams, ponds and overland flow. Several options are provided for modeling evaporation and evapotranspiration including the Penman model \citep{allen1998} the Priestly-Taylor model \citep{Priestley1972} and the aerodynamic model \citep{mays2010}. In addition the use can introduce new equations for calculation of evaporation as a function of moisture content of blocks, light intensity, temperature, wind and humidity. The user is also able to introduce evaporation time-series to be imposed to blocks using external input files.  
+
+\section{Particle Transport Modeling Capabilities}
+The GIFMod particle transport modeling capability includes the ability to model multiple classes of particles with different transport properties. The particles are assumed to be affected by gravity settling and attachment to soil matrix and release from the soil matrix. Several alternative models are provided for particle transport in porous media that can be attributed to each particle type. Depending on the particle transport model used, the particles are assumed to be able to be present in several phases including mobile phase, reversibly attached phase, irreversibly attached phase and attached to air-water interface. Blocking can be modeled in attachment of mobile particles using a Langmuirian blocking function. The exchange rate of particles between phases can be indicated to be a function of flow velocity. 
+
+\section{Coupled Dissolved and Particle-associated Reactive Transport Modeling Capability}
+The following processes can be modeled in the multi-component constituent fate and transport module: 1) advective-dispersive of constituents both as dissolved species or as bound to mobile particles, 2) mass transfer between the aqueous phase and all solid phases including the soil matrix and all other mobile and immobile particulate phases. 3) user-define biogeochemical transformation processes. Introduction of biogeochemical process is done by first defining bio-kinetics and stoichiometric parameters and then filling in a Peterson matrix \citep{Russell2006} specifying the rates and stoichiometries of each process. Bio-kinetic and stoichiometric parameters can be specified to be a function of temperature through Arrhenius equation. Also physical parameters such as moisture content, light intensity and such can also be used as part of the process rate expressions and stoichiometric expressions. 
+
+Constituents can be assigned to have settling velocities. This is particularly useful when modeling algal circulation, bacteria, particulate organic matter, or other particulate species that can can undergo settling or floatation. 
+
+\section{Inverse Modeling and Parameter Estimation Capability}
+GIFMod is equipped with both deterministic (using Genetic Algorithm) and probabilistic (using Markov Chain Monte-Carlo) parameter estimation capability. Any of the parameters used in a model can be treated as unknown  and multiple sets of observed data can be introduced to represent hydraulic and water quality outputs of the model. 
+
+\section{Installing GIFMod}
+\input{Installation.tex}
+
+Typically, the following steps are performed when using the GIFMod to evaluate GI performance:
+
+\begin{itemize}
+    \item Create a project in solution explorer and set (or accept the default values) the basic project options (e.g., project setting, climate setting, and solver setting) for analysis .... (see Chapter 3)
+    \item Draw a visual representation of the GI to be evaluated using blocks that represent spatial components of the GI (e.g., pond, stream, etc.) and connectors that represent interfaces between the spatial components. (see Chapter 3)
+    \item Edit the properties of the blocks and connectors that make up the evaluated GI system (see Chapter 3)
+    \item Add any available time series hydraulic and water quality data.
+    \item Set up the water quality component of the model (see Chapter 4) if the model has a water quality aspect.
+    \item If the model is intended to be used for parameter estimation set up the define parameters and observed data (see Chapter 5). 
+    \item Run the model if forward (or inverse if parameter estimation is intended to be performed). 
+    \item View the results of the analysis.
+ 
+\end{itemize}
+    
+
+
+

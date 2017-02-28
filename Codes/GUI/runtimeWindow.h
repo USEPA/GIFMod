@@ -6,6 +6,7 @@
 #include "qvector.h"
 #include "BTCSet.h"
 #include "qstring.h"
+#include "plotWindow.h"
 class CMedium;
 class GraphWidget;
 namespace Ui {
@@ -66,6 +67,7 @@ public:
   GraphWidget* parent;
   bool stopTriggered = false;
   CMedium* experiment = 0; //Medium
+  Ui::runtimeWindow *ui;
 private slots:
 	
 	void on_btnStop_clicked();
@@ -73,7 +75,7 @@ private slots:
 		int i = 0;
 	};
 
-  void realtimeDataSlot(double x, double y, bool secondPlot = false, QString chartName = "");
+  void realtimeDataSlot(double x, double y, bool secondPlot = false, QString chartName = "chart", bool commingBackX = false);
   void bracketDataSlot();
   void screenShot();
   void allScreenShots();
@@ -81,7 +83,6 @@ private slots:
   void showMenu(QMouseEvent *event);
 
 private:
-  Ui::runtimeWindow *ui;
   QString demoName;
   QTimer dataTimer;
   QCPItemTracer *itemDemoPhaseTracer;

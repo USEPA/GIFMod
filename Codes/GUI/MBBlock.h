@@ -12,10 +12,12 @@
 #include "EnvExchange.h"
 #include "Evaporation.h"
 
+
 using namespace std;
 
 enum Block_types { Soil, Pond, Storage, Catchment, Manhole, Darcy, Stream, NativeSoil };
 
+class CMedium;
 class CMBBlock
 {
 public:
@@ -155,5 +157,6 @@ public:
 	double *current_wind;
 	double light_reduction_factor;
 	bool perform_rxn = true;
+	CMedium *parent; 
 };
 

@@ -160,6 +160,7 @@ QStringList GraphWidget::s_get_environmental_params() const
 	r.append(QString("detoutfilename_wq = wq_output.txt"));
 	r.append(QString("detoutfilename_prtcle = prtcl_output.txt"));
 	r.append(QString("detoutfilename_obs = observed_output.txt"));
+	r.append(QString("detoutfilename_obs = control_output.txt"));
 	//	detout_filename = det_out.txt
 	//		detout_obs_filename = obs_det_out.txt;
 	//	PE_info_filename = "GA_info.txt";

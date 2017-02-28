@@ -10,28 +10,30 @@
 #include "results.h"
 
 
-#ifdef WQV
+#ifdef GIFMOD
 #include "MediumSet.h"
 #include "Medium.h"
 
 
 CMediumSet::CMediumSet(GraphWidget* gw, runtimeWindow *rtw)
 {
-	//progress->setValue(0);
+//	omp_set_num_threads(16);	//progress->setValue(0);
 	this->gw = gw;
 	QString savedExperiment = gw->experiments->currentText();
-	gw->experiments->setCurrentText("Global");
+	gw->experiments->setCurrentText("All experiments");
 	set_default();
 	g_get_environmental_params();
 	g_get_params();
 	g_get_observed();
 	g_get_particle_types();
 	g_get_constituents();
+	g_get_sensors();
+	g_get_controllers();
 	g_get_reactions();
 	g_get_buildup();
 	g_get_external_flux();
 	g_get_evapotranspiration();
-
+	
 
 	for (int i = 0; i<parameters.size(); i++)
 		set_param(i, parameters[i].value);
@@ -52,10 +54,17 @@ CMediumSet::CMediumSet(GraphWidget* gw, runtimeWindow *rtw)
 		Medium[i - 1].g_set_default_block_expressions();
 		Medium[i - 1].g_load_inflows();
 		Medium[i - 1].get_funcs();
-		Medium[i - 1].set_default_params();
+//		Medium[i - 1].set_default_params();
 		Medium[i - 1].log_file_name() = "log.txt";
 	}
-
+	for (int i = 0; i < parameters.size(); i++)
+	{
+		set_param(i, parameters[i].value);
+	}
+	for (int i = 1; i < gw->experiments->count(); i++)
+	{
+		Medium[i - 1].set_default_params();
+	}
 
 	gw->experiments->setCurrentText(savedExperiment);
 
@@ -71,7 +80,7 @@ void MainWindow::forwardRun(CMediumSet *model, runtimeWindow* progress)
 	string a = model->FI.pathname;
 	runtime_file.open(model->FI.outputpathname + "Runing_times.txt");
 	model->solve(progress);
-#ifdef WQV
+#ifdef GIFMOD
 	//progress->setLabel(QString::fromStdString(model->fail_reason));
 #endif
 	t1 = clock() - t0;
@@ -84,10 +93,11 @@ void MainWindow::forwardRun(CMediumSet *model, runtimeWindow* progress)
 
 	for (int i = 0; i < model->Medium.size(); i++)
 	{
-		model->Medium[i].ANS.writetofile(model->Medium[i].detoutfilename_hydro);
-		model->Medium[i].ANS_colloids.writetofile(model->Medium[i].detoutfilename_prtcle);
-		model->Medium[i].ANS_constituents.writetofile(model->Medium[i].detoutfilename_wq);
-		if (model->SP.mass_balance_check) model->Medium[i].ANS_MB.writetofile(model->FI.outputpathname + "output_MB" + model->Medium[i].name + ".txt");
+		model->Medium[i].ANS.writetofile(model->Medium[i].detoutfilename_hydro, true);
+		model->Medium[i].ANS_colloids.writetofile(model->Medium[i].detoutfilename_prtcle, true);
+		model->Medium[i].ANS_constituents.writetofile(model->Medium[i].detoutfilename_wq, true);
+		model->Medium[i].ANS_control.writetofile(model->Medium[i].detoutfilename_control, true);
+		if (model->SP.mass_balance_check) model->Medium[i].ANS_MB.writetofile(model->FI.outputpathname + "output_MB" + model->Medium[i].name + ".txt", true);
 		/*			model->Medium[i].ANS.writetofile(model->FI.outputpathname + model->Medium[i].detoutfilename_hydro);
 					model->Medium[i].ANS_colloids.writetofile(model->FI.outputpathname + model->Medium[i].detoutfilename_prtcle);
 					model->Medium[i].ANS_constituents.writetofile(model->FI.outputpathname + model->Medium[i].detoutfilename_wq);
@@ -95,15 +105,17 @@ void MainWindow::forwardRun(CMediumSet *model, runtimeWindow* progress)
 					*/
 	}
 
-	model->ANS_obs.writetofile(model->FI.detoutfilename_obs);
-
+	model->ANS_obs.writetofile(model->FI.detoutfilename_obs, true);
+	
 	//system.Solution_dt.writetofile(system.outputpathname()+"dt.txt");
 	runtime_file.close();
 
 //	mainGraphWidget->results->projected = system->projected;
 //	model->ANS_obs = model->modeled;
 //	mainGraphWidget->results->ANS_obs = model->ANS_obs;
-	mainGraphWidget->model = &model->Medium[0];
+	//mainGraphWidget->model = &model->Medium[0];
+	mainGraphWidget->experimentSelect(mainGraphWidget->experimentsList()[0]);
+	mainGraphWidget->hasResults = true;
 
 }
 #endif
@@ -169,7 +181,7 @@ CGWA::CGWA(GraphWidget* gw, runtimeWindow *progress)
 }
 
 #endif
-#ifdef WQV
+#ifdef GIFMOD
 CGA::CGA(CMediumSet *model, runtimeWindow* rtw)
 #endif
 #ifdef GWA
@@ -202,7 +214,7 @@ CGA::CGA(CGWA *model, runtimeWindow* rtw)
 	calculate_percentile = true;
 	mcmc_realization = true;
 	calculate_correlation = true;
-#ifdef WQV
+#ifdef GIFMOD
 	pathname = model->FI.outputpathname;
 #endif
 #ifdef GWA
@@ -348,7 +360,7 @@ int CGA::optimize(runtimeWindow* rtw)
 
 	FileOut = fopen(RunFileName.c_str(), "w");
 	fclose(FileOut);
-#ifdef WQV
+#ifdef GIFMOD
 	FileOut1 = fopen((Sys.FI.outputpathname + "detail_GA.txt").c_str(), "w");
 #endif
 #ifdef GWA
@@ -573,6 +585,7 @@ void CGA::updateProgress(runtimeWindow* rtw, bool resetGeneration) const
 			
 			progress = 100.0*populationProgress / maxpop;
 			vars["progress2"] = progress;
+			//vars["x-axis label"] = "Generation";
 
 		rtw->update(vars);
 	}
@@ -617,7 +630,7 @@ void CGA::assignfitnesses(runtimeWindow* rtw)
 		Ind[k].actual_fitness = 0;
 
 		Sys1[k] = Sys;
-#ifdef WQV
+#ifdef GIFMOD
 		Sys1[k].FI.write_details = false;
 #endif
 
@@ -646,7 +659,7 @@ void CGA::assignfitnesses(runtimeWindow* rtw)
 			//int ts,l;
 
 		FILE *FileOut;
-#ifdef WQV
+#ifdef GIFMOD
 		FileOut = fopen((Sys.FI.outputpathname + "detail_GA.txt").c_str(), "a");
 #endif
 #ifdef GWA
@@ -663,7 +676,7 @@ void CGA::assignfitnesses(runtimeWindow* rtw)
 		//fprintf(FileOut, "%le, %le, %i, %e", Ind[k].actual_fitness, Ind[k].fitness, Ind[k].rank, time_[k]);
 		std::fprintf(FileOut, "\n");
 		std::fclose(FileOut);
-
+		QCoreApplication::processEvents();
 		clock_t t0 = clock();
 //		for (int ts = 0; ts<1; ts++)
 //		{
@@ -671,7 +684,7 @@ void CGA::assignfitnesses(runtimeWindow* rtw)
 			epochs[k] += Sys1[k].epoch_count();
 //		}
 		time_[k] = ((float)(clock() - t0)) / CLOCKS_PER_SEC;
-#ifdef WQV
+#ifdef GIFMOD
 		FileOut = fopen((Sys.FI.outputpathname + "detail_GA.txt").c_str(), "a");
 #endif
 #ifdef GWA
@@ -691,7 +704,7 @@ void CGA::assignfitnesses(runtimeWindow* rtw)
 	assignfitness_rank(N);
 
 }
-#ifdef WQV
+#ifdef GIFMOD
 void MainWindow::inverseRun(CMediumSet *modelSet, runtimeWindow* rtw)
 {
 
@@ -740,6 +753,7 @@ void MainWindow::inverseRun(CMediumSet *modelSet, runtimeWindow* rtw)
 			GA.Sys_out.ANS_hyd[i]->writetofile(GA.Sys.Medium[i].detoutfilename_hydro, modelSet->FI.write_interval);
 			GA.Sys_out.ANS_colloids[i]->writetofile(GA.Sys.Medium[i].detoutfilename_prtcle, modelSet->FI.write_interval);
 			GA.Sys_out.ANS_constituents[i]->writetofile(GA.Sys.Medium[i].detoutfilename_wq, modelSet->FI.write_interval);
+			GA.Sys_out.ANS_control[i]->writetofile(GA.Sys.Medium[i].detoutfilename_control, modelSet->FI.write_interval);
 //			GA.Sys_out.ANS_hyd[i]->writetofile(modelSet->FI.outputpathname + GA.Sys.Medium[i].detoutfilename_hydro, modelSet->FI.write_interval);
 //			GA.Sys_out.ANS_colloids[i]->writetofile(modelSet->FI.outputpathname + GA.Sys.Medium[i].detoutfilename_prtcle, modelSet->FI.write_interval);
 //			GA.Sys_out.ANS_constituents[i]->writetofile(modelSet->FI.outputpathname + GA.Sys.Medium[i].detoutfilename_wq, modelSet->FI.write_interval);
@@ -846,6 +860,8 @@ void MainWindow::inverseRun(CMediumSet *modelSet, runtimeWindow* rtw)
 		if (GA.calculate_percentile == true)
 		{
 			qDebug() << 1016;
+			vector<int> index;
+			for (int i=0; i<MCMC.nActParams; i++) index.push_back(i+1);
 			vector<double> p2dot5 = MCMCOut.percentile(0.025, MCMC.n_burnout);
 			vector<double> p50 = MCMCOut.percentile(0.5, MCMC.n_burnout);
 			vector<double> mean = MCMCOut.mean(MCMC.n_burnout);
@@ -915,18 +931,18 @@ void MainWindow::inverseRun(CMediumSet *modelSet, runtimeWindow* rtw)
 		{
 			qDebug() << 1021;
 			rtw->setLabel("Generating Posterior Realizations");
-
+			MCMC.rtw = rtw;
 			MCMC.get_outputpercentiles(MCMCOut);
 			qDebug() << 1022;
 			if (GA.obs_realization_writeout)
 				for (int i = 0; i < MCMC.G.measured_quan.size(); i++)
 					for (int j = 0; j < 1; j++)
-						MCMC.BTCout_obs[j][i].writetofile(modelSet->FI.outputpathname + "BTC_obs" + to_string(i) + "_" + to_string(j) + ".txt", modelSet->FI.write_interval);
+						MCMC.BTCout_obs[j][i].writetofile(modelSet->FI.outputpathname + "BTC_obs_" + MCMC.G.measured_quan[i].name + ".txt", modelSet->FI.write_interval);
 			qDebug() << 1023;
 			if (GA.noise_realization_writeout)
 				for (int i = 0; i < MCMC.G.measured_quan.size(); i++)
 					for (int j = 0; j < 1; j++)
-						MCMC.BTCout_obs_noise[j][i].writetofile(modelSet->FI.outputpathname + "BTC_obs_noise" + to_string(i) + "_" + to_string(j) + ".txt", modelSet->FI.write_interval);
+						MCMC.BTCout_obs_noise[j][i].writetofile(modelSet->FI.outputpathname + "BTC_obs_noise_" + MCMC.G.measured_quan[i].name + ".txt", modelSet->FI.write_interval);
 			qDebug() << 1024;
 			// calculating percentiles
 			
@@ -963,9 +979,8 @@ void MainWindow::inverseRun(CMediumSet *modelSet, runtimeWindow* rtw)
 	if (mainGraphWidget->model != 0) delete mainGraphWidget->model;
 	mainGraphWidget->modelSet = new CMediumSet(GA.Sys_out);
 	mainGraphWidget->results->model = mainGraphWidget->modelSet;
-//	mainGraphWidget->log("ANS_obs.nvars = " + QString::number(mainGraphWidget->modelSet->ANS_obs.nvars));
-//	for (int i = 0; i < mainGraphWidget->modelSet->ANS_obs.nvars; i++)
-//		mainGraphWidget->log(QString::fromStdString(mainGraphWidget->modelSet->ANS_obs[i].name));
+	mainGraphWidget->experimentSelect(mainGraphWidget->experimentsList()[0]);
+	mainGraphWidget->hasResults = true;
 
 }
 
@@ -997,9 +1012,13 @@ void CMediumSet::g_get_observed()
 		M.experiment = e->val("experiment").toStdString();
 		measured_quan.push_back(M);
 		string file = fullFilename(e->val("observed_data"), gw->modelPathname()).toStdString();
-		CBTC observed = CBTCSet(file, true)[0];
-		if (observed.file_not_found)
-			gw->newError(QString("Could not read observation data file %1 for %2").arg(QString::fromStdString(file)).arg(e->name));
+		CBTC observed = CBTC();
+		if (file.size())
+		{
+			observed = CBTCSet(file, true)[0];
+			if (observed.file_not_found)
+				gw->newError(QString("Could not read observation data file %1 for %2").arg(QString::fromStdString(file)).arg(e->name));
+		}
 		measured_data.append(observed, e->name.toStdString());
 	}
 	vector<int> stds;
@@ -1025,15 +1044,77 @@ void CMediumSet::g_get_observed()
 	set_features.observed = true;
 }
 
+void CMediumSet::g_get_sensors()
+{
+	for each (Entity *e in gw->entitiesByType("Sensor"))
+	{
+		CSensor M(gw->experimentsList().count());
+		M.error_structure = 0;
+		M.name = e->Name().toStdString();
+		M.loc_type = (e->val("loc_type") == "Block") ? 0 : 1; //OBSERVED SUBTYPE
+		string equation = convertstringtoStringOP(e->val("quan").toQString(), gw);
+		
+		M.quan = CStringOP(equation, &RXN);
+
+		M.id = (e->val("id").toStdString());
+		M.error_std = e->val("error_std").toFloat();
+		M.error_structure = (e->val("error_structure") == "Normal") ? 0 : 1; //NORM 0 ; LOg 1
+		M.interval = e->val("interval").toFloat();
+		M.error_std = e->val("std").toFloat();
+
+
+		Control.Sensors.push_back(M);
+	}
+
+}
+
+void CMediumSet::g_get_objective_functions()
+{
+	
+	for each (Entity *e in gw->entitiesByType("Objective Function"))
+	{
+		CObjectiveFunction M;
+		M.name = e->Name().toStdString();
+		M.loc_type = (e->val("loc_type") == "Block") ? 0 : 1; //OBSERVED SUBTYPE
+		M.location = (e->val("id").toStdString());
+		string equation = convertstringtoStringOP(e->val("quan").toQString(), gw);
+
+		M.expression = CStringOP(equation, &RXN);
+
+		Control.ObjectiveFunctions.push_back(M);
+	}
+
+}
+
+
+void CMediumSet::g_get_controllers()
+{
+	for each (Entity *e in gw->entitiesByType("Controller"))
+	{
+		CController M;
+
+		M.name = e->Name().toStdString();
+		M.type = e->val("type").toStdString(); //Added by Arash, please check
+		M.sensor_id = e->val("sensor").toStdString(); //Added by Arash, please check
+		M.zn_controller_type = e->val("zn_controller_type").toStdString();
+		for each (QString key in e->codes())
+			if (e->val(key).toQString() != "")
+				M.set_val(key.toStdString(), e->val(key).toFloat());
+
+//		M.interval = e->val("interval").toFloatDefaultUnit();
+		if (tolower(M.type) == "ziegler-nichols") M.set_zn();
+		Control.Controllers.push_back(M);
+	}
+}
 void CMediumSet::g_get_environmental_params()
 {
 	SP.pos_def_limit = true;
 	SP.negative_concentration_allowed = false;
 
 	QList<Entity*> list;
-	list.append(gw->entitiesByType("Climate setting"));
-	list.append(gw->entitiesByType("Project setting"));
-	list.append(gw->entitiesByType("Solver setting"));
+	list.append(gw->entitiesByType("Climate settings"));
+	list.append(gw->entitiesByType("Project settings"));
+	list.append(gw->entitiesByType("Solver settings"));
 
 	for each (Entity *e in list)
 		for each (QString key in e->codes())
@@ -1047,10 +1128,12 @@ void CMediumSet::g_get_environmental_params()
 					FI.outputpathname = e->val(key).toStdString() + '/';
 				//				FI.pathname = e->val(key).toStdString() + '/';
 			}
-			if (key == "forward")
-				SP.forward = (e->val(key) == "Forward") ? 1 : 0;
+//			if (key == "forward")
+//				SP.forward = (e->val(key) == "Forward") ? 1 : 0;
 			if (key == "solution_method")
 				SP.solution_method = e->val(key).toSolutionMethod();
+			if (key == "sorption")
+				SP.sorption = e->val(key).toBool();
 			if (key == "wiggle_tolerance")
 				SP.wiggle_tolerance = e->val(key).toFloat();
 			if (key == "max_j_update_interval")
@@ -1064,9 +1147,9 @@ void CMediumSet::g_get_environmental_params()
 			if (key == "uniformoutput")
 				FI.uniformoutput = e->val(key).toBool();
 			if (key == "nr_iteration_treshold_max")
-				if (!e->val(key).isEmpty()) SP.nr_iteration_treshold_max = e->val(key).toFloat();
+				if (!e->val(key).isEmpty()) SP.nr_iteration_treshold_max = e->val(key).toInt();
 			if (key == "nr_iteration_treshold_min")
-				if (!e->val(key).isEmpty()) SP.nr_iteration_treshold_min = e->val(key).toFloat();
+				if (!e->val(key).isEmpty()) SP.nr_iteration_treshold_min = e->val(key).toInt();
 			if (key == "dt_change_rate")
 				if (!e->val(key).isEmpty()) SP.dt_change_rate = e->val(key).toFloat();
 			if (key == "dt_change_failure")
@@ -1094,11 +1177,14 @@ void CMediumSet::g_get_environmental_params()
 			if (key == "writeinterval")
 				FI.write_interval = e->val(key).toInt();
 			if (key == "pos_def_limit")
-				SP.pos_def_limit = e->val(key).toInt();
+				SP.pos_def_limit = e->val(key).toBool();
 			if (key == "negative_concentration_allowed")
 				SP.negative_concentration_allowed = e->val(key).toBool();
 			if (key == "steady_state_hydro" && !e->val(key).isEmpty())
 				SP.steady_state_hydro = e->val(key).toBool();
+			if (key == "check_oscillation" && !e->val(key).isEmpty())
+				SP.check_oscillation = e->val(key).toBool();
+
 		}
 
 	/*		if (tolower(lid_config.keyword[i]) == "detout_obs_filename")
@@ -1114,9 +1200,9 @@ void CMediumSet::g_get_environmental_params()
 void CMedium::g_get_environmental_params()
 {
 	QList<Entity*> list;
-	list.append(gw->entitiesByType("Climate setting"));
-	list.append(gw->entitiesByType("Project setting"));
-	list.append(gw->entitiesByType("Solver setting"));
+	list.append(gw->entitiesByType("Climate settings"));
+	list.append(gw->entitiesByType("Project settings"));
+	list.append(gw->entitiesByType("Solver settings"));
 
 	for each (Entity *e in list)
 		for each (QString key in e->codes())
@@ -1154,6 +1240,7 @@ void CMedium::g_get_environmental_params()
 	if (detoutfilename_wq.size() == 0) detoutfilename_wq = outputpathname() +"wq_output_" + name + ".txt";
 	if (detoutfilename_prtcle.size() == 0) detoutfilename_prtcle = outputpathname() + "prtcl_output_" + name + ".txt";
 	if (detoutfilename_obs().size() == 0) detoutfilename_obs() = outputpathname() + "observed_output.txt";
+	if (detoutfilename_control.size() == 0) detoutfilename_control = outputpathname() + "control_output_" + name + ".txt";
 
 //	PE_info_filename() = "GA_info.txt";
 
@@ -1189,11 +1276,14 @@ void CMediumSet::g_get_params()
 
 #endif
 
-#ifdef WQV
+#ifdef GIFMOD
 void CMedium::g_get_model_configuration(runtimeWindow* rtw)
 {
-	for each(Node *n in gw->Nodes())
+	QList <Node*> nodes = gw->Nodes();
+//#pragma omp parallel for 
+	for (int i = 0; i < nodes.count(); i++)
 	{
+		Node* n = nodes[i];
 		CMBBlock B;
 		if (n->objectType.ObjectType == "Soil") { B.indicator = Block_types::Soil; } // 0
 		if (n->objectType.ObjectType == "Pond") { B.indicator = Block_types::Pond; } //1
@@ -1210,7 +1300,15 @@ void CMedium::g_get_model_configuration(runtimeWindow* rtw)
 			B.set_val("v", B.A*n->val("depth").toFloat());
 		}
 
-		for each (QString code in n->codes())
+		QStringList codes = n->codes();
+		codes.removeOne("a");
+		codes.removeOne("v");
+		if (codes.contains("theta_s"))
+		{
+			codes.removeOne("theta_s");
+			codes.push_front("theta_s");
+		}
+		for each (QString code in codes)
 		{
 			//			qDebug() << code;
 			if (!n->val(code).isEmpty() && n->val(code) != ".") B.set_val(code.toStdString(), n->val(code).toFloat());
@@ -1228,7 +1326,8 @@ void CMedium::g_get_model_configuration(runtimeWindow* rtw)
 				B.evaporation_id.push_back(n->val(code).toStdString());
 			if (code == "light")
 				B.light_swch = n->val(code).toBool();
-
+			if (code == "perform_rxn")
+				B.perform_rxn = n->val(code).toBool();
 		}
 		for each (QString text in n->g().split(';'))
 			B.set_val(text.split('=').first().toStdString(), text.split('=').last().toFloat());
@@ -1238,7 +1337,8 @@ void CMedium::g_get_model_configuration(runtimeWindow* rtw)
 		QStringList bulkDensity1Blocks = QStringList() << "Pond" << "Stream" << "Catchment";
 		if (bulkDensity1Blocks.contains(n->objectType.ObjectType))
 			B.set_val("bd", 1);
-		QStringList depth1Blocks = QStringList() << "Pond";
+		
+		QStringList depth1Blocks = QStringList() << "Pond" << "Stream" << "Catchment";
 		if (bulkDensity1Blocks.contains(n->objectType.ObjectType))
 			B.set_val("depth", 1);
 		Blocks.push_back(B);
@@ -1252,14 +1352,29 @@ void CMedium::g_get_model_configuration(runtimeWindow* rtw)
 					parameters()[lookup_parameters(n->val(code).toStdString())].conversion_factor.push_back(n->val(code).conversionCoefficient(n->val(code).unit, n->val(code).defaultUnit));
 					parameters()[lookup_parameters(n->val(code).toStdString())].quan.push_back(code.toStdString());
 					parameters()[lookup_parameters(n->val(code).toStdString())].location_type.push_back(0);
-					parameters()[lookup_parameters(n->val(code).toStdString())].experiment_id.push_back("");
+					parameters()[lookup_parameters(n->val(code).toStdString())].experiment_id.push_back(name);
 				}
 			}
-			//progress->setValue(progress->value() + 1);
+		}
+		for each (QString code in n->codes())
+		{
+			if (gw->EntityNames("Controller").contains(n->val(code).toQString()))
+			{
+				if (lookup_controllers(n->val(code).toStdString()) != -1) {
+					controllers()[lookup_controllers(n->val(code).toStdString())].application_spec.location.push_back(Blocks.size() - 1);  // Check for everything
+					controllers()[lookup_controllers(n->val(code).toStdString())].application_spec.conversion_factor.push_back(n->val(code).conversionCoefficient(n->val(code).unit, n->val(code).defaultUnit));
+					controllers()[lookup_controllers(n->val(code).toStdString())].application_spec.quan.push_back(code.toStdString());
+					controllers()[lookup_controllers(n->val(code).toStdString())].application_spec.location_type.push_back(0);
+					controllers()[lookup_controllers(n->val(code).toStdString())].application_spec.experiment_id.push_back(name);
+				}
+			}
 		}
 	}
-	for each(Edge *e in gw->Edges())
+	QList <Edge*> edges = gw->Edges();
+//#pragma omp parallel for
+	for (int i = 0; i < edges.count(); i++)
 	{
+		Edge *e = edges[i];
 		CConnection C;
 		C.flow_params.resize(20);
 		C.ID = e->Name().toStdString();
@@ -1291,6 +1406,11 @@ void CMedium::g_get_model_configuration(runtimeWindow* rtw)
 				C.pre_flow_filename = e->val("pre_flow_filename").toFileName(gw->modelPathname()).toStdString();
 				C.presc_flow = true;
 			}
+		if (e->objectType.ObjectType == "Controlled")
+		{
+			C.control = true;
+			C.controller_id = e->val("contoller_id").toStdString();
+		}
 
 		if (!e->val("a").isEmpty() && e->val("a").toFloat() != 0) { C.const_area = true; }
 
@@ -1306,11 +1426,24 @@ void CMedium::g_get_model_configuration(runtimeWindow* rtw)
 					parameters()[lookup_parameters(e->val(code).toStdString())].conversion_factor.push_back(e->val(code).conversionCoefficient(e->val(code).unit, e->val(code).defaultUnit));
 					parameters()[lookup_parameters(e->val(code).toStdString())].quan.push_back(code.toStdString());
 					parameters()[lookup_parameters(e->val(code).toStdString())].location_type.push_back(1);
-					parameters()[lookup_parameters(e->val(code).toStdString())].experiment_id.push_back("");
+					parameters()[lookup_parameters(e->val(code).toStdString())].experiment_id.push_back(name);
 				}
 			}
 		}
-		//progress->setValue(progress->value() + 1);
+		for each (QString code in e->codes())
+		{
+			if (gw->EntityNames("Controller").contains(e->val(code).toQString()))
+			{
+				if (lookup_controllers(e->val(code).toStdString()) != -1) {
+					controllers()[lookup_controllers(e->val(code).toStdString())].application_spec.location.push_back(Connector.size() - 1);  // Check for everything
+					controllers()[lookup_controllers(e->val(code).toStdString())].application_spec.conversion_factor.push_back(e->val(code).conversionCoefficient(e->val(code).unit, e->val(code).defaultUnit));
+					controllers()[lookup_controllers(e->val(code).toStdString())].application_spec.quan.push_back(code.toStdString());
+					controllers()[lookup_controllers(e->val(code).toStdString())].application_spec.location_type.push_back(1);
+					controllers()[lookup_controllers(e->val(code).toStdString())].application_spec.experiment_id.push_back(name);
+				}
+			}
+		}
+
 	}
 }
 #endif
@@ -1508,17 +1641,27 @@ void CMedium::g_get_model_configuration(runtimeWindow* rtw)
 	}
 #endif
 
-#ifdef WQV
+#ifdef GIFMOD
 void CMediumSet::g_get_particle_types()
 {
-	for each (Entity *e in gw->entitiesByType("Particle"))
+	QList <Entity *> entities = gw->entitiesByType("Particle");
+//#pragma omp parallel for
+	for (int i = 0;i<entities.count();i++)
 	{
+		Entity *e = entities[i];
 		QString model = e->getValue("SubType");// e->props.list["Model"];
 		if (model == "Single phase") model = "single_phase";
 		if (model == "Dual phase") model = "dual_phase_lm";
 		if (model == "Triple phase") model = "triple_phase_lm";
+		
+		string _settling_model = e->val("settling_model").toStdString();// e->props.list["Model"];
+		
+
 
 		CSolid_Phase S(model.toStdString());
+		if (tolower(_settling_model) == "constant velocity") S.settling_model = "constant_velocity";
+		if (tolower(_settling_model) == "double exponential") S.settling_model = "double_exponential";
+		S.set_settling_model(S.settling_model);
 		S.name = e->Name().toStdString();
 		for each (QString key in e->codes())//props.list.keys())
 		{
@@ -1538,16 +1681,38 @@ void CMediumSet::g_get_particle_types()
 				}
 			}
 		}
+		for each (QString code in e->codes())
+		{
+			if (gw->EntityNames("Controller").contains(e->val(code).toQString()))
+			{
+				if (lookup_controllers(e->val(code).toStdString()) != -1) {
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.location.push_back(Solid_phase.size() - 1);  // Check for everything
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.conversion_factor.push_back(e->val(code).conversionCoefficient(e->val(code).unit, e->val(code).defaultUnit));
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.quan.push_back(code.toStdString());
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.location_type.push_back(7);
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.experiment_id.push_back("");
+				}
+			}
+		}
+
 	}
 	set_features.solids = true;
 }
 void CMediumSet::g_get_constituents()
 {
-	for each (Entity *e in gw->entitiesByType("Constituent"))
+	QList <Entity *> entities = gw->entitiesByType("Constituent");
+//#pragma omp parallel for
+	for (int i = 0; i<entities.count(); i++)
 	{
-		CConstituent S;
+		Entity *e = entities[i];
+		string _settling_model = e->val("settling_model").toStdString();// e->props.list["Model"];
+		if (tolower(_settling_model) == "constant velocity") _settling_model = "constant_velocity";
+		if (tolower(_settling_model) == "double exponential") _settling_model = "double_exponential";
+		CConstituent S(_settling_model);
 		S.name = e->Name().toStdString();
 		S.exchange_rate_scale_factor = CStringOP(e->val("exchange_rate_factor").toStdString());
+		if (e->val("mobile") != "") S.mobile = e->val("mobile").toBool();
+		
 		//S.diffusion = e->val("diffusion").toFloat(); 
 		for each (QString code in e->codes())
 		{
@@ -1584,6 +1749,20 @@ void CMediumSet::g_get_constituents()
 				}
 			}
 		}
+		for each (QString code in e->codes())
+		{
+			if (gw->EntityNames("Controller").contains(e->val(code).toQString()))
+			{
+				if (lookup_controllers(e->val(code).toStdString()) != -1) {
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.location.push_back(RXN.cons.size() - 1);  // Check for everything
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.conversion_factor.push_back(e->val(code).conversionCoefficient(e->val(code).unit, e->val(code).defaultUnit));
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.quan.push_back(code.toStdString());
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.location_type.push_back(4);
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.experiment_id.push_back("");
+				}
+			}
+		}
+
 		set_features.constituents = true;
 	}
 }
@@ -1613,10 +1792,27 @@ void CMediumSet::g_get_reactions()
 				}
 			}
 		}
+		for each (QString code in e->codes())
+		{
+			if (gw->EntityNames("Controller").contains(e->val(code).toQString()))
+			{
+				if (lookup_controllers(e->val(code).toStdString()) != -1) {
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.location.push_back(RXN.parameters.size() - 1);  // Check for everything
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.conversion_factor.push_back(e->val(code).conversionCoefficient(e->val(code).unit, e->val(code).defaultUnit));
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.quan.push_back(code.toStdString());
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.location_type.push_back(3);
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.experiment_id.push_back("");
+				}
+			}
+		}
+
 	}
 
-	for each (Process *e in gw->Processes)
+	QList <Process *> processes = gw->Processes;
+//#pragma omp parallel for
+	for (int i = 0; i<processes.count(); i++)
 	{
+		Process *e = processes[i];
 		CReaction Rx;
 		Rx.name = e->name.toStdString(); //NAME
 		Rx.rate = CStringOP(e->rateExpression().toStdString(), &RXN);
@@ -1634,8 +1830,11 @@ void CMediumSet::g_get_reactions()
 }
 void CMediumSet::g_get_buildup()
 {
-	for each (Entity *e in gw->entitiesByType("Build-up"))
+	QList <Entity *> entities = gw->entitiesByType("Build-up");
+//#pragma omp parallel for
+	for (int i = 0; i<entities.count(); i++)
 	{
+		Entity *e = entities[i];
 		QString model = e->getValue("Model").toLower();// props.list["Model"].toLower();
 
 		CBuildup S(model.toStdString());
@@ -1671,13 +1870,30 @@ void CMediumSet::g_get_buildup()
 				}
 			}
 		}
+		for each (QString code in e->codes())
+		{
+			if (gw->EntityNames("Controller").contains(e->val(code).toQString()))
+			{
+				if (lookup_controllers(e->val(code).toStdString()) != -1) {
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.location.push_back(buildup.size() - 1);  // Check for everything
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.conversion_factor.push_back(e->val(code).conversionCoefficient(e->val(code).unit, e->val(code).defaultUnit));
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.quan.push_back(code.toStdString());
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.location_type.push_back(5);
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.experiment_id.push_back("");
+				}
+			}
+		}
+
 	}
 	set_features.buildup = true;
 }
 void CMediumSet::g_get_external_flux()
 {
-	for each (Entity *e in gw->entitiesByType("External flux"))
+	QList <Entity *> entities = gw->entitiesByType("External flux");
+//#pragma omp parallel for
+	for (int i = 0; i<entities.count(); i++)
 	{
+		Entity *e = entities[i];
 		QString model = e->getValue("Model").toLower();
 		if (model == "free surface") model = "free_surface";
 		if (model == "constant influx") model = "constant_influx";
@@ -1711,14 +1927,31 @@ void CMediumSet::g_get_external_flux()
 				}
 			}
 		}
+		for each (QString code in e->codes())
+		{
+			if (gw->EntityNames("Controller").contains(e->val(code).toQString()))
+			{
+				if (lookup_controllers(e->val(code).toStdString()) != -1) {
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.location.push_back(externalflux.size() - 1);  // Check for everything
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.conversion_factor.push_back(e->val(code).conversionCoefficient(e->val(code).unit, e->val(code).defaultUnit));
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.quan.push_back(code.toStdString());
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.location_type.push_back(6);
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.experiment_id.push_back("");
+				}
+			}
+		}
+
 	}
 	set_features.external_flux = true;
 }
 
 void CMediumSet::g_get_evapotranspiration()
 {
-	for each (Entity *e in gw->entitiesByType("Evapotranspiration"))
+	QList <Entity *> entities = gw->entitiesByType("Evapotranspiration");
+//#pragma omp parallel for
+	for (int i = 0; i<entities.count(); i++)
 	{
+		Entity *e = entities[i];
 		QString model = e->getValue("SubType").toLower();
 		if (model == "time series") model = "time_series";
 		if (model == "transpiration based on moisture content") model = "transpiration_moisture_based";
@@ -1731,6 +1964,7 @@ void CMediumSet::g_get_evapotranspiration()
 
 		if (e->val("expression") != "") S.expression = e->val("expression").toStdString();
 		if (e->val("time_series") != "") S.evaporation_filename = e->val("time_series").toFileName(gw->modelPathname()).toStdString();
+		if (e->val("fao_56_kc_coefficient") != "") S.single_crop_coefficient_filename = e->val("fao_56_kc_coefficient").toFileName(gw->modelPathname()).toStdString();
 		if (e->val("uptake_constituents") != "") S.uptake = e->val("uptake_constituents").toBool();
 
 		for each (QString code in e->codes())
@@ -1752,6 +1986,20 @@ void CMediumSet::g_get_evapotranspiration()
 				}
 			}
 		}
+		for each (QString code in e->codes())
+		{
+			if (gw->EntityNames("Controller").contains(e->val(code).toQString()))
+			{
+				if (lookup_controllers(e->val(code).toStdString()) != -1) {
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.location.push_back(evaporation_model.size() - 1);  // Check for everything
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.conversion_factor.push_back(e->val(code).conversionCoefficient(e->val(code).unit, e->val(code).defaultUnit));
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.quan.push_back(code.toStdString());
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.location_type.push_back(7);
+					Control.Controllers[lookup_controllers(e->val(code).toStdString())].application_spec.experiment_id.push_back("");
+				}
+			}
+		}
+
 	}
 	set_features.evaporation = true;
 }
@@ -1854,6 +2102,7 @@ void CMediumSet::solve(runtimeWindow *rtw)
 	ANS_hyd.clear();
 	ANS_colloids.clear();
 	ANS_constituents.clear();
+	ANS_control.clear();
 	for (int i = 0; i < Medium.size(); i++)
 	{
 		if (rtw)
@@ -1865,6 +2114,7 @@ void CMediumSet::solve(runtimeWindow *rtw)
 		ANS_hyd.push_back(&Medium[i].ANS);
 		ANS_colloids.push_back(&Medium[i].ANS_colloids);
 		ANS_constituents.push_back(&Medium[i].ANS_constituents);
+		ANS_colloids.push_back(&Medium[i].ANS_control);
 		gw->log(QString("%1 finished").arg(QString::fromStdString(Medium[i].name)));
 
 	}
@@ -1878,6 +2128,9 @@ void CMediumSet::solve(runtimeWindow *rtw)
 	gw->log("Simulation ended.");
 
 }
+
+
+
 /*
 bool CMedium::solve(runtimeWindow *rtw)
 {
@@ -1906,6 +2159,12 @@ void CMedium::g_load_inflows()
 		{
 			CBTC E = CBTC(evaporation_model()[j].evaporation_filename);
 			if (E.n>0) evaporation_model()[j].evaporation_TS = E;
+		}
+
+		if (evaporation_model()[j].single_crop_coefficient_filename != "")
+		{
+			CBTC E = CBTC(evaporation_model()[j].single_crop_coefficient_filename);
+			if (E.n>0) evaporation_model()[j].single_crop_coefficient = E;
 		}
 	}
 	for (int j = 0; j<temperature_filename.size(); j++)
@@ -1962,7 +2221,7 @@ void CMedium::g_load_inflows()
 		{
 			if (Blocks[i].precipitation_swch == true)
 				for (int j = 0; j<Precipitation_filename.size(); j++)
-					Blocks[i].inflow.push_back(Precipitation[j].getflow(Blocks[i].A));
+					Blocks[i].inflow.push_back(Precipitation[j].getflow(Blocks[i].A,1.0/24.0/4));
 		}
 	}
 
@@ -1990,9 +2249,7 @@ int CMedium::get_member_no(QString block_name, QString solid_name, QString phase
 	else if (phase_name == "Irreversible attached") phase_no = 2;
 	else gw->log(QString("Warning: Could not locate Phase(%1) for Particle(%2) in Block(%3).").arg(phase_name).arg(solid_name).arg(block_name));
 
-	int k = 0;
-	for (int i = 0; i<solid_id; i++) k += Blocks[0].Solid_phase[i]->n_phases*Blocks.size();
-	return k + getblocksq(block_name.toStdString()) + phase_no*Blocks.size();
+	return get_member_no(getblocksq(block_name.toStdString()), solid_id, phase_no);
 }
 
 int CMedium::get_member_no(QString block_name, QString solid_name, QString phase_name, QString const_name)
@@ -2040,6 +2297,11 @@ void CMedium::updateProgress(bool finished)
 			vars["progress"] = progress;
 			vars["dtt"] = dtt;
 			vars["epoch count"] = epoch_count;
+			QString reason = QString::fromStdString(fail_reason);
+			qDebug() << reason;
+			if (!reason.toLower().contains("none"))
+				vars["label"] = reason;
+			qDebug()<< t<<dtt;
 		}
 		runtimewindow->update(vars);
 
@@ -2047,14 +2309,6 @@ void CMedium::updateProgress(bool finished)
 }
 #endif
 
-QList <QMap <QVariant, QVariant>> CBTC::compact() const
-{
-	return QList <QMap <QVariant, QVariant>>();
-}
-/*CBTC::CBTC(QList <QMap <QVariant, QVariant>> data)
-{
-
-}*/
 CBTC::CBTC(double a, double b, const vector<double> &x)
 {
 	int n = x.size();
@@ -2144,6 +2398,43 @@ int CBTCSet::indexOf(const string& name) const
 		if (name == BTC[i].name) 
 			return i;
 	return -1;
+}
+std::string convertstringtoStringOP(const QString& s, GraphWidget *gWidget)
+{
+	QStringList Constituents = gWidget->EntityNames("Constituent");
+	QStringList Parameters = gWidget->EntityNames("Reaction parameter");
+	QStringList Physicals = gWidget->PhysicalCharacteristicsList;
+	QStringList Functions = gWidget->functionList;
+	QString d;
+	int l = 0, r = s.length();
+	for (int i = 0; i < s.length();) {
+		if (s[i].isSpace()) {
+			i++;  continue;
+		}
+		l = i;
+		// the first char must start with a letter or underscore
+		if (s[i].isLetter() || s[i] == QChar('_')) {
+			while (i < s.length() && (s[i].isLetter() || s[i] == QChar('_') || s[i].isNumber())) i++;
+		}
+		r = i;
+		if (l == r) {
+			d.append(s[i]); i++;
+		}
+		else {
+			QString var = s.mid(l, r - l);
+			if (Constituents.contains(var))
+				d.append(QString("c[%1]").arg(var));
+			else if (Parameters.contains(var))
+				d.append(QString("p[%1]").arg(var));
+			else if (Functions.contains(var))
+				d.append(QString("f[%1]").arg(var));
+			else if (Physicals.contains(var))
+				d.append(QString("f[%1]").arg(var)); // ASK
+			else
+				d.append(var);
+		}
+	}
+	return d.toStdString();
 }
 
 #ifdef GWA	

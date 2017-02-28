@@ -5,7 +5,7 @@
 #include "NormalDist.h"
 #include "GA.h"
 #include "Vector.h"
-#ifdef WQV
+#ifdef GIFMOD
 #include "Medium.h"
 
 
@@ -35,7 +35,7 @@ struct Param
 class CMCMC
 {
 public:
-#ifdef WQV
+#ifdef GIFMOD
 	CMediumSet G;
 	CMediumSet G_out;
 
@@ -67,6 +67,7 @@ public:
 	vector<double> pertcoeff;
 	vector<double> logp;
 	vector<double> logp1;
+	vector<double> u;
 	double posterior(vector<double> par);
 	void initialize();
 	void CMCMC::initialize(vector<double> par);
@@ -94,14 +95,15 @@ public:
 	int writeinterval;
 	CVector CMCMC::sensitivity(double d, vector<double> par);
 	CVector CMCMC::sensitivity_ln(double d, vector<double> par);
-#ifdef WQV
+	runtimeWindow * rtw = 0;
+#ifdef GIFMOD
 	vector<CBTCSet*> CMCMC::model(vector<double> par);
 #endif
 #ifdef GWA
 	vector<CBTCSet> CMCMC::model(vector<double> par);
 #endif
 	vector<CBTCSet> CMCMC::model_lumped(vector<double> par);
-#ifdef WQV
+#ifdef GIFMOD
 	vector<CBTCSet> CMCMC::model_lumped(vector<double> par, CMedium &)const ;
 	CMatrix CMCMC::sensitivity_mat_lumped(double d, vector<double> par, CMedium &) const;
 #endif

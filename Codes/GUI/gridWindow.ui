@@ -144,7 +144,7 @@
     <property name="geometry">
      <rect>
       <x>140</x>
-      <y>240</y>
+      <y>260</y>
       <width>133</width>
       <height>20</height>
      </rect>
@@ -164,7 +164,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>220</y>
+      <y>240</y>
       <width>261</width>
       <height>16</height>
      </rect>
@@ -212,12 +212,60 @@
      <string>Horizontal distance between cell grids</string>
     </property>
    </widget>
+   <widget class="QFrame" name="r0frame">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>200</y>
+      <width>271</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
+    <widget class="QLabel" name="label_r0">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>261</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>r0</string>
+     </property>
+    </widget>
+    <widget class="UnitTextBox2" name="r0UnitBox">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>20</y>
+       <width>133</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <zorder>label_r0</zorder>
+    <zorder>r0UnitBox</zorder>
+    <zorder>Label_2</zorder>
+   </widget>
   </widget>
   <widget class="QRadioButton" name="radioButtonV">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>25</y>
+     <y>9</y>
      <width>101</width>
      <height>21</height>
     </rect>
@@ -233,13 +281,26 @@
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>26</y>
+     <y>10</y>
      <width>111</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
     <string>Horizontal 2D array</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="radioButtonR">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>30</y>
+     <width>161</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Radially symmetrical array</string>
    </property>
   </widget>
   <widget class="QGroupBox" name="groupBoxH">

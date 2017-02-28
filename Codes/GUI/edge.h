@@ -3,6 +3,7 @@
 #include "PropModel.h"
 #include "Proplist.h"
 #include "XString.h"
+#include "node.h"
 
 class GraphWidget;
 class Node;
@@ -16,6 +17,7 @@ public:
 	~Edge() {
 		delete model;
 	}
+	objectColor color;
 	mPropList getmList(const mProp &_filter = '*') const;
 	bool setObjectType(const QString &type);
 	mProp Filter() const;
@@ -26,7 +28,7 @@ public:
 	void setBold(const bool _Bold = true);
 	enum { Type = UserType + 2 };
 	int type() const Q_DECL_OVERRIDE{ return Type; };
-	void setName(const QString& Name){ name = Name; };
+	void setName(const QString& Name){ name = Name; }
 //	void setID(const QString& ID){ id = ID; };
 	mPropList *mList() const;
 	QVariant getProp(const QString &propName, const int role = Qt::DisplayRole) const;
@@ -52,7 +54,7 @@ public:
 	mProp objectType;
 	QString name; // , id;
 	QMap<QString, QVariant> compact() const;
-	static Edge* unCompact(QMap<QString, QVariant>, GraphWidget *gwidget);
+	static Edge* unCompact(QMap<QString, QVariant>, GraphWidget *gwidget, bool oldVersionLoad = false);
 	static Edge* unCompact10(QMap<QString, QVariant>, GraphWidget *gwidget);
 	QStringList codes() const;
 	QMap<QString, condition> variableNameConditions() const;
@@ -65,7 +67,7 @@ public:
 	bool errorDetected() const { return (errors.count()) ? true : false; }
 	QStringList Edge::variableNames() const;
 	QString variableName(QString code) const;
-	void copyProps(Node *node, QString direction);
+	void copyProps(Node *node, QString arrayDirection, QString connectorDirection, bool copyLength = true);
 	bool avoidCrossObjects = true;// false;
 	QString experimentName() const;
 	void copyProps(QString sourceExperiment, QString destExperiment);

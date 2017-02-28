@@ -1,4 +1,4 @@
-#ifdef WQV
+#ifdef GIFMOD
 
 #include "reactiontablewidget.h"
 #include <QStringList>

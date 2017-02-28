@@ -1,4 +1,4 @@
-#ifdef WQV
+#ifdef GIFMOD
 #include "Constituentdelegate.h"
 #include <qcombobox.h>
 #include <qdebug.h>

@@ -1,0 +1,125 @@
+This chapter is intended to serve as a quick start guide by showing the steps needed to create a simple model of a pond with a simple water quality process consisting of a single hypothetical contaminant (named PCB) undergoing first order decay. The pond is assumed to be divided into two compartments where one of the compartments receive contaminants from a stream and the second compartment discharges into an imaginary adjacent receiving water body (conceptually represented in Figure \ref{fig:1}a). Figure \ref{fig:1}b shows the temporal variation of water flow rate and PCB concentration in the inflow. The outflow rate is assumed to be controlled by a weir with a given rating curve to be discussed later. \\
+
+\begin{figure}[!ht]
+\begin{center}
+\begin{tabular}{c c}
+a) \includegraphics[width=7cm]{Images/Figure1a.png} \\
+b) \includegraphics[width=7cm]{Images/Figure1b.png} \\
+\end{tabular}
+\caption{a) Schematic of the single two compartment pond model, b) Temporal variation of the hypothetical water flow and contaminant concentration into the pond} \label{fig:1}
+\end{center}
+\end{figure}
+
+Below are the steps to set up the model:
+1- \textbf{Launching the program and creating a project: } Launch GIFMod program through the start menu by first choosing the GIFMod folder and clicking on GIFMod icon or the icon on the desktop.\\
+\begin{figure}[!ht]\label{fig:2}
+\begin{center}
+\includegraphics[width=5cm]{Images/Figure2.png} \\
+\caption{GIFMod icon in the start menu} 
+\end{center}
+\end{figure}
+2) \textbf{Setting the duration of the project: }
+\begin{itemize}
+\item From the Project Explorer window on the right hand side of the screen select \textbf{Settings} and then click on \textbf{Project Setting}. 
+\item Scroll down the "Property" window on the bottom right side of the screen until you see the item labeled "Simulation End Time", and pick 4/9/1900 as the end date of the project from the date picker. This essentially makes the duration of simulation to be 100 days starting from day zero and ending at day 100.  
+\end{itemize}
+3) \textbf{Add a pond to the model: } Add a pond by clicking on the pond icon on the top toolbox (Figure \ref{fig:2}).
+4) \textbf{Assigning the properties of the pond: }
+Click on the pond object added to the project so it's properties appear in the \textbf{Properties} window on the lower right side of the screen. 
+\begin{itemize}
+\item From the "Property" window change the name of the object from the default "Pond (1)" to "Main Pond".  
+\item Change the bottom area to $1000 m^2$. \\
+\textbf{Note:} Most physical properties can be entered using multiple units provided in the drop-down menu adjacent to the text boxes where they are entered. 
+\begin{figure}[!ht]\label{fig:3}
+\begin{center}
+\includegraphics[width=8cm]{Images/Figure3.png} \\
+\caption{Adding a pond} 
+\end{center}
+\end{figure}
+\item Using the properties window, set "Initial Water Depth" to 2m. 
+You can now run the model. Click on the "forward run" icon \includegraphics[width=0.5cm]{Icons/run_icon.png} on the left side of the screen. 
+\item The run window should appear and you can see the simulation as it progresses. The graph in the run window shows the time step sizes being used during the simulation. Because the model in this case is very simple, the time step size keeps linearly increasing. 
+\item To see the results right click on the "Main Pond" block and select "Water Depth" from the "Plot Hydraulic Results" menu. As it is expected the water depth remains constant at 2m since no inflows are entering the pond and now outflows are leaving it. 
+\end{itemize}
+5) \textbf{Adding the second pond: }
+The second pond can be added similarly to the first pond but another feature of the program called "Grid" can also be used to create it. Let's explore that here. 
+\begin{itemize}
+\item Right click on the "Main Pond" and select "Make Grid of Blocks" from the drop-down menu. 
+\begin{figure}[!ht]\label{fig:4}
+\begin{center}
+\includegraphics[width=6cm]{Images/Figure4.png} \\
+\caption{Grid Dialog Box} 
+\end{center}
+\end{figure}
+\item Leave the "Horizontal 2D grid" checked and change the "Number of Columns" to 2. 
+\item Type 50 in the text box labeled as "Horizontal distance between cells in x direction". This distance is the presumed distance between the centroids of each pond that will be used to calculated the hydraulic gradient for flow and concentration gradients for calculating diffusive/dispersive flux. Press "OK" to generate the grid. The grid feature automatically connects the blocks that are generated together. It is assumed that the bottom elevation of the two compartments are equal. 
+
+
+\textbf{Notes:}
+\begin{itemize}
+\item The newly created block also will have the same properties as the original block. 
+\item The connector connecting two blocks will by default gets its name as the combination of the blocks being connected.
+\end{itemize}
+\item Now we need to set up the properties of the connector and the newly generated block. Click on the newly generated block and from the "Properties" window, change the name to "Embayment".
+- Click to select the connector connecting the two blocks. Because the name of the second block at the time of creation has been "Main Pond (1)", the name of the connector will be assigned as "Main Pond - Main Pond (1)", however the name can now be changed to anything else. Let's call it "Main-Embayment". 
+\item From the "Properties" dialog change the "Manning Roughness coefficient" to 0.11 and "Width" to 30 m. The width represent the cross sectional width of the pond at the interface between the two compartments. 
+\end{itemize}
+6) \textbf{Adding the receiving water body:}
+Adding a dummy block to represent the receiving water body is useful from several points of view. First it make imposing the downstream boundary easy and secondly it can help obtaining information about the flow volume and total contaminant loading into the receiving water body. 
+\begin{itemize}
+\item Add another pond. Change the name of the pond to "Receiving water". Assign an "Bottom Area" of 10000 $m^2$. This is not important as we will fix the head of the receiving water body later to make sure there will be no back-flow from it into the ponds. In order to do that type -1 or any other negative value for the property called "Head-Storage relationship". The "Head-Storage relationships" box provides a way for the user to specify a user defined Head-Storage relationship to replace the default hydrostatic relationship. By typing the -1 value the hydraulic head of the receiving water body will be -1 regardless of its storage. 
+\item Connect the "Embayment" block to the receiving water block by clicking on the edge of the first and dragging to the second when the cursor sign turns to a cross. 
+\item Set the lenght of the newly added connector to 1.0. The value entered here does not affect the result of the simulation because we 
+\end{itemize}
+
+7) \textbf{Setting the connector to the "receiving water" to behave as a weir: }
+Click on the "Embayment-Receiving water" connector. From the "properties" window change the type to "Rating curve". The following equation is used for rating curves: $Q=Coefficient(h-Datum)^{Exponent}$. Set the exponent to 2.0 and coefficient to 200 and the datum to 1.8m. This means the flow will occur only if the water depth is above 1.8m. 
+
+8) \textbf{Setting the inflow time-series}:
+The inflow files are provided as text files with .csv format. Flow rate and concentration of constituents or particles are provided in a single file for each inflow. Two columns for each constituent is needed, the first one indicating time and the second, the value of the constituent. This allows introducing flow and each constituent with it's own time increment. The time increments in the inflow file do not need to be uniform as the program interpolate the values at the computational time step. When the length of time series for different constituents are different, the terminated time-series should be filled with ", ,". The inflow files should have a heading line specifying the nature of each pair of columns. Figure \ref{fig:5} shows an example inflow file structure. The "names" keyword in the heading indicates that the names of the constituents in the inflow are indicated in that line. The inflow file used in this tutorial is provided in the example folder. Here we include PCB concentration in the inflow although as long as the constituent PCB has not been indicated in the model, the entries related to PCB will be ignored. As it is seen in Figure \ref{fig:5} the PCB concentration time-series in the inflow is shorter than the flow rate and the empty cells corresponding PCB are left blank. 
+\begin{figure}[!ht]\label{fig:5}
+\begin{center}
+\includegraphics[width=5cm]{Images/Figure5.png} \\
+\caption{A sample inflow input file} 
+\end{center}
+\end{figure}
+\begin{itemize}
+\item To add the inflow to the main pond first select the "Main Pond" and then click on the box labeled "Inflow Time Series" in the "Properties" window.
+\item Select the file called "inflow.txt" using the file dialog box and click Ok. 
+\item Right-click on the "Main Pond" block and choose "Plot Inflow Properties" and then click on the "Flow" item. A graph window will appear where the flow rate is shown. \\
+The hydraulic component of the model is ready and now the model can be run.
+\end{itemize}
+9) \textbf{Running the hydraulic module: }
+\begin{itemize}
+\item Click on the run icon \includegraphics[width=0.5cm]{Icons/run_icon.png} on the left hand side tool bar. And wait until the simulation is over. You can also check the warnings show in the "Log Window". 
+\item when the simulation is done, right-click on the main pond and choose "Plot Hydraulic Results" and the click on "Water Depth". A graph showing the water depth variation in the "Main Pond" over the course of simulation will appear. 
+\item Right click on the connector connecting the Embayment to the "Receiving Water" and choose "Flow". A graph showing the discharge flow rate variation vs. time will appear. You can inspect other results available for other blocks or connectors similarly. 
+\end{itemize}
+10) \textbf{Adding a water quality constituent: }
+\begin{itemize}
+\item Click on the "Water Quality" item in the "Project Explorer" window, then right-click on the "Constituents" item and click on "Add Constituent" from the drop-down menu.
+\item Click on the "Constituent" that was just added.
+\item Change the name of the constituent to "PCB" from the Properties window. 
+\item Leave the other properties unchanged. At this time we will ignore diffusive exchange of PCB between the blocks. 
+\end{itemize}
+11) \textbf{Adding a reaction: }
+\begin{itemize}
+\item Right click on "Reaction Parameters" item from \textbf{Project Explorer $\rightarrow$ Water Quality $\rightarrow$ Reactions $\rightarrow$ Reaction Parameters} and click on "Add Reaction Parameters". 
+\item Using the "Properties" window, change the name of the parameter to "kd" (decay rate) and change the value to 0.02 meaning 0.02 $day^{-1}$. \\
+\textbf{Note: } The time dimension for all reaction parameters is day.\\
+\item Right-click on reaction network under \textbf{Water Quality$\rightarrow$Reactions}. The window shown in Figure \ref{fig:6} will appear. This window allows entering Peterson's matrix representing the reactions between the constituents. 
+\begin{figure}[!ht]\label{fig:6}
+\begin{center}
+\includegraphics[width=9cm]{Images/Figure6.png} \\
+\caption{Reactions Window} 
+\end{center}
+\end{figure}
+\item Enter "Decay" under "Process Name".
+\item Enter "kd*PCB" under "Process Rate" heading. This means that PCB is undergoing a first-order decay with a rate constant of "kd". \\
+\textbf{Note: } Any other expression including numerical values can be used both for process rates and stoichiometries. So in this case typing $0.02*PCB$ as the process rate would have the same effect. \\
+\item Enter -1 under the column with heading "PCB". This indicates the stoichiometric coefficient of PCB in this process. The negative sign indicates that PCB is being consumed as the reaction proceeds and the value of 1 means that for each unit of process proceeding, one unit concentration of PCB is being consumed. 
+\item Close the reactions window. 
+\item Click on "Solver" under "Setting" in the Project Explorer window make sure that the property "Perform Water Quality Simulation" is set to "Yes". 
+\item Run the model. 
+\item After the simulation is done, right click on the "Main Pond" block and click on "PCB" under "Water Quality Results" item. Similarly you can inspect the temporal variation of PCB concentration in any other blocks. 
+\end{itemize}

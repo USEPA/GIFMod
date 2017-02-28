@@ -58,7 +58,12 @@ public:
 	double CBTC::std(int nlimit);
 	double CBTC::mean_log(int limit);
 	double CBTC::integrate();
+	double CBTC::integrate(double t);
+	double CBTC::integrate(double t1, double t2);
+	int CBTC::lookupt(double t);
 	double CBTC::average();
+	double CBTC::average(double t);
+	double CBTC::slope(double tt);
 	CBTC CBTC::distribution(int n_bins, int limit);
 	void CBTC::append(double x);
 	void CBTC::append(double tt, double xx);
@@ -73,6 +78,8 @@ public:
 	void CBTC::assign_D();
 	void CBTC::clear();
 	double CBTC::wiggle();
+	double CBTC::wiggle_corr(int _n=10);
+	bool CBTC::wiggle_sl(double tol);
 	double CBTC::maxfabs();
 	double max_fabs;
 	void CBTC::knock_out(double t);
@@ -80,15 +87,19 @@ public:
 	bool file_not_found = false;
 	CBTC CBTC::getcummulative();
 	CBTC CBTC::Exp();
-
+	CBTC fabs();
 	//GUI 
-	QList <QMap <QVariant, QVariant>> CBTC::compact() const;
+	//QList <QMap <QVariant, QVariant>> CBTC::compact() const;
 	CBTC::CBTC(QList <QMap <QVariant, QVariant>> data);
 	CBTC::CBTC(double a, double b, const vector<double>&x);
 	CBTC::CBTC(double a, double b, const CBTC &btc);
 	CBTC::CBTC(const vector<double> &t, const vector<double> &C);
 	CBTC(vector<double>&, int writeInterval = 1);
 	bool error = false;
+
+	void compact(QDataStream &data) const;
+	static CBTC unCompact(QDataStream &data);
+
 };
 
 double diff(CBTC &BTC_p, CBTC &BTC_d);

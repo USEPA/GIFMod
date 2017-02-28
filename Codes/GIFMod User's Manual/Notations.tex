@@ -1,0 +1,106 @@
+\begin{longtable}{| p{.20\textwidth} | p{.80\textwidth} |}
+\caption{Notations} % title of Table
+\hline\\
+Parameter & Description\\
+\hline % inserts single horizontal line
+$A_s$ & Bottom area of a block \\
+$A_{ij}$ & Interface area of connector $ij$ \\
+$C$ & Hazen-Williams roughness coefficient \\
+$C_{p,l,i,k}$ & Concentration of constituent $k$ in attached to particle type $p$ in phase $l$ in block $i$ \\
+$C_s$ & Saturation concentration \\
+$C_{bsat}$ & Saturated surface concentration in build-up \\
+$d$ & Effective distance between two blocks \\
+$D_{c,p}$ & Diffusion coefficient of particle type $p$\\
+$D_s$ & Dispersion coefficient \\
+$D_p$ & Pipe diameter \\
+$D_{p,ij}$ & Dispersion coefficient for particle type $p$ in connector $ij$\\
+$D_{p,ij,k}$ & Effective dispersion coefficient of particle-bound or dissolved constituents \\
+$D_v$ & vapor diffusion coefficient \\
+$e_{as}$ & Saturated vapor pressure \\
+$f_i$ & specific surface area in block $i$ \\
+$G_{p,l,i}$ & Particle concentration of particle type $p$ in phase $l$ in block $i$ \\
+$G_{s,max}$ & Limiting attached particle concentration \\
+$h$ & Hydraulic Head \\
+$h_{wp}$ & Wilting point hydraulic head \\
+$h_{fc}$ & Field capacity hydraulic head \\
+$H_d$ & Dam elevation\\
+$J_{v,i,j}$ & vapor flux from block $i$ to block $j$\\
+$J_{ext}$ & External flux rate \\ 
+$K_{aw}$ & Air-water interface partitioning coefficient for particles \\
+$k_a$ & Aerodynamic evaporation coefficient \\
+$k_{bld}$ & Build-up rate coefficient \\
+$K_e$ & Effective Hydraulic Conductivity \\
+$k_{p,rel}$ & release rate coefficient for particle type $p$ \\
+$K_s$ & Saturated Hydraulic Conductivity \\
+$\textbf{K}_{p,l,l'}$ & Exchange rate coefficient between phase $l$ and $l'$ for particle type $p$ \\
+$k_{hw}$ & Unit conversion factor for the Hazen-Williams equation \\
+$k_r$ & calibration parameter for light effect in evaporation \\
+$k_{ext}$& External flux rate constant \\
+$m$ & Van Genuchten $m$ parameter \\
+$\dot{m}_{i,p,l,k}$ & External flux or build-up of constituent $k$ in block $i$ \\
+$n$ & Van Genuchten $n$ parameter \\
+$n_e$ & Suction head power at low moisture conditions for storage blocks \\
+$n_m$ & Manning's roughness coefficient\\
+$nj$ & number of connectors connected to a block \\
+$nl_p$ & number of phases for particle type $p$\\
+$np$ & number of particle types + 2 for soil matrix and dissolved phase \\
+$nr$ & number of reactions \\
+$l_v$ & Latent heat of evaporation \\
+$Q_{i,j}$ & Flow rate from block $i$ to $j$\\
+$R_h$ & Relative humidity \\
+$R_r$ & Reaction rate of reaction $r$ \\
+$S$ & Storage\\
+$S_{aw}$ & Air-water interface area \\
+$S_i$ & Storage of block $i$ \\
+$s_e$ & Relative moisture content = $(\theta_s-\theta)/(\theta_r-\theta_s)$ \\ 
+$S_s$ & Storativity \\
+$T$ & Temperature \\
+$\vec{Y}$ & Vector of corresponding predicted model outputs with observed data points\\
+$\vec{\tilde Y}$ & Vector of measured values \\
+$u_w$ & Wind Speed \\
+$\sout{V}$ & Volume of a block \\
+$v_i$ & root mean squared velocity in block $i$\\
+$v_{i,j}$ & Flow velocity from block $i$ to block $j$ \\
+$v_{crit}$ & Critical velocity for particle release \\
+$v_{s,p,ij}$ & The projected settling velocity of particle type $p$ in connector $ij$ \\
+$v_{c,ij,k}$ & The projected settling velocity of constituent $k$ in connector $ij$ \\
+$W$ & Width\\
+$z_0$ & Bottom elevation of a block\\
+$z_{c,i}$ & The bottom elevation of pipe at block $i$ \\
+$z_{rc}$ & Rating curve datum \\
+$\alpha$ & Van Genuchten $\alpha$ parameter \\
+$\alpha_d$ & Dispersivity \\
+$\alpha_m$ & The exponent for hydraulic radius in Manning's equation\\
+$\alpha_p$ & Sticking efficiency for particle type $p$ \\
+$\alpha_{rc}$ & Rating curve coefficient \\
+$\alpha_{ext}$ & Velocity exponent in free surface reaeration model \\
+$\beta_{p,l}$ & Mobility factor in phase $l$ for particle type $p$\\
+$\beta_{rc}$ & Rating curve power \\
+$\beta_{ext}$ & Depth exponent in free surface reaeration model \\
+$\Delta$ & Gradient of vapor pressure curve\\
+$\epsilon$ & Suction head parameter for storage\\ 
+$\phi_{k,p}$ & Sorption capacity of phase or particle type $p$\\
+$\gamma$ & psychometric constant \\
+$\Gamma_{i,l}$ & Particle capacity of phase $l$ in block $i$ \\
+$\Gamma_{i,p,l}$ & Constituent capacity of particle type $p$ in phase $l$ \\
+$\vec{\Gamma}$ & Variance-covariance matrix for the observation error \\
+$\eta_p$ & collision efficiency for particle type $p$ \\
+$\kappa_{k,p,p'}$ & mass exchange rate between particle type $p$ and $p'$ for constituent $k$ \\
+$\lambda$ & Van Genuchten $\lambda$ parameter \\
+$\theta$ & Moisture content = $S/\sout{V}$ \\
+$\theta_s$ & Saturated moisture content \\
+$\theta_r$ & Residual moisture content \\
+$\theta_{wp}$ & Wilting point moisture content \\
+$\theta_{fc}$ & Field capacity moisture content \\
+$\Theta$ & Temperature correction factor \\
+$\psi_{r,k}$ & Stoichiometric constant for constituent $k$ in reaction $r$ \\
+$\vec{\Psi}$ & Vector of unknown model parameters \\
+$\rho$ & Water density \\
+$\xi_{p,l,i,k}$ & External flux of constituent $k$ into block $i$ as dissolved or particle-bound \\
+$\zeta_p$ & Irreversibly collection fraction for particle type $p$ \\
+$H()$ & Heaviside function \\
+$pos()$ & $pos(x)=x$ if $>0, otherwise = 0$\\
+$sgn()$ & $sgn(x)=1$ if $>0, otherwise = -1$ \\
+%\hline %inserts single line
+\label{table:2} % is used to refer this table in the text
+\end{longtable}

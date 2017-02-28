@@ -1,0 +1,62 @@
+\subsubsection{Example: BOD mineralization under rate-limited aeration: }
+In this example we will model a batch system containing a aerobically degrading substrate that recieves dissolved oxygen through aeration. The parameters of the experiment are assumed to be as follows:
+- \textbf{Area: } \textit{0.2 $m^2$}\\
+- \textbf{Depth: } \textit{0.3 m}\\
+- \textbf{Aeration model: } \textit{Rate limited} \\
+- \textbf{Oxygen transfer rate coefficient: } \textit{2 $day^{-1}$}\\
+- \textbf{Initial BOD concentration: } \textit{25 mg/L}\\
+- \textbf{Initial DO concentration: } \textit{7 mg/L}\\
+- \textbf{BOD mineralization rate, ($k_d$): } \textit{10 $day^-1$}\\
+- \textbf{DO half saturation concentration: } \textit{2 mg/L}
+- \textbf{BOD half saturation concentration: } \textit{5 mg/L}
+
+
+Below are the steps to create the model:
+
+\begin{itemize}
+
+\item Start GIFMod or create a new project
+\item \textbf{Add constitients: } Add two constituents called BOD and DO by right-clicking on \textbf{Project Explorer}$\rightarrow$\textbf{Water Quality}$\rightarrow$\textbf{Constituents} and then clicking on \textbf{Add Constituents}
+\item \textbf{Creating an external flux object: } Right-click on \textbf{Project Explorer}$\rightarrow$\textbf{Water Quality}$\rightarrow$\textbf{External Fluxes} and click on \textbf{Add External Flux} 
+\item Set the following properties for the external flux object that was just added:  \\
+- \textbf{Name: } \textit{Aeration} \\
+- \textbf{Coefficient: } \textit{2 $day^{-1}$} \\
+- \textbf{Constituent: } \textit{DO}\\
+- \textbf{Model: } \textit{Constant rate} \\
+- \textbf{Saturation: } \textit{8.5 mg/L}\\
+
+
+\item \textbf{Add a pond: } A pond block is used to represent the batch system. From the top tool bar, click on the pond icon \includegraphics[width=0.5cm]{Icons/pond_icon.png}.
+\item Set the following properties for the pond that was added. 
+- \textbf{Bottom area: } \textit{0.2$m^2$} \\
+- \textbf{Initial water depth: } \textit{0.3 m} \\
+- \textbf{Constituent initial concentration: } \textit{BOD=25 mg/L, DO=7mg/L}\\
+- \textbf{External Flux: } \textit{Aeration} \\
+
+\item \textbf{Adding reactions parameters: } Add the following reaction parameters: 
+- BOD maximum decay rate, k\_d, value = 10 $day^{-1}$\\
+- DO half saturation constant, K\_o, value = 2 mg/L \\
+- BOD half saturation constant, K\_s, value = 5 mg/L \\
+
+\item \textbf{Setting reactions: } Set the reaction network as shown in Figure \ref{fig:28}.
+\item \textbf{Setting simulation duration: } Set the simulation duration to 20 days by setting the \textbf{Simulation end time: } to Jan-10-1990 from \textbf{Project settings}. 
+\begin{figure}
+\begin{center}
+\includegraphics[width=8cm]{Images/Figure28.png} \\
+\caption{Reaction network for the simple BOD model}\label{fig:28}
+\end{center}
+\end{figure}
+
+\item \textbf{Running the model: }The model is ready to run. Click on the \textbf{forward run bottom} \includegraphics[width=0.5cm]{Icons/run_icon.png} and wait until the simulation ends. 
+
+\item \textbf{Inspecting the results: } Right-click on the block identified as \textbf{Pond (1)} and choose \textbf{Plot Water Quality Results}$\rightarrow$\textbf{DO}. Similarly check the BOD results. The graphs should look like figure \ref{fig:29}.
+\begin{figure}
+\begin{center}
+\begin{tabular}{c c}
+a) \includegraphics[width=5cm]{Images/Figure29a.png} & b) \includegraphics[width=5cm]{Images/Figure29b.png}\\
+\end{tabular}
+\caption{Temporal variation of a) DO and b) BOD in the simple batch test with aeration example}\label{fig:29}
+\end{center}
+\end{figure}
+
+\end{itemize}

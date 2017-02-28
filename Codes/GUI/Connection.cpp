@@ -22,11 +22,12 @@ CConnection::CConnection(void)
 	flow_params[z2] = -1000000;
 	flow_params[flow_exponent] = 0.6667;
 	dispersivity = 0;
-	dispersion_expression = string("f[14]*f[7]/(f[2]+0.00000000001)");
+	dispersion_expression = string("f[14]*f[7]/(f[2]+0.00000001)");
 	dispersion_strng = "f[14]*f[7]/f[2]";
 	settling = -1;
 	const_area = true;
 	presc_flow = false;
+	control = false;
 }
 
 
@@ -76,6 +77,8 @@ CConnection::CConnection(const CConnection &CC)
 	presc_flow = CC.presc_flow;
 	pre_flow_filename = CC.pre_flow_filename;
 	presc_flowrate = CC.presc_flowrate;
+	control = CC.control;
+	controller_id = CC.controller_id;
 }
 
 CConnection& CConnection::operator=(const CConnection &CC)
@@ -119,6 +122,8 @@ CConnection& CConnection::operator=(const CConnection &CC)
 	presc_flow = CC.presc_flow;
 	pre_flow_filename = CC.pre_flow_filename;
 	presc_flowrate = CC.presc_flowrate;
+	control = CC.control;
+	controller_id = CC.controller_id;
 	return *this;
 
 }
@@ -842,6 +847,7 @@ void CConnection::evaluate_dispersion_star()
 {
 	for (int i=0; i<Solid_phase.size(); i++)
 		c_dispersion_star[i] = calc_star(Solid_phase[i]->dispersion, i) + Solid_phase[i]->diffusion;
+	
 }
 
 void CConnection::evaluate_const_dispersion()
@@ -854,7 +860,7 @@ void CConnection::evaluate_const_dispersion()
 void CConnection::evaluate_const_dispersion_star()
 {
 	for (int i=0; i<RXN->cons.size(); i++)
-		dispersion[i] = calc_star(dispersion_expression)+RXN->cons[i].diffusion;
+		dispersion_star[i] = calc_star(dispersion_expression)+RXN->cons[i].diffusion;
 }
 
 double CConnection::get_val(string S)

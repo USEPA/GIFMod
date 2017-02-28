@@ -3,7 +3,7 @@
 #include "Vector.h"
 #include "qdebug.h"
 
-
+template <class T = QVariant>
 class multiValues
 {
 public:
@@ -12,31 +12,31 @@ public:
 //	multiValues(const multiValues &m){
 //		values = m.values;
 //	}
-	multiValues(vector<QVariant> values){
+	multiValues(vector<T> values){
 		this->values = values;
 	}
-	vector<QVariant> values;
+	vector<T> values;
 	int size(){
 		return values.size();
 	}
 	int count(){
 		return size();
 	}
-	QVariant& operator[](int index){
+	T& operator[](int index){
 	//	qDebug() << "MV operator []" << index;
 		return values[index];
 	}
-	void push_back(QVariant value){
+	void push_back(T value){
 		values.push_back(value);
 	}
-	void append(QVariant value){
+	void append(T value){
 		push_back(value);
 	}
-	QVariant value(){
+	T value(){
 		//qDebug() << "MV value()";
 		if (sameValues())
 			return values[0];
-		return QVariant();
+		return T();
 	}
 	bool sameValues(){
 		//qDebug() << "MV sameValues()";
@@ -44,7 +44,7 @@ public:
 			return false;
 		if (size() == 1)
 			return true;
-		QVariant value = values[0];
+		T value = values[0];
 		for (int i = 1; i < size(); i++)
 			if (value != values[i])
 				return false;

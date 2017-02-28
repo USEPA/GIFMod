@@ -12,8 +12,8 @@
 #include "qcombobox.h"
 #include "PropModel.h"
 #include "XString.h"
-
 //#include "helpWindow.h"
+#include "colorscheme.h"
 
 //class MainWindow;
 class helpWindow;
@@ -32,6 +32,7 @@ class CMediumSet;
 class CGWA;
 class Results;
 struct plotformat;
+
 
 //class logWindow;
 
@@ -66,7 +67,10 @@ struct modelConnectors
 	QString start, end;
 	QList<propertyItem> properties;
 };
-
+struct colorCodeData
+{
+	bool nodes = false, edges = false;
+};
 struct command
 {
 	QString name;
@@ -97,12 +101,22 @@ public:
 	void undo();
 	void redo();
 	bool trackingUndo = false;
-	void deselectAll() const;
+	void deselectAll(QString items = "Nodes Edges Entities (Entity)") const;
 	void deleteSelected();
-	void update();
+	
+	//names of selected Items
+	QStringList selectedItems()const;
+	QString typeOfSelecetedItems()const;
+
+	QList<Node*> selectedNodes() const;
+	QList<Edge*> selectedEdges() const;
+	QList<Entity*> selectedEntities()const;
+
+	void update(bool fast = false);
 //	void PropsPopulate(const Node *node, QTableView *tableProp);
 	void PropsPopulate(Node *node, QStandardItemModel *propModel);
 	int _x, _y;
+	colorCodeData colorCode;
 	Operation_Modes setMode(Operation_Modes OMode = Operation_Modes::NormalMode, bool back = false);
 	Operation_Modes setMode(int i);
 	Operation_Modes GraphWidget::setModeCursor(void);
@@ -151,9 +165,11 @@ public:
 	Entity* entityByName(const QString &name) const;
 	QStringList inflowFileNames;
 
-	QList<QMap<QString, QVariant>> compact() const;
+	QList<QMap<QString, QVariant>> compact() const;// QDataStream &out = QDataStream(), bool toFile = false) const;
 	QList<QMap<QString, QVariant>> compactRXN() const;
-	GraphWidget* unCompact(QList<QMap<QString, QVariant>>);//, QWidget *parent = 0);
+	GraphWidget* unCompact(QList<QMap<QString, QVariant>>&, bool oldVersionLoad = false);//, QWidget *parent = 0);
+	//GraphWidget* unCompact(QDataStream &in);
+	GraphWidget* unCompact12(QList<QMap<QString, QVariant>>&, bool oldVersionLoad = false);//, QWidget *parent = 0);
 	GraphWidget* unCompact10(QList<QMap<QString, QVariant>>);//, QWidget *parent = 0);
 	void clear();
 	void clearRXN();
@@ -168,7 +184,7 @@ public:
 	};
 */
 	void copyProps(QString sourceExperiment, QString destExperiment);
-#ifdef WQV
+#ifdef GIFMOD
 	CMediumSet* modelSet = 0;
 	CMedium *model = 0;
 	vector<Results *> resultsSet;
@@ -180,13 +196,18 @@ public:
 	Results *results = 0;
 	helpWindow* help = 0;
 
-	void deleteSolution(){
-		if (model) delete model;
-		if (modelSet) delete modelSet;
-		if (results) delete results;
-		if (resultsSet.size()) resultsSet.clear();
-		model = 0;		results = 0;
+	void deleteSolutionResults(){
+	/*	if (model) 
+			delete model;
+		if (modelSet) 
+			delete modelSet;
+		if (results) 
+			delete results;
+		if (resultsSet.size()) 
+			resultsSet.clear();
+	*/	model = 0;		results = 0;
 		modelSet = 0;
+		hasResults = false;
 	}
 	QMap<QCPGraph *, plotformat> graphsClipboard; // scatterPlotsList;
 	QString modelFilename = "";
@@ -235,11 +256,22 @@ public:
 		return r;
 	}
 	QComboBox *experiments;
+	bool hasResults = false;
+	void GraphWidget::experimentsComboClear(bool addExperiment1 = true);
+	void GraphWidget::updateNodeCoordinates();
+	QMap<QString, QMap<QString, QString>> specs;
+	void updateNodesColorCodes(QString propertyItem, bool logged = false, QString colorTheme = "Green", vector<double> predifinedMinMax = vector<double>(), float time = -1);
+	void updateNodesColorCodes_WaterQuality(QStringList property, bool logged = false, QString colorTheme = "Green", vector<double> predifinedMinMax = vector<double>(), float time = -1);
+	void updateEdgesColorCodes(QString propertyItem, bool logged = false, QString colorTheme = "Green", vector<double> predifinedMinMax = vector<double>(), float time = -1);
+	QSlider *legendSliderTime=0;
+	colorlegend colors;
+	void applyColorstoNodes();
+	void applyColorstoEdges();
 public slots:
 	void shuffle();
 	void zoomIn();
 	void zoomOut();
-	void add_to_undo_list();
+	void add_to_undo_list(QList<QMap<QString, QVariant>> &state = QList<QMap<QString, QVariant>>());
 	void settableProp(QTableView*_tableProp);
 	//void setpropModel(PropModel *_propModel);
 	void scaleView(qreal scaleFactor); 
@@ -273,6 +305,10 @@ public slots:
 	void delegateDatePicked(QCalendarWidget *calendar = 0, QModelIndex index = QModelIndex());
 	//QComboBox* experiments;
 	void experimentSelect(const QString &experimentName);
+	void colorSchemeLegend_closed();
+	void legendSliderChanged_Nodes(int value);
+	void legendSliderChanged_Edges(int value);
+
 signals:
 	void Mouse_Pos(int, int, QString);
 	void changed();
@@ -288,7 +324,7 @@ protected:
 #endif
 	void drawBackground(QPainter *painter, const QRectF &rect) Q_DECL_OVERRIDE;
 //	void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
-	
+	void rubberBandChanged(QRect rubberBandRect, QPointF fromScenePoint, QPointF toScenePoint);
 
 private:
 	int timerId;
@@ -298,5 +334,10 @@ private:
 	Node *resizenode;
 	corners resizecorner;
 	bool sceneReady = false;
+	QList<Node*> nodes(const QList<QGraphicsItem*>items) const;
+	QList<Edge*> edges(const QList<QGraphicsItem*>items) const;
 };
 bool validInflowFile(QString file);
+QString getTime(bool reset=true);
+
+bool isFuzzyEqual(double a, double b, double allowableError = 0.05);

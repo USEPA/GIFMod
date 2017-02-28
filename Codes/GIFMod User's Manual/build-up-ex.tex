@@ -1,0 +1,104 @@
+\subsection{Example: Build-up and wash-off of contaminant from an urban catchment}
+
+In this example we will build a model to simulate the build-up and wash-off of a hypothetical pollutant. For the simulation A 30m$\times$30m square shaped catchment descritized into a 3$\times$3 grid is considered. Table \ref{table:Build-up} shows the parameters of the model. The model can for example represent a squared shaped parking lot. For the sake of simplicity, no infiltration or evaporation over the catchment has been considered.  
+
+\begin{table}
+\caption{Parameters of build-up/wash-off example}
+\begin{tabular}{l l}\label{table:Build-up}
+parameter & value \\
+\hline
+Area of the catchment & $30m\times 30m$ \\
+Build-up rate constant, $k_{bld}$ & $2mg/m^2 day$ \\
+Saturation build-up concentration, $C_{bsat}$ & $10mg/m2$ \\
+Slope of the catchment & 0.01 in both directions \\
+\end{tabular}\\
+\end{table}
+
+Steps to create the build-up and wash-off example:
+\begin{itemize}
+   \item \textbf{Add a constituent: } Right-click on on \textbf{Project Explorer}$\rightarrow$\textbf{Water quality}$\rightarrow$\textbf{Constituents} and click on \textbf{Add constituent}. Change the name of the constituent to \textbf{Pb}.
+    \item \textbf{Creating the build-up object: } Right-click on \textbf{Project Explorer}$\rightarrow$\textbf{Water quality}$\rightarrow$\textbf{Build-ups} and click on \textbf{Add build-up}. 
+    Set the following properties for the block that was just added: \\
+    - \textbf{Accumulation rate: } 2\\
+    - \textbf{Model: } Exponential \\
+    - \textbf{Constituent: } Pb \\
+    - \textbf{Sorbed/attached: } Yes \\
+    - \textbf{Saturation: } 10 \\
+    
+    \textbf{Note: } Setting \textbf{Sorbed/attached} to yes indicates that the built-up Pb will be accumulated as sorbed to the solid phase (in this case pavement surface). So  solid-water exchange parameters for Pb needs to be adjusted to let the sorbed Pb to be released into the overland flow during rain events. \\
+    \item \textbf{Add a catchment block: } From the top tool bar click on the \textbf{Add catchment} bottom \includegraphics[width=0.5cm]{Icons/catchment_icon.png}. Set the following properties for the catchment block: \\
+    - \textbf{Area: } 100$m^2$ \\
+    - \textbf{Manning's roughness coefficient: } 0.011$s  m^{-1/3}$. \\
+    - \textbf{Width: } 10m \\
+    - \textbf{Length: } 10m \\
+    - \textbf{Build-up: } \textit{Build-up} \\
+    \textbf{Note: } The \textbf{width} and \textbf{length} properties of a \textbf{Catchment} block will be used to assign length and width to the connectors that will be generated as a result of creating an array. 
+   \item \textbf{Create an array of catchments: } Right-click on the catchment block and click on \textbf{Make grid of blocks}. Change \textbf{number of rows} and \textbf{number of columns} to the value of 3. Also enter a value of -0.3 into \textbf{Total bottom elevation change in x direction} and \textbf{Total bottom elevation change in y direction}. Change the values of \textbf{Horizontal distance between cells in x direction} and \textbf{Horizontal distance between cells in x direction} to 10m. 
+   \item \textbf{Precipitation: } We will use a previously prepared precipitation input file (precipitation.txt) saved in the example folder. Make sure to download the precipitation file and save it somewhere on your hard-drive. 
+   - From \textbf{Project Explorer}$\rightarrow$\textbf{Settings}$\rightarrow$\textbf{Climate Setting} select "precipitation.txt" as the \textbf{Precipitation time-series}. 
+   - Right-click on the box where the name of the precipitation input file is written and click on \textbf{flow} from the drop-down menu. A graph similar to what is shown in Fig \ref{fig:33} will pop-up. 
+   
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=8cm]{Images/Figure33.png} \\
+\caption{Precipitation time series for the build-up example}\label{fig:33} 
+\end{center}
+\end{figure}
+   \item \textbf{Duration of simulation} Our duration of simulation will cover a portion of the period for which precipitation data is available. From \textbf{Project Setting}$\rightarrow$\textbf{Project Setting} set the start date of the project to \textbf{Sep 01 2012} and the end date to \textbf{Oct 01 2012}. 
+   \item \textbf{Adding a Receiving water pond: } In order to impose the down stream boundary condition correctly and also to keep track of the runoff volume and pollutant load leaving the catchment a pond will be added to the model and will be connected to the lowest catchment (lower-right) block. Add a pond \includegraphics[width=0.5cm]{Icons/pond_icon.png} and move it to the lower left side of the screen. Then connect it to the lower left catchment block (Figure \ref{fig:34}).\\
+   
+   Assign the following properties to the pond block: -\textbf{Area: } \textit{1000$m^2$}, -\textbf{Bottom Elevation: }  \textit{-1m}, -\textbf{Precipitation: } \textit{No}. \\
+   
+   The reason for the last setting is to prevent precipitation to enter the pond in order to be able to use the pond's storage to keep track of runoff volume:
+   
+   Assign the following properties to the connector connecting \textbf{Catchment (9)} to \textbf{Pond (1)}: -\textbf{Manning's roughness coefficient: } \textit{0.011 $s  m^{-1/3}$}, -\textbf{Width: } \textit{10m}, -\textbf{Length: } \textit{5m}.  
+   
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=10cm]{Images/Figure34.png} \\
+\caption{Catchment and pond diagram for the build-up, wash-off example}\label{fig:34} 
+\end{center}
+\end{figure}   
+   
+\item Save the model and run it. After the simulation is done, check the hydraulic and water quality results by right-clicking on blocks or connectors (Figure \ref{fig:38}). 
+    
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=7cm]{Images/Figure38.png} \\
+\caption{Runoff rate leaving the catchment}\label{fig:38} 
+\end{center}
+\end{figure}  
+
+\item Right-click on one of the catchment blocks and click on \textbf{Plot water quality results}$\rightarrow$\textbf{Sorbed/particle associated}$\rightarrow$\textbf{Pb}$\rightarrow$\textbf{Soil} to see the temporal variation of Pb accumulated on the surface. The results should look like Figure \ref{fig:39}. As it can be seen the concentration asymptotically approach $10mg/m^2$. The concentration of Pb in the runoff is zero due to the fact that no release properties have been attributed to Pb. 
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=7cm]{Images/Figure39.png} \\
+\caption{Concentration of Pb accumulated on the surface for the case when solid-water exchange is inactive}\label{fig:39} 
+\end{center}
+\end{figure} 
+
+\item \textbf{Setting solid-water exchange properties: } To set solid-water exchange properties for Pb, click on \textbf{Water Quality}$\rightarrow$\textbf{Constituents}$\rightarrow$\textbf{Pb} from the project explorer and then click on \textbf{Exchange rate} from the \textbf{Properties} menu. In the table, select \textbf{Soil} in the first column and type $0.1$ as the exchange rate and $0.1$ for the partitioning coefficient. This indicates that the release rate constant for the exchange between solid phase and aqueous phase is $0.1day^{-1}$ while the equilibrium partition coefficient $S/C$ is $0.01m^2/m^3$ (Figure \ref{fig:40}). Close the dialog. \\ 
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=7cm]{Images/Figure40.png} \\
+\caption{Entering exchange properties}\label{fig:40} 
+\end{center}
+\end{figure}
+
+\item Run the model again. 
+
+\item Right-click on one of the blocks to see the concentration of Pb in the runoff and the sorbed Pb concentrations. The results should look like Figure \ref{fig:41}. 
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=7cm]{Images/Figure41.png} \\
+\caption{Aqueous phase (top) and surface-bound (bottom) Pb in \textbf{Catchment (9)} block}\label{fig:41} 
+\end{center}
+\end{figure}
+
+
+
+\end{itemize}
+

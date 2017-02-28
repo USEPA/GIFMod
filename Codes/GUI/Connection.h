@@ -5,6 +5,7 @@
 #include "MBBlock.h"
 #include "Solid_Phase.h"
 #include "RxnNetwork.h"
+#include "Controller.h"
 
 enum physical_params_Q
 {
@@ -108,6 +109,9 @@ public:
 	string pre_flow_filename;
 	bool presc_flow;
 	bool flow_calc_done = false;
+	bool control = false;
+	string controller_id=""; 
+	CController *Controller; 
 
 };
 

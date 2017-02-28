@@ -25,6 +25,8 @@ public:
 	string name;
 	bool uptake;
 	CBTC evaporation_TS; 
+	CBTC single_crop_coefficient; 
 	string evaporation_filename;
+	string single_crop_coefficient_filename;
 };
 

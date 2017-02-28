@@ -9,6 +9,12 @@
 #include "math.h"
 #define ARMA_DONT_PRINT_ERRORS
 #include "armadillo"
+class QVariant;
+//class QString;
+//class QList;
+#include "QMap"
+#include "Matrix_arma.h"
+#include "Vector_arma.h"
 
 using namespace arma;
 class CVector;
@@ -25,10 +31,11 @@ public:
 	CMatrix(int);
 	CMatrix();
 	CMatrix(const CMatrix&);
+	CMatrix(CMatrix_arma&);
 	CMatrix(const CVector&);
 	CVector& operator[](int);
-	int CMatrix::getnumrows();
-	int CMatrix::getnumcols();
+	int CMatrix::getnumrows() const;
+	int CMatrix::getnumcols() const;
 	virtual ~CMatrix();
 	CMatrix& CMatrix::operator=(const CMatrix&);
 	CMatrix& CMatrix::operator+=(const CMatrix&);
@@ -63,6 +70,8 @@ public:
 	vector<string> toHtml(string format = "", vector<string> columnHeaders = vector<string>(), vector<string> rowHeaders = vector<string>());
 	void CMatrix::setnumcolrows();
 
+	QMap<QString, QVariant> CMatrix::compact() const;
+	static CMatrix CMatrix::unCompact(QMap<QString, QVariant>);
 
 };
 	

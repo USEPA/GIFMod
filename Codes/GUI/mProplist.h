@@ -32,6 +32,7 @@ public:
 	QStringList mPropList::SubTypes(const mProp &mP = '*') const;
 	QStringList mPropList::Descriptions(const mProp &mP = '*') const;
 	QStringList mPropList::VariableNames(const mProp &mP = '*') const;
+//	QStringList mPropList::VariableNames(const QList<mProp> objectTypes) const;
 	QStringList mPropList::VariableUnits(const mProp &mP = '*') const;
 	QStringList mPropList::VariableTypes(const mProp &mP = '*') const;
 	QList<QStringList> mPropList::DefaultValueLists(const mProp &mP = '*') const;
@@ -40,6 +41,6 @@ public:
 	QStringList mPropList::inputMethods(const mProp &mP = '*') const;
 
 	mPropList mPropList::filter(const mProp &mP) const;
-
+	mPropList mPropList::filter(const QList<mProp> mP) const;
 	int setProp(const QString _PropertyName, const XString _Value = "", const mProp _Filter = '*');
 };

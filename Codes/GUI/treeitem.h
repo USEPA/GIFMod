@@ -12,7 +12,7 @@ class TreeItem
 {
 public:
 	enum Type{ Root, Branch, Item, NodesBranch, EdgesBranch, WellsBranch, TracersBranch, NodeItem, EdgeItem, EntityItem, WaterQualityBranch, 
-		SettingsBranch, ReactionsBranch, ReactionNetworkItem, InverseModelingBranch, GAItem, MCMCItem };
+		SettingsBranch, ReactionsBranch, ReactionNetworkItem, InverseModelingBranch, ControlBranch, GAItem, MCMCItem };
 	explicit TreeItem(const QString name, GraphWidget *gWidget, Type type);//, TreeItem *parent);
 	explicit TreeItem(Node *node);// , TreeItem *parent);
 	explicit TreeItem(Edge *edge);//, TreeItem *parent);

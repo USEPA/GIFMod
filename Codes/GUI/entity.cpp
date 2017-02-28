@@ -1,12 +1,12 @@
 #include <GWidget.h>
 #include <qdebug.h>
 #include "entity.h"
-#include "qdatetime.h"
-#include "qtimezone.h"
+//#include "qdatetime.h"
+//#include "qtimezone.h"
 //#include "PropModel.h"
 #include "treemodel.h"
 #include "Proplist.h"
-
+#include "utility_funcs.h"
 
 Entity::Entity(const QString _type, QString _name, GraphWidget *_parent)
 {
@@ -199,16 +199,9 @@ QVariant Entity::getProp(const QString &propName, const int role) const
 			return OnlyFilenames(getValue(propName));
 		else if (mValue.VariableType == "directory")
 			return OnlyFilenames(getValue(propName));
-		else if (mValue.VariableType == "datetime")
+		else if (mValue.VariableType.contains("datetime"))
 		{
-			qint64 currentDate = getValue(propName).toFloat();
-			currentDate += QDate(1900, 1, 1).toJulianDay();
-			QDate date = QDate::fromJulianDay(currentDate);
-			
-//			QDateTime r = QDateTime::fromTime_t(getValue(propName).toFloat() * 86400 - 2209161600, QTimeZone(0));
-//			return r.toString("MMM dd yyyy HH:mm");// QDateTime(getValue(propName));
-			return date.toString("MMM dd yyyy");// QDateTime(getValue(propName));
-
+			return float2date(getValue(propName).toFloat());
 		}
 		else if (mValue.Delegate == "CheckBox")
 			return "";
@@ -242,25 +235,31 @@ QVariant Entity::getProp(const QString &propName, const int role) const
 XString Entity::getValue(const QString& propName) const
 {
 	if (propName == "Name") return Name();
-	if (propName == "Type") return ObjectType().ObjectType;
-	if (experimentName() == "Global" && !getProp(propName, differentValuesRole).toBool())
+	if (propName == "SubType" || 
+		(objectType.ObjectType=="Evapotranspiration" && propName == "Model") ||
+		(objectType.ObjectType == "Observation" && propName == "BlockConnector") || 
+		(objectType.ObjectType == "Particle" && propName == "Model") ||
+		(objectType.ObjectType == "Controller" && propName == "Type")) return ObjectType().SubType;
+	if (experimentName() == "All experiments" && !getProp(propName, differentValuesRole).toBool())
 		return props.getProp(propName, parent->experimentsList()[0]);
-	if (propName == "SubType") return ObjectType().SubType;
-	if (propName == "SubType" || (objectType.ObjectType=="Evapotranpiration" && propName == "Model")
-		|| (objectType.ObjectType == "Particle" && propName == "Model")) return ObjectType().SubType;
 	if (getProp(propName, VariableTypeRole).toString().toLower() == "filename" || getProp(propName, VariableTypeRole).toString().toLower() == "directory")
 		return (relativePathFilename(props.getProp(propName, experimentName()), parent->modelPathname()));
 	if (propName =="Exchange rate")
 		return QString("%1 ...").arg(exchangeRate());
 	if (propName.contains("Partitioning"))
 		return QString("%1 ...").arg(partitioningCoefficient());
+	if (propName == "Type") return ObjectType().ObjectType;
+	if (propName == "SubType") return ObjectType().SubType;
 
 	return props.getProp(propName, experimentName());
 }
 bool Entity::setProp(const QString &propName, const QVariant &Value, const int role)
 {
 	if ((parent->applicationShortName == "GIFMod" && objectType.ObjectType == "Evapotranspiration" && propName == "Model") ||
-		(parent->applicationShortName == "GIFMod" && objectType.ObjectType == "Particle" && propName == "Model"))
+		(parent->applicationShortName == "GIFMod" && objectType.ObjectType == "Particle" && propName == "Model") ||
+		(parent->applicationShortName == "GIFMod" && objectType.ObjectType == "Observation" && propName == "Block/connector") ||
+		(parent->applicationShortName == "GIFMod" && objectType.ObjectType == "Controller" && propName == "Type"))
+
 		return setProp("SubType", Value, role);
 	if (role == Qt::EditRole)
 	{
@@ -283,7 +282,7 @@ bool Entity::setProp(const QString &propName, const QVariant &Value, const int r
 
 bool Entity::setValue(const QString &propName, const XString &Value)
 {
-	QString experiment = (getProp(propName, experimentDependentRole) == "Yes") ? experimentName() : "Global";
+	QString experiment = (getProp(propName, experimentDependentRole) == "Yes") ? experimentName() : "All experiments";
 	bool r = props.setProp(propName, Value, experiment);
 	if (r)
 	{
@@ -295,6 +294,13 @@ bool Entity::setValue(const QString &propName, const XString &Value)
 
 bool Entity::setObjectSubType(const QString &subType)
 {
+	if (experimentName() == "All experiments" && !getProp("SubType", differentValuesRole).toBool())
+	{
+		objectType.SubType = subType;
+		changed();
+		return true;
+	}
+	
 	if (objectType.SubType == subType) return false;
 	else
 	{
@@ -332,7 +338,7 @@ QMap<QString, QVariant> Entity::compact() const
 	return r;
 }
 
-Entity* Entity::unCompact(QMap<QString, QVariant> n, GraphWidget *gwidget)
+Entity* Entity::unCompact(QMap<QString, QVariant> n, GraphWidget *gwidget, bool oldVersion)
 {
 #ifdef GWA
 	if (n["Name"] == "Solver setting") return 0;
@@ -343,23 +349,29 @@ Entity* Entity::unCompact(QMap<QString, QVariant> n, GraphWidget *gwidget)
 		n["SubType"] = n["Name"];
 #endif
 	QStringList list;
-	list << "solver setting" << "global Settings" << "climate setting" << "genetic algorithm" << "markov chain monte carlo";
+	list << "solver settings" << "global Settings" << "climate settings" << "genetic algorithm" << "markov chain monte carlo";
 	if (n["Type"].toString().contains("Solver"))
 	{
-		n["Type"] = "Solver setting";
+		n["Type"] = "Solver settings";
 		n["Name"] = n["Type"];
 		n["SubType"] = n["Type"];
 
 	}
 	else if (n["Type"] == "Global Settings")
 	{
-		n["Type"] = "Project setting";
+		n["Type"] = "Project settings";
+		n["Name"] = n["Type"];
+		n["SubType"] = n["Type"];
+	}
+	else if (n["Type"].toString().contains("Project"))
+	{
+		n["Type"] = "Project settings";
 		n["Name"] = n["Type"];
 		n["SubType"] = n["Type"];
 	}
 	else if (n["Type"].toString().contains("Climate"))
 	{
-		n["Type"] = "Climate setting";
+		n["Type"] = "Climate settings";
 		n["Name"] = n["Type"];
 		n["SubType"] = n["Type"];
 	}
@@ -399,7 +411,7 @@ Entity* Entity::unCompact(QMap<QString, QVariant> n, GraphWidget *gwidget)
 		n["Type"] = newS;
 
 		s = n["SubType"].toString();
-		
+
 		i = s.split(' ').size();
 		if (i == 1)
 			newS = s;
@@ -425,10 +437,10 @@ Entity* Entity::unCompact(QMap<QString, QVariant> n, GraphWidget *gwidget)
 	n.remove("Type");
 	n.remove("SubType");
 
-	entity->props.list = PropList<Entity>::unCompact(n.value("Properties").toString()); 
-	
+	entity->props.list = PropList<Entity>::unCompact(n.value("Properties").toString());
+
 	/*for each (QString key in n.keys())
-			entity->props.list[key] = XString::unCompact(n[key].toString());*/
+	entity->props.list[key] = XString::unCompact(n[key].toString());*/
 
 	QStringList xChangeList;
 	xChangeList = n["Solid exchange parameters"].toStringList();
@@ -442,8 +454,13 @@ Entity* Entity::unCompact(QMap<QString, QVariant> n, GraphWidget *gwidget)
 	}
 	n.remove("Solid exchange parameters");
 
+	if (!entity->props.list.size() && oldVersion)
+		for each(QString key in n.keys())
+			entity->props.setProp(key.toLower(), XString::unCompact(n[key].toString()), "experiment1");
+
 	return entity;
 }
+
 Entity* Entity::unCompact10(QMap<QString, QVariant> n, GraphWidget *gwidget)
 {
 	qDebug() << "FUNCTION CANCELED!";

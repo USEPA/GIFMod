@@ -64,9 +64,10 @@ public:
 	QString toFileName(QString path) const { return fullFilename(*this,path); };
 	double toDouble(QString unit = "") const {
 		if (unit =="") return toQString().toDouble();
-		else return convertTo(unit).toDouble();
+		else return convertTo(reform(unit)).toDouble();
 	};
 	double toFloat(QString unit = "") const {return toDouble(unit);};
+	double toFloatDefaultUnit() const { return convertToDefaultUnit().toDouble(); };
 	bool toBool() const {
 		QStringList trueList, falseList;
 		trueList << "true" << "yes" << "on" << "1";
@@ -210,6 +211,13 @@ public:
 			return CL[UL.indexOf(leftOperand)];
 		};
 	};
+
+	//set Unit not convert
+	XString setUnit(const QString unit) {
+		this->unit = reform(unit);
+		return *this;
+	}
+
 
 	bool containsOperator(QString &leftOperand, QString &rightOperand, QString &Operator, QStringList &Operators) const	{
 		int pos = leftOperand.size();

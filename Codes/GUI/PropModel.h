@@ -17,6 +17,10 @@ public:
 	PropModel(Node* parent){ this->parent = parent; };
 	PropModel(Edge* parent){ this->parent = parent; };
 	PropModel(Entity* parent){	this->parent = parent; };
+	PropModel(QList<T*> items) { this->items = items; parent = items[0]; }
+	QList<T*> itemsList() {
+		return items;
+	}
 	QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
 	bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole);
 	int rows(const QModelIndex & index = QModelIndex()) const{
@@ -60,6 +64,7 @@ public:
 
 	~PropModel(){};
 	T *parent;
+	QList<T*> items;
 	GraphWidget *mainGraphWidget() const {
 		return parent->parent;
 	}

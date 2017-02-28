@@ -1,5 +1,7 @@
 #pragma once
-
+#include "QColor.h";
+#define PI 3.14159265359;
+class GraphWidget;
 enum Operation_Modes{ Draw_Connector, Node1_selected, Pan, NormalMode, resizeNode };
 enum Object_Types { Void, Block, Connector, RayLine };
 enum mListReadStatus{fileNotValid, readSuccessfully, readBefore, errorInContents};
@@ -7,32 +9,34 @@ enum corners{ none, topleft, topright, bottomleft, bottomright };
 enum edgesides{ noside, topside, leftside, bottomside, rightside };
 
 enum Role {
-	TypeRole = 2700,
-	InputMethodRole = 2702,
-	DefaultValuesListRole = 2704,
-	VariableTypeRole = 2706,
-	VariableNameRole = 2707,
-	VariableNameToolTipRole = 2708,
-	warningConditionRole = 2709,
-	warningErrorRole = 2710,
-	warningErrorDescRole = 2711,
-	DescriptionCodeRole = 2712,
-	experimentDependentRole = 2713,
-	differentValuesRole = 2714,
-	UnitRole = 1802,
-	defaultUnitRole = 1803,
-	UnitsListRole = 1804,
-	allUnitsRole = 1805,
-	TreeItemType = 1901,
-	TreeParentItemType = 1902,
-	XStringEditRole = 2701,
-	setParamRole = 2702,
-	fullFileNameRole = 2704,
-	saveIndex = 2601,
-	loadIndex = 2602,
-	loadIndexandInputMethodRole = 2603,
-	loadIndexandDefaultValuesListRole = 2604,
-
+	TypeRole =							2700,
+	InputMethodRole =					2702,
+	DefaultValuesListRole =				2704,
+	VariableTypeRole =					2706,
+	VariableNameRole =					2707,
+	VariableNameToolTipRole =			2708,
+	warningConditionRole =				2709,
+	warningErrorRole =					2710,
+	warningErrorDescRole =				2711,
+	DescriptionCodeRole =				2712,
+	experimentDependentRole =			2713,
+	differentValuesRole =				2714,
+	differentValuesMultiObjectRole =	2716,
+	UnitRole =							2802,
+	defaultUnitRole =					2803,
+	UnitsListRole =						2804,
+	allUnitsRole =						2805,
+	TreeItemType =						2901,
+	TreeParentItemType =				2902,
+	XStringEditRole =					3001,
+	setParamRole =						3002,
+	fullFileNameRole =					30704,
+	saveIndex =							3101,
+	loadIndex =							3102,
+	loadIndexandInputMethodRole =		3103,
+	loadIndexandDefaultValuesListRole = 3104,
+	loadIndexandVariableTypeRole =		3105,
+	allowableWordsRole =				3201,
 
 };
 enum XStringMetaTypes { XStringType = 1025, XStringListType = 1026 };
@@ -53,6 +57,11 @@ enum XStringMetaTypes { XStringType = 1025, XStringListType = 1026 };
 	flow_exponent = 8,
 
 };*/
+
+struct objectColor
+{
+	QColor color1, color2, defaultColor;
+};
 struct condition
 {
 	QStringList Condition, error, errorDesc;
@@ -62,6 +71,9 @@ struct percentileData{
 	double p25, p50, p975, mean, std;
 };
 
+
+QStringList percentile2List(percentileData p);
+percentileData percentileFromList(QStringList r);
 //template <class T> const T& min(const T& a, const T& b);
 double min(double x, double y);
 float min(float x, float y);
@@ -83,3 +95,4 @@ QString operator&(const QString &, const QString &);
 //QString and(const QString &, const QString &);
 //QStringList QSplit(const QString &QS, QChar del = ',');
 QString QMerge(const QStringList &QSL, QChar del = ';');
+std::string convertstringtoStringOP(const QString& s, GraphWidget *gWidget);

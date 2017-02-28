@@ -37,6 +37,8 @@ CSolid_Phase::CSolid_Phase(string m)
 	vs = 0;
 	c_params.resize(30);
 	c_params[7] = 1e12; // jamming limit
+	set_settling_model("constant_velocity");
+	diffusion = 0;
 
 	if (model=="single_phase")
 	{
@@ -158,6 +160,9 @@ CSolid_Phase::CSolid_Phase(const CSolid_Phase& BB)
 	name = BB.name;
 	phase_names = BB.phase_names;
 	vs = BB.vs;
+	settling_model = BB.settling_model;
+	settling_parameters = BB.settling_parameters;
+	vs_coefficient = BB.vs_coefficient;
 
 }
 
@@ -177,10 +182,21 @@ CSolid_Phase& CSolid_Phase::operator=(const CSolid_Phase &BB)
 	name = BB.name;
 	phase_names = BB.phase_names;
 	vs = BB.vs;
+	settling_model = BB.settling_model;
+	settling_parameters = BB.settling_parameters;
+	vs_coefficient = BB.vs_coefficient;
 	return *this;
 }
 
 
+double CSolid_Phase::get_val(int i)
+{
+	if ((i >= 3000) && (i < 3050))
+		return c_params[i - 3000];
+	else if (i >= 3050)
+		return settling_parameters[i - 3050];
+
+}
 
 void CSolid_Phase::set_val(int i, double val)
 {
@@ -209,7 +225,26 @@ void CSolid_Phase::set_val(string SS, double val)
 		if (tolower(trim(s[0]))=="dispersivity") c_params[dispersivity]=val;      //alphaD
 		if (tolower(trim(s[0])) == "vs") vs = val;
 		if (tolower(trim(s[0])) == "diffusion") diffusion = val;
+		if (tolower(trim(s[0])) == "r_hin") settling_parameters[r_hin] = val;
+		if (tolower(trim(s[0])) == "r_floc") settling_parameters[r_floc] = val;
+		if (tolower(trim(s[0])) == "x_min") settling_parameters[x_min] = val;
 
+	}
+
+}
+
+void CSolid_Phase::set_settling_model(string _settling_model)
+{
+	
+	settling_model = _settling_model;
+	if (settling_model == "constant_velocity")
+	{
+		vs_coefficient = CStringOP("1");
+	}
+	if (settling_model == "double_exponential")
+	{
+		settling_parameters.resize(3);
+		vs_coefficient = CStringOP("_max(_exp((-f[3050])*(g[0]-f[3052]))-_exp((-f[3051])*(g[0]-f[3052])):0)");
 	}
 
 }

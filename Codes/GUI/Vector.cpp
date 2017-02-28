@@ -6,6 +6,7 @@
 #include "Math.h"
 #include "Matrix.h"
 #include <cfloat>
+#include "Vector_arma.h"
 
 
 //////////////////////////////////////////////////////////////////////
@@ -94,6 +95,15 @@ CVector& CVector::operator=(const vector<double> &v)
 {
 	num = v.size();
 	vec = v;
+	return *this;
+}
+
+CVector &CVector::operator=(CVector_arma &v)
+{
+	vec.reserve(v.num);
+	num = v.num;
+	for (int i = 0; i<num; ++i)
+		vec[i] = v[i];
 	return *this;
 }
 

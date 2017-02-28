@@ -53,7 +53,7 @@ public:
 	QString Entity::newEntityName(const QString name, QStringList &existingNames) const;
 	QString name;
 	QMap<QString, QVariant> compact() const;
-	static Entity* unCompact(QMap<QString, QVariant>, GraphWidget *gwidget);
+	static Entity* unCompact(QMap<QString, QVariant>, GraphWidget *gwidget, bool oldVersionLoad = false);
 	static Entity* unCompact10(QMap<QString, QVariant>, GraphWidget *gwidget);
 	QStringList codes() const;
 	QMap<QString, condition> variableNameConditions() const;

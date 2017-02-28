@@ -1,4 +1,4 @@
-#ifdef WQV
+#ifdef GIFMOD
 #ifndef REACTIONTABLEWIDGET_H
 #define REACTIONTABLEWIDGET_H
 

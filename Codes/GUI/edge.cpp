@@ -183,6 +183,9 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 		painter->setPen(QPen(Qt::green, (bold) ? 3 : 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
 	else if (errorDetected())
 		painter->setPen(QPen(Qt::red, (bold) ? 3 : 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+	else if (parent->colorCode.edges)
+		painter->setPen(QPen(color.color1, 4, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+	//		painter->setPen(QPen(QColor::fromRgb(color.color1), (bold) ? 3 : 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
 	else
 		painter->setPen(QPen(Qt::black, (bold) ? 3 : 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
 	if (!avoidCrossObjects)
@@ -194,19 +197,22 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 		double angle = ::acos(line.dx() / line.length());
 		if (line.dy() >= 0)
 			angle = TwoPi - angle;
-		QPointF sourceArrowP1 = sourcePoint + QPointF(sin(angle + Pi / 3) * arrowSize,
-			cos(angle + Pi / 3) * arrowSize);
-		QPointF sourceArrowP2 = sourcePoint + QPointF(sin(angle + Pi - Pi / 3) * arrowSize,
-			cos(angle + Pi - Pi / 3) * arrowSize);
+//		QPointF sourceArrowP1 = sourcePoint + QPointF(sin(angle + Pi / 3) * arrowSize,
+//			cos(angle + Pi / 3) * arrowSize);
+//		QPointF sourceArrowP2 = sourcePoint + QPointF(sin(angle + Pi - Pi / 3) * arrowSize,
+//			cos(angle + Pi - Pi / 3) * arrowSize);
 		QPointF destArrowP1 = destPoint + QPointF(sin(angle - Pi / 3) * arrowSize,
 			cos(angle - Pi / 3) * arrowSize);
 		QPointF destArrowP2 = destPoint + QPointF(sin(angle - Pi + Pi / 3) * arrowSize,
 			cos(angle - Pi + Pi / 3) * arrowSize);
 		if (isSelected())
 			painter->setBrush(Qt::green);
+		else if (parent->colorCode.edges)
+			painter->setBrush(color.color1);
+//		painter->setBrush(QColor::fromRgb(color.color1));
 		else
 			painter->setBrush(Qt::black);
-		painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
+//		painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
 		painter->drawPolygon(QPolygonF() << line.p2() << destArrowP1 << destArrowP2);
 	}
 	if (avoidCrossObjects)
@@ -219,10 +225,10 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 		if (line.dy() >= 0)
 			angle = TwoPi - angle;
 
-		QPointF sourceArrowP1 = sourcePoint + QPointF(sin(angle + Pi / 3) * arrowSize,
-			cos(angle + Pi / 3) * arrowSize);
-		QPointF sourceArrowP2 = sourcePoint + QPointF(sin(angle + Pi - Pi / 3) * arrowSize,
-			cos(angle + Pi - Pi / 3) * arrowSize);
+//		QPointF sourceArrowP1 = sourcePoint + QPointF(sin(angle + Pi / 3) * arrowSize,
+//			cos(angle + Pi / 3) * arrowSize);
+//		QPointF sourceArrowP2 = sourcePoint + QPointF(sin(angle + Pi - Pi / 3) * arrowSize,
+//			cos(angle + Pi - Pi / 3) * arrowSize);
 		QPointF destArrowP1 = destPoint + QPointF(sin(angle - Pi / 3) * arrowSize,
 			cos(angle - Pi / 3) * arrowSize);
 		QPointF destArrowP2 = destPoint + QPointF(sin(angle - Pi + Pi / 3) * arrowSize,
@@ -231,7 +237,7 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 			painter->setBrush(Qt::green);
 		else
 			painter->setBrush(Qt::black);
-		painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
+//		painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
 		painter->drawPolygon(QPolygonF() << line.p2() << destArrowP1 << destArrowP2);
 	}
 	if (isSelected())
@@ -394,10 +400,11 @@ XString Edge::getValue(const QString& propName) const
 	if (propName == "Name") return Name();
 	if (propName == "Type") return ObjectType().ObjectType;
 	if (propName == "SubType") return ObjectType().SubType;
-	if (experimentName() == "Global" && !getProp(propName, differentValuesRole).toBool())
+	if (experimentName() == "All experiments" && !getProp(propName, differentValuesRole).toBool())
 		return props.getProp(propName, parent->experimentsList()[0]);
 	return props.getProp(propName, experimentName());
 }
+
 bool Edge::setProp(const QString &propName, const QVariant &Value, const int role)
 {
 	if (role == Qt::EditRole)
@@ -421,7 +428,7 @@ bool Edge::setProp(const QString &propName, const QVariant &Value, const int rol
 
 bool Edge::setValue(const QString &propName, const XString &Value)
 {
-	QString experiment = (getProp(propName, experimentDependentRole) == "Yes") ? experimentName() : "Global";
+	QString experiment = (getProp(propName, experimentDependentRole) == "Yes") ? experimentName() : "All experiments";
 	bool r = props.setProp(propName, Value, experiment);
 	if (r)
 		changed();
@@ -431,9 +438,10 @@ bool Edge::setValue(const QString &propName, const XString &Value)
 QString Edge::updateSubType()
 {
 	QString r;
-	QStringList Porous;
-	Porous << "Soil" << "Darcy" << "Storage";// << "" << "";
-	if (Porous.contains(source->ObjectType().ObjectType) || Porous.contains(dest->ObjectType().ObjectType))
+//	QStringList Porous;
+//	Porous << "Soil" << "Darcy" << "Storage";// << "" << "";
+//	if (Porous.contains(source->ObjectType().ObjectType) || Porous.contains(dest->ObjectType().ObjectType))
+	if (source->isPorous() || dest->isPorous())
 		r = "Porous";
 	else
 		r = "non-Porous";
@@ -449,7 +457,7 @@ QString Edge::updateSubType()
 
 QMap<QString, QVariant> Edge::compact() const
 {
-	qDebug() << "Compacting: " << name << sourceNode()->Name() << destNode()->Name();
+//	qDebug() << "Compacting: " << name << sourceNode()->Name() << destNode()->Name();
 
 	QMap<QString, QVariant> r;
 	r["Source Node"] = sourceNode()->Name();
@@ -466,9 +474,9 @@ QMap<QString, QVariant> Edge::compact() const
 	return r;
 }
 
-Edge* Edge::unCompact(QMap<QString, QVariant> n, GraphWidget *gwidget)
+Edge* Edge::unCompact(QMap<QString, QVariant> n, GraphWidget *gwidget, bool oldVersion)
 {
-	qDebug() << "Loading: " << n["Name"].toString() << n["Source Node"].toString() << n["Dest Node"].toString(); 
+	qDebug() << "Loading: " << n["Name"].toString() << n["Source Node"].toString() << n["Dest Node"].toString();
 
 
 	QString source = n["Source Node"].toString();
@@ -495,11 +503,21 @@ Edge* Edge::unCompact(QMap<QString, QVariant> n, GraphWidget *gwidget)
 	n.remove("Arrow Size");
 
 	edge->props.list = PropList<Edge>::unCompact(n.value("Properties").toString());
-	
+
+	if (!edge->props.list.size() && oldVersion)
+		for each(QString key in n.keys())
+		{
+			QString propName = key;
+			if (key == "Interface Area")
+				propName = "Interface/cross sectional area";
+			edge->props.setProp(propName.toLower(), XString::unCompact(n[key].toString()), "experiment1");
+		}
+
 	/*for each (QString key in n.keys())
-		edge->props.list[key] = XString::unCompact(n[key].toString());*/
+	edge->props.list[key] = XString::unCompact(n[key].toString());*/
 	return edge;
 }
+
 Edge* Edge::unCompact10(QMap<QString, QVariant> n, GraphWidget *gwidget)
 {
 	qDebug() << "FUNCTION CANCELED.";
@@ -557,6 +575,7 @@ QMap<QString, condition> Edge::variableNameConditions() const
 }
 XString Edge::val(const QString & code) const
 {
+	qDebug() << code;
 	for each (mProp mP in getmList(objectType).List)
 		if (mP.VariableCode.toLower() == code.toLower())
 		{
@@ -599,20 +618,66 @@ void Edge::changed()
 	parent->edgeChanged(this);
 }
 
-void Edge::copyProps(Node *node, QString direction)
+void Edge::copyProps(Node *node, QString arrayDirection, QString connectorDirection, bool copyLength)
 {
 	QStringList exceptionList;
 	exceptionList << "id";
-	if (direction.toLower().contains("v"))
+	if (connectorDirection.toLower().contains("v"))
 		exceptionList << "width";
-	if (direction.toLower().contains("h"))
+	if (connectorDirection.toLower().contains("h"))
+		exceptionList << "a";
+	if (!node->isPorous())
 		exceptionList << "a";
 
-	for each (QString code in node->codes())
+    if (!copyLength)
+        exceptionList << "d";
+    
+    for each (QString code in node->codes())
 	{
-		if (!exceptionList.contains(code.toLower()) && codes().contains(code))
-			setProp(variableName(code), node->getValue(node->variableName(code)));
+		if (!exceptionList.contains(code.toLower()) && codes().contains(code) &&
+            node->getValue(node->variableName(code))!="")
+			setProp(variableName(code), node->getValue(node->variableName(code)).list(), XStringEditRole);
 	}
+	if (node->isPorous())
+	{
+		if (connectorDirection.toLower().contains("h"))
+		{
+			if (variableName("a") != "")
+			{
+				XString area = node->getValue(node->variableName("a")).list();
+				area.unit = area.unitsList[0];
+				area.setNum(node->getValue(node->variableName("width")).toFloatDefaultUnit()*node->getValue(node->variableName("depth")).toFloatDefaultUnit());
+				setProp(variableName("a"), area.list(), XStringEditRole);
+			}
+		}
+		if (arrayDirection.toLower().contains("h") && connectorDirection.toLower().contains("v"))
+		{
+			if (variableName("a") != "")
+			{
+				XString area = node->getValue(node->variableName("a")).list();
+				area.unit = area.unitsList[0];
+				area.setNum(node->getValue(node->variableName("d")).toFloatDefaultUnit()*node->getValue(node->variableName("depth")).toFloatDefaultUnit());
+				setProp(variableName("a"), area.list(), XStringEditRole);
+			}
+		}
+		if (arrayDirection.toLower().contains("v") && connectorDirection.toLower().contains("v"))
+		{
+			//area already set to node's a
+		}
+	}
+	else //non-porous
+	{
+		if (connectorDirection.toLower().contains("h"))
+		{
+			//width already set to node's width
+		}
+		if (connectorDirection.toLower().contains("v"))
+			if (variableName("width") != "")
+			{
+				setProp(variableName("width"), node->getValue(node->variableName("width")).list(), XStringEditRole);
+			}
+	}
+
 }
 
 bool Edge::intersects(double x, double y)

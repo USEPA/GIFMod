@@ -6,9 +6,11 @@
 #include "QuickSort.h"
 #include "armadillo"
 
+
 using namespace arma;
 using namespace std;
 
+class CVector_arma;
 class CMatrix;
 class SizeDist;
 class CVector  
@@ -32,6 +34,7 @@ public:
 	int CVector::range(int);
 	CVector& CVector::operator=(const CVector&);
 	CVector& CVector::operator=(const vector<double>&);
+	CVector& CVector::operator=(CVector_arma&);
 	CVector& CVector::operator=(const double &v);
 	CVector CVector::operator=(mat);
 	//mat CVector::operator=(const CVector&);

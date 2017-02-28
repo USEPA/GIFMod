@@ -48,7 +48,7 @@ CGA::CGA(int n, int nParam)
 	cross_over_type = 1;
 	MaxFitness = 0;
 }
-#ifdef WQV
+#ifdef GIFMOD
 
 CGA::CGA(string filename, CMediumSet &Syst)
 {
@@ -414,7 +414,7 @@ omp_set_num_threads(numberOfThreads);
 			//int ts,l;
 					
 			FILE *FileOut;
-#ifdef WQV
+#ifdef GIFMOD
 			FileOut = fopen((Sys.FI.outputpathname+"detail_GA.txt").c_str(),"a");
 #endif
 #ifdef GWA
@@ -440,7 +440,7 @@ omp_set_num_threads(numberOfThreads);
 				epochs[k] += Sys1[k].epoch_count();
 			}	
 			time_[k] = ((float)(clock() - t0))/CLOCKS_PER_SEC;
-#ifdef WQV
+#ifdef GIFMOD
 			FileOut = fopen((Sys.FI.pathname+"detail_GA.txt").c_str(),"a");
 #endif
 #ifdef GWA
@@ -523,7 +523,7 @@ double CGA::avgfitness()
 
 int CGA::optimize()
 {
-#ifdef WQV
+#ifdef GIFMOD
 	string RunFileName = Sys.FI.outputpathname + outputfilename;
 #endif
 #ifdef GWA
@@ -535,7 +535,7 @@ int CGA::optimize()
 
 	FileOut = fopen(RunFileName.c_str(),"w");
 	fclose(FileOut);
-#ifdef WQV
+#ifdef GIFMOD
 	FileOut1 = fopen((Sys.FI.outputpathname + "detail_GA.txt").c_str(), "w");
 #endif
 #ifdef GWA
@@ -1542,7 +1542,7 @@ double CGA::evaluateforward()
 	params.resize(1);
 	params[0] = 100;
 	out[0] = assignfitnesses(v);
-#ifdef WQV
+#ifdef GIFMOD
 	out.writetofile(Sys.FI.outputpathname + "likelihood.txt");
 #endif
 #ifdef GWA
@@ -1563,7 +1563,7 @@ double CGA::evaluateforward_mixed(vector<double> v)
 	params[0] = 100;
 	params[1] = 101;
 	out[0] = assignfitnesses(v);
-#ifdef WQV
+#ifdef GIFMOD
 	out.writetofile(Sys.FI.outputpathname + "likelihood.txt");
 #endif
 #ifdef GWA

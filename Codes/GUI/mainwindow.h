@@ -55,8 +55,11 @@ public:
 	TreeModel *projModel;
 
 	explicit MainWindow(QWidget *parent, QString applicationName, QString shortName, QString extension, QString metafilename, QString modeltoLoad = "");
+	void addToRecentFiles(QString fileName, bool addToFile=true);
 	~MainWindow();
-#ifdef WQV
+	QStringList recentFiles;
+
+#ifdef GIFMOD
 	void forwardRun(CMediumSet *model, runtimeWindow *runtimewindow);
 	void inverseRun(CMediumSet *model, runtimeWindow* progress);
 #endif
@@ -72,7 +75,13 @@ public:
 	logWindow *log;
 	void MainWindow::centerWidget();
 	Ui::MainWindow *ui;
-	
+	runtimeWindow * rtw = 0;
+	QList<QMap<QString, QVariant>>* dataMap;
+	QList<QMap<QString, QVariant>>* dataHash;
+	void afterInit() {
+		readRecentFilesList();
+	}
+	void readRecentFilesList();
 protected:
 	void paintEvent(QPaintEvent *e);
 
@@ -81,7 +90,7 @@ public slots:
 	void Mouse_Pos(int, int, QString);
 
 	void on_dockWidget_dockLocationChanged(const Qt::DockWidgetArea &area);
-
+	
 private slots:
 
 	void on_actionAdd_Pond_triggered();
@@ -108,8 +117,8 @@ private slots:
 
 
 	void MainWindow::updateToolbarToggles(Operation_Modes OMode = Operation_Modes::NormalMode);
-
 	void on_action_New_triggered();
+	void on_actionNew_from_template_triggered();
 
 	void on_action_Open_triggered();
 
@@ -134,11 +143,15 @@ private slots:
 
 	void on_actionSave_Reaction_Network_triggered();
 
+	void on_actionReactions_triggered();
+
 	//	void Mouse_Pos();
 
 	void on_projectExplorer_clicked(const QModelIndex &index);
 
 	void on_projectExplorer_customContextMenuRequested(const QPoint &pos);
+	
+	void on_actionmenuRecent_triggered();// QString fileName);
 
 //	void on_tableProp_customContextMenuRequested(const QPoint &pos);
 
@@ -158,6 +171,7 @@ private slots:
 	void removeProjectExplorerEdgeItem(QString name = "", const QModelIndex = QModelIndex()); // TreeModel *model = 0, const QString name = "", const QModelIndex = QModelIndex());
 	void removeProjectExplorerEntityItem(QString name = "", const QModelIndex = QModelIndex()); // TreeModel *model = 0, const QString name = "", const QModelIndex = QModelIndex());
 	void plotObservationData(CBTC data = CBTC(), QString name = "");
+	void plotControllerData(CBTC data = CBTC(), QString name = "");
 	void plotModeledData(CBTC modeled = CBTC(), CBTC observed = CBTC(), QString name = "");
 	void plotModeledDataDot(CBTC modeled = CBTC(), CBTC observed = CBTC(), QString name = "");
 	void plotAgreementPlotData(CBTC observation = CBTC(), CBTC modeled = CBTC(), QString name = "");
@@ -186,31 +200,59 @@ private slots:
 	void on_actionAdd_Tracer_triggered();
 
 	void on_actionAbout_triggered();
-	
-	void on_actionProjectSetting_triggered();
-	void on_actionClimateSetting_triggered();
-	void on_actionSolverSetting_triggered();
+	void on_actioncolorCodedResults_triggered();
+	void on_actioncolorCodeStorage_triggered();
+	void on_actioncolorCodeHead_triggered();
+	void on_actioncolorCodeMoistureContent_triggered();
+	void on_actioncolorCodeWaterDepth_triggered();
+	void on_actioncolorCodeEvaporationRate_triggered();
+	void on_actionColorCodeConnectorFlow_triggered();
+	void on_actionColorCodeConnectorVelocity_triggered();
+	void on_actionColorCodeConnectorArea_triggered();
+	void on_actionColorCodeConnectorVaporExchangeEate_triggered();
+
+
+	void on_actionProjectSettings_triggered();
+	void on_actionClimateSettings_triggered();
+	void on_actionSolverSettings_triggered();
 
 	void on_actionNewExperiment_triggered();
 	void on_actionCopyFromCurrentExperiment_triggered();
 	void addExperiment(QString sourceExperiment = "");
-
+	void on_actionremoveCurrentExperiment_triggered();
 	
+	void on_actionShowRuntimeWindow_triggered();
+	void on_actionRecent_triggered();
+	void on_actionReset_colors_triggered();
+	void menuWaterQuality_hovered();
+	void updateAction(QAction *a, QString particleConstituent, QString p, QString c="", QString phase="get from action");
+	void waterQualityPostProcessing_clicked();
+	void menuWaterQuality_triggered();
+	void on_actionContact_Us_triggered();
+	void on_actionContact_Us_hovered(); 
+	void removeFromRecentList(QAction*);
+
+	void writeRecentFilesList();
+
 	bool loadModel(QString modelfilename);
 
 	void gwidgetChanged();
 	void MainWindow::closeEvent(QCloseEvent *event);
-	void getNumber();
+	void getNumber(double initial = -1);
+	void recentItem()
+	{
+		int i = 0;
+	}
 
 private:
 //	QString modelFilename = "";
 	int newBlockX(){
 //		if (newBlockCounter > 6) newBlockCounter = 0;
-		return 500 + 90 * newBlockCounter;
+		return 650 + 90 * newBlockCounter;
 	}
 	int newBlockY(){
 		if (newBlockCounter > 6) newBlockCounter = 0;
-		return 650 + 70 * ++newBlockCounter;
+		return 750 + 70 * ++newBlockCounter;
 	};
 	int newBlockCounter = 0;
 

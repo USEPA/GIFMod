@@ -42,7 +42,7 @@ CEnvExchange::CEnvExchange(string _model)
 	
 	if (model=="soil") 
 	{
-		expression = CStringOP("f[4001]*(f[51]-f[10])*(f[4000]-c[])*f[3]");
+		expression = CStringOP("f[4001]*(_pos(f[51]-f[10]))*(f[4000]-c[])*f[3]");
 		parameters.resize(2);
 	}
 	if ((model=="free_surface") || (model=="freesurface"))

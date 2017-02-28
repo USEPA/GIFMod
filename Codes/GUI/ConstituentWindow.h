@@ -1,4 +1,4 @@
-#ifdef WQV
+#ifdef GIFMOD
 #pragma once
 //#include <>
 

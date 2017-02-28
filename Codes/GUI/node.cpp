@@ -11,7 +11,8 @@
 #include <QGraphicsSceneContextMenuEvent>
 #include "treemodel.h"
 #include "Proplist.h"
-#include "multiValues.h"
+//#include "multiValues.h"
+//#include "utility_Funcs.h"
 
 Node::Node(GraphWidget *gwidget, QString _type, QString _name, int _ID, int x, int y, int _width, int _height)
 	//: graph(gwidget)
@@ -74,6 +75,19 @@ mPropList Node::getmList(const mProp& _filter) const
 	static mProp filter;
 	static mPropList r;
 	if (filter %= _filter) return r;
+	r = mList()->filter(_filter);
+	filter = _filter;
+	return r;// (*parent->mList).filter(Filter() & _filter);
+}
+mPropList Node::getmList(const QList<mProp> _filter) const
+{
+//	int type = (_filter.ObjectType == "Tracer") ? 1 : 0;
+
+	static QList<mProp> filter;
+	static mPropList r;
+	
+	bool check = true;
+	if (mProp::areTheSame(filter, _filter)) return r;
 	r = mList()->filter(_filter);
 	filter = _filter;
 	return r;// (*parent->mList).filter(Filter() & _filter);
@@ -174,7 +188,118 @@ QVariant Node::getProp(const QString &propName, const int role) const
 	}
 	return QVariant();
 }
+QVariant Node::getProp(const QString &propName, const QList<Node*> nodes, const int role) const
+{
+	QList<mProp> filter = Filter(nodes);
+	for (int i=0;i<filter.size();i++)filter[i].VariableName = propName;
+	mProp mValue = mList()->filter(filter)[0];
 
+	if (role == TypeRole) return mValue.Delegate;
+	if (role == InputMethodRole) return mValue.inputMethod;
+	if (role == DefaultValuesListRole)
+	{
+		multiValues<> defaultValues;
+		for (int i = 0; i<filter.size(); i++)
+			defaultValues.append(mValue.DefaultValuesStringList(mList(), &filter[i], parent));
+		if (defaultValues.sameValues())
+			return defaultValues.value();
+		return QString("different values");
+	}
+	if (role == VariableTypeRole) return mValue.VariableType;
+	if (role == UnitRole) return getValue(propName).unit;
+	if (role == defaultUnitRole) return getValue(propName).defaultUnit;
+	if (role == UnitsListRole) return getValue(propName).unitsList;
+	if (role == experimentDependentRole) return mValue.ExperimentDependent;
+	if (role == differentValuesRole)
+	{
+		if (mValue.ExperimentDependent == "No" || parent->experimentID())
+			return false;
+		else
+			return props.getPropMultiValues(propName, nodes, parent->experimentsList()).differentValues();
+	}
+	if (role == differentValuesMultiObjectRole)
+	{
+//		if (mValue.ExperimentDependent == "No" || parent->experimentID())
+//			return false;
+//		else if (propName == "Name" && nodes.count())
+			return true;
+//else
+			return props.getPropMultiValues(propName, nodes, parent->experimentsList()).differentValues();
+	}
+	if (role == allUnitsRole) {
+		QStringList allUnits;
+		allUnits.append(getValue(propName).unit);
+		allUnits.append(getValue(propName).unitsList);
+		allUnits.append(getValue(propName).defaultUnit);
+		return allUnits;
+	}
+	if (role == DescriptionCodeRole) return mValue.DescriptionCode;
+	if (role == warningConditionRole)
+		return mValue.Condition;
+	if (role == warningErrorRole)
+		return mValue.error;
+	if (role == warningErrorDescRole)
+		return mValue.errorDesc;
+
+	if (role == Qt::ForegroundRole)
+	{
+		if (warnings.keys().contains(propName))
+			return QBrush((QColor(255, 111, 128)));
+		if (errors.keys().contains(propName))
+			return QBrush(Qt::red);
+		if (getProp(propName, nodes, differentValuesRole).toBool())
+			return QBrush(Qt::gray);
+	}
+	if (role == Qt::FontRole)
+	{
+		QFont boldFont, redBoldFont;
+		boldFont.setBold(true);
+		redBoldFont.setBold(true);
+		if (parent->applicationShortName == "GWA" && propName == "Name") return boldFont;
+		if (parent->applicationShortName != "GWA" && (propName == "Name" || propName == "Type" || propName == "SubType")) return boldFont;
+		if (mValue.DefaultValuesStringList(0, 0, parent).indexOf(getValue(propName)) != -1) return boldFont;
+		else return QFont();
+	}
+	if (role == Qt::CheckStateRole)
+		if ((mValue.Delegate == "CheckBox") || (mValue.VariableType == "boolean"))
+			if ((getValue(propName) != "0") && (getValue(propName).toLower() != "false") && (getValue(propName).toLower() != "no")) return Qt::Checked; else return Qt::Unchecked;
+
+	if (role == fullFileNameRole) return getValue(propName);
+	if (role == Qt::DisplayRole)
+	{
+		if (getProp(propName, nodes, differentValuesMultiObjectRole).toBool())
+			return QVariant("Different values.");
+		if (mValue.VariableType == "filename") {
+			qDebug() << OnlyFilenames(getValue(propName));
+			return OnlyFilenames(getValue(propName));
+		}
+		else if (mValue.Delegate == "CheckBox")
+			return "";
+		else return getValue(propName).toStringUnit();
+	}
+	if (role == Qt::ToolTipRole)
+	{
+		QString toolTip;
+		if (errors.keys().contains(propName)) toolTip.append("\n Error: ").append(errors[propName]);
+		if (warnings.keys().contains(propName)) toolTip.append("\n Warning: ").append(warnings[propName]);
+
+		if (mValue.VariableType.contains("filename"))
+			return getValue(propName).append(toolTip);
+		else if (mValue.Delegate.contains("CheckBox"))
+			return toolTip;
+		else return (getValue(propName).toStringUnit() == " ...") ? QVariant() : getValue(propName).toStringUnit().remove("...").append(toolTip);
+	}
+	if (role == VariableNameToolTipRole) return (mValue.Description != "*") ? mValue.Description : QVariant();
+	if (role == Qt::EditRole) {
+		if (getProp(propName, nodes, differentValuesRole).toBool())
+			return QVariant("Different values");
+		return getValue(propName);
+	}
+	if (role == XStringEditRole) {
+		return getValue(propName).list();
+	}
+	return QVariant();
+}
 XString Node::getValue(const QString& propName) const
 {
 	//qDebug() << "propName = " << propName;
@@ -185,7 +310,7 @@ XString Node::getValue(const QString& propName) const
 		return QString ("%1 ...").arg(g());
 	if (propName.contains("Constituent initial")) 
 		return QString("%1 ...").arg(cg());
-	if (experimentName() == "Global" && !getProp(propName, differentValuesRole).toBool())
+	if (experimentName() == "All experiments" && !getProp(propName, differentValuesRole).toBool())
 		return props.getProp(propName, parent->experimentsList()[0]);
 
 	return props.getProp(propName, experimentName());
@@ -216,7 +341,7 @@ bool Node::setProp(const QString &propName, const QVariant &Value, const int rol
 
 bool Node::setValue(const QString &propName, const XString &Value)
 {
-	QString experiment = (getProp(propName, experimentDependentRole) == "Yes") ? experimentName() : "Global";
+	QString experiment = (getProp(propName, experimentDependentRole) == "Yes") ? experimentName() : "All experiments";
 	bool r = props.setProp(propName, Value, experiment);
 	if (r)
 	{
@@ -288,37 +413,48 @@ edgesides Node::edge(const int _x, const int _y)
 	if (abs(_x - x() - width) < vBorder) return edgesides::rightside;
 	return edgesides::noside;
 }
+void Node::setBold(const bool bold) {
+	this->bold = bold;
+	update();
+}
 
 void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *)
 {
 	painter->setPen(Qt::NoPen);
 	painter->setOpacity(0.7);
-	QRgb Color1, Color2;
-	if (ObjectType().ObjectType == "Soil")
+	QColor Color1, Color2;
+	if (parent->colorCode.nodes)
 	{
-		Color1 = Qt::yellow; Color2 = Qt::darkYellow;
-	}
-	if (ObjectType().ObjectType == "Catchment")
-	{
-		Color1 = Qt::darkGray; Color2 = Qt::black;
-	}
-	if (ObjectType().ObjectType == "Pond")
-	{
-		Color1 = Qt::cyan; Color2 = Qt::darkCyan;
-	}
-	if (ObjectType().ObjectType == "Stream")
-	{
-		Color1 = Qt::blue; Color2 = Qt::darkBlue;
-	}
-	if (ObjectType().ObjectType == "Storage")
-	{
-		Color1 = Qt::gray; Color2 = Qt::darkGray;
-	}
-	if (ObjectType().ObjectType == "Darcy")
-	{
-		Color1 = Qt::darkCyan; Color2 = Qt::darkGray;
+		Color1 = color.color1; Color2 = color.color2;
 	}
 
+	else
+	{
+		if (ObjectType().ObjectType == "Soil")
+		{
+			Color1 = Qt::yellow; Color2 = Qt::darkYellow;
+		}
+		if (ObjectType().ObjectType == "Catchment")
+		{
+			Color1 = Qt::darkGray; Color2 = Qt::black;
+		}
+		if (ObjectType().ObjectType == "Pond")
+		{
+			Color1 = Qt::cyan; Color2 = Qt::darkCyan;
+		}
+		if (ObjectType().ObjectType == "Stream")
+		{
+			Color1 = Qt::blue; Color2 = Qt::darkBlue;
+		}
+		if (ObjectType().ObjectType == "Storage")
+		{
+			Color1 = Qt::gray; Color2 = Qt::darkGray;
+		}
+		if (ObjectType().ObjectType == "Darcy")
+		{
+			Color1 = Qt::darkCyan; Color2 = Qt::darkGray;
+		}
+	}
 	if (ObjectType().ObjectType == "Well")
 	{
 		Color1 = Qt::yellow; Color2 = Qt::darkYellow;
@@ -330,7 +466,8 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 		radialGrad.setColorAt(0, Qt::green);
 		radialGrad.setColorAt(1, Qt::darkGreen);
 	}
-	else
+	else if (!parent->colorCode.nodes)
+
 	{
 		if (ObjectType().ObjectType == "Soil")
 		{
@@ -373,6 +510,7 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 			radialGrad.setColorAt(1, QColor(Qt::gray).light(120));
 		}
 	}
+
 	if (ObjectType().ObjectType == "Well")
 	{
 		QRectF source(0.0, 0.0, 512, 512);
@@ -419,7 +557,10 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 	}
 	else
 	{
-		painter->setBrush(radialGrad);
+		if (parent->colorCode.nodes)
+			painter->setBrush(color.color1);
+		else
+			painter->setBrush(radialGrad);
 		painter->setPen(QPen(Qt::black, (bold) ? 2 : 0));
 		painter->drawRoundRect(0, 0, width, height, 10, 10);
 		qreal factor = parent->transform().scale(1, 1).mapRect(QRectF(0, 0, 1, 1)).width();
@@ -430,11 +571,34 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 		if (ObjectType().ObjectType == "Well" || ObjectType().ObjectType == "Tracer")
 			painter->drawText(10, height - 10, QString("%1: %2").arg(ObjectType().ObjectType).arg(Name()));
 		else
-			painter->drawText(10, height - 10, QString("%1, z0=%2").arg(Name()).arg(XString(getProp(variableName("z0")).toStringList())));
-		if (isSelected())
 		{
-			if (parent->tableProp->model() != model) {
-				parent->tableProp->setModel(model);
+			painter->drawText(10, height - 10, QString("%1, z0=%2").arg(Name()).arg(XString(getProp(variableName("z0")).toStringList())));
+			if (parent->colorCode.nodes && middleText!="")
+			{
+				painter->drawText(10, height / 2 - 10, middleText);
+			}
+		}
+		if (parent->selectedNodes().count() == 1 && parent->selectedEdges().count() == 0) // only one node is selected
+		{
+			if (isSelected())
+			{
+				if (parent->tableProp->model() != model) {
+					parent->tableProp->setModel(model);
+				}
+			}
+		}
+		else
+		{
+			QList<Node*> l = parent->selectedNodes();
+			QList<Edge*> m = parent->selectedEdges();
+			if (parent->selectedNodes().count() > 1 && parent->selectedEdges().count() == 0)//multi nodes are selected and no edges
+			{
+				static PropModel<Node>* multiModel = 0;
+				if (!multiModel)
+					multiModel = new PropModel<Node>(parent->selectedNodes());
+				if (multiModel->itemsList()!=parent->selectedNodes())
+					multiModel = new PropModel<Node>(parent->selectedNodes());
+				parent->tableProp->setModel(multiModel);
 			}
 		}
 	}
@@ -613,14 +777,14 @@ QList<ParticleInitialConditionItem> &Node::particleInitialCondition(QString expe
 	//qDebug() << "particleInitialCondition const";
 	if (experimentName == "")
 		experimentName = parent->experimentName();
-	if (experimentName != "Global")
+	if (experimentName != "All experiments")
 		return particleInitialConditions->operator[](experimentName);
 	if (parent->experiments->count() == 2)
 		return particleInitialConditions->operator[](parent->firstExperimentName());
 	vector<QVariant> gValues;
 	for (int i = 0; i < parent->experimentsList().count(); i++)
 		gValues.push_back(g(parent->experimentsList()[i]));
-	multiValues gMultiValues(gValues);
+	multiValues<> gMultiValues(gValues);
 	if (gMultiValues.sameValues())
 		particleInitialConditions->operator[](experimentName) = particleInitialConditions->operator[](parent->firstExperimentName());
 	else
@@ -633,14 +797,14 @@ QList<ParticleInitialConditionItem> &Node::particleInitialCondition(QString expe
 	//qDebug() << "particleInitialCondition";
 	if (experimentName == "")
 		experimentName = parent->experimentName();
-	if (experimentName != "Global")
+	if (experimentName != "All experiments")
 		return particleInitialConditions->operator[](experimentName);
 	if (parent->experiments->count() == 2)
 		return particleInitialConditions->operator[](parent->firstExperimentName());
 	vector<QVariant> gValues;
 	for (int i = 0; i < parent->experimentsList().count(); i++)
 		gValues.push_back(g(parent->experimentsList()[i]));
-	multiValues gMultiValues(gValues);
+	multiValues<> gMultiValues(gValues);
 	if (gMultiValues.sameValues())
 		particleInitialConditions->operator[](experimentName) = particleInitialConditions->operator[](parent->firstExperimentName());
 	else
@@ -654,14 +818,14 @@ QList<ConstituentInitialConditionItem> &Node::constituentInitialCondition(QStrin
 	//qDebug() << "constituentInitialCondition const";
 	if (experimentName == "")
 		experimentName = parent->experimentName();
-	if (experimentName != "Global")
+	if (experimentName != "All experiments")
 		return constituentInitialConditions->operator[](experimentName);
 	if (parent->experiments->count() == 2)
 		return constituentInitialConditions->operator[](parent->firstExperimentName());
 	vector<QVariant> gValues;
 	for (int i = 0; i < parent->experimentsList().count(); i++)
 		gValues.push_back(cg(parent->experimentsList()[i]));
-	multiValues gMultiValues(gValues);
+	multiValues<> gMultiValues(gValues);
 	if (gMultiValues.sameValues())
 		constituentInitialConditions->operator[](experimentName) = constituentInitialConditions->operator[](parent->firstExperimentName());
 	else
@@ -674,14 +838,14 @@ QList<ConstituentInitialConditionItem> &Node::constituentInitialCondition(QStrin
 	//qDebug() << "constituentInitialCondition";
 	if (experimentName == "")
 		experimentName = parent->experimentName();
-	if (experimentName != "Global")
+	if (experimentName != "All experiments")
 		return constituentInitialConditions->operator[](experimentName);
 	if (parent->experiments->count() == 2)
 		return constituentInitialConditions->operator[](parent->firstExperimentName());
 	vector<QVariant> gValues;
 	for (int i = 0; i < parent->experimentsList().count(); i++)
 		gValues.push_back(cg(parent->experimentsList()[i]));
-	multiValues gMultiValues(gValues);
+	multiValues<> gMultiValues(gValues);
 	if (gMultiValues.sameValues())
 		constituentInitialConditions->operator[](experimentName) = constituentInitialConditions->operator[](parent->firstExperimentName());
 	else
@@ -735,7 +899,7 @@ XString Node::val(const QString & code) const
 
 QMap<QString, QVariant> Node::compact() const
 {
-	qDebug() << "Compacting: " << name;
+//	qDebug() << "Compacting: " << name;
 	QMap<QString, QVariant> r;
 	QStringList connectorNames;
 	for each (Edge * e in edgeList)
@@ -766,10 +930,9 @@ QMap<QString, QVariant> Node::compact() const
 	r["Constituent Initial Conditions"] = CICList;
 	return r;
 }
-
-Node* Node::unCompact(QMap<QString, QVariant> n, GraphWidget *gwidget) 
+Node* Node::unCompact(QMap<QString, QVariant> n, GraphWidget *gwidget, bool oldVersion)
 {
-	
+
 	Node *node = new Node(gwidget, n["Type"].toString(), n["Name"].toString(), -1, n["X"].toInt(), n["Y"].toInt(), n["Width"].toInt(), n["Height"].toInt());
 	node->setObjectSubType(n["SubType"].toString());
 	QStringList connectorNames = n["Connector Names"].toStringList();
@@ -783,17 +946,17 @@ Node* Node::unCompact(QMap<QString, QVariant> n, GraphWidget *gwidget)
 	n.remove("Width");
 	n.remove("Height");
 	n.remove("Connector Names");
-	
+
 	QStringList PICList;
-		PICList = n["Particle Initial Conditions"].toStringList();
+	PICList = n["Particle Initial Conditions"].toStringList();
 	for each (QString i in PICList)
 	{
 		if (i.split(";").size() == 3)
-			i.push_front("Global;");
+			i.push_front("All experiments;");
 		ParticleInitialConditionItem item;
 		item.Particle = i.split(";")[1];
-		item.Model = i.split(";")[2]; 
-		item.Value = i.split(";")[3]; 
+		item.Model = i.split(";")[2];
+		item.Value = i.split(";")[3];
 		node->particleInitialCondition(i.split(";")[0]).append(item);
 	}
 	n.remove("Particle Initial Conditions");
@@ -803,7 +966,7 @@ Node* Node::unCompact(QMap<QString, QVariant> n, GraphWidget *gwidget)
 	for each (QString i in CICList)
 	{
 		if (i.split(";").size() == 4)
-			i.push_front("Global;");
+			i.push_front("All experiments;");
 		ConstituentInitialConditionItem item;
 		item.Constituent = i.split(";")[1];
 		item.Particle = i.split(";")[2];
@@ -814,11 +977,13 @@ Node* Node::unCompact(QMap<QString, QVariant> n, GraphWidget *gwidget)
 	n.remove("Constituent Initial Conditions");
 
 	node->props.list = PropList<Node>::unCompact(n.value("Properties").toString());
-/*	for each (QString key in n.keys())
-		node->props.list[key] = XString::unCompact(n[key].toString());*/
-	
+	if (!node->props.list.size() && oldVersion)
+		for each(QString key in n.keys())
+			node->props.setProp(key.toLower(), XString::unCompact(n[key].toString()), "experiment1");
+
 	return node;
 }
+
 Node* Node::unCompact10(QMap<QString, QVariant> n, GraphWidget *gwidget)
 {
 

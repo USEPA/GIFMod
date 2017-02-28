@@ -24,7 +24,7 @@ public:
 				switch (section)
 				{
 				case 0:
-					return QString("Particle");
+					return QString("Particle/Solid phase");
 				case 1:
 					return QString("Exchange rate");
 				case 2:

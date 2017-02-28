@@ -10,7 +10,8 @@
 
 //PropList<Node>::PropList(Node *Parent){ parent = Parent; };
 
-XString PropListItem<Node>::getProp(const QString &propName, Node* parent) const{
+XString PropListItem<Node>::getProp(const QString &inpPropName, Node* parent) const{
+	QString propName = inpPropName.toLower();
 	if (list.keys().contains(propName))
 		return XString(list.value(propName));
 	else{
@@ -26,20 +27,21 @@ XString PropListItem<Node>::getProp(const QString &propName, Node* parent) const
 	}
 }
 
-bool PropListItem<Node>::setProp(const QString& propName, const XString& Value, Node* parent) {
+bool PropListItem<Node>::setProp(const QString& inpPropName, const XString& Value, Node* parent) {
 //	QString classType = typeid(this).name();
-	if (propName == "Name") {
+	QString propName = inpPropName.toLower();
+	if (propName == "name") {
 		if (Value != "") parent->setName(Value);
 		return true;
 	}
-	if (propName == "Type") {
+	if (propName == "type") {
 //		mProp objType = parent->ObjectType();
 //		objType.ObjectType = Value;
 		parent->setObjectType(Value);
 		return true;
 	}
 //	if (classType.contains("Node") && (propName == "SubType")) {
-	if (propName == "SubType") {
+	if (propName == "subtype") {
 //			mProp objType = parent->ObjectType();
 //		objType.SubType = Value;
 		parent->setObjectSubType(Value);
@@ -52,7 +54,7 @@ bool PropListItem<Node>::setProp(const QString& propName, const XString& Value, 
 		}
 		if (list.value(propName) != Value) {
 			XString r = Value;
-			if (propName.contains("Inflow"))
+			if (propName.contains("inflow"))
 			{
 				QString files;
 				for each(QString file in Value.split(';'))
@@ -76,7 +78,8 @@ bool PropListItem<Node>::setProp(const QString& propName, const XString& Value, 
 	return false;
 }
 
-XString PropListItem<Edge>::getProp(const QString &propName, Edge* parent) const{
+XString PropListItem<Edge>::getProp(const QString &inpPropName, Edge* parent) const{
+	QString propName = inpPropName.toLower();
 	if (list.contains(propName))
 		return XString(list.value(propName));
 	else{
@@ -92,13 +95,14 @@ XString PropListItem<Edge>::getProp(const QString &propName, Edge* parent) const
 
 }
 
-bool PropListItem<Edge>::setProp(const QString& propName, const XString& Value, Edge* parent) {
+bool PropListItem<Edge>::setProp(const QString& inpPropName, const XString& Value, Edge* parent) {
+	QString propName = inpPropName.toLower();
 	QString classType = typeid(this).name();
-	if (propName == "Name") {
+	if (propName == "name") {
 		if (Value != "") parent->setName(Value);
 		return true;
 	}
-	if (propName == "Type") {
+	if (propName == "type") {
 		//		mProp objType = parent->ObjectType();
 		//		objType.ObjectType = Value;
 		return parent->setObjectType(Value);
@@ -127,7 +131,8 @@ bool PropListItem<Edge>::setProp(const QString& propName, const XString& Value, 
 	
 }
 
-XString PropListItem<Entity>::getProp(const QString &propName, Entity* parent) const{
+XString PropListItem<Entity>::getProp(const QString &inpPropName, Entity* parent) const{
+	QString propName = inpPropName.toLower();
 	if (list.contains(propName))
 		return XString(list.value(propName));
 	else{
@@ -142,17 +147,18 @@ XString PropListItem<Entity>::getProp(const QString &propName, Entity* parent) c
 	}
 }
 
-bool PropListItem<Entity>::setProp(const QString& propName, const XString& Value, Entity* parent) {
+bool PropListItem<Entity>::setProp(const QString& inpPropName, const XString& Value, Entity* parent) {
+	QString propName = inpPropName.toLower();
 	QString classType = typeid(this).name();
-	if (propName == "Name") {
+	if (propName == "name") {
 		if (Value != "") parent->setName(Value);
 		return true;
 	}
-	if (propName == "Type") {
+	if (propName == "type") {
 		parent->setObjectType(Value);
 		return true;
 	}
-	if (propName == "SubType") {
+	if (propName == "subtype") {
 		parent->setObjectSubType(Value);
 		return true;
 	}

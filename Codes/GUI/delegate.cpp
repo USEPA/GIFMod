@@ -14,8 +14,9 @@
 #include "qlistwidget.h"
 //#include "logwindow.h"
 #include "qtextedit.h"
+#include "expEditor.h"
 
-#ifdef WQV
+#ifdef GIFMOD
 
 #include "node.h"
 #include "ParticleWindow.h"
@@ -24,6 +25,9 @@
 #include "observedcombobox.h"
 #include "qmessagebox.h"
 #include "entity.h"
+#include "qmessagebox.h"
+#include "Precipitation.h"
+#include <utility_funcs.h>
 #endif
 
 
@@ -68,7 +72,7 @@ QWidget *Delegate::createEditor(QWidget *parent,
 		editor->setSelectionMode(QAbstractItemView::MultiSelection);
 		return editor;
 	}
-#ifdef WQV
+#ifdef GIFMOD
 	if (delegateType.contains("ObservedComboBox"))
 	{
 		ObservedComboBox *editor = new ObservedComboBox(parent);
@@ -124,9 +128,14 @@ QWidget *Delegate::createEditor(QWidget *parent,
 		QTextEdit* editor = new QTextEdit(parent);
 		editor->setWordWrapMode(QTextOption::NoWrap);
 		return editor;
-
 	}
 
+	if (delegateType.contains("expressionEditor"))
+	{
+		QStringList words = index.data(allowableWordsRole).toStringList();
+		expEditor* editor = new expEditor(words, 0, parent);
+		return editor;
+	}
 	return QStyledItemDelegate::createEditor(parent, option, index);
 }
 
@@ -138,9 +147,9 @@ void Delegate::setEditorData(QWidget *editor,
 	QString delegateType = index.data(TypeRole).toString();
 	if (delegateType.toLower().contains("date"))
 	{
-		qint64 currentDate = index.model()->data(index, Qt::EditRole).toDouble();
-		currentDate += QDate(1900, 1, 1).toJulianDay();
-		QDate date = QDate::fromJulianDay(currentDate);
+		qint64 selectedDate = index.model()->data(index, Qt::EditRole).toDouble();
+		qint64 julianDate = xldate2julian(selectedDate);// currentDate += 2415020;// QDate(1900, 1, 1).toJulianDay();
+		QDate date = QDate::fromJulianDay(julianDate);
 
 		QCalendarWidget *calendar = static_cast<QCalendarWidget*>(editor);
 		calendar->setSelectedDate(date);
@@ -170,7 +179,7 @@ void Delegate::setEditorData(QWidget *editor,
 		}
 		return;
 	}
-#ifdef WQV
+#ifdef GIFMOD
 	if (delegateType.contains("ObservedComboBox"))
 	{
 		ObservedComboBox *comboBox = static_cast<ObservedComboBox*>(editor);
@@ -236,6 +245,12 @@ void Delegate::setEditorData(QWidget *editor,
 		memo->setText(index.model()->data(index, Qt::EditRole).toString());
 		return;
 	}
+	if (delegateType.contains("expressionEditor"))
+	{
+		expEditor* expressionEditor = static_cast<expEditor*>(editor);
+		expressionEditor->setText(index.model()->data(index, Qt::EditRole).toString());
+		return;
+	}
 
 	QStyledItemDelegate::setEditorData(editor, index);
 }
@@ -270,14 +285,14 @@ void Delegate::setModelData(QWidget *editor, QAbstractItemModel *model,
 		QStringList selectedList;
 		//list->selectAll();
 		for (int i = 0; i < list->count(); i++)
-			if (list->item(i)->isSelected())
+			if (list->item(i)->isSelected() && list->item(i)->text().size())
 				selectedList.append(list->item(i)->text());
 		QString newValue = selectedList.join(':');
 		if (model->data(index, Qt::EditRole).toString() != newValue)
 			model->setData(index, newValue, Qt::EditRole);
 		return;
 	}
-#ifdef WQV
+#ifdef GIFMOD
 	if (delegateType.contains("ObservedComboBox"))
 	{
 		ObservedComboBox *comboBox = static_cast<ObservedComboBox*>(editor);
@@ -341,6 +356,13 @@ void Delegate::setModelData(QWidget *editor, QAbstractItemModel *model,
 			model->setData(index, memo->toPlainText(), Qt::EditRole);
 		return;
 	}
+	if (delegateType.contains("expressionEditor"))
+	{
+		expEditor* expression = static_cast<expEditor*>(editor);
+		if (index.model()->data(index, Qt::EditRole).toString() != expression->text())
+			model->setData(index, expression->text(), Qt::EditRole);
+		return;
+	}
 	if (delegateType.toLower().contains("text"))
 	{
 		QLineEdit *textBox = static_cast<QLineEdit*>(editor);
@@ -367,7 +389,8 @@ void Delegate::updateEditorGeometry(QWidget *editor,
 	{
 		QRect tallerRect = option.rect;
 		tallerRect.setHeight(option.rect.height() * 5);
-		tallerRect.setTop(option.rect.top() + option.rect.height());
+		tallerRect.setTop(option.rect.top());
+//		tallerRect.setTop(option.rect.top() + option.rect.height());
 		editor->setGeometry(tallerRect);
 		return;
 	}
@@ -409,7 +432,13 @@ void Delegate::browserClicked()
 		tr("Select the File"),
 		parent->modelPathname(),
 		tr("(*.txt *.csv)"));
-	file = relativePathFilename(file, parent->modelPathname());
+	if (parent->propModel()->data(QModelIndex(), loadIndexandVariableTypeRole).toString().toLower().contains("precipitation"))
+		if (!CPrecipitation::isFileValid(file.toStdString())){
+			QMessageBox::warning(qApp->activeWindow(),
+				"Precipitation file", "Selected file is not a valid [Precipitation file]."				);
+			return;
+		}
+		file = relativePathFilename(file, parent->modelPathname());
 	parent->propModel()->setData(QModelIndex(), file, loadIndex);
 }
 void Delegate::dirBrowserClicked()
@@ -422,6 +451,7 @@ void Delegate::dirBrowserClicked()
 
 	parent->propModel()->setData(QModelIndex(), Dir, loadIndex);
 }
+
 void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
 	const QModelIndex &index) const
 {
@@ -447,15 +477,14 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
 		QStyledItemDelegate::paint(painter, option, index);
 }
 
-
 void Delegate::openParticleInitialCondition()
 {
-#ifdef WQV
+#ifdef GIFMOD
 	for each(Node *n in parent->Nodes())
 		if (n->isSelected())
 		{
 			QString experimentName = n->parent->experimentName();
-			if (experimentName != "Global" || (n->parent->experiments->count() == 2))
+			if (experimentName != "All experiments" || (n->parent->experiments->count() == 2))
 			{
 				new ParticleWindow(parent->parent, parent, n, experimentName);
 				return;
@@ -463,7 +492,7 @@ void Delegate::openParticleInitialCondition()
 			vector<QVariant> gValues;
 			for (int i = 0; i < n->parent->experimentsList().count(); i++)
 				gValues.push_back(n->g(parent->experimentsList()[i]));
-			multiValues gMultiValues(gValues);
+			multiValues<> gMultiValues(gValues);
 			if (gMultiValues.sameValues())
 			{
 				new ParticleWindow(parent->parent, parent, n, experimentName);
@@ -505,22 +534,23 @@ void Delegate::openParticleInitialCondition()
 
 #endif
 }
+
 void Delegate::openConstituentInitialCondition()
 {
-#ifdef WQV
+#ifdef GIFMOD
 	for each(Node *n in parent->Nodes())
 		if (n->isSelected())
 		{
 			QString experimentName = n->parent->experimentName();
-			if (experimentName != "Global" || (n->parent->experiments->count() == 2))
+			if (experimentName != "All experiments" || (n->parent->experiments->count() == 2))
 			{
 				new ConstituentWindow(parent->parent, parent, n, experimentName);
 				return;
 			}
 			vector<QVariant> gValues;
 			for (int i = 0; i < n->parent->experimentsList().count(); i++)
-				gValues.push_back(n->g(parent->experimentsList()[i]));
-			multiValues gMultiValues(gValues);
+				gValues.push_back(n->cg(parent->experimentsList()[i]));
+			multiValues<> gMultiValues(gValues);
 			if (gMultiValues.sameValues())
 			{
 				new ConstituentWindow(parent->parent, parent, n, experimentName);
@@ -559,13 +589,12 @@ void Delegate::openConstituentInitialCondition()
 				new ConstituentWindow(parent->parent, parent, n, experimentName);
 			}
 		}
-
 #endif
 }
 
 void Delegate::openAqueousExchangeParameters()
 {
-#ifdef WQV
+#ifdef GIFMOD
 	for each(Entity *e in parent->entitiesByType("Constituent"))
 		if (e->isSelected())
 		{
@@ -575,6 +604,7 @@ void Delegate::openAqueousExchangeParameters()
 
 #endif
 }
+
 void Delegate::browserCheck(QString _fileName)
 {
 	if (!_fileName.contains("Browse ...")) return;
@@ -597,4 +627,3 @@ void Delegate::browserCheck(QString _fileName)
 	delete fileDialog;
 	return;
 }
-

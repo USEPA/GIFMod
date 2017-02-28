@@ -8,7 +8,7 @@
 #include "qtimezone.h""
 #include "qmenu.h"
 #include "GWidget.h"
-#ifdef WQV
+#ifdef GIFMOD
 #include "medium.h"
 #include "mediumset.h"
 #endif
@@ -23,7 +23,10 @@ runtimeWindow::runtimeWindow(GraphWidget *parent, QString mode) :
 {
 	ui->setupUi(this);
 	setMode(mode);
-	connect(ui->btnStop, SIGNAL(clicked()), this, SLOT(on_btnStop_clicked()));
+//	connect(ui->btnStop, SIGNAL(clicked()), this, SLOT(on_btnStop_clicked()));
+	//connect(ui->customPlot, SIGNAL(mouseRelease(QMouseEvent *)), this, SLOT(showMenu(QMouseEvent *)));
+//	QObject::connect(ui->btnStop, SIGNAL(clicked()), this, SLOT(on_btnStop_clicked()));
+
   this->parent = parent;
  // for (int i =0; i<19; i++)
  //     setupDemo(2);
@@ -65,22 +68,25 @@ void runtimeWindow::setLabel(QString label)
 }
 	void runtimeWindow::setMode(QString mode)
 {
-#ifdef WQV
+#ifdef GIFMOD
 	useStartFinishTimes = false;
 #endif
 
 	useStartFinishTimes = false;
 	ui->setupUi(this);
+	ui->btnStop->setEnabled(true);
+	connect(ui->btnStop, SIGNAL(clicked()), this, SLOT(on_btnStop_clicked()));
+
 	if (mode == "forward")
 	{
-#ifdef WQV
+#ifdef GIFMOD
 		useStartFinishTimes = true;
 #endif
 		ui->lcdNumber->show();
 		ui->label->show();
 		ui->progressBar2->hide();
 		ui->customPlot2->hide();
-		ui->customPlot->yAxis->setLabel("Time Step");
+		ui->customPlot->yAxis->setLabel("Timestep");
 		ui->customPlot->yAxis->setScaleType(QCPAxis::stLinear);
 	}
 	else if (mode == "inverse")
@@ -91,6 +97,9 @@ void runtimeWindow::setLabel(QString label)
 		ui->customPlot2->hide();
 		ui->customPlot->yAxis->setLabel("Likelihood");
 		ui->customPlot->yAxis->setScaleType(QCPAxis::stLinear);
+		ui->customPlot->xAxis->setLabel("Generation");
+		ui->customPlot->xAxis->setScaleType(QCPAxis::stLinear);
+
 	}
 	else if (mode == "MCMC")
 	{
@@ -116,11 +125,13 @@ void runtimeWindow::setLabel(QString label)
 	{
 		ui->btnStop->setEnabled(true);
 		experiment = model;
+		QString title = (windowTitle().split(", ").count() > 1) ? windowTitle().split(", ")[1] : windowTitle();
+		setWindowTitle(QString("%1, %2").arg(QString::fromStdString(model->name)).arg(title));
 	}
 
 	void runtimeWindow::update(QMap<QString, QVariant> &vars)
 	{
-		QApplication::processEvents();
+//		QApplication::processEvents();
 		if (vars.keys().contains("finished"))
 		{
 			ui->btnStop->setEnabled(false);
@@ -128,6 +139,9 @@ void runtimeWindow::setLabel(QString label)
 
 			setWindowTitle(QString("%1, duration: %2 seconds").arg(windowTitle()).arg(durationms / 1000.0));
 		}
+		else
+			ui->btnStop->setEnabled(true);
+
 		if (vars.keys().contains("progress"))
 		{
 			ui->progressBar->setValue(vars["progress"].toInt());
@@ -137,10 +151,34 @@ void runtimeWindow::setLabel(QString label)
 		if (vars.keys().contains("mode"))
 			if (vars["mode"] == "forward")
 			{
+
+				if (vars.keys().contains("label"))
+				{
+					QString status = (ui->statusBar->currentMessage().size()) ? ui->statusBar->currentMessage() + " - " : "";
+					while (status.split(" - ").count() >= 5)
+						status = status.right(status.length() - status.indexOf(" - ") - 2);
+					ui->statusBar->showMessage(status + vars["label"].toString(), 3500);
+				}
+					//ui->topLabel->setText(vars["label"].toString());
+
 				if (vars.keys().contains("dtt"))
 				{
 					double t = vars["t"].toDouble();
-					realtimeDataSlot(t, vars["dtt"].toDouble());
+					static double maxT = 0;
+					static int lastProgress = -1;
+					static int interval = 0;
+					static long int counter = 0;
+					counter++;
+					if (vars.value("progress") != "" && vars.value("progress").toInt() != lastProgress)
+					{
+						lastProgress = vars.value("progress").toInt();
+						realtimeDataSlot(t, vars["dtt"].toDouble(), false, "", t < maxT);
+						interval = 0;
+					}
+					int updateInterval = (ui->refreshPlot->isChecked()) ? 1 : max(1, counter/100);
+					if (interval++ % updateInterval == 0)
+						realtimeDataSlot(t, vars["dtt"].toDouble(), false, "", t < maxT);
+					maxT = (t > maxT) ? t : maxT;
 				}
 				if (vars.keys().contains("epoch count"))
 				{
@@ -158,9 +196,15 @@ void runtimeWindow::setLabel(QString label)
 					double t = vars["i"].toDouble();
 					realtimeDataSlot(t, vars["likelihood"].toDouble());
 				}
+				if (vars.keys().contains("x-axis label"))
+				{
+					ui->customPlot->xAxis->setLabel(vars["x-axis label"].toString());
+				}
 			}
 			else if (vars["mode"] == "MCMC")
 			{
+//				connect(ui->btnStop, SIGNAL(clicked()), this, SLOT(on_btnStop_clicked()));
+
 				if (vars.keys().contains("perterbation factor"))
 				{
 					double t = vars["x"].toDouble();
@@ -178,9 +222,10 @@ void runtimeWindow::setLabel(QString label)
 
 
 
-
-			QCoreApplication::processEvents();
+		//ui->customPlot->replot();
+		QCoreApplication::processEvents();
 	}
+
 void runtimeWindow::on_btnStop_clicked()
 {
 
@@ -188,7 +233,7 @@ void runtimeWindow::on_btnStop_clicked()
 		"Are you sure?", QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes)
 	{
 		ui->btnStop->setEnabled(false);
-#ifdef WQV
+#ifdef GIFMOD
 		experiment->stop_triggered = true;
 #endif
 #ifdef GWA
@@ -197,10 +242,11 @@ void runtimeWindow::on_btnStop_clicked()
 
 		stopTriggered = true;
 	}
+	QCoreApplication::processEvents();
 
 }
 
-void runtimeWindow::realtimeDataSlot(double x, double y, bool secondPlot, QString chartName)
+void runtimeWindow::realtimeDataSlot(double x, double y, bool secondPlot, QString chartName, bool commingBackX)
 {
 	static map<QString, double> min, max;
 	QCustomPlot *plot;
@@ -212,52 +258,91 @@ void runtimeWindow::realtimeDataSlot(double x, double y, bool secondPlot, QStrin
 #if QT_VERSION < QT_VERSION_CHECK(4, 7, 0)
 	double key = 0;
 #else
-	double key = x;//QDateTime::currentDateTime().toMSecsSinceEpoch() / 1000.0;
+	double key = x;
 #endif
-//	static double lastPointKey = 0;
-//	if (key - lastPointKey > 0.0001) // at most add point every 10 ms
-//	{
-		double value0 = y;// qSin(key); //qSin(key*1.6+qCos(key*1.7)*2)*10 + qSin(key*1.2+0.56)*20 + 26;
-		//    double value1 = qCos(key); //qSin(key*1.3+qCos(key*1.2)*1.2)*7 + qSin(key*0.9+0.26)*24 + 26;
-		// add data to lines:
-		plot->graph(0)->addData(key, value0);
-		if (plot->graph(0)->data()->size() == 1)
-		{
-			min[chartName] = value0;
-			max[chartName] = value0;
-		}
-		if (value0 < min[chartName]) min[chartName] = value0;
-		if (value0 > max[chartName]) max[chartName] = value0;
-		//    plot->graph(1)->addData(key, value1);
-		// set data of dots:
-		plot->graph(1)->clearData();
-		plot->graph(1)->addData(key, value0);
-		//    plot->graph(3)->clearData();
-		//    plot->graph(3)->addData(key, value1);
-		// remove data of lines that's outside visible range:
-		//plot->graph(0)->removeDataBefore(key - 8);
-		//    plot->graph(1)->removeDataBefore(key-8);
-		// rescale value (vertical) axis to fit the current data:
-		plot->graph(0)->rescaleValueAxis();
-		//    plot->graph(1)->rescaleValueAxis(true);
-//		lastPointKey = key;
-//	}
-	// make key axis range scroll with the data (at a constant range size of 8):
-#ifdef WQV
-		double Timemin = experiment->Timemin;
-		double Timemax = experiment->Timemax;
+	double value0 = y;
+
+	if (plot->graph(0)->data()->size() == 0)
+	{
+		min[chartName] = value0;
+		max[chartName] = value0;
+	}
+	
+	if (commingBackX)
+		plot->graph(0)->removeDataAfter(x);
+
+//		for each (double itemX in plot->graph(0)->data()->keys())
+//			if (itemX>=x)
+//				plot->graph(0)->data()->remove(itemX);
+
+	//plot->graph(1)->clearData();
+	//plot->graph(1)->addData(key, value0);
+
+
+#ifdef GIFMOD
+	double Timemin = 0;
+	double Timemax = x;
+	if (experiment)
+	{
+		Timemin = experiment->Timemin;
+		Timemax = experiment->Timemax;
+	}
 #endif
 #ifdef GWA
 		double Timemin = parent->model->Timemin;
 		double Timemax = parent->model->Timemax;
 #endif
 
-		qDebug() << Timemin << x << y;
-//	plot->xAxis->setRange(parent->model->Timemin, parent->model->Timemax, Qt::AlignRight);
-	if (useStartFinishTimes) plot->xAxis->setRange(Timemin, Timemax);
-	plot->xAxis->setScaleType(QCPAxis::stLinear);
+		//running a moving average and keep data points around 2000 to optimize the graphing speed
+/*		static int maxNumberofXs = 300;
+		if (plot->graph(0)->data()->keys().count() > maxNumberofXs*1.5)
+		{
+			double step = (x - Timemin) / maxNumberofXs;
+			QCPDataMap data = *plot->graph(0)->data();
+			QVector<double> newX, newY;
+			double currentX = Timemin, currentY = 0;
+			int n = 0;
+			QList<qreal> oldX = data.keys();
+			//QList<qreal> oldY = data.
 
-	plot->xAxis->setRangeUpper(x);
+			for (int i = 0; i < oldX.count(); i++)
+			{
+				if (oldX[i] < currentX + step / 2.0)
+				{
+					y += data[i].value;
+					n++;
+				}
+				else
+				{
+					newX.append(currentX);
+					newY.append(currentY / double(n));
+					currentX += step;
+					currentY = 0;
+					n = 0;
+				}
+			}
+			plot->graph(0)->clearData();
+			plot->graph(0)->setData(newX, newY);
+		}
+		else*/
+			plot->graph(0)->addData(key, value0);
+	
+		if (value0 < min[chartName]) min[chartName] = value0;
+		if (value0 > max[chartName]) max[chartName] = value0;
+
+	//qDebug() << Timemin << x << y;
+
+	if (useStartFinishTimes) plot->xAxis->setRange(Timemin, Timemax);
+	
+	bool firstTime = true;
+	if (firstTime) {
+		plot->xAxis->setScaleType(QCPAxis::stLinear);
+		firstTime = false;
+	}
+
+//	plot->graph(0)->rescaleValueAxis();
+	plot->yAxis->setRangeLower(min[chartName]);
+	plot->yAxis->setRangeUpper(max[chartName]);
 	if (chartName.contains("perterbation")){
 		plot->yAxis->setRangeLower(pow(10, int(log10(min[chartName])) - 1));
 		plot->yAxis->setRangeUpper(pow(10, int(log10(max[chartName])) + 1));
@@ -267,23 +352,14 @@ void runtimeWindow::realtimeDataSlot(double x, double y, bool secondPlot, QStrin
 		plot->yAxis->setRangeLower(0);
 		plot->yAxis->setRangeUpper(1);
 	}
+	plot->xAxis->setRangeUpper(x);
+	//if (x>1) plot->graph(0)->removeDataBefore(x-0.5);
+	static int lastX = -1;
+	if (ui->refreshPlot->isChecked() || ui->progressBar->value() >= lastX + 1) {
+		plot->replot(QCustomPlot::rpQueued);
+		lastX = x;
+	}
 
-	plot->replot();
-
-	// calculate frames per second:
-	static double lastFpsKey;
-	static int frameCount;
-	++frameCount;
-	/*  if (key-lastFpsKey > 2) // average fps over 2 seconds
-	{
-	ui->statusBar->showMessage(
-	QString("%1 FPS, Total Data points: %2")
-	.arg(frameCount/(key-lastFpsKey), 0, 'f', 0)
-	.arg(plot->graph(0)->data()->count()+plot->graph(1)->data()->count())
-	, 0);
-	lastFpsKey = key;
-	frameCount = 0;
-	}*/
 }
 void runtimeWindow::addScatterPlot(QString name, QVector<double> t, QVector<double> y)
 {
@@ -484,38 +560,113 @@ void runtimeWindow::addScatterPlot(QCPGraph *g)
 
 void runtimeWindow::contextMenuEvent(QContextMenuEvent *event)
 {
-/*	QMenu menu(this);
-
-	if (ui->customPlot->graphCount() == 1)
-		menu.addAction("Copy Curve");
-	else 
-		menu.addAction("Copy Curves");
-
-	if (parent->graphsClipboard.size() == 1)
-		menu.addAction("Paste Curve");
-	if (parent->graphsClipboard.size() > 1)
-		menu.addAction("Paste Curves");
-
-	QAction *selectedAction = menu.exec(event->globalPos());
-
-	if (selectedAction != nullptr)
+	QMenu menu(this);
+	if (ui->customPlot->graphCount())
 	{
-		if (selectedAction->text().contains("Copy"))
+//		if (ui->customPlot->graphCount() == 1)
+//			menu.addAction("Copy Curve");
+//		else
+//			menu.addAction("Copy Curves");
+		menu.addAction("Copy graph");
+
+		/*
+		if (parent->graphsClipboard.size() == 1)
+			menu.addAction("Paste Curve");
+		if (parent->graphsClipboard.size() > 1)
+			menu.addAction("Paste Curves");
+		menu.addSeparator();
+		QMenu *prop = menu.addMenu("Graph Properties");
+		QMenu *xAxis = prop->addMenu("X-Axis");
+		xAxis->addActions(subActions(format[0].axisTypes, format[0].xAxisType, xAxis, 0, "xAxisType"));
+		QMenu *yAxis = prop->addMenu("Y-Axis");
+		yAxis->addActions(subActions(format[0].axisTypes, format[0].yAxisType, yAxis, 0, "yAxisType"));
+		QMenu *legend = prop->addMenu("Legend");
+		legend->addActions(subActions(format[0].legends, format[0].legend, legend, 0, "legend"));
+
+		menu.addSeparator();
+		QList<QMenu *>graphs;
+		for (int i = 0; i < ui->customPlot->graphCount(); i++)
 		{
-			parent->graphsClipboard.clear();
-			for (int i = 0; i < ui->customPlot->graphCount(); i++)
-				parent->graphsClipboard.insert(ui->customPlot->graph(i), format[i]);
+			graphs.push_back(menu.addMenu(ui->customPlot->graph(i)->name()));
+			graphs[i]->setProperty("Graph", i);
+			QMenu* lineStyle = graphs[i]->addMenu("Line Style");
+			lineStyle->addActions(subActions(format[i].lineStyles, format[i].lineStyle, lineStyle, i, "Line Style"));
+
+			QMenu* scatterStyle = graphs[i]->addMenu("Point Style");
+			scatterStyle->addActions(subActions(format[i].scatterStyles, format[i].scatterStyle, scatterStyle, i, "Scatter Style"));
+
+			QMenu* lineType = graphs[i]->addMenu("Line Type");
+			lineType->addActions(subActions(format[i].penStyles, format[i].penStyle, lineType, i, "Line Type"));
+
+			QMenu* width = graphs[i]->addMenu("Width");
+			width->addActions(subActions(format[i].penWidths, format[i].penWidth, width, i, "Width"));
+
+			QMenu* color = graphs[i]->addMenu("Color");
+			color->addActions(subActions(format[i].colors, format[i].color, color, i, "Color"));
+
 		}
+*/
 
+		QAction *selectedAction = menu.exec(event->globalPos());
 
-		if (selectedAction->text().contains("Paste"))
-			for each (QCPGraph *g in parent->graphsClipboard)
+		if (selectedAction != nullptr)
+		{
+			QString graph = selectedAction->property("Graph").toString();
+			QString prop = selectedAction->property("Prop").toString();
+			QString text = selectedAction->text();
+/*			if (!graph.isNull())
 			{
-				addScatterPlot(g);
+				int i = graph.toInt();
+				//			previousFormat = format;
+				if (prop == "xAxisType")
+					format[i].xAxisType = QCPAxis::ScaleType(format[i].axisTypes[text]);
+				if (prop == "yAxisType")
+					format[i].yAxisType = QCPAxis::ScaleType(format[i].axisTypes[text]);
+				if (prop == "legend")
+					format[i].legend = format[i].legends[text];
+				if (prop == "Line Style")
+					format[i].lineStyle = QCPGraph::LineStyle(format[i].lineStyles[text]);
+				if (prop == "Scatter Style")
+					format[i].scatterStyle = QCPScatterStyle::ScatterShape(format[i].scatterStyles[text]);
+				if (prop == "Line Type")
+					format[i].penStyle = Qt::PenStyle(format[i].penStyles[text]);
+				if (prop == "Width")
+					format[i].penWidth = text.toInt();
+				if (prop == "Color")
+					format[i].color = Qt::GlobalColor(format[i].colors[text]);
+				//		if (format != previousFormat)
+				refreshFormat();
 			}
-	}
+*/			if (selectedAction->text().contains("Copy"))
+			{
+				parent->graphsClipboard.clear();
+//				for (int i = 0; i < ui->customPlot->graphCount(); i++)
+//					parent->graphsClipboard.insert(ui->customPlot->graph(i), format[i]);
+				// Set the clilpboard image
+				QClipboard * clipboard = QApplication::clipboard();
+				//QPalette mypalette = this->palette();
+				//mypalette.setColor(QPalette::Window, Qt::white);
+				//ui->customPlot->setPalette(mypalette);
+				//QPixmap pixmap = QPixmap::grabWidget(this);
+				//clipboard->setPixmap(pixmap);
+				QString txt;
+				//				for (int i = 0; i < ui->customPlot->graphCount(); i++)
+				txt.append(QString("%1(x); %1(y); \n").arg(ui->customPlot->graph(0)->name()));
+				//				for (int i = 0; i < ui->customPlot->graphCount(); i++)
+				for (int j = 0; j < ui->customPlot->graph(0)->data()->values().size(); j++)
+					txt.append(QString("%1; %2; \n").arg(ui->customPlot->graph(0)->data()->values()[j].key).arg(ui->customPlot->graph(0)->data()->values()[j].value));
+				clipboard->setText(txt);
+			}
 
-	*/
+
+/*			if (selectedAction->text().contains("Paste"))
+				for each (QCPGraph *g in parent->graphsClipboard.keys())
+				{
+					addScatterPlot(g, parent->graphsClipboard[g]);
+				}
+*/		}
+
+	}
 }
 
 void runtimeWindow::showMenu(QMouseEvent *event)
@@ -1158,38 +1309,33 @@ void runtimeWindow::setupRealtimeDataDemo(QCustomPlot *customPlot)
   demoName = "Run Time Data";
   
   // include this section to fully disable antialiasing for higher performance:
-  /*
+  
   customPlot->setNotAntialiasedElements(QCP::aeAll);
   QFont font;
   font.setStyleStrategy(QFont::NoAntialias);
   customPlot->xAxis->setTickLabelFont(font);
   customPlot->yAxis->setTickLabelFont(font);
   customPlot->legend->setFont(font);
-  */
+  
   customPlot->addGraph(); // blue line
   customPlot->graph(0)->setPen(QPen(Qt::blue));
   customPlot->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
-  customPlot->graph(0)->setAntialiasedFill(false);
-/*  customPlot->addGraph(); // red line
-  customPlot->graph(1)->setPen(QPen(Qt::red));
-*/  customPlot->graph(0)->setChannelFillGraph(customPlot->graph(1));
+  //customPlot->graph(0)->setAntialiasedFill(false);
+
+  //customPlot->graph(0)->setChannelFillGraph(customPlot->graph(1));
   
   customPlot->addGraph(); // blue dot
   customPlot->graph(1)->setPen(QPen(Qt::blue));
   customPlot->graph(1)->setLineStyle(QCPGraph::lsNone);
   customPlot->graph(1)->setScatterStyle(QCPScatterStyle::ssDisc);
-/*  customPlot->addGraph(); // red dot
-  customPlot->graph(3)->setPen(QPen(Qt::red));
-  customPlot->graph(3)->setLineStyle(QCPGraph::lsNone);
-  customPlot->graph(3)->setScatterStyle(QCPScatterStyle::ssDisc);
-*/  
-//  customPlot->xAxis->setTickLabelType(QCPAxis::ltDateTime);
-//  customPlot->xAxis->setDateTimeFormat("hh:mm:ss");
+
   customPlot->xAxis->setScaleType(QCPAxis::stLinear);
-//  customPlot->xAxis->setAutoTickStep(false);
-  customPlot->xAxis->setTickStep(2);
+
+  customPlot->xAxis->setAutoTickStep(true);
+  //customPlot->xAxis->setTickStep(2);
   customPlot->axisRect()->setupFullAxesBox();
-//  customPlot->xAxis->setRange(parent->model->Timemin, parent->model->Timemax, Qt::AlignRight);
+
+  //  customPlot->xAxis->setRange(parent->model->Timemin, parent->model->Timemax, Qt::AlignRight);
 /*  customPlot->yAxis->setScaleType(QCPAxis::stLogarithmic);
   customPlot->yAxis->setScaleLogBase(10);
   customPlot->yAxis->setNumberFormat("eb"); // e = exponential, b = beautiful decimal powers

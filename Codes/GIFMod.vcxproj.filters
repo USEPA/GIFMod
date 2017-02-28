@@ -1,49 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_ConstituentDelegate.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_ConstituentWindow.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_delegate.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_expressioneditor.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_freezetablewidget.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_gridWindow.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_GWidget.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_helpWindow.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_logwindow.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_observedcombobox.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_ObservedConstituentWindow.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_ParticleDelegate.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_ParticleWindow.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_plotWindow.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_qcustomplot.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_reactiontablemodel.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_reactiontablewidget.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_reactionwindow.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_runtimeWindow.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_statusviewer.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_treemodel.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_ConstituentDelegate.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_ConstituentWindow.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_delegate.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_expressioneditor.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_freezetablewidget.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_gridWindow.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_GWidget.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_helpWindow.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_logwindow.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_mainwindow.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_observedcombobox.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_ObservedConstituentWindow.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_ParticleDelegate.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_ParticleWindow.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_plotWindow.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_qcustomplot.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_reactiontablemodel.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_reactiontablewidget.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_reactionwindow.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_runtimeWindow.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_statusviewer.cpp" />
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_treemodel.cpp" />
     <ClCompile Include="GUI\Binary.cpp" />
     <ClCompile Include="GUI\BTC.cpp" />
     <ClCompile Include="GUI\BTCSet.cpp" />
@@ -121,9 +78,6 @@
     <ClCompile Include="GUI\MediumSet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_mainwindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GUI\PropListItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -136,37 +90,97 @@
     <ClCompile Include="GUI\ExchangeParametersWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_ExchangeParametersWindow.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_ExchangeParametersWindow.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI\wizardDialog.cpp">
+    <ClCompile Include="GUI\results.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\WQV\Debug\moc_wizardDialog.cpp">
+    <ClCompile Include="GUI\texToHtml.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\tth_source.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Sensor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\expEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\GIFMod\Debug\moc_expEditor.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\WQV\Release\moc_wizardDialog.cpp">
-      <Filter>Generated Files\Release</Filter>
+    <ClCompile Include="GeneratedFiles\GIFMod\Debug\moc_ExchangeParametersWindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="GUI\results.cpp">
+    <ClCompile Include="GeneratedFiles\GIFMod\Debug\moc_ConstituentDelegate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\GIFMod\Debug\moc_ConstituentWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\GIFMod\Debug\moc_delegate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\GIFMod\Debug\moc_expressioneditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\GIFMod\Debug\moc_freezetablewidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\GIFMod\Debug\moc_gridWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\GIFMod\Debug\moc_GWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\GIFMod\Debug\moc_helpWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\GIFMod\Debug\moc_logwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\GIFMod\Debug\moc_observedcombobox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\GIFMod\Debug\moc_ObservedConstituentWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\GIFMod\Debug\moc_ParticleDelegate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\GIFMod\Debug\moc_ParticleWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\GIFMod\Debug\moc_plotWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\GIFMod\Debug\moc_qcustomplot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\GIFMod\Debug\moc_reactiontablemodel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\GIFMod\Debug\moc_reactiontablewidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\GIFMod\Debug\moc_reactionwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\GIFMod\Debug\moc_runtimeWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\GIFMod\Debug\moc_statusviewer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\GIFMod\Debug\moc_treemodel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_logwindow.h" />
     <ClInclude Include="GeneratedFiles\ui_plotwindow.h" />
-    <ClInclude Include="GeneratedFiles\WQV\ui_ConstituentWindow.h" />
-    <ClInclude Include="GeneratedFiles\WQV\ui_gridWindow.h" />
-    <ClInclude Include="GeneratedFiles\WQV\ui_helpWindow.h" />
-    <ClInclude Include="GeneratedFiles\WQV\ui_logwindow.h" />
-    <ClInclude Include="GeneratedFiles\WQV\ui_ObservedConstituentWindow.h" />
-    <ClInclude Include="GeneratedFiles\WQV\ui_ParticleWindow.h" />
-    <ClInclude Include="GeneratedFiles\WQV\ui_plotwindow.h" />
-    <ClInclude Include="GeneratedFiles\WQV\ui_reactionwindow.h" />
-    <ClInclude Include="GeneratedFiles\WQV\ui_runtimeWindow.h" />
     <ClInclude Include="GUI\Binary.h" />
     <ClInclude Include="GUI\BTC.h" />
     <ClInclude Include="GUI\BTCSet.h" />
@@ -225,9 +239,6 @@
     <ClInclude Include="GUI\MediumSet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\WQV\ui_mainwindowWQV.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GUI\PropListItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -243,11 +254,17 @@
     <ClInclude Include="GUI\ExchangeParametersTableModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\WQV\ui_ExchangeParametersWindow.h">
-      <Filter>Generated Files</Filter>
+    <ClInclude Include="GUI\texToHtml.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\WQV\ui_wizardDialog.h">
-      <Filter>Generated Files</Filter>
+    <ClInclude Include="GUI\Sensor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\colorScheme.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -279,8 +296,6 @@
     <CustomBuild Include="GUI\ObservedConstituentWindow.ui" />
     <CustomBuild Include="GUI\ParticleWindow.ui" />
     <CustomBuild Include="GUI\plotwindow.ui" />
-    <CustomBuild Include="GUI\mainwindowGWA.ui" />
-    <CustomBuild Include="GUI\mainwindowWQV.ui" />
     <CustomBuild Include="GUI\helpWindow.ui" />
     <CustomBuild Include="GUI\reactionwindow.ui" />
     <CustomBuild Include="GUI\runtimeWindow.ui" />
@@ -290,12 +305,10 @@
     <CustomBuild Include="GUI\ExchangeParametersWindow.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="GUI\wizardDialog.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="GUI\wizardDialog.h">
+    <CustomBuild Include="GUI\expEditor.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="GUI\mainwindowGIFMod.ui" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Icons\log_icon.png" />

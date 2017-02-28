@@ -32,8 +32,9 @@ public:
 	//CBTCSet CPrecipitation::getflow_Evap(double A);
 	
 	CBTCSet CPrecipitation::getflow (double A);
+	CBTCSet CPrecipitation::getflow(double A, double dt);
 
-	
+	static bool isFileValid(string filename);
 public:
 	~CPrecipitation(void);
 };

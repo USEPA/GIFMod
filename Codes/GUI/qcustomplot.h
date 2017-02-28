@@ -607,7 +607,7 @@ public:
 protected:
   // non-property members:
   QCustomPlot *mParentPlot;
-  QHash<QCP::MarginSide, QList<QCPLayoutElement*> > mChildren;
+  QMap<QCP::MarginSide, QList<QCPLayoutElement*> > mChildren;
   
   // non-virtual methods:
   int commonMargin(QCP::MarginSide side) const;
@@ -657,7 +657,7 @@ public:
   QSize minimumSize() const { return mMinimumSize; }
   QSize maximumSize() const { return mMaximumSize; }
   QCPMarginGroup *marginGroup(QCP::MarginSide side) const { return mMarginGroups.value(side, (QCPMarginGroup*)0); }
-  QHash<QCP::MarginSide, QCPMarginGroup*> marginGroups() const { return mMarginGroups; }
+  QMap<QCP::MarginSide, QCPMarginGroup*> marginGroups() const { return mMarginGroups; }
   
   // setters:
   void setOuterRect(const QRect &rect);
@@ -686,7 +686,7 @@ protected:
   QRect mRect, mOuterRect;
   QMargins mMargins, mMinimumMargins;
   QCP::MarginSides mAutoMargins;
-  QHash<QCP::MarginSide, QCPMarginGroup*> mMarginGroups;
+  QMap<QCP::MarginSide, QCPMarginGroup*> mMarginGroups;
   
   // introduced virtual methods:
   virtual int calculateAutoMargin(QCP::MarginSide side);
@@ -2050,7 +2050,7 @@ protected:
   QCP::AntialiasedElements mAADragBackup, mNotAADragBackup;
   QPoint mDragStart;
   bool mDragging;
-  QHash<QCPAxis::AxisType, QList<QCPAxis*> > mAxes;
+  QMap<QCPAxis::AxisType, QList<QCPAxis*> > mAxes;
   
   // reimplemented virtual methods:
   virtual void applyDefaultAntialiasingHint(QCPPainter *painter) const;

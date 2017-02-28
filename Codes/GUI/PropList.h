@@ -3,6 +3,7 @@
 #include "proplistitem.h"
 #include "multiValues.h"
 
+class Node;
 class XString;
 class QString;
 #include "qvariant.h"
@@ -48,7 +49,9 @@ public:
 		}
 	}
 
-	static QMap<QString, PropListItem<T>> unCompact(const QString &c) {
+	static QMap<QString, PropListItem<T>> unCompact(const QString &cInp) {
+		QString c = cInp;
+		c = c.replace("Global", "All experiments");
 		QMap<QString, PropListItem<T>> r;
 		if (c.isEmpty())
 			return r;
@@ -56,7 +59,7 @@ public:
 		QMultiMap<QString, QStringList> compacted;
 		QStringList experiments;
 		for (int i = 0; i < l.size(); i++)
-			if (!experiments.contains(l[i].split("$$$")[0]) && l[i].split("$$$")[0] != "Global")
+			if (!experiments.contains(l[i].split("$$$")[0]) && l[i].split("$$$")[0] != "All experiments")
 				experiments.append(l[i].split("$$$")[0]);
 		experiments.removeDuplicates();
 
@@ -71,6 +74,10 @@ public:
 				//	applytoExperiments << experiment;
 				//	if (experiment == "Global")
 				//		applytoExperiments << "experiment1" << "experiment2";
+					if (list[1] == "Interface / cross sectional area")
+						list[1] = "Interface/cross sectional area";
+					if (list[1] == "Saturated hydraulic conductivity")
+						list[1] = "Saturated hydraulic conductivity (ks)";
 					QStringList propVal = QStringList() << list[1] << list[2];
 				//	for each (QString experiment in applytoExperiments)
 						compacted.insertMulti(experiment, propVal);
@@ -97,12 +104,14 @@ public:
 		return r;
 	}
 
-	XString getProp(const QString& propName, const QString& experimentName) const; // add a default value for experiment name
+	XString getProp(const QString& propName, const QString& experimentName, T* parentSub = 0) const; // add a default value for experiment name
+	XString getProp(const QString& propName, QList<T*>, const QString& experimentName) const; // add a default value for experiment name
 	bool setProp(const QString& propName, const XString& Value, const QString& experimentName);
-	multiValues getPropMultiValues(const QString& propName, const QStringList &experimentsList) const{
+	multiValues<> getPropMultiValues(const QString& propName, const QStringList &experimentsList) const{
 		vector<QVariant> values;
 		for (int i = 0;i<experimentsList.count();i++)
 			values.push_back(getProp(propName, experimentsList[i]));
-		return multiValues(values);
+		return multiValues<>(values);
 	}
+	multiValues<> getPropMultiValues(const QString& propName, const QList<Node*> nodes, const QStringList &experimentsList) const;
 };

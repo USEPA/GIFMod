@@ -9,13 +9,12 @@ using namespace std;
 
 enum physical_params
 {
-	ks = 0, theta_s = 1, theta_r = 2, vg_alpha = 3, vg_n = 4, vg_m = 5, lambda = 6, storativity = 7, storage_epsilon = 15, storage_n = 16, light = 18, temperature = 19, wind=20, humidity=21
+	ks = 0, theta_s = 1, theta_r = 2, vg_alpha = 3, vg_n = 4, vg_m = 5, lambda = 6, storativity = 7, depression_storage = 12, storage_epsilon = 15, storage_n = 16, light = 18, temperature = 19, wind = 20, humidity = 21, vapor_pressure=22, latent_heat_of_evaporation = 23
 };
 
 enum functions
 {
-	exp_ = 1, hsd_ = 2, min_ = 3, max_ = 4, lne_ = 5, lnt_ = 6, sgm_ = 7, pos_ = 8, sq1_ = 9, sqr_ = 10, frs_ = 11, fas_ = 12, ply_ = 13, mon_ = 14, sq2_ = 15, abs_ = 16, sqs_ = 17, mo1_=18
-};
+	exp_ = 1, hsd_ = 2, min_ = 3, max_ = 4, lne_ = 5, lnt_ = 6, sgm_ = 7, pos_ = 8, sq1_ = 9, sqr_ = 10, frs_ = 11, fas_ = 12, ply_ = 13, mon_ = 14, sq2_ = 15, abs_ = 16, sqs_ = 17, mo1_ = 18, toy_ = 19};
 
 
 class CStringOP

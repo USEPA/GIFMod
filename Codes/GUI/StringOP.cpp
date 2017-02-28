@@ -419,6 +419,9 @@ CStringOP::CStringOP(string S, CRxnNetwork *R)
 				nn = sqs_;
 			if (S.substr(i + 1, 3) == "mo1")
 				nn = mo1_;
+			if (S.substr(i + 1, 3) == "toy")
+				nn = toy_;
+
 
 			for (int j = i + 4; j<S.size(); j++)
 			{

@@ -15,7 +15,7 @@
 //! Cleve Moler, Charles Van Loan.
 //! Nineteen Dubious Ways to Compute the Exponential of a Matrix, Twenty-Five Years Later.
 //! SIAM Review, Vol. 45, No. 1, 2003, pp. 3-49.
-//! http://dx.doi.org/10.1137/S00361445024180
+//! https://doi.org/10.1137/S00361445024180
 
 
 template<typename T1>

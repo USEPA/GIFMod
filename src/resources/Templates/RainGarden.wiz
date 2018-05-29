@@ -1,0 +1,116 @@
+name:Raingarden with overflow, underdrain and aggregate storage
+icon:Raingarden.png
+description: This wizard constructs a model of a rain garden system with overflow and underdrain pipes. <br> The model consists of a catchment that is connected to the surface water component of a rain garden, one or more layers of engineered soil, an aggregate storage, and the native soil on top of the water table. 
+settings: {type=Project settings, Simulation start time = param[project_start_date], Simulation end time=param[project_end_date]}
+settings: {type=Climate settings, Solar-radiation=param[Solar-climate], Humidity=param[Humidity], Wind=param[Wind], Temperature=param[Temp], Precipitation time series=param[precipitation_filename]}
+settings: {type=Solver settings, Maximum number of matrix inversions allowed=1000000}
+entity: {type=Evapotranspiration, name=Evapotranspirations, SubType=value[Penman], Wind coefficient=param[Wind_ceoff], Solar-radiation coefficient=param[Solar_coeff]}
+major_block: {name=Catch, x=200, y=380, type=value[Catchment], Length=param[Catchment_l], Width=param[Catchment_w], area=expression[Catchment_l*Catchment_w], Bottom elevation=param[Catchment_elev], Manning's roughness coefficient=param[Manning_Coeff]}
+major_block: {name=Pond, x=500, y=500, type=value[Pond], area=param[System_area], Bottom elevation=param[Pond_elevation]}
+major_block: {name=value[Substrate], x=500, y=650, type=value[soil], configuration=value[1DV], SubType=param[Soil_Type], Depth=expression[Substrate_depth/n_layers], area=param[System_area], n=param[n_layers], Bottom elevation=expression[Pond_elevation-Substrate_depth],direction=down}
+major_block: {name=Aggregate, x=500, y=expression[650+n_layers*150], type=Storage, configuration=value[1DV], Depth=expression[Agg_depth], area=param[System_area], n=1, Bottom elevation=expression[Pond_elevation-Substrate_depth -Agg_depth],  Saturated hydraulic conductivity (ks)= value[80], Saturated moisture content (~thetas)=value[0.45], direction=down}
+major_block: {name=Native_Soil, x=500, y=expression[650+(n_layers+1)*150], type=value[soil], SubType=param[Nativesoil_type], configuration=value[1DV], Depth=expression[(WTDepth-Substrate_depth-Agg_depth)/n_nativesoil], area=param[System_area], n=param[n_nativesoil], Bottom elevation=expression[Pond_elevation-WTDepth], direction=down}
+major_block: {name=GW, x=500, y=expression[650+(n_layers+1+n_nativesoil)*150], type=value[Darcy], depth=1, Head-storage relationship=expression[Pond_elevation-WTDepth], area=param[System_area], Bottom elevation=expression[(Pond_elevation-WTDepth)-1], Initial moisture content (~theta)=value[0.35], Saturated moisture content (~thetas)=value[0.35]}
+major_block: {name=Recieving Water, x=800, y=expression[500+(n_layers+1)*75],type=value[Pond], area=value[1000], Bottom elevation=expression[(Pond_elevation-Substrate_depth)-(Agg_depth+2)], Head-storage relationship=expression[(Pond_elevation-Substrate_depth)-(Agg_depth+1)],  Precipitation=value[No]}
+change_property: {name=Substrate, index=1,  Evapotranspiration=value[Evapotranspirations]}
+major_connection: {source=Catch, target=Pond, name=value[Catchment-Pond], Length=expression[Catchment_l/2], Width=expression[0.5*Catchment_w], Manning's roughness coefficient=param[Manning_Coeff], configuration=s2s} 
+major_connection: {source=Pond, target=Substrate, name=value[Pond-Sunbstrate (1)], Length=expression[Substrate_depth/(2*n_layers)], Interface/cross sectional area= param[System_area], configuration=e2s}
+major_connection: {source=Substrate, target=Aggregate, name=value[Substrate-Aggregate], Length=expression[0.5*Substrate_depth/n_layers], Interface/cross sectional area=param[System_area], configuration=e2s}
+major_connection: {source=Aggregate, target=Native_Soil, name=value[Aggregate-NativeSoil], Length=expression[0.5*(WTDepth-Substrate_depth-Agg_depth)/n_nativesoil], Interface/cross sectional area=param[System_area], configuration=e2s}
+major_connection: {source=Native_Soil,target=GW, name=value[NativeSoil-GW], Length=expression[0.5*(WTDepth-Substrate_depth-Agg_depth)/n_nativesoil], Interface/cross sectional area=param[System_area], configuration=e2s}
+major_connection: {source=Aggregate, target= Recieving Water, name=value[Underdrain Pipe], Type=value[Pipe], Diameter=param[P_diameter], Length=param[P_length], Hazen-Williams roughness factor c=param[Hazen_c], Start elevation=param[Pipe_stelev], End elevation=param[Pipe_endelev], configuration=s2s}
+major_connection: {source=Pond, target= Recieving Water, name=value[Overflow pipe], Type=value[Pipe], Diameter=param[SP_diameter], Length=param[SP_length], Hazen-Williams roughness factor c=param[SP_Hazen_c], Start elevation=param[SPipe_stelev], End elevation=param[SPipe_endelev], configuration=s2s}
+parameter: {name= project_start_date, delegate=date_time, question=Projet's start date}
+parameter: {name= project_end_date, delegate=date_time, question=Projet's end date}
+parameter: {name=Solar-climate, delegate=filename, question= Solar radiation time series file, prop_list_item=Solar-radiation}
+parameter: {name= Humidity, delegate=filename, question=Humidity time series file, prop_list_item=Humidity}
+parameter: {name=Temp, delegate=filename, question=Temperature time series file, prop_list_item=Temperature}
+parameter: {name=Wind, delegate=filename, question=Wind time series file, prop_list_item=Wind}
+parameter: {name=precipitation_filename, delegate=filename, question= Precipitation time series file, prop_list_item=Precipitation time series}
+parameter: {name=Wind_ceoff, delegate=float, question= Wind coefficient, prop_list_item=Wind coefficient, default=1}
+parameter: {name=Solar_coeff, delegate=float, question=Solar-radiation coefficient, prop_list_item=Solar-radiation coefficient, default=1}
+parameter: {name=Catchment_l, delegate=float, question=Length of the catchment, prop_list_item=Length, unit=m}
+parameter: {name=Catchment_w, delegate=float, question=Width of the catchment, prop_list_item=Width, unit=m}
+parameter: {name=Catchment_elev, delegate=float, question=Elevation of the catchment, prop_list_item=Bottom elevation, unit=m}
+parameter: {name=Manning_Coeff, delegate=float, question= Manning roughness of the cathment area, prop_list_item=Manning's roughness coefficient, unit=s/~^3~radicm}
+parameter: {name=System_area, delegate=float, question=Area of the raingarden, prop_list_item=Bottom area, unit=m~^2}
+parameter: {name=Pond_elevation, delegate=float, question=Elevation of the pond, object_type=Pond, prop_list_item=Bottom elevation, unit=m}
+parameter: {name=Substrate_depth, delegate=float, question=Total depth of the top soil, object_type=Soil, prop_list_item=depth, unit=m}
+parameter: {name=Soil_Type, delegate=combo_box, question=Type of the engineered Top soil, object_type=Soil, prop_list_item=Sub Type}
+parameter: {name=n_layers, delegate=integer, question=Number of the layers of the engineered topsoil, prop_list_item=n ,default=5}
+parameter: {name=Agg_depth, delegate=float, question= Depth of the aggregate layer, prop_list_item=depth, unit=m}
+parameter: {name=Nativesoil_type, delegate=combo_box, question=Type of the underneath native soil, object_type=Soil, prop_list_item=Sub Type}
+parameter: {name=WTDepth, delegate=float, question=Depth to groundwater table, prop_list_item=depth, unit=m}
+parameter: {name=n_nativesoil, delegate=integer, question=Number of the layers of the underneath native soil, default=3}
+parameter: {name=P_diameter, delegate=float, question=Diameter of the pipe, prop_list_item= Diameter, unit=m}
+parameter: {name=P_length, delegate=float, question=Length of the pipe, prop_list_item=Length, unit=m}
+parameter: {name=Hazen_c, delegate=float, question=Pipe's Hazen-Williams's C factor, prop_list_item=Hazen-Williams roughness factor c, default=100, unit=SI}
+parameter: {name=Pipe_stelev, delegate=float, question=Invert elevation of the pipe in the aggregate layer, prop_list_item=Start elevation, unit=m}
+parameter: {name=Pipe_endelev, delegate=float, question=Invert elevation of the pipe connecting sewer line, prop_list_item=End elevation, unit=m}
+parameter: {name=SP_diameter, delegate=float, question=Diameter of the pipe, prop_list_item= Diameter, unit=m}
+parameter: {name=SP_length, delegate=float, question=Length of the pipe, prop_list_item=Length, unit=m}
+parameter: {name=SP_Hazen_c, delegate=float, question=Pipe's Hazen-Williams's C factor, prop_list_item=Hazen-Williams roughness factor c, default=100, unit=SI}
+parameter: {name=SPipe_stelev, delegate=float, question=Invert elevation of the pipe in the pond, prop_list_item=Start elevation, unit=m}
+parameter: {name=SPipe_endelev, delegate=float, question=Invert elevation of the pipe in connection with sewer line, prop_list_item=End elevation, unit=m}
+parameter: {name=title1, delegate=memo, question=<b> <u>Geometry of the Catchment<u></b>}
+parameter: {name=title2, delegate=memo, question=<b> <u>Geometry of the Raingarden<u></b>}
+parameter: {name=title3, delegate=memo, question=<b> <u>Site Characteristics<u></b>}
+parameter: {name=title4, delegate=memo, question=<b> <u>Properties of the Overflow Pipe Connecting the Pond to the Sewer Line<u></b>}
+parameter: {name=title5, delegate=memo, question=<b> <u>Properties of the Underdrain Pipe connecting the Aggregate Layer to the Sewer Line <u></b>}
+parameter: {name=title6, delegate=memo, question=<b> <u>Coefficients in Penman Equation Considering Evapotranspiration<u></b>}
+parameter: {name=title7, delegate=memo, question=<b> <u>Climate Input File Series<u></b>}
+parameter: {name=title8, delegate=memo, question=<b> <u>Time Frame of the Project<u></b>}
+parameter: {name=Description1, delegate=memo, question=This wizard constructs a model of a rain garden system with overflow and underdrain pipes. <br> <br>The model consists of a catchment that is connected to the surface water component of a rain garden. <br> The soil underneath the water collecting surface pond comprises of a top engineered soil layer and an aggregate storage on top of the native soil. The groundwater table is assumed to be below the native soil. An overflow pipe and an underdrain pipe collect runoff from the surface pond and excess water from the aggregate block# respectively# and discharge it into a recieving water.<br> <br>The engineered soil and the native soil can be discretized into a desired number of layers. <br><br>Penman equation is the basis for calculations of evapotranspiration# and the data for temperature# humidity# solar radiation# wind# and precipitation are provided for the system as time serie files. Evapotranspiration is considered to be applied to the surface layers as well as the first layer of the engineered soil.}
+parameter: {name=Description2, delegate=memo, question=As depicted in the picture# the catchment collects the recipitation and discharges it to the raingarden. Top layer of the raingarden which recieves water both from direct precipitation and the cathment# is modeled as a pond. The layer beneath the pod is an engineered soil# a drainage aggregate# and native soil, which is set above the water table.}
+parameter: {name=Description2, delegate=memo, question=The user can discretize the engineered soil and the native soil into a desired number of layers. <br> In order to model the effects of evapotranspiration# the user should provide temperature, humidity, solar radiation and wind data as time series. }
+parameter_group: {name=g1, description= Introduction, parameter=Description1,parameter=space, parameter=Description2}
+parameter_group: {name=g2, description=Geometry of the raingarden system, parameter=title1,parameter=Catchment_l, parameter=Catchment_w, parameter=Catchment_elev, parameter=space,parameter=title2, parameter=System_area, parameter=Pond_elevation, parameter=Substrate_depth, parameter=n_layers, parameter=Agg_depth, parameter=space,  parameter=title3, parameter=WTDepth, parameter=n_nativesoil}
+parameter_group: {name=g3, description=Physical properties of the raingarden system, parameter= Manning_Coeff, parameter=space, parameter=Soil_Type, parameter=space, parameter=Nativesoil_type}
+parameter_group: {name=g4, description=Properties of the drainage pipes, parameter=title4, parameter=SP_diameter, parameter=SP_length, parameter=SP_Hazen_c, parameter=SPipe_stelev, parameter=SPipe_endelev, parameter=space,parameter=space, parameter=title5, parameter=P_diameter, parameter=P_length, parameter=Hazen_c, parameter=Pipe_stelev, parameter=Pipe_endelev}
+parameter_group: {name=g5, description=Climate and general settings of the project, parameter=title6, parameter= Wind_ceoff, parameter=Solar_coeff, parameter=space,parameter=space, parameter=title7,parameter=precipitation_filename, parameter=Solar-climate, parameter=Humidity, parameter=Temp, parameter=Wind, parameter=space,parameter=space, parameter=title8,parameter=project_start_date, parameter=project_end_date}
+
+
+criteria: {name=cr1, less=0, greater=Wind_ceoff, ErrorMessage=Wind coefficient must be positive}
+criteria: {name=cr2, less=0, greater=Solar_ceoff, ErrorMessage=Solar coefficient must be positive}
+criteria: {name=cr3, less=0, greater=Catchment_l, ErrorMessage=Length of the catchment must be positive}
+criteria: {name=cr4, less=0, greater=Catchment_w, ErrorMessage=Width of the catchment must be positive}
+criteria: {name=cr5, less=0, greater=Manning_Coeff, ErrorMessage=Manning coefficient must be positive}
+criteria: {name=cr6, less=0, greater=System_area, ErrorMessage=Area of the pond must be positive}
+criteria: {name=cr7, less=Pond_elevation, greater=Catchment_elev, ErrorMessage=Elevation of the pond must be lower than that of the catchment}
+criteria: {name=cr8, less=0, greater=Substrate_depth, ErrorMessage=Wind coefficient must be positive}
+criteria: {name=cr9, less=0, greater=Agg_depth, ErrorMessage=Depth of the aggregate layer must be positive}
+criteria: {name=cr10, less=0, greater=n_layers, ErrorMessage=Number of the layers of the top soil must be positive}
+criteria: {name=cr11, less=(Agg_depth+Substrate_depth), greater=WTDepth, ErrorMessage=Water table must be below the aggregate layer}
+criteria: {name=cr12, less=0, greater=P_diameter, ErrorMessage=Diameter of the under drain pipe must be positive}
+criteria: {name=cr13, less=0, greater=P_length, ErrorMessage=Length of the under drain pipe must be positive}
+criteria: {name=cr14, less=0, greater=Hazen_c, ErrorMessage=Hazen-Williams's C factor of the under drain pipe must be positive}
+criteria: {name=cr15, less=(Pond_elevation-(Agg_depth+Substrate_depth)), greater=Pipe_stelev, ErrorMessage=Under drain pipe must be confined in the aggregate layer}
+criteria: {name=cr16, less=Pipe_stelev+P_diameter, greater=Pond_elevation-Substrate_depth, ErrorMessage=Under drain pipe must be confined in the aggregate layer}
+criteria: {name=cr17, less=Pipe_endelev, greater=Pipe_stelev, ErrorMessage= End of the under drain pipe must be lower than the beginning of it}
+criteria: {name=cr18, less=Pond_elevation-WTDepth, greater=Pipe_endelev, ErrorMessage= End of the under drain pipe connecting sewer line must be above the ground water table}
+criteria: {name=cr19, less=0, greater=SP_diameter, ErrorMessage= Diameter of the overflow pipe must be positive}
+criteria: {name=cr20, less=0, greater=SP_length, ErrorMessage= Length of the overflow pipe must be positive}
+criteria: {name=cr21, less=0, greater=SP_Hazen_c, ErrorMessage=Hazen-Williams's C factor of the overflow pipe must be positive}
+criteria: {name=cr22, less=Pond_elevation, greater=SPipe_stelev, ErrorMessage= Overflow pipe must be placed above the surface of the pond}
+criteria: {name=cr23, less=SPipe_endelev, greater=SPipe_stelev, ErrorMessage= End of the overflow pipe must be lower than the beginning of it}
+criteria: {name=cr24, less=Pond_elevation-WTDepth, greater=SPipe_endelev, ErrorMessage= End of the overflow pipe connecting sewer line must be above the ground water table}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

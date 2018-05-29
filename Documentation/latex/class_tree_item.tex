@@ -1,0 +1,170 @@
+\hypertarget{class_tree_item}{}\section{Tree\+Item Class Reference}
+\label{class_tree_item}\index{Tree\+Item@{Tree\+Item}}
+
+
+\mbox{[}0\mbox{]}  
+
+
+
+
+{\ttfamily \#include $<$treeitem.\+h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tree_item_a1dd479e675cc2bc1188a916c9fb55dba}\label{class_tree_item_a1dd479e675cc2bc1188a916c9fb55dba}} 
+enum {\bfseries Type} \{ \newline
+{\bfseries Root}, 
+{\bfseries Branch}, 
+{\bfseries Item}, 
+{\bfseries Nodes\+Branch}, 
+\newline
+{\bfseries Edges\+Branch}, 
+{\bfseries Wells\+Branch}, 
+{\bfseries Tracers\+Branch}, 
+{\bfseries Node\+Item}, 
+\newline
+{\bfseries Edge\+Item}, 
+{\bfseries Entity\+Item}, 
+{\bfseries Water\+Quality\+Branch}, 
+{\bfseries Settings\+Branch}, 
+\newline
+{\bfseries Reactions\+Branch}, 
+{\bfseries Reaction\+Network\+Item}, 
+{\bfseries Inverse\+Modeling\+Branch}, 
+{\bfseries Control\+Branch}, 
+\newline
+{\bfseries G\+A\+Item}, 
+{\bfseries M\+C\+M\+C\+Item}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tree_item_a6ed87ae4bbf9d6c4e5f30a9a04f78e5d}\label{class_tree_item_a6ed87ae4bbf9d6c4e5f30a9a04f78e5d}} 
+{\bfseries Tree\+Item} (const Q\+String name, \hyperlink{class_graph_widget}{Graph\+Widget} $\ast$g\+Widget, Type type)
+\item 
+\mbox{\Hypertarget{class_tree_item_ac4c08ec7690290b943901c41f3154447}\label{class_tree_item_ac4c08ec7690290b943901c41f3154447}} 
+{\bfseries Tree\+Item} (\hyperlink{class_node}{Node} $\ast$node)
+\item 
+\mbox{\Hypertarget{class_tree_item_a4a0984aa6d46f0d964190133a4d17892}\label{class_tree_item_a4a0984aa6d46f0d964190133a4d17892}} 
+{\bfseries Tree\+Item} (\hyperlink{class_edge}{Edge} $\ast$edge)
+\item 
+\mbox{\Hypertarget{class_tree_item_a3fde829861a772eaa769efa6fe86ac45}\label{class_tree_item_a3fde829861a772eaa769efa6fe86ac45}} 
+{\bfseries Tree\+Item} (\hyperlink{class_entity}{Entity} $\ast$entity)
+\item 
+\mbox{\Hypertarget{class_tree_item_a859429185d908c3e54861bbbfb185425}\label{class_tree_item_a859429185d908c3e54861bbbfb185425}} 
+\hyperlink{class_tree_item_a859429185d908c3e54861bbbfb185425}{$\sim$\+Tree\+Item} ()
+\begin{DoxyCompactList}\small\item\em \mbox{[}1\mbox{]} \end{DoxyCompactList}\item 
+\hyperlink{class_tree_item}{Tree\+Item} $\ast$ \hyperlink{class_tree_item_a80ab3164e41c8a43f1a9ef7255d88249}{child} (int \hyperlink{class_tree_item_a91ba04ea12214af828bb198c2b98fa66}{row})
+\begin{DoxyCompactList}\small\item\em \mbox{[}1\mbox{]} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_tree_item_a7c0a87a7357e2d971824e2309ef8a603}\label{class_tree_item_a7c0a87a7357e2d971824e2309ef8a603}} 
+Q\+String \hyperlink{class_tree_item_a7c0a87a7357e2d971824e2309ef8a603}{item\+Type} () const
+\begin{DoxyCompactList}\small\item\em \mbox{[}5\mbox{]} \end{DoxyCompactList}\item 
+int \hyperlink{class_tree_item_aab845511f8626b68b59fe8681eab8e8c}{child\+Count} ()
+\begin{DoxyCompactList}\small\item\em \mbox{[}3\mbox{]} \end{DoxyCompactList}\item 
+int \hyperlink{class_tree_item_a3314c3678d8ea4dee2f736c32f7b28b9}{column\+Count} () const
+\begin{DoxyCompactList}\small\item\em \mbox{[}4\mbox{]} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_tree_item_a91ba04ea12214af828bb198c2b98fa66}\label{class_tree_item_a91ba04ea12214af828bb198c2b98fa66}} 
+int \hyperlink{class_tree_item_a91ba04ea12214af828bb198c2b98fa66}{row} () const
+\begin{DoxyCompactList}\small\item\em \mbox{[}8\mbox{]} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_tree_item_ae1decf8f5fb22c781ada09f397201a2b}\label{class_tree_item_ae1decf8f5fb22c781ada09f397201a2b}} 
+Q\+Variant \hyperlink{class_tree_item_ae1decf8f5fb22c781ada09f397201a2b}{data} (int column) const
+\begin{DoxyCompactList}\small\item\em \mbox{[}6\mbox{]} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_tree_item_a392ec493dfab91ee474d7ff83e2c0211}\label{class_tree_item_a392ec493dfab91ee474d7ff83e2c0211}} 
+\hyperlink{class_tree_item}{Tree\+Item} $\ast$ {\bfseries parent} ()
+\item 
+\mbox{\Hypertarget{class_tree_item_a5de424c519cad3821aa35a71134bce55}\label{class_tree_item_a5de424c519cad3821aa35a71134bce55}} 
+Q\+String \hyperlink{class_tree_item_a5de424c519cad3821aa35a71134bce55}{Name} () const
+\begin{DoxyCompactList}\small\item\em \mbox{[}0\mbox{]} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_tree_item_a8db0cc20a6505d927115004d819864e3}\label{class_tree_item_a8db0cc20a6505d927115004d819864e3}} 
+void {\bfseries add\+Child} (\hyperlink{class_tree_item}{Tree\+Item} $\ast$item, int index=-\/1)
+\item 
+\mbox{\Hypertarget{class_tree_item_aa14592005278a874f2f958d5396bba2e}\label{class_tree_item_aa14592005278a874f2f958d5396bba2e}} 
+void {\bfseries add\+Child} (Q\+List$<$ \hyperlink{class_tree_item}{Tree\+Item} $\ast$$>$ items)
+\item 
+\mbox{\Hypertarget{class_tree_item_a4ce6d5d9f0dfa75357809c3f23049708}\label{class_tree_item_a4ce6d5d9f0dfa75357809c3f23049708}} 
+void {\bfseries delete\+Child} (Q\+String name)
+\item 
+\mbox{\Hypertarget{class_tree_item_a397b1d70336578b74106f2d2856711e2}\label{class_tree_item_a397b1d70336578b74106f2d2856711e2}} 
+int {\bfseries index\+Of} (\hyperlink{class_tree_item}{Tree\+Item} $\ast$item) const
+\item 
+\mbox{\Hypertarget{class_tree_item_a336fbf8dcae672aa540b2c6ce3606fa3}\label{class_tree_item_a336fbf8dcae672aa540b2c6ce3606fa3}} 
+int {\bfseries index\+Of} (Q\+String name) const
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tree_item_ac2f2f49b3424c26fd7eba3505c99b7f4}\label{class_tree_item_ac2f2f49b3424c26fd7eba3505c99b7f4}} 
+Type {\bfseries type}
+\item 
+\mbox{\Hypertarget{class_tree_item_aa84f796368189baa3c544027d2c179fe}\label{class_tree_item_aa84f796368189baa3c544027d2c179fe}} 
+\hyperlink{class_node}{Node} $\ast$ {\bfseries node}
+\item 
+\mbox{\Hypertarget{class_tree_item_ad94541ec15a04f22f623412a2bfe06e0}\label{class_tree_item_ad94541ec15a04f22f623412a2bfe06e0}} 
+\hyperlink{class_edge}{Edge} $\ast$ {\bfseries edge}
+\item 
+\mbox{\Hypertarget{class_tree_item_ad9ed2f72a99e42fa0b09bf6d49baecd7}\label{class_tree_item_ad9ed2f72a99e42fa0b09bf6d49baecd7}} 
+\hyperlink{class_entity}{Entity} $\ast$ {\bfseries entity}
+\item 
+\mbox{\Hypertarget{class_tree_item_a39d1f9d021d8eb9d5412160fc985f950}\label{class_tree_item_a39d1f9d021d8eb9d5412160fc985f950}} 
+\hyperlink{class_graph_widget}{Graph\+Widget} $\ast$ {\bfseries g\+Widget}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\mbox{[}0\mbox{]} 
+
+Definition at line 11 of file treeitem.\+h.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_tree_item_a80ab3164e41c8a43f1a9ef7255d88249}\label{class_tree_item_a80ab3164e41c8a43f1a9ef7255d88249}} 
+\index{Tree\+Item@{Tree\+Item}!child@{child}}
+\index{child@{child}!Tree\+Item@{Tree\+Item}}
+\subsubsection{\texorpdfstring{child()}{child()}}
+{\footnotesize\ttfamily \hyperlink{class_tree_item}{Tree\+Item} $\ast$ Tree\+Item\+::child (\begin{DoxyParamCaption}\item[{int}]{row }\end{DoxyParamCaption})}
+
+
+
+\mbox{[}1\mbox{]} 
+
+\mbox{[}2\mbox{]} \mbox{[}2\mbox{]} \mbox{[}3\mbox{]} 
+
+Definition at line 145 of file treeitem.\+cpp.
+
+\mbox{\Hypertarget{class_tree_item_aab845511f8626b68b59fe8681eab8e8c}\label{class_tree_item_aab845511f8626b68b59fe8681eab8e8c}} 
+\index{Tree\+Item@{Tree\+Item}!child\+Count@{child\+Count}}
+\index{child\+Count@{child\+Count}!Tree\+Item@{Tree\+Item}}
+\subsubsection{\texorpdfstring{child\+Count()}{childCount()}}
+{\footnotesize\ttfamily int Tree\+Item\+::child\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\mbox{[}3\mbox{]} 
+
+\mbox{[}4\mbox{]} 
+
+Definition at line 152 of file treeitem.\+cpp.
+
+\mbox{\Hypertarget{class_tree_item_a3314c3678d8ea4dee2f736c32f7b28b9}\label{class_tree_item_a3314c3678d8ea4dee2f736c32f7b28b9}} 
+\index{Tree\+Item@{Tree\+Item}!column\+Count@{column\+Count}}
+\index{column\+Count@{column\+Count}!Tree\+Item@{Tree\+Item}}
+\subsubsection{\texorpdfstring{column\+Count()}{columnCount()}}
+{\footnotesize\ttfamily int Tree\+Item\+::column\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+\mbox{[}4\mbox{]} 
+
+\mbox{[}5\mbox{]} 
+
+Definition at line 159 of file treeitem.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+G\+U\+I/treeitem.\+h\item 
+G\+U\+I/treeitem.\+cpp\end{DoxyCompactItemize}

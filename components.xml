@@ -1,0 +1,14 @@
+<Packages>
+    <ApplicationName>GIFMod Installer</ApplicationName>
+    <ApplicationVersion>1.0.0</ApplicationVersion>
+    <Package>
+        <Name>org.gifmod</Name>
+        <Title>GIFMod</Title>
+        <Description>GIFMod program</Description>
+        <Version>1.0.0-1</Version>
+        <LastUpdateDate></LastUpdateDate>
+        <InstallDate>2018-04-29</InstallDate>
+        <Size>90137009</Size>
+        <Checkable>true</Checkable>
+    </Package>
+</Packages>

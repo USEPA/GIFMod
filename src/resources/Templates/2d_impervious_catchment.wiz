@@ -1,0 +1,21 @@
+name: Two-dimentional impervious catchment
+icon: 2d-impervious-catchment.png
+settings: {type=Project settings, Simulation start time = param[project_start_date], Simulation end time=param[project_end_date]}
+settings: {type=Climate settings, Precipitation time series=param[precipitation_filename]}
+major_block: {name=value[Catchment], type=value[Catchment], configuration=value[2DH], area=expression[(Width/ny)*(Length/nx)], nx=param[nx], ny=param[ny], Width=expression[Width/ny], Length=expression[Length/nx], Bottom elevation=param[max_elev], Manning's roughness coefficient=param[Manning_Coeff], X_Slope=param[x_slope], Y_Slope=param[y_slope], direction=down}
+parameter: {name=precipitation_filename, delegate=filename, question=Precipitation file}
+parameter: {name=Length, delegate=float, question=Length of the model domain, object_type=soil, prop_list_item=Length}
+parameter: {name=Width, delegate=float, question=Width of the model domain, object_type=soil, prop_list_item=Width}
+parameter: {name=nx, delegate=integer, question=Number of cells in x direction, default=10}
+parameter: {name=max_elev, delegate=float, question=Enter the bottom elevation of the soil column, prop_list_item=elevation}
+parameter: {name=ny, delegate=integer, question=Number of cells in y direction, default=10}
+parameter: {name=project_start_date, delegate=date_time, question=Enter Project Start Date, prop_list_item=Simulation start date}
+parameter: {name=project_end_date, delegate=date_time, question=Enter Project End Dateprop_list_item=Simulation elevation}
+parameter: {name=x_slope, delegate=float, question=Slope in x direction}
+parameter: {name=y_slope, delegate=float, question=Slope in y direction}
+parameter: {name=Manning_Coeff, delegate=float, question=Manning's roughness coefficient, prop_list_item=Manning's roughness coefficient}
+parameter_group: {name=g0, description=Geometrical properties, parameter=Length, parameter=Width, parameter=precipitation_filename, parameter=nx, parameter=ny, parameter=x_slope, parameter=y_slope, parameter=max_elev}
+parameter_group: {name=g1, description=Physical Properties, parameter=Manning_Coeff}
+parameter_group: {name=g3, description=Project Settings, parameter=project_start_date, parameter=project_end_date}
+
+

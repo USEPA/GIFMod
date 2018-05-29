@@ -1,0 +1,163 @@
+\hypertarget{class_entity}{}\section{Entity Class Reference}
+\label{class_entity}\index{Entity@{Entity}}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_entity_a92c931d37a70193cfd22142bd1939be4}\label{class_entity_a92c931d37a70193cfd22142bd1939be4}} 
+void {\bfseries changed} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_entity_aa0fffe44a5056743ae2e481447f5beca}\label{class_entity_aa0fffe44a5056743ae2e481447f5beca}} 
+{\bfseries Entity} (const Q\+String \+\_\+type, Q\+String \+\_\+name=\char`\"{}No Name\char`\"{}, Graph\+Widget $\ast$\+\_\+parent=0)
+\item 
+\mbox{\Hypertarget{class_entity_a976383e67d648de0e4e5955bad695147}\label{class_entity_a976383e67d648de0e4e5955bad695147}} 
+{\bfseries Entity} (const \hyperlink{class_entity}{Entity} \&)
+\item 
+\mbox{\Hypertarget{class_entity_a231b0dc6f5f7ae7332eb8c85d38ec337}\label{class_entity_a231b0dc6f5f7ae7332eb8c85d38ec337}} 
+\hyperlink{class_entity}{Entity} {\bfseries operator=} (const \hyperlink{class_entity}{Entity} \&)
+\item 
+\mbox{\Hypertarget{class_entity_a3b81a93ac16f346edaae537705fa6b5a}\label{class_entity_a3b81a93ac16f346edaae537705fa6b5a}} 
+\hyperlink{classm_prop_list}{m\+Prop\+List} {\bfseries getm\+List} (const \hyperlink{classm_prop}{m\+Prop} \+\_\+filter=\textquotesingle{} $\ast$\textquotesingle{}) const
+\item 
+\mbox{\Hypertarget{class_entity_ae48e68feec6502b673e298f55c6bf632}\label{class_entity_ae48e68feec6502b673e298f55c6bf632}} 
+void {\bfseries set\+Name} (const Q\+String \+\_\+name)
+\item 
+\mbox{\Hypertarget{class_entity_a71a075226cb2c9531f75a0a451b67f24}\label{class_entity_a71a075226cb2c9531f75a0a451b67f24}} 
+void {\bfseries set\+Object\+Type} (const \hyperlink{classm_prop}{m\+Prop} \+\_\+type)
+\item 
+\mbox{\Hypertarget{class_entity_a1825e3a69a38facafeb21d522fae20a2}\label{class_entity_a1825e3a69a38facafeb21d522fae20a2}} 
+\hyperlink{classm_prop}{m\+Prop} {\bfseries Object\+Type} () const
+\item 
+\mbox{\Hypertarget{class_entity_a76a436f97fa481feb4da1c0c8a8b5ea6}\label{class_entity_a76a436f97fa481feb4da1c0c8a8b5ea6}} 
+\hyperlink{classm_prop}{m\+Prop} {\bfseries Filter} () const
+\item 
+\mbox{\Hypertarget{class_entity_afcc5680f1d4756239c8b9053e87fc36f}\label{class_entity_afcc5680f1d4756239c8b9053e87fc36f}} 
+Q\+Variant {\bfseries get\+Prop} (const Q\+String \&prop\+Name, const int role=Qt\+::\+Display\+Role) const
+\item 
+\mbox{\Hypertarget{class_entity_a6ba89e7d82d0309078b7479cfe5f5e29}\label{class_entity_a6ba89e7d82d0309078b7479cfe5f5e29}} 
+\hyperlink{class_x_string}{X\+String} {\bfseries get\+Value} (const Q\+String \&prop\+Name) const
+\item 
+\mbox{\Hypertarget{class_entity_aabcde9bb888a240ac2ea33fada642987}\label{class_entity_aabcde9bb888a240ac2ea33fada642987}} 
+bool {\bfseries set\+Prop} (const Q\+String \&prop\+Name, const Q\+Variant \&Value, const int role=Qt\+::\+Edit\+Role)
+\item 
+\mbox{\Hypertarget{class_entity_a681ae489c7c11247a5d134c4fbdedc9c}\label{class_entity_a681ae489c7c11247a5d134c4fbdedc9c}} 
+bool {\bfseries set\+Value} (const Q\+String \&prop\+Name, const \hyperlink{class_x_string}{X\+String} \&Value)
+\item 
+\mbox{\Hypertarget{class_entity_aace7aa16382739da66ccef00878bb08d}\label{class_entity_aace7aa16382739da66ccef00878bb08d}} 
+\hyperlink{classm_prop_list}{m\+Prop\+List} $\ast$ {\bfseries m\+List} () const
+\item 
+\mbox{\Hypertarget{class_entity_af8ae3495520aa4872c232591e367d47a}\label{class_entity_af8ae3495520aa4872c232591e367d47a}} 
+Q\+String {\bfseries Name} () const
+\item 
+\mbox{\Hypertarget{class_entity_ab9b2c4b49025fa0bf0abf2677bd16955}\label{class_entity_ab9b2c4b49025fa0bf0abf2677bd16955}} 
+\hyperlink{classm_prop}{m\+Prop} {\bfseries Filter} ()
+\item 
+\mbox{\Hypertarget{class_entity_a175003824f173b42340c5b10bf6d1716}\label{class_entity_a175003824f173b42340c5b10bf6d1716}} 
+Q\+String {\bfseries new\+Entity\+Name} (const Q\+String \&type, const Q\+String name, Q\+List$<$ \hyperlink{class_entity}{Entity} $\ast$$>$ $\ast$entities) const
+\item 
+\mbox{\Hypertarget{class_entity_a6098bd93e68000819f4b824dee41e281}\label{class_entity_a6098bd93e68000819f4b824dee41e281}} 
+Q\+String {\bfseries new\+Entity\+Name} (const Q\+String name, Q\+String\+List \&existing\+Names) const
+\item 
+\mbox{\Hypertarget{class_entity_a47d9e30caccbbbe8da535a1a7626779c}\label{class_entity_a47d9e30caccbbbe8da535a1a7626779c}} 
+Q\+Map$<$ Q\+String, Q\+Variant $>$ {\bfseries compact} () const
+\item 
+\mbox{\Hypertarget{class_entity_a8c2e1f6e786014f54a5701df8993e7c1}\label{class_entity_a8c2e1f6e786014f54a5701df8993e7c1}} 
+Q\+String\+List {\bfseries codes} () const
+\item 
+\mbox{\Hypertarget{class_entity_a75009919b96e2c7e954b8a90b03d06df}\label{class_entity_a75009919b96e2c7e954b8a90b03d06df}} 
+Q\+Map$<$ Q\+String, \hyperlink{structcondition}{condition} $>$ {\bfseries variable\+Name\+Conditions} () const
+\item 
+\mbox{\Hypertarget{class_entity_a08f534efdbb05cb95de7875731c1e6bc}\label{class_entity_a08f534efdbb05cb95de7875731c1e6bc}} 
+void {\bfseries update} (bool fast=false)
+\item 
+\mbox{\Hypertarget{class_entity_a0b525111cc2e2a3447377fd834603e7d}\label{class_entity_a0b525111cc2e2a3447377fd834603e7d}} 
+bool {\bfseries set\+Object\+Sub\+Type} (const Q\+String \&sub\+Type)
+\item 
+\mbox{\Hypertarget{class_entity_ade3d14a34348c249ec8d52ee42e46f78}\label{class_entity_ade3d14a34348c249ec8d52ee42e46f78}} 
+\hyperlink{class_x_string}{X\+String} {\bfseries val} (const Q\+String \&code) const
+\item 
+\mbox{\Hypertarget{class_entity_ae3d3f78d740cf871b76a85342ae5658f}\label{class_entity_ae3d3f78d740cf871b76a85342ae5658f}} 
+bool {\bfseries error\+Detected} () const
+\item 
+\mbox{\Hypertarget{class_entity_ad983e56891d32336ed798e7d6fa9ec21}\label{class_entity_ad983e56891d32336ed798e7d6fa9ec21}} 
+Q\+String\+List {\bfseries variable\+Names} () const
+\item 
+\mbox{\Hypertarget{class_entity_a6fa5989706860a3f13b55556d506ba03}\label{class_entity_a6fa5989706860a3f13b55556d506ba03}} 
+Q\+String {\bfseries experiment\+Name} () const
+\item 
+\mbox{\Hypertarget{class_entity_a3e7e2e07ff6d6004b009050357d95791}\label{class_entity_a3e7e2e07ff6d6004b009050357d95791}} 
+Q\+String\+List {\bfseries phases} (Q\+String model=\char`\"{}\char`\"{}) const
+\item 
+\mbox{\Hypertarget{class_entity_a2cb844a5292afffc71c80e80bb8ecf47}\label{class_entity_a2cb844a5292afffc71c80e80bb8ecf47}} 
+Q\+String {\bfseries exchange\+Rate} () const
+\item 
+\mbox{\Hypertarget{class_entity_a38418d100af915a77ec23b19c76c0393}\label{class_entity_a38418d100af915a77ec23b19c76c0393}} 
+Q\+String {\bfseries partitioning\+Coefficient} () const
+\item 
+\mbox{\Hypertarget{class_entity_aa75ca3c6951331dc45eafa1d640e5f06}\label{class_entity_aa75ca3c6951331dc45eafa1d640e5f06}} 
+bool {\bfseries is\+Selected} () const
+\item 
+\mbox{\Hypertarget{class_entity_ac341e131e903c4ad6f03399a4488ddab}\label{class_entity_ac341e131e903c4ad6f03399a4488ddab}} 
+void {\bfseries set\+Selected} (bool select)
+\item 
+\mbox{\Hypertarget{class_entity_a1d086f1352622450961e23c626090a91}\label{class_entity_a1d086f1352622450961e23c626090a91}} 
+void {\bfseries copy\+Props} (Q\+String source\+Experiment, Q\+String dest\+Experiment)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_entity_a5ce569a1841bf5d16cebf9303c8ef327}\label{class_entity_a5ce569a1841bf5d16cebf9303c8ef327}} 
+static \hyperlink{class_entity}{Entity} $\ast$ {\bfseries un\+Compact} (Q\+Map$<$ Q\+String, Q\+Variant $>$, \hyperlink{class_graph_widget}{Graph\+Widget} $\ast$gwidget, bool old\+Version\+Load=false)
+\item 
+\mbox{\Hypertarget{class_entity_a1ef7069ffea008b543275ad7d02baf8d}\label{class_entity_a1ef7069ffea008b543275ad7d02baf8d}} 
+static \hyperlink{class_entity}{Entity} $\ast$ {\bfseries un\+Compact10} (Q\+Map$<$ Q\+String, Q\+Variant $>$, \hyperlink{class_graph_widget}{Graph\+Widget} $\ast$gwidget)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_entity_a97a861dbf350bbd571283bb3f316f50f}\label{class_entity_a97a861dbf350bbd571283bb3f316f50f}} 
+Q\+String {\bfseries G\+UI}
+\item 
+\mbox{\Hypertarget{class_entity_a97e03fc644d5b5ea45035df10ae47674}\label{class_entity_a97e03fc644d5b5ea45035df10ae47674}} 
+\hyperlink{classm_prop}{m\+Prop} {\bfseries object\+Type}
+\item 
+\mbox{\Hypertarget{class_entity_a5c73075846b554e592a3b3291e2a1762}\label{class_entity_a5c73075846b554e592a3b3291e2a1762}} 
+\hyperlink{class_graph_widget}{Graph\+Widget} $\ast$ {\bfseries parent}
+\item 
+\mbox{\Hypertarget{class_entity_a091545a50df9666a8549c80dc5c7d64d}\label{class_entity_a091545a50df9666a8549c80dc5c7d64d}} 
+\hyperlink{class_prop_model}{Prop\+Model}$<$ \hyperlink{class_entity}{Entity} $>$ $\ast$ {\bfseries model}
+\item 
+\mbox{\Hypertarget{class_entity_afa1be08f2947c897e3b990760a0db89a}\label{class_entity_afa1be08f2947c897e3b990760a0db89a}} 
+\hyperlink{class_prop_list}{Prop\+List}$<$ \hyperlink{class_entity}{Entity} $>$ {\bfseries props}
+\item 
+\mbox{\Hypertarget{class_entity_a623c98d92aebaddd3dcf7c9a56219d95}\label{class_entity_a623c98d92aebaddd3dcf7c9a56219d95}} 
+Q\+String {\bfseries name}
+\item 
+\mbox{\Hypertarget{class_entity_a5cb3f0d2a4dee33bb7d5eeace4573f49}\label{class_entity_a5cb3f0d2a4dee33bb7d5eeace4573f49}} 
+Q\+Map$<$ Q\+String, Q\+String $>$ {\bfseries warnings}
+\item 
+\mbox{\Hypertarget{class_entity_aff4fd1029489706963372112babd15b6}\label{class_entity_aff4fd1029489706963372112babd15b6}} 
+Q\+Map$<$ Q\+String, Q\+String $>$ {\bfseries errors}
+\item 
+\mbox{\Hypertarget{class_entity_a240aeb53e801e1618187157de90a1043}\label{class_entity_a240aeb53e801e1618187157de90a1043}} 
+Q\+List$<$ \hyperlink{struct_solid_aqueous_exchange_parameter_item}{Solid\+Aqueous\+Exchange\+Parameter\+Item} $>$ {\bfseries solid\+Aqueous\+Exchange\+Parameters}
+\item 
+\mbox{\Hypertarget{class_entity_a58858410e67b146b0d830568d5eefa01}\label{class_entity_a58858410e67b146b0d830568d5eefa01}} 
+bool {\bfseries selected} = false
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 16 of file entity.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+G\+U\+I/entity.\+h\item 
+G\+U\+I/entity.\+cpp\item 
+G\+U\+I/G\+Widget.\+cpp\end{DoxyCompactItemize}

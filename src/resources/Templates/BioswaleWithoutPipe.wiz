@@ -1,0 +1,104 @@
+name: Bioswale without under drain pipe
+icon: BioswaleWithoutPipe.png
+description: This wizard constructs a model of a simple bioswale without a drainage pipe as a green infrastructure. 
+
+settings: {type=Project settings, Simulation start time = param[project_start_date], Simulation end time=param[project_end_date]}
+settings: {type=Climate settings,Precipitation time series=param[precipitation_file]}
+settings: {type=Solver settings,Maximum number of matrix inversions allowed=150000}
+
+major_block: {name=value[Impervious Catchment], x=200, y=400, appwidth=250, appheight=150, type=value[Catchment], Width=param[Catchment_W], Length=param[Catchment_L], area=expression[Catchment_L*Catchment_W], Bottom elevation=param[Catchment_Elev], Manning's roughness coefficient=param[Veg_Manning]}
+major_block: {name=value[Swale Surface], x=500, y=700, type=value[Catchment], Width=param[Swale_W], Length=param[Street_L], area=expression[Street_L*Swale_W], Bottom elevation=expression[0+(Street_L*(Street_Slope/200))], Manning's roughness coefficient=param[Veg_Manning]}
+major_block: {name=value[Swale Soil], x=500, y=850, type=value[Soil], SubType=param[Swale_Soil], depth=param[Swale_D], area=expression[Street_L*Swale_W], Bottom elevation=expression[(Street_L*(Street_Slope/200))-Swale_D]}
+major_block: {name=value[Aggregate Storage], x=500, y=1000, type=value[Storage],  depth=param[Storage_D], area=expression[Street_L*Swale_W], Bottom elevation=expression[(Street_L*(Street_Slope/200))-(Swale_D+Storage_D)],Saturated hydraulic conductivity (ks)= param[Storage_ks], Saturated moisture content (~thetas)=param[Storage_thetas]}
+major_block: {name=value[Swale Bottom Soil], x=500, y=1150, type=value[soil], SubType=param[Nativesoil_type], configuration=value[1DV],n=expression[nz-2], direction=down, area=expression[Street_L*Swale_W], Depth=expression[(Watertable_D-(Swale_D+Storage_D))/(nz-2)], Bottom elevation=expression[(Street_L*(Street_Slope/200))-Watertable_D]}
+major_block: {name=value[Left Top Soil], x=250, y=850, type=value[soil], SubType=param[Nativesoil_type], configuration=value[1DH], n=param[nx], direction=left, Depth=param[Swale_D], area=expression[(Street_L*Lateral_W)/nx], Bottom elevation=expression[(Street_L*(Street_Slope/200))-Swale_D], Length=expression[Lateral_W/nx], Width=param[Street_L]}
+major_block: {name=value[Right Top Soil, x=750, y=850, type=value[soil], SubType=param[Nativesoil_type], configuration=value[1DH], n=param[nx], direction=Right, Depth=param[Swale_D], area=expression[(Street_L*Lateral_W)/nx], Bottom elevation=expression[(Street_L*(Street_Slope/200))-Swale_D], Length=expression[Lateral_W/nx], Width=param[Street_L]}
+major_block: {name=value[Left Middle Soil], x=250, y=1000, type=value[soil], SubType=param[Nativesoil_type], configuration=value[1DH], n=param[nx], direction=left, Depth=param[Storage_D], area=expression[(Street_L*Lateral_W)/nx], Bottom elevation=expression[(Street_L*(Street_Slope/200))-(Swale_D+Storage_D)], Length=expression[Lateral_W/nx], Width=param[Street_L]}
+major_block: {name=value[Right Middle Soil], x=750, y=1000, type=value[soil], SubType=param[Nativesoil_type], configuration=value[1DH], n=param[nx], direction=Right, Depth=param[Storage_D], area=expression[(Street_L*Lateral_W)/nx], Bottom elevation=expression[(Street_L*(Street_Slope/200))-(Swale_D+Storage_D)], Length=expression[Lateral_W/nx], Width=param[Street_L]}
+major_block: {name=value[Left Bottom Soil], x=250, y=1150, type=value[Soil], SubType=param[Nativesoil_type], configuration=value[2DV], nh=param[nx], nv=expression[nz-2], direction=leftdown, area=expression[(Street_L*Lateral_W)/nx], Depth=expression[(Watertable_D-(Swale_D+Storage_D))/(nz-2)], Bottom elevation=expression[(Street_L*(Street_Slope/200))-Watertable_D], Length=expression[Lateral_W/nx], Width=param[Street_L]}
+major_block: {name=value[Right Bottom Soil], x=750, y=1150, type=value[Soil], SubType=param[Nativesoil_type], configuration=value[2DV], nh=param[nx], nv=expression[nz-2], direction=rightdown, area=expression[(Street_L*Lateral_W)/nx], Depth=expression[(Watertable_D-(Swale_D+Storage_D))/(nz-2)], Bottom elevation=expression[(Street_L*(Street_Slope/200))-Watertable_D], Length=expression[Lateral_W/nx], Width=param[Street_L]}
+major_block: {name=value[Ground Water], x=expression[250*(2-nx), y=expression[900+nz*150], appwidth=expression[2*(100+(250*nx))], appheight=150, type=value[Darcy], depth=1, Head-storage relationship=expression[(Street_L*(Street_Slope/200))-Watertable_D], area=expression[Street_L*2*(Lateral_W+(Swale_W/2))], Bottom elevation=expression[(Street_L*(Street_Slope/200))-(Watertable_D+1)], Initial moisture content (~theta)=value[0.35], Saturated moisture content (~thetas)=value[0.35]}
+major_block: {name=value[Runoff Pond], x=expression[900+(nx*250)], y=900, appwidth=300, area=value[100], type=value[pond], depth=1 ,Head-storage relationship=value[0], Bottom elevation=value[-1], Precipitation=value[No]}
+
+
+major_connection: {name=value[Swale Surface - Swale Soil], source= Swale Surface, target= Swale Soil, length=expression[0.5*Swale_D], Width=param[Street_L], Manning's roughness coefficient=param[Veg_Manning]}
+major_connection: {name=value[Catchment - Bioswale], source= Impervious Catchment, target=Swale Surface, length=expression[(Catchment_L+Swale_W)/2], Width=expression[0.5*(Catchment_W+Street_L)], Manning's roughness coefficient=param[Veg_Manning]}
+major_connection: {name=value[Swale Soil - Left Top Soil], source= Swale Soil, target=Left Top Soil, Length=expression[0.5*(Swale_W+(Lateral_W/nx))],Interface/cross sectional area=expression[Street_L*Swale_D], configuration=s2s}
+major_connection: {name=value[Swale Soil - Right Top Soil], source= Swale Soil, target=Right Top Soil, Length=expression[0.5*(Swale_W+(Lateral_W/nx))],Interface/cross sectional area=expression[Street_L*Swale_D], configuration=s2s}
+major_connection: {name=value[Aggregate - Left Middle Soil], source= Aggregate Storage, target=Left Middle Soil, Length=expression[0.5*(Lateral_W/nx)],Interface/cross sectional area=expression[Street_L*Storage_D], configuration=s2s}
+major_connection: {name=value[Aggregate  - Right Middle Soil], source= Aggregate Storage, target=Right Middle Soil, Length=expression[0.5*(Lateral_W/nx)],Interface/cross sectional area=expression[Street_L*Storage_D], configuration=s2s}
+major_connection: {name=value[Swale Soil - Aggregate], source= Swale Soil, target=Aggregate Storage, Length=expression[0.5*Swale_D], Interface/cross sectional area=expression[Street_L*Swale_W]}
+major_connection: {name=value[Aggregate - Swale Bottom Soil], source=Aggregate Storage, target= Swale Bottom Soil, length=expression[0.5*((Watertable_D-(Swale_D+Storage_D))/(nz-2))], Interface/cross sectional area=expression[Street_L*Swale_W], configuration=s2s}
+major_connection: {name=value[Left Top Soil - Left Middle Soil] , source= Left Top Soil, target= Left Middle Soil, Length=expression[0.5*(Swale_D+Storage_D)], Interface/cross sectional area=expression[(Street_L*Lateral_W)/nx], configuration=a2a}
+major_connection: {name=value[Right Top Soil - Right Middle Soil] , source= Right Top Soil, target= Right Middle Soil, Length=expression[0.5*(Swale_D+Storage_D)], Interface/cross sectional area=expression[(Street_L*Lateral_W)/nx], configuration=a2a}
+major_connection: {name=value[Left Middle Soil - Left Bottom Soil] , source= Left Middle Soil, target= Left Bottom Soil, Length=expression[0.5*(Storage_D+((Watertable_D-(Swale_D+Storage_D))/(nz-2)))], Interface/cross sectional area=expression[(Street_L*Lateral_W)/nx], configuration=a2t}
+major_connection: {name=value[Right Middle Soil - Right Bottom Soil] , source= Right Middle Soil, target= Right Bottom Soil, Length=expression[0.5*(Storage_D+((Watertable_D-(Swale_D+Storage_D))/(nz-2)))], Interface/cross sectional area=expression[(Street_L*Lateral_W)/nx], configuration=a2t}
+major_connection: {name=value[Swale Bottom Soil - Left Bottom Soil], source= Swale Bottom Soil, target= Left Bottom Soil, Length=expression[0.5*(Swale_W+(Lateral_W/nx))], Interface/cross sectional area=expression[Street_L*((Watertable_D-(Swale_D+Storage_D))/(nz-2))], configuration=a2l}
+major_connection: {name=value[Swale Bottom Soil - Right Bottom Soil], source= Swale Bottom Soil, target= Right Bottom Soil, Length=expression[0.5*(Swale_W+(Lateral_W/nx))], Interface/cross sectional area=expression[Street_L*((Watertable_D-(Swale_D+Storage_D))/(nz-2))], configuration=a2l}
+major_connection: {name=value[Swale Bottom Soil - GW], source= Swale Bottom Soil, target=Ground Water, Length=expression[0.5*((Watertable_D-(Swale_D+Storage_D))/(nz-2))], Interface/cross sectional area=expression[Street_L*Swale_W], configuration=e2s}
+major_connection: {name=value[Left Bottom Soil - GW], source= Left Bottom Soil, target= Ground Water, Length=expression[0.5*((Watertable_D-(Swale_D+Storage_D))/(nz-2))], Interface/cross sectional area=expression[(Street_L*Lateral_W)/nx], configuration=b2s}
+major_connection: {name=value[Right Bottom Soil - GW], source= Right Bottom Soil, target= Ground Water, Length=expression[0.5*((Watertable_D-(Swale_D+Storage_D))/(nz-2))], Interface/cross sectional area=expression[(Street_L*Lateral_W)/nx], configuration=b2s}
+major_connection: {name=value[ Swale Surface - Runoff Pond], source= Swale Surface, target=Runoff Pond, Length=expression[0.5*Street_L], width=param[Swale_W], Manning's roughness coefficient=param[Veg_Manning]}
+
+
+parameter: {name= project_start_date, delegate=date_time, question=Projet's start date}
+parameter: {name= project_end_date, delegate=date_time, question=Projet's end date}
+parameter: {name=precipitation_file, delegate=filename, question= Precipitation time series file, prop_list_item=Precipitation time series}
+parameter: {name=Catchment_W, delegate=float, question= Width of the impervious catchment, prop_list_item=Length, unit=m}
+parameter: {name=Catchment_L, delegate=float, question=Length of the impervious catchment, prop_list_item=Length, unit=m}
+parameter: {name=Catchment_Elev, delegate=float, question=Elevation of the catchment, prop_list_item=length, unit=m}
+parameter: {name=Swale_D, delegate=float, question= Depth of the engineered soil, prop_list_item=Length, unit=m}
+parameter: {name=Swale_W, delegate=float, question=Width of the bioswale, prop_list_item=Length, unit=m}
+parameter: {name=Street_L, delegate=float, question=Length of the bioswale, prop_list_item=Length, unit=m}
+parameter: {name=Swale_Soil, delegate=combo_box, question=Type of the engineered soil layer,object_type=Soil, prop_list_item=Sub Type}
+parameter: {name=Street_Slope, delegate=float, question= Slope alongside the bioswale(%), default=2}
+parameter: {name=Veg_Manning, delegate=float, question=Manning roughness of the surface of the bioswale, prop_list_item=Manning's roughness coefficient, default=0.03, unit=s/~^3~radicm}
+parameter: {name=Storage_D, delegate=float, question= Depth of the aggregate storage layer, prop_list_item=Length, unit=m}
+parameter: {name=Storage_ks, delegate=float, question=Saturated hydraulic conductivity of the aggregate storage layer, prop_list_item=Saturated hydraulic conductivity (ks)}
+parameter: {name=Storage_thetas, delegate=float, question=Porosity of the aggregate storage layer, prop_list_item=Saturated moisture content (~thetas), default=.4}
+parameter: {name=Watertable_D, delegate=float, question=Depth to groundwater table from the end of the trench, prop_list_item=depth,unit=m }
+parameter: {name=Lateral_W, delegate=float, question=Lateral extension of the adjunct soil from the edge of the bioswale to be modeled , prop_list_item=Length, unit=m}
+parameter: {name=Nativesoil_type, delegate=combo_box, question=Type of the native soil, object_type=Soil, prop_list_item=Sub Type}
+parameter: {name=Swale_Soil, delegate=combo_box, question=Type of the engineered soil of the bioswale, object_type=Soil, prop_list_item=Sub Type}
+parameter: {name=nx, delegate= integer, question=Number of soil horizontal grid cells from the edge of the bioswale to the outside model boundary (nx)}
+parameter: {name=nz, delegate=integer, question=Number of soil vertical grid cells from the ground surface (nz)}
+parameter: {name=title1, delegate=memo, question= <b> <u>Geometry of the Impervious Catchment<u></b>}
+parameter: {name=title2, delegate=memo, question= <b> <u>Geometry of the Bioswale<u></b>}
+parameter: {name=title3, delegate=memo, question=<b> <u>Discretization and Boundaries of the model<u></b>}
+parameter: {name=title4, delegate=memo, question=<b> <u>Time Frame and Climate Settings<u> </b>
+
+
+parameter_group: {name=g1, description=Introduction, parameter=Introduction}
+parameter_group: {name=g2, description=Geometry of the System, parameter=title1, parameter=Catchment_L, parameter=Catchment_W, parameter=Catchment_Elev, parameter=space, parameter=title2,parameter=Street_L, parameter=Swale_W, parameter= Street_Slope, parameter=Swale_D, parameter=Storage_D}
+parameter_group: {name=g3, description=Physical Properties of the System, parameter=Nativesoil_type, parameter=Swale_Soil, parameter=Watertable_D, parameter=Veg_Manning, parameter=Storage_ks, parameter=Storage_thetas}
+parameter_group: {name=g4, description= Boundaries and General Settings of the System,parameter= title3, parameter=Lateral_W, parameter=nx, parameter=nz, parameter=space, parameter=title4, parameter=project_start_date, parameter=project_end_date, parameter=precipitation_file}
+
+
+criteria: {name=cr1, less=0, greater=Catchment_W, ErrorMessage=Width of the catchment must be positive}
+criteria: {name=cr2, less=0, greater=Catchment_L, ErrorMessage=Length of the catchment must be positive}
+criteria: {name=cr3, less=(Street_L*(Street_Slope/200)), greater=Catchment_Elev, ErrorMessage=The catchment must be above the surface of the bioswale}
+criteria: {name=cr4, less=0, greater=Swale_D, ErrorMessage=Depth of the soil of the bioswale must be positive}
+criteria: {name=cr5, less=0, greater=Street_L, ErrorMessage=Length of the bioswale must be positive}
+criteria: {name=cr6, less=0, greater=Storage_D, ErrorMessage=Depth of the aggregate storage must be positive}
+criteria: {name=cr7, less=0, greater=Swale_W, ErrorMessage=Width of the bioswale must be positive}
+criteria: {name=cr8, less=0, greater=Street_Slope, ErrorMessage=Slope alongside the bioswale must be positive}
+criteria: {name=cr9, less=0, greater=Veg_Manning, ErrorMessage=Manning coefficient must be positive}
+criteria: {name=cr10, less=0, greater=Storage_ks, ErrorMessage=Saturated hydraulic conductivity of the aggregate storage layer must be positive}
+criteria: {name=cr11, less=0, greater=Storage_thetas, ErrorMessage=Porosity of the aggregate storage layer must be positive}
+criteria: {name=cr12, less=Storage_thetas, greater=1, ErrorMessage=Porosity of the aggregate storage layer must be less than 1}
+criteria: {name=cr13, less=(Swale_D+Storage_D), greater=Watertable_D, ErrorMessage=Water table must be below the bioswale}
+criteria: {name=cr14, less=0, greater=Lateral_W, ErrorMessage=Lateral extension of the soil from the edge of the bioswale must be positive}
+criteria: {name=cr15, less=2, greater=nz, ErrorMessage= Number of the grids in vertical direction must be greater than 2}
+criteria: {name=cr16, less=0, greater=nx, ErrorMessage= Number of the grids in horizontal direction must be greater than 0}
+
+
+
+
+
+
+
+
+
+
+
+

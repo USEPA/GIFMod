@@ -1,0 +1,24 @@
+name: Two-dimentional vertical soil
+icon: 2dv_soil.png
+settings: {type=Project settings, Simulation start time = param[project_start_date], Simulation end time=param[project_end_date]}
+settings: {type=Climate settings, Precipitation time series=param[precipitation_filename]}
+//major_block: {name=Catchment, type=value[Catchment], Length=param[Catchment_Length], Width=param[Catchment_Width], elevation=param[Catchment_elevation], Manning's roughness coefficient=param[Manning_Coeff], Area=expression[Catchment_Width*Catchment_Length]}
+major_block: {name=value[Soil], type=value[Soil], configuration=value[2DV], SubType=param[Soil_Type],Depth=expression[Total_Depth/n_Layers], area=expression[Width*Length/nx], nv=param[n_Layers], nh=param[nx], Width=param[Width], Length=expression[Length/nx], Bottom elevation=param[B_elev], direction=down}
+//major_block: {name=value[Pond], type=value[Pond], area=param[Area]}
+//major_connection: {source=Pond, target=Soil Column, name=value[Pond-Soil], Length=expression[Layer_Depth/2], Area = param[Area], configuration=e2s}
+//major_connection: {source=Catchment, target=Pond, name=Catchment-Pond, Width=param[Catchment_Width], Manning's roughness coefficient=param[Manning_Coeff], configuration=s2s}
+parameter: {name=precipitation_filename, delegate=filename, question=Precipitation file}
+parameter: {name=Length, delegate=float, question=Length of the model domain, object_type=soil, prop_list_item=Length}
+parameter: {name=Width, delegate=float, question=Width of the model domain, object_type=soil, prop_list_item=Width}
+parameter: {name=nx, delegate=integer, question=Number of cells in horizontal direction, default=10}
+parameter: {name=Soil_Type, delegate=combo_box, question=Select Soil Type, object_type=Soil, prop_list_item=Sub Type}
+parameter: {name=Total_Depth, delegate=float, question=Enter the depth of the soil layer, object_type=soil, prop_list_item=depth}
+parameter: {name=B_elev, delegate=float, question=Enter the bottom elevation of the soil column, prop_list_item=elevation}
+parameter: {name=n_Layers, delegate=integer, question=Enter number of layers, default=10}
+parameter: {name=project_start_date, delegate=date_time, question=Enter Project Start Date, prop_list_item=Simulation start date}
+parameter: {name=project_end_date, delegate=date_time, question=Enter Project End Dateprop_list_item=Simulation elevation}
+parameter_group: {name=g0, description=Geometrical properties, parameter=Length, parameter=Width, parameter=Total_Depth, parameter=precipitation_filename, parameter=n_Layers, parameter=nx}
+parameter_group: {name=g1, description=Soil Properties, parameter=Soil_Type, parameter=B_elev}
+parameter_group: {name=g3, description=Project Settings, parameter=project_start_date, parameter=project_end_date}
+
+

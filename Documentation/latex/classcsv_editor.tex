@@ -1,0 +1,87 @@
+\hypertarget{classcsv_editor}{}\section{csv\+Editor Class Reference}
+\label{classcsv_editor}\index{csv\+Editor@{csv\+Editor}}
+Inheritance diagram for csv\+Editor\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classcsv_editor}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcsv_editor_add820070225afa37652bab69c770adca}\label{classcsv_editor_add820070225afa37652bab69c770adca}} 
+void {\bfseries show\+Context\+Menu} (const Q\+Point \&)
+\item 
+\mbox{\Hypertarget{classcsv_editor_a82aa5573c2f3f8b654460681287f7a7e}\label{classcsv_editor_a82aa5573c2f3f8b654460681287f7a7e}} 
+void {\bfseries on\+\_\+horizontal\+\_\+section\+Clicked} (int)
+\item 
+\mbox{\Hypertarget{classcsv_editor_a44ceacc90b21d1de3a3c922b94416ac0}\label{classcsv_editor_a44ceacc90b21d1de3a3c922b94416ac0}} 
+void {\bfseries on\+\_\+horizontal\+\_\+section\+Double\+Clicked} (int)
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcsv_editor_af03e314f282b5c75a2e00aa7e27ab227}\label{classcsv_editor_af03e314f282b5c75a2e00aa7e27ab227}} 
+{\bfseries csv\+Editor} (\hyperlink{class_main_window}{Main\+Window} $\ast$parent, bool precipitation\+Series, Q\+String title=\char`\"{}Editor\char`\"{}, Q\+String file\+Name=\char`\"{}Untitled.\+csv\char`\"{}, Q\+Table\+View $\ast$table\+Prop=0, Q\+Model\+Index index=Q\+Model\+Index(), Q\+String file\+Type=\char`\"{}Comma Seperated File ($\ast$.csv)\char`\"{}, bool modal=false)
+\item 
+\mbox{\Hypertarget{classcsv_editor_a3ebb5335bca4687681640c7932292e3a}\label{classcsv_editor_a3ebb5335bca4687681640c7932292e3a}} 
+void {\bfseries load} (Q\+String file\+Name)
+\item 
+\mbox{\Hypertarget{classcsv_editor_a8a76653c7a7c2787318ab4fbbfc3d5bc}\label{classcsv_editor_a8a76653c7a7c2787318ab4fbbfc3d5bc}} 
+void {\bfseries save} (Q\+String file\+Name)
+\item 
+\mbox{\Hypertarget{classcsv_editor_ab9b78fac92457e756c98551811ef4a49}\label{classcsv_editor_ab9b78fac92457e756c98551811ef4a49}} 
+void {\bfseries append} (Q\+String text)
+\item 
+\mbox{\Hypertarget{classcsv_editor_a9ce17c06bf66c2ef4dde75559e287e8c}\label{classcsv_editor_a9ce17c06bf66c2ef4dde75559e287e8c}} 
+void {\bfseries append} (Q\+String\+List text)
+\item 
+\mbox{\Hypertarget{classcsv_editor_aef2914c8b262da8f9797fc10f0cdcfa4}\label{classcsv_editor_aef2914c8b262da8f9797fc10f0cdcfa4}} 
+void {\bfseries append} (vector$<$ string $>$ text)
+\item 
+void \hyperlink{classcsv_editor_a4bba903f33dc4129a3c896978679ae74}{set\+Html} (vector$<$ string $>$ text)
+\item 
+\mbox{\Hypertarget{classcsv_editor_a08cfcdb5fd1862d2b201181eeb8745dd}\label{classcsv_editor_a08cfcdb5fd1862d2b201181eeb8745dd}} 
+void {\bfseries operator()} (Q\+String text)
+\item 
+void \hyperlink{classcsv_editor_aaddc114a926c5d1f9ebcfdec25d3471c}{writetotempfile} ()
+\item 
+\mbox{\Hypertarget{classcsv_editor_a492e402d9cfa6ba07bc0bb6a5be5c4b7}\label{classcsv_editor_a492e402d9cfa6ba07bc0bb6a5be5c4b7}} 
+Q\+String {\bfseries text} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 20 of file csv\+Editor.\+h.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classcsv_editor_a4bba903f33dc4129a3c896978679ae74}\label{classcsv_editor_a4bba903f33dc4129a3c896978679ae74}} 
+\index{csv\+Editor@{csv\+Editor}!set\+Html@{set\+Html}}
+\index{set\+Html@{set\+Html}!csv\+Editor@{csv\+Editor}}
+\subsubsection{\texorpdfstring{set\+Html()}{setHtml()}}
+{\footnotesize\ttfamily void csv\+Editor\+::set\+Html (\begin{DoxyParamCaption}\item[{vector$<$ string $>$}]{text }\end{DoxyParamCaption})}
+
+ui-\/$>$text\+Edit-\/$>$set\+Html(html); 
+
+Definition at line 256 of file csv\+Editor.\+cpp.
+
+\mbox{\Hypertarget{classcsv_editor_aaddc114a926c5d1f9ebcfdec25d3471c}\label{classcsv_editor_aaddc114a926c5d1f9ebcfdec25d3471c}} 
+\index{csv\+Editor@{csv\+Editor}!writetotempfile@{writetotempfile}}
+\index{writetotempfile@{writetotempfile}!csv\+Editor@{csv\+Editor}}
+\subsubsection{\texorpdfstring{writetotempfile()}{writetotempfile()}}
+{\footnotesize\ttfamily void csv\+Editor\+::writetotempfile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+return; 
+
+Definition at line 320 of file csv\+Editor.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+G\+U\+I/csv\+Editor.\+h\item 
+G\+U\+I/csv\+Editor.\+cpp\end{DoxyCompactItemize}

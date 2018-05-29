@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DOCUMENT Type="Advanced Installer" CreateVersion="13.1" version="14.0.2" Modules="simple" RootPath="." Language="en" Id="{CD63B092-6C19-4125-80DF-EEC0D0E21FCC}">
+  <COMPONENT cid="caphyon.advinst.msicomp.ProjectOptionsComponent">
+    <ROW Name="HiddenItems" Value="MsiThemeComponent;BackgroundImagesComponent;UpdaterComponent;SerValComponent;DigCertStoreComponent;MsiInstExSeqComponent;DictionaryComponent;MsiAppSearchComponent;MsiAssemblyComponent;MsiClassComponent;MsiOdbcDataSrcComponent;MsiServInstComponent;MsiOrgComponent;MsiExtComponent;CPLAppletComponent;ActSyncAppComponent;PreReqComponent;WebApplicationsComponent;MsiJavaComponent;MsiDriverPackagesComponent;UserAccountsComponent;ScheduledTasksComponent;SqlConnectionComponent;AutorunComponent;FirewallExceptionComponent;GameUxComponent;MsiDirectEditorComponent;SharePointSlnComponent;SilverlightSlnComponent;MultipleInstancesComponent;SccmComponent;ActSyncAppComponent;AppXAppDetailsComponent;AppXCapabilitiesComponent;AppXDependenciesComponent;AppXProductDetailsComponent;AppXVisualAssetsComponent;AppXAppDeclarationsComponent;AppXUriRulesComponent"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
+    <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
+    <ROW Property="ALLUSERS" Value="1"/>
+    <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
+    <ROW Property="ARPPRODUCTICON" Value="GIFMod_1.exe" Type="8"/>
+    <ROW Property="ARPURLINFOABOUT" Value="www.gifmod.com"/>
+    <ROW Property="Manufacturer" Value="GI"/>
+    <ROW Property="ProductCode" Value="1033:{9FBD7982-B739-44EA-8B83-550B34FB76A1} " Type="16"/>
+    <ROW Property="ProductLanguage" Value="1033"/>
+    <ROW Property="ProductName" Value="GIFMod"/>
+    <ROW Property="ProductVersion" Value="0.1.2" Type="32"/>
+    <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
+    <ROW Property="UpgradeCode" Value="{FD3D1F38-573F-42DE-B2E8-D17DF8884298}"/>
+    <ROW Property="WindowsType9X" MultiBuildValue="x64_Release:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsType9XDisplay" MultiBuildValue="x64_Release:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT40" MultiBuildValue="x64_Release:Windows NT 4.0" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT40Display" MultiBuildValue="x64_Release:Windows NT 4.0" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT50" MultiBuildValue="x64_Release:Windows 2000" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT50Display" MultiBuildValue="x64_Release:Windows 2000" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT5X" MultiBuildValue="x64_Release:Windows XP/2003 RTM, Windows XP/2003 SP1, Windows XP SP2 x86" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT5XDisplay" MultiBuildValue="x64_Release:Windows XP/2003 RTM, Windows XP/2003 SP1, Windows XP SP2 x86" ValueLocId="-"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
+    <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
+    <ROW Directory="ASM_Dir" Directory_Parent="Examples_Dir" DefaultDir="ASM"/>
+    <ROW Directory="Aeration_Dir" Directory_Parent="Examples_Dir" DefaultDir="Aeration"/>
+    <ROW Directory="BOD_Aeration_inverse_modeling_Dir" Directory_Parent="Examples_Dir" DefaultDir="BOD_AE~1|BOD_Aeration_inverse_modeling"/>
+    <ROW Directory="Buildup_Dir" Directory_Parent="Examples_Dir" DefaultDir="Build-up"/>
+    <ROW Directory="DConfinedAquifer_Dir" Directory_Parent="Examples_Dir" DefaultDir="2DCONF~1|2DConfinedAquifer"/>
+    <ROW Directory="DDarcy_Dir" Directory_Parent="Examples_Dir" DefaultDir="1DDarcy"/>
+    <ROW Directory="DO_control_Dir" Directory_Parent="Examples_Dir" DefaultDir="DO_CON~1|DO_control"/>
+    <ROW Directory="DRechards_Dir" Directory_Parent="Examples_Dir" DefaultDir="1DRECH~1|1DRechards"/>
+    <ROW Directory="DUnconfined_Dir" Directory_Parent="Examples_Dir" DefaultDir="2DUNCO~1|2DUnconfined"/>
+    <ROW Directory="DesktopFolder" Directory_Parent="TARGETDIR" DefaultDir="DESKTO~1|DesktopFolder" IsPseudoRoot="1"/>
+    <ROW Directory="Double_exp_settling_Dir" Directory_Parent="Examples_Dir" DefaultDir="DOUBLE~1|Double_exp_settling"/>
+    <ROW Directory="Evaporation_Dir" Directory_Parent="Examples_Dir" DefaultDir="EVAPOR~1|Evaporation"/>
+    <ROW Directory="Examples_Dir" Directory_Parent="PersonalFolder" DefaultDir="Examples"/>
+    <ROW Directory="GIFMod_Dir" Directory_Parent="ProgramMenuFolder" DefaultDir="GIFMod" DirectoryOptions="3"/>
+    <ROW Directory="Icons_Dir" Directory_Parent="APPDIR" DefaultDir="Icons"/>
+    <ROW Directory="Infiltration_Basin_Dir" Directory_Parent="Examples_Dir" DefaultDir="INFILT~1|Infiltration_Basin"/>
+    <ROW Directory="Nitrification_inverse_modeling_Dir" Directory_Parent="Examples_Dir" DefaultDir="NITRIF~1|Nitrification_inverse_modeling"/>
+    <ROW Directory="Particles_in_soil_Column_Dir" Directory_Parent="Examples_Dir" DefaultDir="PARTIC~1|Particles_in_soil_Column"/>
+    <ROW Directory="PermeablePavement_Dir" Directory_Parent="Examples_Dir" DefaultDir="PERMEA~1|Permeable Pavement"/>
+    <ROW Directory="PersonalFolder" Directory_Parent="TARGETDIR" DefaultDir="PERSON~1|PersonalFolder" IsPseudoRoot="1"/>
+    <ROW Directory="ProgramMenuFolder" Directory_Parent="TARGETDIR" DefaultDir="PROGRA~1|ProgramMenuFolder" IsPseudoRoot="1"/>
+    <ROW Directory="SHORTCUTDIR" Directory_Parent="TARGETDIR" DefaultDir="SHORTC~1|SHORTCUTDIR" IsPseudoRoot="1"/>
+    <ROW Directory="Settling_Dir" Directory_Parent="Examples_Dir" DefaultDir="Settling"/>
+    <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
+    <ROW Directory="WetPond_Dir" Directory_Parent="Examples_Dir" DefaultDir="WetPond"/>
+    <ROW Directory="platforms_Dir" Directory_Parent="APPDIR" DefaultDir="PLATFO~1|platforms"/>
+    <ROW Directory="pondspcb_Dir" Directory_Parent="Examples_Dir" DefaultDir="2-POND~1|2-ponds-pcb"/>
+    <ROW Directory="raingarden_Dir" Directory_Parent="Examples_Dir" DefaultDir="RAINGA~1|raingarden"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
+    <ROW Component="Aeration.GIFM" ComponentId="{3AAB1421-5641-4527-8E0C-DE330AF252C1}" Directory_="Aeration_Dir" Attributes="0" KeyPath="Aeration.GIFM" Type="0"/>
+    <ROW Component="BOD_Aeration_inverse_modeling.GIFM" ComponentId="{A9FD0422-0ABB-4BDC-8CA3-8D97DF6FE52C}" Directory_="BOD_Aeration_inverse_modeling_Dir" Attributes="0" KeyPath="BOD_Aeration_inverse_modeling.GIFM" Type="0"/>
+    <ROW Component="BTC_obs_DO_both.txt" ComponentId="{18F3C486-07A0-46C6-98A9-02A11135F500}" Directory_="Nitrification_inverse_modeling_Dir" Attributes="0" KeyPath="Nitrification_Inverse_modeling.GIFM" Type="0"/>
+    <ROW Component="Buildup.GIFM" ComponentId="{F2330C62-0273-4D80-9F67-A5E31F5C7D35}" Directory_="Buildup_Dir" Attributes="0" KeyPath="Buildup.GIFM" Type="0"/>
+    <ROW Component="DConfinedtransport.GIFM" ComponentId="{18B200F3-3DE4-4E48-8FD9-3C98AEC4B718}" Directory_="DConfinedAquifer_Dir" Attributes="0" KeyPath="DConfinedtransport.GIFM" Type="0"/>
+    <ROW Component="DDarcy.GIFM" ComponentId="{FF05C682-1229-4FA1-A703-110EBD689EAA}" Directory_="DDarcy_Dir" Attributes="0" KeyPath="DDarcy.GIFM" Type="0"/>
+    <ROW Component="DDarcy.zip" ComponentId="{46FD37C7-79EA-4C64-B18D-5A7A4AB04610}" Directory_="Examples_Dir" Attributes="0" KeyPath="Example_10__Two_Dimensional_flow_in_confined_aquifer.pdf" Type="0"/>
+    <ROW Component="DRichards.GIFM" ComponentId="{AA83A002-BFAF-43EC-876F-9D022CFF1ABB}" Directory_="DRechards_Dir" Attributes="0" KeyPath="DRichards.GIFM" Type="0"/>
+    <ROW Component="DUnconfined.GIFM" ComponentId="{634D147F-D6DF-4885-96A8-F91F8A63FABA}" Directory_="DUnconfined_Dir" Attributes="0" KeyPath="DUnconfined.GIFM" Type="0"/>
+    <ROW Component="GIFMod" ComponentId="{82E0EA02-7E76-4021-8938-B8CB2751AF91}" Directory_="GIFMod_Dir" Attributes="0"/>
+    <ROW Component="GIFMod.exe" ComponentId="{DC5DDFCE-C012-4AF0-923A-EAF6E4710D77}" Directory_="APPDIR" Attributes="256" KeyPath="GIFMod.exe"/>
+    <ROW Component="GIFMod_Users_Manual.pdf" ComponentId="{C9A42E37-A015-42B6-8539-1408391BEB78}" Directory_="APPDIR" Attributes="0" KeyPath="GIFModGUIPropList.csv" Type="0"/>
+    <ROW Component="GIFMod_Users_Manual.pdf_1" ComponentId="{FFF23F62-D95E-46F6-926C-AFCE9553EDFF}" Directory_="APPDIR" Attributes="0" KeyPath="GIFMod_Users_Manual.pdf"/>
+    <ROW Component="ProductInformation" ComponentId="{BE909F43-5C68-4E27-9950-6C3F5F7CA958}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
+    <ROW Component="Qt5Core.dll" ComponentId="{FAC60122-5E52-4C18-855E-BEB8890258E4}" Directory_="APPDIR" Attributes="256" KeyPath="Qt5Core.dll"/>
+    <ROW Component="Qt5Gui.dll" ComponentId="{21470421-2EC1-4086-8726-CD5D064CE050}" Directory_="APPDIR" Attributes="256" KeyPath="Qt5Gui.dll"/>
+    <ROW Component="Qt5Widgets.dll" ComponentId="{A4C06747-3DBB-49A3-ABCB-8C06A796AE23}" Directory_="APPDIR" Attributes="256" KeyPath="Qt5Widgets.dll"/>
+    <ROW Component="SHORTCUTDIR" ComponentId="{B4AD541B-0723-4673-82F7-7E876BD7F9F6}" Directory_="SHORTCUTDIR" Attributes="0"/>
+    <ROW Component="Settling.GIFM" ComponentId="{B6E3DBFD-35E8-4E29-8B52-F73352F0E998}" Directory_="Settling_Dir" Attributes="0" KeyPath="Settling.GIFM" Type="0"/>
+    <ROW Component="blas_win64_MT.dll" ComponentId="{B674410A-84C0-4EF0-960E-C50D02B94EA0}" Directory_="APPDIR" Attributes="256" KeyPath="blas_win64_MT.dll"/>
+    <ROW Component="control_output_experiment1.txt" ComponentId="{F3BDE457-0043-4C1C-B131-B0B2D8C30FDB}" Directory_="Double_exp_settling_Dir" Attributes="0" KeyPath="double_exp_settling.GIFM" Type="0"/>
+    <ROW Component="control_output_experiment1.txt_1" ComponentId="{6711E98D-B309-4533-83EF-1867307B12B3}" Directory_="Evaporation_Dir" Attributes="0" KeyPath="Evaporation.png" Type="0"/>
+    <ROW Component="control_output_experiment1.txt_2" ComponentId="{C292EACD-DFCF-4559-81DC-4D37C13E6138}" Directory_="Infiltration_Basin_Dir" Attributes="0" KeyPath="Infiltration_Basin.temp" Type="0"/>
+    <ROW Component="control_output_experiment1.txt_3" ComponentId="{97D7DB5B-6A6C-4C41-9AF1-D53EEC892712}" Directory_="raingarden_Dir" Attributes="0" KeyPath="control_output_experiment1.txt_10" Type="0"/>
+    <ROW Component="control_output_experiment1.txt_4" ComponentId="{4559546E-8592-44D8-A62A-534C97B11DA0}" Directory_="WetPond_Dir" Attributes="0" KeyPath="control_output_experiment1.txt_11" Type="0"/>
+    <ROW Component="control_output_experiment1ArashMassoudie" ComponentId="{1B743E24-0C25-4ED4-950C-6FFCC8F3A02E}" Directory_="DO_control_Dir" Attributes="0" KeyPath="DO_control.temp" Type="0"/>
+    <ROW Component="dt.txt" ComponentId="{FE44AE11-13EC-45EE-9CDE-8058DC5C4664}" Directory_="PermeablePavement_Dir" Attributes="0" KeyPath="dt.txt" Type="0"/>
+    <ROW Component="inflow.csv" ComponentId="{F4530701-5134-41AD-AC34-090AFFAD133D}" Directory_="ASM_Dir" Attributes="0" KeyPath="inflow.csv" Type="0"/>
+    <ROW Component="inflow.txt" ComponentId="{3ED6BB81-AA27-4471-B055-5FD151696F24}" Directory_="Particles_in_soil_Column_Dir" Attributes="0" KeyPath="inflow.txt_2" Type="0"/>
+    <ROW Component="lapack_win64_MT.dll" ComponentId="{2E1C63B0-017B-494F-8DC6-BB95974394B7}" Directory_="APPDIR" Attributes="256" KeyPath="lapack_win64_MT.dll"/>
+    <ROW Component="png" ComponentId="{F800C079-C2EA-463B-B4AC-40AA857CF586}" Directory_="Icons_Dir" Attributes="0" KeyPath="png" Type="0"/>
+    <ROW Component="ponds.GIFM" ComponentId="{9AE55712-9443-452D-B725-B30341662DE5}" Directory_="pondspcb_Dir" Attributes="0" KeyPath="ponds.GIFM" Type="0"/>
+    <ROW Component="qwindows.dll" ComponentId="{D44A1D1D-35AF-4AD6-9993-F932C1C90037}" Directory_="platforms_Dir" Attributes="256" KeyPath="qwindows.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
+    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="Aeration.GIFM BOD_Aeration_inverse_modeling.GIFM BTC_obs_DO_both.txt Buildup.GIFM DConfinedtransport.GIFM DDarcy.GIFM DDarcy.zip DRichards.GIFM DUnconfined.GIFM GIFMod GIFMod.exe GIFMod_Users_Manual.pdf GIFMod_Users_Manual.pdf_1 ProductInformation Qt5Core.dll Qt5Gui.dll Qt5Widgets.dll SHORTCUTDIR Settling.GIFM blas_win64_MT.dll control_output_experiment1.txt control_output_experiment1.txt_1 control_output_experiment1.txt_2 control_output_experiment1.txt_3 control_output_experiment1.txt_4 control_output_experiment1ArashMassoudie dt.txt inflow.csv inflow.txt lapack_win64_MT.dll png ponds.GIFM qwindows.dll"/>
+    <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
+    <ROW File="Aeration.GIFM" Component_="Aeration.GIFM" FileName="AERATI~1.GIF|Aeration.GIFM" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Aeration\Aeration.GIFM" SelfReg="false" NextFile="inflow.csv"/>
+    <ROW File="BOD_Aeration_inverse_modeling.GIFM" Component_="BOD_Aeration_inverse_modeling.GIFM" FileName="BOD_AE~1.GIF|BOD_Aeration_inverse_modeling.GIFM" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\BOD_Aeration_inverse_modeling\BOD_Aeration_inverse_modeling.GIFM" SelfReg="false" NextFile="BOD_Aeration_inverse_modeling.temp"/>
+    <ROW File="BOD_Aeration_inverse_modeling.temp" Component_="BOD_Aeration_inverse_modeling.GIFM" FileName="BOD_AE~1.TEM|BOD_Aeration_inverse_modeling.temp" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\BOD_Aeration_inverse_modeling\BOD_Aeration_inverse_modeling.temp" SelfReg="false" NextFile="detail_GA.txt"/>
+    <ROW File="Buildup.GIFM" Component_="Buildup.GIFM" FileName="BUILD-~1.GIF|Build-up.GIFM" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Build-up\Build-up.GIFM" SelfReg="false" NextFile="precipitation.txt_1"/>
+    <ROW File="DConfined.GIFM" Component_="DConfinedtransport.GIFM" FileName="2DCONF~2.GIF|2DConfined.GIFM" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\2DConfinedAquifer\2DConfined.GIFM" SelfReg="false" NextFile="DConfined.temp"/>
+    <ROW File="DConfined.temp" Component_="DConfinedtransport.GIFM" FileName="2DCONF~2.TEM|2DConfined.temp" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\2DConfinedAquifer\2DConfined.temp" SelfReg="false" NextFile="Pumping10002.txt"/>
+    <ROW File="DConfinedtransport.GIFM" Component_="DConfinedtransport.GIFM" FileName="2DCONF~1.GIF|2DConfined-transport.GIFM" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\2DConfinedAquifer\2DConfined-transport.GIFM" SelfReg="false" NextFile="DConfinedtransport.temp"/>
+    <ROW File="DConfinedtransport.temp" Component_="DConfinedtransport.GIFM" FileName="2DCONF~1.TEM|2DConfined-transport.temp" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\2DConfinedAquifer\2DConfined-transport.temp" SelfReg="false" NextFile="DConfined.GIFM"/>
+    <ROW File="DDarcy.GIFM" Component_="DDarcy.GIFM" FileName="1DDARC~1.GIF|1DDarcy.GIFM" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\1DDarcy\1DDarcy.GIFM" SelfReg="false" NextFile="DDarcy.temp"/>
+    <ROW File="DDarcy.temp" Component_="DDarcy.GIFM" FileName="1DDARC~1.TEM|1DDarcy.temp" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\1DDarcy\1DDarcy.temp" SelfReg="false" NextFile="Precipitation.txt"/>
+    <ROW File="DO_control.GIFM" Component_="control_output_experiment1ArashMassoudie" FileName="DO_CON~1.GIF|DO_control.GIFM" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\DO_control\DO_control.GIFM" SelfReg="false" NextFile="DO_control.temp"/>
+    <ROW File="DO_control.temp" Component_="control_output_experiment1ArashMassoudie" FileName="DO_CON~2.TEM|DO_control.temp" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\DO_control\DO_control.temp" SelfReg="false" NextFile="DO_control_n.temp"/>
+    <ROW File="DO_controlArashMassoudiehsconflictedcopy20161105.temp" Component_="control_output_experiment1ArashMassoudie" FileName="DO_CON~1.TEM|DO_control (Arash Massoudieh&apos;s conflicted copy 2016-11-05).temp" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\DO_control\DO_control (Arash Massoudieh&apos;s conflicted copy 2016-11-05).temp" SelfReg="false" NextFile="DO_control.GIFM"/>
+    <ROW File="DO_control_n.temp" Component_="control_output_experiment1ArashMassoudie" FileName="DO_CON~3.TEM|DO_control_n.temp" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\DO_control\DO_control_n.temp" SelfReg="false" NextFile="inflow.csv_1"/>
+    <ROW File="DO_observed.txt" Component_="BOD_Aeration_inverse_modeling.GIFM" FileName="DO_OBS~1.TXT|DO_observed.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\BOD_Aeration_inverse_modeling\DO_observed.txt" SelfReg="false" NextFile="inflowtimeseries.xlsx"/>
+    <ROW File="DRichards.GIFM" Component_="DRichards.GIFM" FileName="1DRICH~1.GIF|1DRichards.GIFM" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\1DRechards\1DRichards.GIFM" SelfReg="false" NextFile="DRichards.temp"/>
+    <ROW File="DRichards.temp" Component_="DRichards.GIFM" FileName="1DRICH~1.TEM|1DRichards.temp" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\1DRechards\1DRichards.temp" SelfReg="false" NextFile="inflow.txt"/>
+    <ROW File="DUnconfined.GIFM" Component_="DUnconfined.GIFM" FileName="2DUNCO~1.GIF|2DUnconfined.GIFM" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\2DUnconfined\2DUnconfined.GIFM" SelfReg="false" NextFile="DUnconfined.temp"/>
+    <ROW File="DUnconfined.temp" Component_="DUnconfined.GIFM" FileName="2DUNCO~1.TEM|2DUnconfined.temp" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\2DUnconfined\2DUnconfined.temp" SelfReg="false" NextFile="Pumping1.txt"/>
+    <ROW File="Darcy.png" Component_="png" FileName="Darcy.png" Attributes="0" SourcePath="..\src\resources\Icons\Darcy.png" SelfReg="false" NextFile="deletebig.png"/>
+    <ROW File="DocumentBlankicon.png" Component_="png" FileName="DOCUME~1.PNG|Document-Blank-icon.png" Attributes="0" SourcePath="..\src\resources\Icons\Document-Blank-icon.png" SelfReg="false" NextFile="drawconnector.png"/>
+    <ROW File="Evaporation.GIFM" Component_="control_output_experiment1.txt_1" FileName="EVAPOR~1.GIF|Evaporation.GIFM" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Evaporation\Evaporation.GIFM" SelfReg="false" NextFile="Evaporation.png"/>
+    <ROW File="Evaporation.png" Component_="control_output_experiment1.txt_1" FileName="EVAPOR~1.PNG|Evaporation.png" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Evaporation\Evaporation.png" SelfReg="false" NextFile="Evaporation.temp"/>
+    <ROW File="Evaporation.temp" Component_="control_output_experiment1.txt_1" FileName="EVAPOR~1.TEM|Evaporation.temp" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Evaporation\Evaporation.temp" SelfReg="false" NextFile="Example_15__Evaporation.pdf"/>
+    <ROW File="Evaporation.txt" Component_="control_output_experiment1.txt_3" FileName="EVAPOR~1.TXT|Evaporation.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\raingarden\Evaporation.txt" SelfReg="false" NextFile="hydro_output_experiment1.txt_11"/>
+    <ROW File="Example_10__Two_Dimensional_flow_in_confined_aquifer.pdf" Component_="DDarcy.zip" FileName="EXAMPL~1.PDF|Example_10__Two_Dimensional_flow_in_confined_aquifer.pdf" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Example_10__Two_Dimensional_flow_in_confined_aquifer.pdf" SelfReg="false" NextFile="Example_11__Transport_of_a_conservative_tracer_in_two_dimensional_con"/>
+    <ROW File="Example_11__Transport_of_a_conservative_tracer_in_two_dimensional_con" Component_="DDarcy.zip" FileName="EXAMPL~2.PDF|Example_11__Transport_of_a_conservative_tracer_in_two_dimensional_confined_aquifer.pdf" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Example_11__Transport_of_a_conservative_tracer_in_two_dimensional_confined_aquifer.pdf" SelfReg="false" NextFile="Example_12__Two_dimensional_flow_in_an_unconfined_aquifer.pdf"/>
+    <ROW File="Example_12__Two_dimensional_flow_in_an_unconfined_aquifer.pdf" Component_="DDarcy.zip" FileName="EXAMPL~3.PDF|Example_12__Two_dimensional_flow_in_an_unconfined_aquifer.pdf" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Example_12__Two_dimensional_flow_in_an_unconfined_aquifer.pdf" SelfReg="false" NextFile="Example_13__PID_control_of_aeration.pdf"/>
+    <ROW File="Example_13__PID_control_of_aeration.pdf" Component_="DDarcy.zip" FileName="EXAMPL~4.PDF|Example_13__PID_control_of_aeration.pdf" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Example_13__PID_control_of_aeration.pdf" SelfReg="false" NextFile="Example_14__Parameter_estimation_of_BOD_decay_in_an_aerated_pond.pdf"/>
+    <ROW File="Example_14__Parameter_estimation_of_BOD_decay_in_an_aerated_pond.pdf" Component_="DDarcy.zip" FileName="EXAMPL~5.PDF|Example_14__Parameter_estimation_of_BOD_decay_in_an_aerated_pond.pdf" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Example_14__Parameter_estimation_of_BOD_decay_in_an_aerated_pond.pdf" SelfReg="false" NextFile="Example_1__Simple_pond_with_first_order_decay.pdf"/>
+    <ROW File="Example_15__Evaporation.pdf" Component_="control_output_experiment1.txt_1" FileName="EXAMPL~1.PDF|Example_15__Evaporation.pdf" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Evaporation\Example_15__Evaporation.pdf" SelfReg="false" NextFile="humidity.txt"/>
+    <ROW File="Example_1__Simple_pond_with_first_order_decay.pdf" Component_="DDarcy.zip" FileName="EXAMPL~6.PDF|Example_1__Simple_pond_with_first_order_decay.pdf" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Example_1__Simple_pond_with_first_order_decay.pdf" SelfReg="false" NextFile="Example_2__Colloid_transport_in_a_one_dimensional_saturated_soil_colu"/>
+    <ROW File="Example_2__Colloid_transport_in_a_one_dimensional_saturated_soil_colu" Component_="DDarcy.zip" FileName="EXAMPL~7.PDF|Example_2__Colloid_transport_in_a_one_dimensional_saturated_soil_column.pdf" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Example_2__Colloid_transport_in_a_one_dimensional_saturated_soil_column.pdf" SelfReg="false" NextFile="Example_3__Settling_of_Multi_disperse_particles_in_a_one_dimensional_"/>
+    <ROW File="Example_3__Settling_of_Multi_disperse_particles_in_a_one_dimensional_" Component_="DDarcy.zip" FileName="EXAMPL~8.PDF|Example_3__Settling_of_Multi_disperse_particles_in_a_one_dimensional_column.pdf" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Example_3__Settling_of_Multi_disperse_particles_in_a_one_dimensional_column.pdf" SelfReg="false" NextFile="Example_4__Simple_oxidation_tank_for_BOD_removal.pdf"/>
+    <ROW File="Example_4__Simple_oxidation_tank_for_BOD_removal.pdf" Component_="DDarcy.zip" FileName="EXAMPL~9.PDF|Example_4__Simple_oxidation_tank_for_BOD_removal.pdf" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Example_4__Simple_oxidation_tank_for_BOD_removal.pdf" SelfReg="false" NextFile="Example_5__Aeration.pdf"/>
+    <ROW File="Example_5__Aeration.pdf" Component_="DDarcy.zip" FileName="EXAMP~10.PDF|Example_5__Aeration.pdf" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Example_5__Aeration.pdf" SelfReg="false" NextFile="Example_6__Build_up_and_Wash_off.pdf"/>
+    <ROW File="Example_6__Build_up_and_Wash_off.pdf" Component_="DDarcy.zip" FileName="EXAMP~11.PDF|Example_6__Build_up_and_Wash_off.pdf" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Example_6__Build_up_and_Wash_off.pdf" SelfReg="false" NextFile="Example_7__Inverse_modeling_on_nitrification.pdf"/>
+    <ROW File="Example_7__Inverse_modeling_on_nitrification.pdf" Component_="DDarcy.zip" FileName="EXAMP~12.PDF|Example_7__Inverse_modeling_on_nitrification.pdf" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Example_7__Inverse_modeling_on_nitrification.pdf" SelfReg="false" NextFile="Example_8__Rain_Garden.pdf"/>
+    <ROW File="Example_8__Rain_Garden.pdf" Component_="DDarcy.zip" FileName="EXAMP~13.PDF|Example_8__Rain_Garden.pdf" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Example_8__Rain_Garden.pdf" SelfReg="false" NextFile="Example_9__One_dimensional_Darcy_flow.pdf"/>
+    <ROW File="Example_9__One_dimensional_Darcy_flow.pdf" Component_="DDarcy.zip" FileName="EXAMP~14.PDF|Example_9__One_dimensional_Darcy_flow.pdf" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Example_9__One_dimensional_Darcy_flow.pdf" SelfReg="false" NextFile="Infiltration_Basin.GIFM"/>
+    <ROW File="Experimentcopy.png" Component_="png" FileName="EXPERI~3.PNG|Experiment-copy.png" Attributes="0" SourcePath="..\src\resources\Icons\Experiment-copy.png" SelfReg="false" NextFile="Full_screen_view.png"/>
+    <ROW File="Full_screen_view.png" Component_="png" FileName="FULL_S~1.PNG|Full_screen_view.png" Attributes="0" SourcePath="..\src\resources\Icons\Full_screen_view.png" SelfReg="false" NextFile="gear_run.png"/>
+    <ROW File="GIFMod.exe" Component_="GIFMod.exe" FileName="GIFMod.exe" Attributes="0" SourcePath="..\builds\release\GIFMod.exe" SelfReg="false" NextFile="commandlineicon1860716x16.ico" DigSign="true"/>
+    <ROW File="GIFMod.ico" Component_="png" FileName="GIFMod.ico" Attributes="0" SourcePath="..\builds\release\Icons\GIFMod.ico" SelfReg="false" NextFile="GIFMod.exe"/>
+    <ROW File="GIFMod.png" Component_="png" FileName="GIFMod.png" Attributes="0" SourcePath="..\src\resources\Icons\GIFMod.png" SelfReg="false" NextFile="GIFModonBlack.png"/>
+    <ROW File="GIFModGUIPropList.csv" Component_="GIFMod_Users_Manual.pdf" FileName="GIFMOD~1.CSV|GIFModGUIPropList.csv" Attributes="0" SourcePath="..\src\resources\GIFModGUIPropList.csv" SelfReg="false" NextFile="GIFMod_Users_Manual.pdf"/>
+    <ROW File="GIFMod_Users_Manual.pdf" Component_="GIFMod_Users_Manual.pdf_1" FileName="GIFMOD~1.PDF|GIFMod_User&apos;s_Manual.pdf" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\GIFMod_User&apos;s_Manual.pdf" SelfReg="false" NextFile="png"/>
+    <ROW File="GIFModonBlack.png" Component_="png" FileName="GIFMOD~1.PNG|GIFModonBlack.png" Attributes="0" SourcePath="..\src\resources\Icons\GIFModonBlack.png" SelfReg="false" NextFile="GIM.png"/>
+    <ROW File="GIM.png" Component_="png" FileName="GIM.png" Attributes="0" SourcePath="..\src\resources\Icons\GIM.png" SelfReg="false" NextFile="GWA.png"/>
+    <ROW File="GWA.png" Component_="png" FileName="GWA.png" Attributes="0" SourcePath="..\src\resources\Icons\GWA.png" SelfReg="false" NextFile="iconoutlinehandpalmcartoontoolpanfree.png"/>
+    <ROW File="Infiltration_Basin.GIFM" Component_="control_output_experiment1.txt_2" FileName="INFILT~1.GIF|Infiltration_Basin.GIFM" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Infiltration_Basin\Infiltration_Basin.GIFM" SelfReg="false" NextFile="Infiltration_Basin.temp"/>
+    <ROW File="Infiltration_Basin.temp" Component_="control_output_experiment1.txt_2" FileName="INFILT~1.TEM|Infiltration_Basin.temp" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Infiltration_Basin\Infiltration_Basin.temp" SelfReg="false" NextFile="Inflow_120110_111610_Combined.txt"/>
+    <ROW File="Inflow.txt_1" Component_="ponds.GIFM" FileName="Inflow.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\2-ponds-pcb\Inflow.txt" SelfReg="false" NextFile="temp.log_2"/>
+    <ROW File="Inflow.txt_3" Component_="control_output_experiment1.txt_3" FileName="Inflow.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\raingarden\Inflow.txt" SelfReg="false" NextFile="observed_output.txt_12"/>
+    <ROW File="Inflow_120110_111610_Combined.txt" Component_="control_output_experiment1.txt_2" FileName="INFLOW~1.TXT|Inflow_120110_111610_Combined.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Infiltration_Basin\Inflow_120110_111610_Combined.txt" SelfReg="false" NextFile="Runing_times.txt_9"/>
+    <ROW File="Inflow_Combined_Synthetic_Longer.txt" Component_="control_output_experiment1.txt_4" FileName="INFLOW~1.TXT|Inflow_Combined_Synthetic_Longer.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\WetPond\Inflow_Combined_Synthetic_Longer.txt" SelfReg="false" NextFile="Inflow_Combined_Synthetic_Longer_For_Plot.txt"/>
+    <ROW File="Inflow_Combined_Synthetic_Longer_For_Plot.txt" Component_="control_output_experiment1.txt_4" FileName="INFLOW~2.TXT|Inflow_Combined_Synthetic_Longer_For_Plot.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\WetPond\Inflow_Combined_Synthetic_Longer_For_Plot.txt" SelfReg="false" NextFile="observed_output.txt_13"/>
+    <ROW File="Inflow_Long.txt" Component_="dt.txt" FileName="INFLOW~1.TXT|Inflow_Long.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\Inflow_Long.txt" SelfReg="false" NextFile="Observed_H.txt"/>
+    <ROW File="Nitrification_Inverse_modeling.GIFM" Component_="BTC_obs_DO_both.txt" FileName="NITRIF~1.GIF|Nitrification_Inverse_modeling.GIFM" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Nitrification_inverse_modeling\Nitrification_Inverse_modeling.GIFM" SelfReg="false" NextFile="Nitrification_Inverse_modeling.temp"/>
+    <ROW File="Nitrification_Inverse_modeling.temp" Component_="BTC_obs_DO_both.txt" FileName="NITRIF~1.TEM|Nitrification_Inverse_modeling.temp" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Nitrification_inverse_modeling\Nitrification_Inverse_modeling.temp" SelfReg="false" NextFile="observed_output.txt_10"/>
+    <ROW File="Obs_both.txt" Component_="BTC_obs_DO_both.txt" FileName="Obs_both.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Nitrification_inverse_modeling\Obs_both.txt" SelfReg="false" NextFile="Obs_nh3.txt"/>
+    <ROW File="Obs_nh3.txt" Component_="BTC_obs_DO_both.txt" FileName="Obs_nh3.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Nitrification_inverse_modeling\Obs_nh3.txt" SelfReg="false" NextFile="Obs_no2.txt"/>
+    <ROW File="Obs_no2.txt" Component_="BTC_obs_DO_both.txt" FileName="Obs_no2.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Nitrification_inverse_modeling\Obs_no2.txt" SelfReg="false" NextFile="Obs_nospike.txt"/>
+    <ROW File="Obs_nospike.txt" Component_="BTC_obs_DO_both.txt" FileName="OBS_NO~1.TXT|Obs_nospike.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Nitrification_inverse_modeling\Obs_nospike.txt" SelfReg="false" NextFile="Runing_times.txt_10"/>
+    <ROW File="Observed_H.txt" Component_="dt.txt" FileName="OBSERV~1.TXT|Observed_H.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\Observed_H.txt" SelfReg="false" NextFile="observed_output.txt_11"/>
+    <ROW File="PP15_Long.temp" Component_="dt.txt" FileName="PP15_L~1.TEM|PP15_Long.temp" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\PP15_Long.temp" SelfReg="false" NextFile="PP15_Long_Final.temp"/>
+    <ROW File="PP15_Long_Final.WQV" Component_="dt.txt" FileName="PP15_L~1.WQV|PP15_Long_Final.WQV" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\PP15_Long_Final.WQV" SelfReg="false" NextFile="prtcl_output.txt"/>
+    <ROW File="PP15_Long_Final.temp" Component_="dt.txt" FileName="PP15_L~2.TEM|PP15_Long_Final.temp" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\PP15_Long_Final.temp" SelfReg="false" NextFile="PP15_Long_Final.WQV"/>
+    <ROW File="Particles_in_soil_column.GIFM" Component_="inflow.txt" FileName="PARTIC~1.GIF|Particles_in_soil_column.GIFM" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Particles_in_soil_Column\Particles_in_soil_column.GIFM" SelfReg="false" NextFile="dt.txt"/>
+    <ROW File="Paste.png" Component_="png" FileName="Paste.png" Attributes="0" SourcePath="..\src\resources\Icons\Paste.png" SelfReg="false" NextFile="plant.png"/>
+    <ROW File="Permeable_Pavement.GIFM" Component_="dt.txt" FileName="PERMEA~1.GIF|Permeable_Pavement.GIFM" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\Permeable_Pavement.GIFM" SelfReg="false" NextFile="Permeable_Pavement.temp"/>
+    <ROW File="Permeable_Pavement.temp" Component_="dt.txt" FileName="PERMEA~1.TEM|Permeable_Pavement.temp" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\Permeable_Pavement.temp" SelfReg="false" NextFile="Permeable_Pavement_Diagram.pptx"/>
+    <ROW File="Permeable_Pavement_Diagram.pptx" Component_="dt.txt" FileName="PERMEA~1.PPT|Permeable_Pavement_Diagram.pptx" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\Permeable_Pavement_Diagram.pptx" SelfReg="false" NextFile="PP15_Long.temp"/>
+    <ROW File="Pond.png" Component_="png" FileName="Pond.png" Attributes="0" SourcePath="..\src\resources\Icons\Pond.png" SelfReg="false" NextFile="Pondicon.png"/>
+    <ROW File="Pondicon.png" Component_="png" FileName="POND-I~1.PNG|Pond-icon.png" Attributes="0" SourcePath="..\src\resources\Icons\Pond-icon.png" SelfReg="false" NextFile="runScript.png"/>
+    <ROW File="Precipitation.txt" Component_="DDarcy.GIFM" FileName="PRECIP~1.TXT|Precipitation.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\1DDarcy\Precipitation.txt" SelfReg="false" NextFile="pumping.txt"/>
+    <ROW File="Precipitation.txt_2" Component_="control_output_experiment1.txt_1" FileName="PRECIP~1.TXT|Precipitation.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Evaporation\Precipitation.txt" SelfReg="false" NextFile="Radiation.txt"/>
+    <ROW File="Pumping1.txt" Component_="DUnconfined.GIFM" FileName="Pumping1.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\2DUnconfined\Pumping1.txt" SelfReg="false" NextFile="Pumping2.txt"/>
+    <ROW File="Pumping1000.txt" Component_="DConfinedtransport.GIFM" FileName="PUMPIN~3.TXT|Pumping1000.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\2DConfinedAquifer\Pumping1000.txt" SelfReg="false" NextFile="Pumping5002.txt"/>
+    <ROW File="Pumping10002.txt" Component_="DConfinedtransport.GIFM" FileName="PUMPIN~1.TXT|Pumping1000-2.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\2DConfinedAquifer\Pumping1000-2.txt" SelfReg="false" NextFile="Pumping1000l.txt"/>
+    <ROW File="Pumping1000l.txt" Component_="DConfinedtransport.GIFM" FileName="PUMPIN~2.TXT|Pumping1000-l.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\2DConfinedAquifer\Pumping1000-l.txt" SelfReg="false" NextFile="Pumping1000.txt"/>
+    <ROW File="Pumping2.txt" Component_="DUnconfined.GIFM" FileName="Pumping2.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\2DUnconfined\Pumping2.txt" SelfReg="false" NextFile="Aeration.GIFM"/>
+    <ROW File="Pumping500.txt" Component_="DConfinedtransport.GIFM" FileName="PUMPIN~6.TXT|Pumping500.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\2DConfinedAquifer\Pumping500.txt" SelfReg="false" NextFile="Runing_times.txt_3"/>
+    <ROW File="Pumping5002.txt" Component_="DConfinedtransport.GIFM" FileName="PUMPIN~4.TXT|Pumping500-2.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\2DConfinedAquifer\Pumping500-2.txt" SelfReg="false" NextFile="Pumping500l.txt"/>
+    <ROW File="Pumping500l.txt" Component_="DConfinedtransport.GIFM" FileName="PUMPIN~5.TXT|Pumping500-l.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\2DConfinedAquifer\Pumping500-l.txt" SelfReg="false" NextFile="Pumping500.txt"/>
+    <ROW File="Qt5Core.dll" Component_="Qt5Core.dll" FileName="Qt5Core.dll" Attributes="0" SourcePath="C:\Qt\Qt5.6.1\5.6\msvc2015_64\bin\Qt5Core.dll" SelfReg="false" NextFile="Qt5Widgets.dll"/>
+    <ROW File="Qt5Gui.dll" Component_="Qt5Gui.dll" FileName="Qt5Gui.dll" Attributes="0" SourcePath="C:\Qt\Qt5.6.1\5.6\msvc2015_64\bin\Qt5Gui.dll" SelfReg="false" NextFile="Qt5Core.dll"/>
+    <ROW File="Qt5Widgets.dll" Component_="Qt5Widgets.dll" FileName="QT5WID~1.DLL|Qt5Widgets.dll" Attributes="0" SourcePath="C:\Qt\Qt5.6.1\5.6\msvc2015_64\bin\Qt5Widgets.dll" SelfReg="false" NextFile="blas_win64_MT.dll"/>
+    <ROW File="Radiation.txt" Component_="control_output_experiment1.txt_1" FileName="RADIAT~1.TXT|Radiation.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Evaporation\Radiation.txt" SelfReg="false" NextFile="temp.log_8"/>
+    <ROW File="Runing_times.txt_1" Component_="DRichards.GIFM" FileName="RUNING~1.TXT|Runing_times.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\1DRechards\Runing_times.txt" SelfReg="false" NextFile="ponds.GIFM"/>
+    <ROW File="Runing_times.txt_10" Component_="BTC_obs_DO_both.txt" FileName="RUNING~1.TXT|Runing_times.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Nitrification_inverse_modeling\Runing_times.txt" SelfReg="false" NextFile="temp.log_10"/>
+    <ROW File="Runing_times.txt_11" Component_="dt.txt" FileName="RUNING~1.TXT|Runing_times.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\Runing_times.txt" SelfReg="false" NextFile="SimulatedvsObserved.pdf"/>
+    <ROW File="Runing_times.txt_12" Component_="control_output_experiment1.txt_3" FileName="RUNING~2.TXT|Runing_times.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\raingarden\Runing_times.txt" SelfReg="false" NextFile="Solution_detailsArashMassoudiehsconflictedcopy20170317.txt"/>
+    <ROW File="Runing_times.txt_13" Component_="control_output_experiment1.txt_4" FileName="RUNING~1.TXT|Runing_times.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\WetPond\Runing_times.txt" SelfReg="false" NextFile="Solution_details.txt_7"/>
+    <ROW File="Runing_times.txt_3" Component_="DConfinedtransport.GIFM" FileName="RUNING~1.TXT|Runing_times.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\2DConfinedAquifer\Runing_times.txt" SelfReg="false" NextFile="DUnconfined.GIFM"/>
+    <ROW File="Runing_times.txt_9" Component_="control_output_experiment1.txt_2" FileName="RUNING~1.TXT|Runing_times.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Infiltration_Basin\Runing_times.txt" SelfReg="false" NextFile="temp.log_9"/>
+    <ROW File="Runing_timesArashMassoudiehsconflictedcopy20170317.txt" Component_="control_output_experiment1.txt_3" FileName="RUNING~1.TXT|Runing_times (Arash Massoudieh&apos;s conflicted copy 2017-03-17).txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\raingarden\Runing_times (Arash Massoudieh&apos;s conflicted copy 2017-03-17).txt" SelfReg="false" NextFile="Runing_times.txt_12"/>
+    <ROW File="SXASM.GIFM" Component_="inflow.csv" FileName="S-X-AS~1.GIF|S-X-ASM.GIFM" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\ASM\S-X-ASM.GIFM" SelfReg="false" NextFile="waste.csv"/>
+    <ROW File="Save.png" Component_="png" FileName="Save.png" Attributes="0" SourcePath="..\src\resources\Icons\Save.png" SelfReg="false" NextFile="Storage.png"/>
+    <ROW File="Settling.GIFM" Component_="Settling.GIFM" FileName="SETTLI~1.GIF|Settling.GIFM" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Settling\Settling.GIFM" SelfReg="false" NextFile="control_output_experiment1.txt_11"/>
+    <ROW File="Simulated_vs_Observed.grf" Component_="dt.txt" FileName="SIMULA~1.GRF|Simulated_vs_Observed.grf" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\Simulated_vs_Observed.grf" SelfReg="false" NextFile="Simulated_vs_Observed_V9.grf"/>
+    <ROW File="Simulated_vs_Observed_V9.grf" Component_="dt.txt" FileName="SIMULA~2.GRF|Simulated_vs_Observed_V9.grf" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\Simulated_vs_Observed_V9.grf" SelfReg="false" NextFile="Solution_details.txt_5"/>
+    <ROW File="SimulatedvsObserved.pdf" Component_="dt.txt" FileName="SIMULA~1.PDF|SimulatedvsObserved.pdf" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\SimulatedvsObserved.pdf" SelfReg="false" NextFile="Simulated_vs_Observed.grf"/>
+    <ROW File="Solution_details.txt_5" Component_="dt.txt" FileName="SOLUTI~1.TXT|Solution_details.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\Solution_details.txt" SelfReg="false" NextFile="Table_for_Paper_Layers.docx"/>
+    <ROW File="Solution_details.txt_6" Component_="control_output_experiment1.txt_3" FileName="SOLUTI~2.TXT|Solution_details.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\raingarden\Solution_details.txt" SelfReg="false" NextFile="temp.log_12"/>
+    <ROW File="Solution_details.txt_7" Component_="control_output_experiment1.txt_4" FileName="SOLUTI~1.TXT|Solution_details.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\WetPond\Solution_details.txt" SelfReg="false" NextFile="temp.log_13"/>
+    <ROW File="Solution_detailsArashMassoudiehsconflictedcopy20170317.txt" Component_="control_output_experiment1.txt_3" FileName="SOLUTI~1.TXT|Solution_details (Arash Massoudieh&apos;s conflicted copy 2017-03-17).txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\raingarden\Solution_details (Arash Massoudieh&apos;s conflicted copy 2017-03-17).txt" SelfReg="false" NextFile="Solution_details.txt_6"/>
+    <ROW File="Storage.png" Component_="png" FileName="Storage.png" Attributes="0" SourcePath="..\src\resources\Icons\Storage.png" SelfReg="false" NextFile="Stream.png"/>
+    <ROW File="Stream.png" Component_="png" FileName="Stream.png" Attributes="0" SourcePath="..\src\resources\Icons\Stream.png" SelfReg="false" NextFile="tracer.png"/>
+    <ROW File="Table_for_Paper_Layers.docx" Component_="dt.txt" FileName="TABLE_~1.DOC|Table_for_Paper_Layers.docx" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\Table_for_Paper_Layers.docx" SelfReg="false" NextFile="temp.log_11"/>
+    <ROW File="Temprature.txt" Component_="control_output_experiment1.txt_1" FileName="TEMPRA~1.TXT|Temprature.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Evaporation\Temprature.txt" SelfReg="false" NextFile="Wind.txt"/>
+    <ROW File="WQV.png" Component_="png" FileName="WQV.png" Attributes="0" SourcePath="..\src\resources\Icons\WQV.png" SelfReg="false" NextFile="zoom_in.png"/>
+    <ROW File="Wetpond.GIFM" Component_="control_output_experiment1.txt_4" FileName="WETPON~1.GIF|Wetpond.GIFM" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\WetPond\Wetpond.GIFM" SelfReg="false" NextFile="Wetpond.temp"/>
+    <ROW File="Wetpond.temp" Component_="control_output_experiment1.txt_4" FileName="WETPON~1.TEM|Wetpond.temp" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\WetPond\Wetpond.temp" SelfReg="false" NextFile="wq_output_experiment1.txt_13"/>
+    <ROW File="Wind.txt" Component_="control_output_experiment1.txt_1" FileName="Wind.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Evaporation\Wind.txt" SelfReg="false" NextFile="Example_10__Two_Dimensional_flow_in_confined_aquifer.pdf"/>
+    <ROW File="_Redo.png" Component_="png" FileName="143925~2.PNG|1439255778_Redo.png" Attributes="0" SourcePath="..\src\resources\Icons\1439255778_Redo.png" SelfReg="false" NextFile="kivio_connector.svg.hi.png"/>
+    <ROW File="_newfile.png" Component_="png" FileName="143925~1.PNG|1439255260_new-file.png" Attributes="0" SourcePath="..\src\resources\Icons\1439255260_new-file.png" SelfReg="false" NextFile="_Redo.png"/>
+    <ROW File="arrow.png" Component_="png" FileName="arrow.png" Attributes="0" SourcePath="..\src\resources\Icons\arrow.png" SelfReg="false" NextFile="atom.png"/>
+    <ROW File="atom.png" Component_="png" FileName="atom.png" Attributes="0" SourcePath="..\src\resources\Icons\atom.png" SelfReg="false" NextFile="backwardsrunning.png"/>
+    <ROW File="backwardsrunning.png" Component_="png" FileName="BACKWA~1.PNG|backwards-running.png" Attributes="0" SourcePath="..\src\resources\Icons\backwards-running.png" SelfReg="false" NextFile="catchment.png"/>
+    <ROW File="blas_win64_MT.dll" Component_="blas_win64_MT.dll" FileName="BLAS_W~1.DLL|blas_win64_MT.dll" Attributes="0" SourcePath="..\lapack-blas_lib_win64\blas_win64_MT.dll" SelfReg="false" NextFile="help.txt"/>
+    <ROW File="catchment.png" Component_="png" FileName="CATCHM~1.PNG|catchment.png" Attributes="0" SourcePath="..\src\resources\Icons\catchment.png" SelfReg="false" NextFile="copy.png"/>
+    <ROW File="commandlineicon1860716x16.ico" Component_="png" FileName="COMMAN~1.ICO|command-line-icon-18607-16x16.ico" Attributes="0" SourcePath="..\src\resources\Icons\command-line-icon-18607-16x16.ico" SelfReg="false"/>
+    <ROW File="control_output_experiment1.txt_10" Component_="control_output_experiment1.txt_3" FileName="CONTRO~1.TXT|control_output_experiment1.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\raingarden\control_output_experiment1.txt" SelfReg="false" NextFile="Evaporation.txt"/>
+    <ROW File="control_output_experiment1.txt_11" Component_="control_output_experiment1.txt_4" FileName="CONTRO~1.TXT|control_output_experiment1.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\WetPond\control_output_experiment1.txt" SelfReg="false" NextFile="hydro_output_experiment1.txt_12"/>
+    <ROW File="copy.png" Component_="png" FileName="copy.png" Attributes="0" SourcePath="..\src\resources\Icons\copy.png" SelfReg="false" NextFile="copydisk.png"/>
+    <ROW File="copydisk.png" Component_="png" FileName="COPY-D~1.PNG|copy-disk.png" Attributes="0" SourcePath="..\src\resources\Icons\copy-disk.png" SelfReg="false" NextFile="cuticon.png"/>
+    <ROW File="cuticon.png" Component_="png" FileName="cut-icon.png" Attributes="0" SourcePath="..\src\resources\Icons\cut-icon.png" SelfReg="false" NextFile="Darcy.png"/>
+    <ROW File="deletebig.png" Component_="png" FileName="DELETE~1.PNG|delete-big.png" Attributes="0" SourcePath="..\src\resources\Icons\delete-big.png" SelfReg="false" NextFile="DocumentBlankicon.png"/>
+    <ROW File="detail_GA.txt" Component_="BOD_Aeration_inverse_modeling.GIFM" FileName="DETAIL~1.TXT|detail_GA.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\BOD_Aeration_inverse_modeling\detail_GA.txt" SelfReg="false" NextFile="DO_observed.txt"/>
+    <ROW File="double_exp_settling.GIFM" Component_="control_output_experiment1.txt" FileName="DOUBLE~1.GIF|double_exp_settling.GIFM" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Double_exp_settling\double_exp_settling.GIFM" SelfReg="false" NextFile="double_exp_settling.temp"/>
+    <ROW File="double_exp_settling.temp" Component_="control_output_experiment1.txt" FileName="DOUBLE~1.TEM|double_exp_settling.temp" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Double_exp_settling\double_exp_settling.temp" SelfReg="false" NextFile="double_exp_settling_10blks.GIFM"/>
+    <ROW File="double_exp_settling_10blks.GIFM" Component_="control_output_experiment1.txt" FileName="DOUBLE~2.GIF|double_exp_settling_10blks.GIFM" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Double_exp_settling\double_exp_settling_10blks.GIFM" SelfReg="false" NextFile="double_exp_settling_10blks.temp"/>
+    <ROW File="double_exp_settling_10blks.temp" Component_="control_output_experiment1.txt" FileName="DOUBLE~2.TEM|double_exp_settling_10blks.temp" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Double_exp_settling\double_exp_settling_10blks.temp" SelfReg="false" NextFile="double_exp_settling_10blks_cnstts.GIFM"/>
+    <ROW File="double_exp_settling_10blks_cnstts.GIFM" Component_="control_output_experiment1.txt" FileName="DOUBLE~3.GIF|double_exp_settling_10blks_cnstts.GIFM" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Double_exp_settling\double_exp_settling_10blks_cnstts.GIFM" SelfReg="false" NextFile="double_exp_settling_10blks_cnstts.temp"/>
+    <ROW File="double_exp_settling_10blks_cnstts.temp" Component_="control_output_experiment1.txt" FileName="DOUBLE~3.TEM|double_exp_settling_10blks_cnstts.temp" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Double_exp_settling\double_exp_settling_10blks_cnstts.temp" SelfReg="false" NextFile="hydro_output_experiment1.txt_5"/>
+    <ROW File="drawconnector.png" Component_="png" FileName="DRAW-C~1.PNG|draw-connector.png" Attributes="0" SourcePath="..\src\resources\Icons\draw-connector.png" SelfReg="false" NextFile="editpropertyxxl.png"/>
+    <ROW File="dt.txt" Component_="dt.txt" FileName="dt.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\dt.txt" SelfReg="false" NextFile="hydro_output.txt"/>
+    <ROW File="editpropertyxxl.png" Component_="png" FileName="EDIT-P~1.PNG|edit-property-xxl.png" Attributes="0" SourcePath="..\src\resources\Icons\edit-property-xxl.png" SelfReg="false" NextFile="experiment1.png"/>
+    <ROW File="experiment1.png" Component_="png" FileName="EXPERI~1.PNG|experiment1.png" Attributes="0" SourcePath="..\src\resources\Icons\experiment1.png" SelfReg="false" NextFile="experiment2.png"/>
+    <ROW File="experiment2.png" Component_="png" FileName="EXPERI~2.PNG|experiment2.png" Attributes="0" SourcePath="..\src\resources\Icons\experiment2.png" SelfReg="false" NextFile="Experimentcopy.png"/>
+    <ROW File="gear_run.png" Component_="png" FileName="gear_run.png" Attributes="0" SourcePath="..\src\resources\Icons\gear_run.png" SelfReg="false" NextFile="generatescript.png"/>
+    <ROW File="generatescript.png" Component_="png" FileName="GENERA~1.PNG|generate script.png" Attributes="0" SourcePath="..\src\resources\Icons\generate script.png" SelfReg="false" NextFile="GIFMod.png"/>
+    <ROW File="help.txt" Component_="GIFMod_Users_Manual.pdf" FileName="help.txt" Attributes="0" SourcePath="..\src\resources\help.txt" SelfReg="false" NextFile="GIFModGUIPropList.csv"/>
+    <ROW File="humidity.txt" Component_="control_output_experiment1.txt_1" FileName="humidity.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Evaporation\humidity.txt" SelfReg="false" NextFile="k_c.csv"/>
+    <ROW File="hydro_output.txt" Component_="dt.txt" FileName="HYDRO_~1.TXT|hydro_output.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\hydro_output.txt" SelfReg="false" NextFile="hydro_output_experiment1.txt_10"/>
+    <ROW File="hydro_output_experiment1.txt_10" Component_="dt.txt" FileName="HYDRO_~2.TXT|hydro_output_experiment1.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\hydro_output_experiment1.txt" SelfReg="false" NextFile="Inflow_Long.txt"/>
+    <ROW File="hydro_output_experiment1.txt_11" Component_="control_output_experiment1.txt_3" FileName="HYDRO_~1.TXT|hydro_output_experiment1.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\raingarden\hydro_output_experiment1.txt" SelfReg="false" NextFile="Inflow.txt_3"/>
+    <ROW File="hydro_output_experiment1.txt_12" Component_="control_output_experiment1.txt_4" FileName="HYDRO_~1.TXT|hydro_output_experiment1.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\WetPond\hydro_output_experiment1.txt" SelfReg="false" NextFile="Inflow_Combined_Synthetic_Longer.txt"/>
+    <ROW File="hydro_output_experiment1.txt_5" Component_="control_output_experiment1.txt" FileName="HYDRO_~1.TXT|hydro_output_experiment1.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Double_exp_settling\hydro_output_experiment1.txt" SelfReg="false" NextFile="temp.log_6"/>
+    <ROW File="iconoutlinehandpalmcartoontoolpanfree.png" Component_="png" FileName="ICON-O~1.PNG|icon-outline-hand-palm-cartoon-tool-pan-free.png" Attributes="0" SourcePath="..\src\resources\Icons\icon-outline-hand-palm-cartoon-tool-pan-free.png" SelfReg="false" NextFile="isometric_sand_block_icon__hd__by_memoryleakxxxd8e3mwa.png"/>
+    <ROW File="inflow.csv" Component_="inflow.csv" FileName="inflow.csv" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\ASM\inflow.csv" SelfReg="false" NextFile="return.csv"/>
+    <ROW File="inflow.csv_1" Component_="control_output_experiment1ArashMassoudie" FileName="inflow.csv" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\DO_control\inflow.csv" SelfReg="false" NextFile="temp.log_7"/>
+    <ROW File="inflow.txt" Component_="DRichards.GIFM" FileName="inflow.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\1DRechards\inflow.txt" SelfReg="false" NextFile="Runing_times.txt_1"/>
+    <ROW File="inflow.txt_2" Component_="inflow.txt" FileName="inflow.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Particles_in_soil_Column\inflow.txt" SelfReg="false" NextFile="outflow.txt"/>
+    <ROW File="inflowtimeseries.xlsx" Component_="BOD_Aeration_inverse_modeling.GIFM" FileName="INFLOW~1.XLS|inflow time-series.xlsx" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\BOD_Aeration_inverse_modeling\inflow time-series.xlsx" SelfReg="false" NextFile="temp.log_5"/>
+    <ROW File="isometric_sand_block_icon__hd__by_memoryleakxxxd8e3mwa.png" Component_="png" FileName="ISOMET~1.PNG|isometric_sand_block_icon__hd__by_memoryleakxxx-d8e3mwa.png" Attributes="0" SourcePath="..\src\resources\Icons\isometric_sand_block_icon__hd__by_memoryleakxxx-d8e3mwa.png" SelfReg="false" NextFile="log_icon.png"/>
+    <ROW File="k_c.csv" Component_="control_output_experiment1.txt_1" FileName="k_c.csv" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Evaporation\k_c.csv" SelfReg="false" NextFile="Precipitation.txt_2"/>
+    <ROW File="kivio_connector.svg.hi.png" Component_="png" FileName="119499~1.PNG|1194994606310980771kivio_connector.svg.hi.png" Attributes="0" SourcePath="..\src\resources\Icons\1194994606310980771kivio_connector.svg.hi.png" SelfReg="false" NextFile="arrow.png"/>
+    <ROW File="lapack_win64_MT.dll" Component_="lapack_win64_MT.dll" FileName="LAPACK~1.DLL|lapack_win64_MT.dll" Attributes="0" SourcePath="..\lapack-blas_lib_win64\lapack_win64_MT.dll" SelfReg="false" NextFile="Qt5Gui.dll"/>
+    <ROW File="log_icon.png" Component_="png" FileName="log_icon.png" Attributes="0" SourcePath="..\src\resources\Icons\log_icon.png" SelfReg="false" NextFile="open.png"/>
+    <ROW File="observed_output.txt_10" Component_="BTC_obs_DO_both.txt" FileName="OBSERV~1.TXT|observed_output.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Nitrification_inverse_modeling\observed_output.txt" SelfReg="false" NextFile="Obs_both.txt"/>
+    <ROW File="observed_output.txt_11" Component_="dt.txt" FileName="OBSERV~2.TXT|observed_output.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\observed_output.txt" SelfReg="false" NextFile="output_MB.txt"/>
+    <ROW File="observed_output.txt_12" Component_="control_output_experiment1.txt_3" FileName="OBSERV~1.TXT|observed_output.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\raingarden\observed_output.txt" SelfReg="false" NextFile="output_MBexperiment1.txt_12"/>
+    <ROW File="observed_output.txt_13" Component_="control_output_experiment1.txt_4" FileName="OBSERV~1.TXT|observed_output.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\WetPond\observed_output.txt" SelfReg="false" NextFile="output_MBexperiment1.txt_13"/>
+    <ROW File="open.png" Component_="png" FileName="open.png" Attributes="0" SourcePath="..\src\resources\Icons\open.png" SelfReg="false" NextFile="oscilloscope.png"/>
+    <ROW File="oscilloscope.png" Component_="png" FileName="OSCILL~1.PNG|oscilloscope.png" Attributes="0" SourcePath="..\src\resources\Icons\oscilloscope.png" SelfReg="false" NextFile="pan2.png"/>
+    <ROW File="outflow.txt" Component_="inflow.txt" FileName="outflow.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Particles_in_soil_Column\outflow.txt" SelfReg="false" NextFile="Particles_in_soil_column.GIFM"/>
+    <ROW File="output_MB.txt" Component_="dt.txt" FileName="OUTPUT~1.TXT|output_MB.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\output_MB.txt" SelfReg="false" NextFile="output_MBexperiment1.txt_11"/>
+    <ROW File="output_MBexperiment1.txt_11" Component_="dt.txt" FileName="OUTPUT~2.TXT|output_MBexperiment1.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\output_MBexperiment1.txt" SelfReg="false" NextFile="Permeable_Pavement.GIFM"/>
+    <ROW File="output_MBexperiment1.txt_12" Component_="control_output_experiment1.txt_3" FileName="OUTPUT~1.TXT|output_MBexperiment1.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\raingarden\output_MBexperiment1.txt" SelfReg="false" NextFile="prtcl_output_experiment1.txt_12"/>
+    <ROW File="output_MBexperiment1.txt_13" Component_="control_output_experiment1.txt_4" FileName="OUTPUT~1.TXT|output_MBexperiment1.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\WetPond\output_MBexperiment1.txt" SelfReg="false" NextFile="prtcl_output_experiment1.txt_13"/>
+    <ROW File="pan2.png" Component_="png" FileName="pan2.png" Attributes="0" SourcePath="..\src\resources\Icons\pan2.png" SelfReg="false" NextFile="Paste.png"/>
+    <ROW File="plant.png" Component_="png" FileName="plant.png" Attributes="0" SourcePath="..\src\resources\Icons\plant.png" SelfReg="false" NextFile="png_pond_by_paradise234d5g6gky.png"/>
+    <ROW File="png" Component_="png" FileName="37.png" Attributes="0" SourcePath="..\src\resources\Icons\37.png" SelfReg="false" NextFile="_newfile.png"/>
+    <ROW File="png_pond_by_paradise234d5g6gky.png" Component_="png" FileName="PNG_PO~1.PNG|png_pond_by_paradise234-d5g6gky.png" Attributes="0" SourcePath="..\src\resources\Icons\png_pond_by_paradise234-d5g6gky.png" SelfReg="false" NextFile="Pond.png"/>
+    <ROW File="ponds.GIFM" Component_="ponds.GIFM" FileName="2PONDS~1.GIF|2ponds.GIFM" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\2-ponds-pcb\2ponds.GIFM" SelfReg="false" NextFile="ponds.temp"/>
+    <ROW File="ponds.temp" Component_="ponds.GIFM" FileName="2PONDS~1.TEM|2ponds.temp" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\2-ponds-pcb\2ponds.temp" SelfReg="false" NextFile="Inflow.txt_1"/>
+    <ROW File="precipitation.txt_1" Component_="Buildup.GIFM" FileName="PRECIP~1.TXT|precipitation.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Build-up\precipitation.txt" SelfReg="false" NextFile="double_exp_settling.GIFM"/>
+    <ROW File="prtcl_output.txt" Component_="dt.txt" FileName="PRTCL_~1.TXT|prtcl_output.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\prtcl_output.txt" SelfReg="false" NextFile="prtcl_output_experiment1.txt_11"/>
+    <ROW File="prtcl_output_experiment1.txt_11" Component_="dt.txt" FileName="PRTCL_~2.TXT|prtcl_output_experiment1.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\prtcl_output_experiment1.txt" SelfReg="false" NextFile="realtime_dt.txt"/>
+    <ROW File="prtcl_output_experiment1.txt_12" Component_="control_output_experiment1.txt_3" FileName="PRTCL_~1.TXT|prtcl_output_experiment1.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\raingarden\prtcl_output_experiment1.txt" SelfReg="false" NextFile="raingarden.GIFM"/>
+    <ROW File="prtcl_output_experiment1.txt_13" Component_="control_output_experiment1.txt_4" FileName="PRTCL_~1.TXT|prtcl_output_experiment1.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\WetPond\prtcl_output_experiment1.txt" SelfReg="false" NextFile="Runing_times.txt_13"/>
+    <ROW File="pumping.txt" Component_="DDarcy.GIFM" FileName="pumping.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\1DDarcy\pumping.txt" SelfReg="false" NextFile="DRichards.GIFM"/>
+    <ROW File="qwindows.dll" Component_="qwindows.dll" FileName="qwindows.dll" Attributes="0" SourcePath="C:\Qt\Qt5.6.1\5.6\msvc2015_64\plugins\platforms\qwindows.dll" SelfReg="false" NextFile="lapack_win64_MT.dll"/>
+    <ROW File="raingarden.GIFM" Component_="control_output_experiment1.txt_3" FileName="RAINGA~1.GIF|raingarden.GIFM" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\raingarden\raingarden.GIFM" SelfReg="false" NextFile="raingarden.temp"/>
+    <ROW File="raingarden.temp" Component_="control_output_experiment1.txt_3" FileName="RAINGA~1.TEM|raingarden.temp" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\raingarden\raingarden.temp" SelfReg="false" NextFile="Runing_timesArashMassoudiehsconflictedcopy20170317.txt"/>
+    <ROW File="realtime_dt.txt" Component_="dt.txt" FileName="REALTI~1.TXT|realtime_dt.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\realtime_dt.txt" SelfReg="false" NextFile="Runing_times.txt_11"/>
+    <ROW File="return.csv" Component_="inflow.csv" FileName="return.csv" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\ASM\return.csv" SelfReg="false" NextFile="SXASM.GIFM"/>
+    <ROW File="runScript.png" Component_="png" FileName="RUNSCR~1.PNG|runScript.png" Attributes="0" SourcePath="..\src\resources\Icons\runScript.png" SelfReg="false" NextFile="runtime.png"/>
+    <ROW File="runtime.png" Component_="png" FileName="runtime.png" Attributes="0" SourcePath="..\src\resources\Icons\runtime.png" SelfReg="false" NextFile="Save.png"/>
+    <ROW File="temp.log_10" Component_="BTC_obs_DO_both.txt" FileName="temp.log" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Nitrification_inverse_modeling\temp.log" SelfReg="false" NextFile="inflow.txt_2"/>
+    <ROW File="temp.log_11" Component_="dt.txt" FileName="temp.log" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\temp.log" SelfReg="false" NextFile="wq_output.txt"/>
+    <ROW File="temp.log_12" Component_="control_output_experiment1.txt_3" FileName="temp.log" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\raingarden\temp.log" SelfReg="false" NextFile="wq_output_experiment1.txt_12"/>
+    <ROW File="temp.log_13" Component_="control_output_experiment1.txt_4" FileName="temp.log" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\WetPond\temp.log" SelfReg="false" NextFile="Wetpond.GIFM"/>
+    <ROW File="temp.log_2" Component_="ponds.GIFM" FileName="temp.log" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\2-ponds-pcb\temp.log" SelfReg="false" NextFile="DConfinedtransport.GIFM"/>
+    <ROW File="temp.log_5" Component_="BOD_Aeration_inverse_modeling.GIFM" FileName="temp.log" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\BOD_Aeration_inverse_modeling\temp.log" SelfReg="false" NextFile="Buildup.GIFM"/>
+    <ROW File="temp.log_6" Component_="control_output_experiment1.txt" FileName="temp.log" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Double_exp_settling\temp.log" SelfReg="false" NextFile="DO_controlArashMassoudiehsconflictedcopy20161105.temp"/>
+    <ROW File="temp.log_7" Component_="control_output_experiment1ArashMassoudie" FileName="temp.log" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\DO_control\temp.log" SelfReg="false" NextFile="Evaporation.GIFM"/>
+    <ROW File="temp.log_8" Component_="control_output_experiment1.txt_1" FileName="temp.log" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Evaporation\temp.log" SelfReg="false" NextFile="Temprature.txt"/>
+    <ROW File="temp.log_9" Component_="control_output_experiment1.txt_2" FileName="temp.log" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Infiltration_Basin\temp.log" SelfReg="false" NextFile="Nitrification_Inverse_modeling.GIFM"/>
+    <ROW File="tracer.png" Component_="png" FileName="tracer.png" Attributes="0" SourcePath="..\src\resources\Icons\tracer.png" SelfReg="false" NextFile="undo.png"/>
+    <ROW File="undo.png" Component_="png" FileName="undo.png" Attributes="0" SourcePath="..\src\resources\Icons\undo.png" SelfReg="false" NextFile="well.png"/>
+    <ROW File="waste.csv" Component_="inflow.csv" FileName="waste.csv" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\ASM\waste.csv" SelfReg="false" NextFile="BOD_Aeration_inverse_modeling.GIFM"/>
+    <ROW File="well.png" Component_="png" FileName="well.png" Attributes="0" SourcePath="..\src\resources\Icons\well.png" SelfReg="false" NextFile="wizardblue.png"/>
+    <ROW File="wizardblue.png" Component_="png" FileName="WIZARD~1.PNG|wizard blue.png" Attributes="0" SourcePath="..\src\resources\Icons\wizard blue.png" SelfReg="false" NextFile="wizardgreen.png"/>
+    <ROW File="wizardgreen.png" Component_="png" FileName="WIZARD~2.PNG|wizard green.png" Attributes="0" SourcePath="..\src\resources\Icons\wizard green.png" SelfReg="false" NextFile="wizardorange.png"/>
+    <ROW File="wizardorange.png" Component_="png" FileName="WIZARD~3.PNG|wizard orange.png" Attributes="0" SourcePath="..\src\resources\Icons\wizard orange.png" SelfReg="false" NextFile="WQV.png"/>
+    <ROW File="wq_output.txt" Component_="dt.txt" FileName="WQ_OUT~1.TXT|wq_output.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\wq_output.txt" SelfReg="false" NextFile="wq_output_experiment1.txt_11"/>
+    <ROW File="wq_output_experiment1.txt_11" Component_="dt.txt" FileName="WQ_OUT~2.TXT|wq_output_experiment1.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\Permeable Pavement\wq_output_experiment1.txt" SelfReg="false" NextFile="control_output_experiment1.txt_10"/>
+    <ROW File="wq_output_experiment1.txt_12" Component_="control_output_experiment1.txt_3" FileName="WQ_OUT~1.TXT|wq_output_experiment1.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\raingarden\wq_output_experiment1.txt" SelfReg="false" NextFile="Settling.GIFM"/>
+    <ROW File="wq_output_experiment1.txt_13" Component_="control_output_experiment1.txt_4" FileName="WQ_OUT~1.TXT|wq_output_experiment1.txt" Attributes="0" SourcePath="..\..\Dropbox\GUI\GIFMOD User&apos;s manual\Examples\WetPond\wq_output_experiment1.txt" SelfReg="false" NextFile="GIFMod.ico"/>
+    <ROW File="zoom_in.png" Component_="png" FileName="zoom_in.png" Attributes="0" SourcePath="..\src\resources\Icons\zoom_in.png" SelfReg="false" NextFile="zoom_out.png"/>
+    <ROW File="zoom_out.png" Component_="png" FileName="zoom_out.png" Attributes="0" SourcePath="..\src\resources\Icons\zoom_out.png" SelfReg="false" NextFile="DDarcy.GIFM"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
+    <ROW BuildKey="x64_Release" BuildName="x64_Release" BuildOrder="1" BuildType="0" PackageFolder="..\Setup" Languages="en" InstallationType="4" UseLargeSchema="true"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
+    <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
+    <ROW Path="&lt;AI_DICTS&gt;ui_en.ail"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
+    <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
+    <ROW Fragment="FolderDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\FolderDlg.aip"/>
+    <ROW Fragment="MaintenanceTypeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceTypeDlg.aip"/>
+    <ROW Fragment="MaintenanceWelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceWelcomeDlg.aip"/>
+    <ROW Fragment="SequenceDialogs.aip" Path="&lt;AI_THEMES&gt;classic\fragments\SequenceDialogs.aip"/>
+    <ROW Fragment="Sequences.aip" Path="&lt;AI_FRAGS&gt;Sequences.aip"/>
+    <ROW Fragment="StaticUIStrings.aip" Path="&lt;AI_FRAGS&gt;StaticUIStrings.aip"/>
+    <ROW Fragment="UI.aip" Path="&lt;AI_THEMES&gt;classic\fragments\UI.aip"/>
+    <ROW Fragment="Validation.aip" Path="&lt;AI_FRAGS&gt;Validation.aip"/>
+    <ROW Fragment="VerifyRemoveDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRemoveDlg.aip"/>
+    <ROW Fragment="VerifyRepairDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRepairDlg.aip"/>
+    <ROW Fragment="WelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\WelcomeDlg.aip"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
+    <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiControlEventComponent">
+    <ROW Dialog_="WelcomeDlg" Control_="Next" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="FolderDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="FolderDlg" Control_="Back" Event="NewDialog" Argument="WelcomeDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="MaintenanceWelcomeDlg" Control_="Next" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="99"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_MAINT" Ordering="198"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="202"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_INSTALL" Ordering="197"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_MAINT" Ordering="101"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="ChangeButton" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="501"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceWelcomeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="RemoveButton" Event="NewDialog" Argument="VerifyRemoveDlg" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="601"/>
+    <ROW Dialog_="VerifyRemoveDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="RepairButton" Event="NewDialog" Argument="VerifyRepairDlg" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="601"/>
+    <ROW Dialog_="VerifyRepairDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="1"/>
+    <ROW Dialog_="VerifyRepairDlg" Control_="Repair" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="399" Options="1"/>
+    <ROW Dialog_="VerifyRemoveDlg" Control_="Remove" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="299" Options="1"/>
+    <ROW Dialog_="PatchWelcomeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_PATCH" Ordering="201"/>
+    <ROW Dialog_="ResumeDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_RESUME" Ordering="299"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_PATCH" Ordering="199"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="PatchWelcomeDlg" Condition="AI_PATCH" Ordering="203"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCreateFolderComponent">
+    <ROW Directory_="SHORTCUTDIR" Component_="SHORTCUTDIR" ManualDelete="false"/>
+    <ROW Directory_="GIFMod_Dir" Component_="GIFMod" ManualDelete="false"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
+    <ROW Action="AI_DOWNGRADE" Type="19" Target="4010"/>
+    <ROW Action="AI_DpiContentScale" Type="1" Source="aicustact.dll" Target="DpiContentScale"/>
+    <ROW Action="AI_EnableDebugLog" Type="321" Source="aicustact.dll" Target="EnableDebugLog"/>
+    <ROW Action="AI_InstallModeCheck" Type="1" Source="aicustact.dll" Target="UpdateInstallMode" WithoutSeq="true"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
+    <ROW Action="AI_RESTORE_LOCATION" Type="65" Source="aicustact.dll" Target="RestoreLocation"/>
+    <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
+    <ROW Action="AI_SHOW_LOG" Type="65" Source="aicustact.dll" Target="LaunchLogFile" WithoutSeq="true"/>
+    <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
+    <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]"/>
+    <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
+    <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
+    <ROW Name="GIFMod_1.exe" SourcePath="..\builds\release\Icons\GIFMod.ico" Index="0"/>
+    <ROW Name="SystemFoldermsiexec.exe" SourcePath="&lt;AI_RES&gt;uninstall.ico" Index="0"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
+    <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
+    <ROW Action="AI_STORE_LOCATION" Condition="(Not Installed) OR REINSTALL" Sequence="1501"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1399"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="52"/>
+    <ROW Action="AI_EnableDebugLog" Sequence="51"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="53"/>
+    <ROW Action="AI_DpiContentScale" Sequence="52"/>
+    <ROW Action="AI_EnableDebugLog" Sequence="51"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiLaunchConditionsComponent">
+    <ROW Condition="(VersionNT &lt;&gt; 400)" Description="[ProductName] cannot be installed on [WindowsTypeNT40Display]." DescriptionLocId="AI.LaunchCondition.NoNT40" IsPredefined="true" Builds="x64_Release"/>
+    <ROW Condition="(VersionNT &lt;&gt; 500)" Description="[ProductName] cannot be installed on [WindowsTypeNT50Display]." DescriptionLocId="AI.LaunchCondition.NoNT50" IsPredefined="true" Builds="x64_Release"/>
+    <ROW Condition="(VersionNT64 OR ((VersionNT &lt;&gt; 501) OR (ServicePackLevel = 3))) AND ((VersionNT &lt;&gt; 502) OR (ServicePackLevel = 2))" Description="[ProductName] cannot be installed on [WindowsTypeNT5XDisplay]." DescriptionLocId="AI.LaunchCondition.NoNT5X" IsPredefined="true" Builds="x64_Release"/>
+    <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]." DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="x64_Release"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiRegsComponent">
+    <ROW Registry="Path" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Path" Value="[APPDIR]" Component_="ProductInformation"/>
+    <ROW Registry="Version" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Version" Value="[ProductVersion]" Component_="ProductInformation"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
+    <ROW Shortcut="Examples" Directory_="SHORTCUTDIR" Name="Examples" Component_="Aeration.GIFM" Target="[Examples_Dir]" Hotkey="0" IconIndex="0" ShowCmd="1"/>
+    <ROW Shortcut="GIFMOD" Directory_="SHORTCUTDIR" Name="GIFMOD" Component_="GIFMod.exe" Target="[#GIFMod.exe]" Hotkey="0" Icon_="GIFMod_1.exe" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="GIFMOD_1" Directory_="DesktopFolder" Name="GIFMOD" Component_="GIFMod.exe" Target="[#GIFMod.exe]" Hotkey="0" Icon_="GIFMod_1.exe" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="GIFMOD_2" Directory_="GIFMod_Dir" Name="GIFMOD" Component_="GIFMod.exe" Target="[#GIFMod.exe]" Hotkey="0" Icon_="GIFMod_1.exe" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="GIFModProjects" Directory_="GIFMod_Dir" Name="GIFMOD~1|GIFMod Projects" Component_="Aeration.GIFM" Target="[GIFModProjects_Dir]" Hotkey="0" IconIndex="0" ShowCmd="1"/>
+    <ROW Shortcut="Uninstall" Directory_="GIFMod_Dir" Name="UNINST~1|Uninstall" Component_="Aeration.GIFM" Target="[SystemFolder]msiexec.exe" Arguments="/x [ProductCode]" Hotkey="0" Icon_="SystemFoldermsiexec.exe" IconIndex="0" ShowCmd="1"/>
+    <ROW Shortcut="UsersManual" Directory_="GIFMod_Dir" Name="USER&apos;S~1|User&apos;s Manual" Component_="GIFMod_Users_Manual.pdf_1" Target="[#GIFMod_Users_Manual.pdf]" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
+    <ATTRIBUTE name="UsedTheme" value="classic"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiUpgradeComponent">
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="0.0.1" VersionMax="[|ProductVersion]" Attributes="257" ActionProperty="OLDPRODUCTS"/>
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="[|ProductVersion]" Attributes="2" ActionProperty="AI_NEWERPRODUCTFOUND"/>
+  </COMPONENT>
+</DOCUMENT>

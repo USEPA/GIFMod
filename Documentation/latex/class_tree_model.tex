@@ -1,0 +1,114 @@
+\hypertarget{class_tree_model}{}\section{Tree\+Model Class Reference}
+\label{class_tree_model}\index{Tree\+Model@{Tree\+Model}}
+Inheritance diagram for Tree\+Model\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_tree_model}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tree_model_ad2b13d9e94d54ba903e7f31746f2faf1}\label{class_tree_model_ad2b13d9e94d54ba903e7f31746f2faf1}} 
+{\bfseries Tree\+Model} (\hyperlink{class_graph_widget}{Graph\+Widget} $\ast$parent)
+\item 
+\mbox{\Hypertarget{class_tree_model_a986b92267ac9cdc90519c10404192bbd}\label{class_tree_model_a986b92267ac9cdc90519c10404192bbd}} 
+Q\+Variant {\bfseries data} (const Q\+Model\+Index \&index, int role) const
+\item 
+\mbox{\Hypertarget{class_tree_model_a2f793c5b11ec3c46571e4598ee2398e7}\label{class_tree_model_a2f793c5b11ec3c46571e4598ee2398e7}} 
+Qt\+::\+Item\+Flags {\bfseries flags} (const Q\+Model\+Index \&index) const
+\item 
+\mbox{\Hypertarget{class_tree_model_a59b8e296fb38595cd5459aa75dd507ba}\label{class_tree_model_a59b8e296fb38595cd5459aa75dd507ba}} 
+Q\+Variant {\bfseries header\+Data} (int section, Qt\+::\+Orientation orientation, int role=Qt\+::\+Display\+Role) const
+\item 
+\mbox{\Hypertarget{class_tree_model_a0e6e6bbdb55d08be64cab7bafba2ce21}\label{class_tree_model_a0e6e6bbdb55d08be64cab7bafba2ce21}} 
+Q\+Model\+Index {\bfseries index} (int row, int column, const Q\+Model\+Index \&parent=Q\+Model\+Index()) const
+\item 
+\mbox{\Hypertarget{class_tree_model_ad29cef85c6bb0db25fb3d5b844c22e94}\label{class_tree_model_ad29cef85c6bb0db25fb3d5b844c22e94}} 
+Q\+Model\+Index {\bfseries parent} (const Q\+Model\+Index \&index) const
+\item 
+\mbox{\Hypertarget{class_tree_model_aa741dd31a085f8a2495fc1d7feb50226}\label{class_tree_model_aa741dd31a085f8a2495fc1d7feb50226}} 
+int {\bfseries row\+Count} (const Q\+Model\+Index \&parent=Q\+Model\+Index()) const
+\item 
+\mbox{\Hypertarget{class_tree_model_a7c23a1d2d39fb76e3d28aa9a0a6f365a}\label{class_tree_model_a7c23a1d2d39fb76e3d28aa9a0a6f365a}} 
+int {\bfseries column\+Count} (const Q\+Model\+Index \&parent=Q\+Model\+Index()) const
+\item 
+\mbox{\Hypertarget{class_tree_model_a4825c48103317ad91454acd55c8a96a6}\label{class_tree_model_a4825c48103317ad91454acd55c8a96a6}} 
+bool {\bfseries has\+Children} (const Q\+Model\+Index \&parent=Q\+Model\+Index()) const
+\item 
+\mbox{\Hypertarget{class_tree_model_a3d73be01f01b2fb2f31561f3327ec915}\label{class_tree_model_a3d73be01f01b2fb2f31561f3327ec915}} 
+\hyperlink{class_tree_item}{Tree\+Item} $\ast$ {\bfseries item\+From\+Index} (const Q\+Model\+Index \&index) const
+\item 
+\mbox{\Hypertarget{class_tree_model_a13ab1d3cc6bfd8e3d5180ece5a630fda}\label{class_tree_model_a13ab1d3cc6bfd8e3d5180ece5a630fda}} 
+void {\bfseries prepare\+To\+Add\+From\+Menu} (const Q\+String name)
+\item 
+\mbox{\Hypertarget{class_tree_model_a919a8079a6a13aebff271f7fa47c57e5}\label{class_tree_model_a919a8079a6a13aebff271f7fa47c57e5}} 
+void {\bfseries update} ()
+\item 
+\mbox{\Hypertarget{class_tree_model_aee89b34d42169817be057a7baf3e6af2}\label{class_tree_model_aee89b34d42169817be057a7baf3e6af2}} 
+void {\bfseries add\+Child\+From\+Menu} (const Q\+String name, Q\+Model\+Index $\ast$parent\+Index)
+\item 
+\mbox{\Hypertarget{class_tree_model_a26cbe86642bceb5c6af59aa74eb1bf7a}\label{class_tree_model_a26cbe86642bceb5c6af59aa74eb1bf7a}} 
+void {\bfseries delete\+Node} (int row, Q\+Model\+Index \&parent, Q\+String name)
+\item 
+\mbox{\Hypertarget{class_tree_model_a5a904b7b76230729d45cb4be0ae3ede2}\label{class_tree_model_a5a904b7b76230729d45cb4be0ae3ede2}} 
+void {\bfseries delete\+Node} (\hyperlink{class_node}{Node} $\ast$node)
+\item 
+\mbox{\Hypertarget{class_tree_model_a483840d4c1c4868798ed5cbeabcea6a7}\label{class_tree_model_a483840d4c1c4868798ed5cbeabcea6a7}} 
+void {\bfseries delete\+Edge} (int row, Q\+Model\+Index \&parent, Q\+String name)
+\item 
+\mbox{\Hypertarget{class_tree_model_a481bc9e59f09484004971c23593fed92}\label{class_tree_model_a481bc9e59f09484004971c23593fed92}} 
+void {\bfseries delete\+Edge} (Q\+String edge\+Name)
+\item 
+\mbox{\Hypertarget{class_tree_model_aef2d6966850afe5f8ab08f2635318142}\label{class_tree_model_aef2d6966850afe5f8ab08f2635318142}} 
+void {\bfseries delete\+Edge} (\hyperlink{class_edge}{Edge} $\ast$edge)
+\item 
+\mbox{\Hypertarget{class_tree_model_afdda4a2f25e993d05f51f8a99c7794bf}\label{class_tree_model_afdda4a2f25e993d05f51f8a99c7794bf}} 
+void {\bfseries delete\+Entity} (int row, Q\+Model\+Index \&parent, Q\+String type, Q\+String name)
+\item 
+\mbox{\Hypertarget{class_tree_model_a3ebcf92fbb5a2a8f5e1038b5b2515820}\label{class_tree_model_a3ebcf92fbb5a2a8f5e1038b5b2515820}} 
+void {\bfseries delete\+Entity} (\hyperlink{class_entity}{Entity} $\ast$entity)
+\item 
+\mbox{\Hypertarget{class_tree_model_a07f18f367aad7d1d2fb8351111d3ffa4}\label{class_tree_model_a07f18f367aad7d1d2fb8351111d3ffa4}} 
+void {\bfseries add} (\hyperlink{class_node}{Node} $\ast$node)
+\item 
+\mbox{\Hypertarget{class_tree_model_a913c07e9b2e6bc4564a5cdea124167a9}\label{class_tree_model_a913c07e9b2e6bc4564a5cdea124167a9}} 
+void {\bfseries add\+Well} (\hyperlink{class_node}{Node} $\ast$node)
+\item 
+\mbox{\Hypertarget{class_tree_model_aecddd22fd16c9571ac7a63bcaae594fa}\label{class_tree_model_aecddd22fd16c9571ac7a63bcaae594fa}} 
+void {\bfseries add\+Tracer} (\hyperlink{class_node}{Node} $\ast$node)
+\item 
+\mbox{\Hypertarget{class_tree_model_a8de8c90baa5fafc1a646d666e44148b6}\label{class_tree_model_a8de8c90baa5fafc1a646d666e44148b6}} 
+void {\bfseries add} (\hyperlink{class_edge}{Edge} $\ast$edge)
+\item 
+\mbox{\Hypertarget{class_tree_model_ae84954004304e02c7f78dcee70f6c83f}\label{class_tree_model_ae84954004304e02c7f78dcee70f6c83f}} 
+void {\bfseries add} (\hyperlink{class_entity}{Entity} $\ast$entity)
+\item 
+\mbox{\Hypertarget{class_tree_model_abc9d939461d0025bee56d7cf870eb455}\label{class_tree_model_abc9d939461d0025bee56d7cf870eb455}} 
+void {\bfseries refresh} (Q\+String part=\char`\"{}All\char`\"{})
+\item 
+\mbox{\Hypertarget{class_tree_model_a59b4eab1351437da4359e33927dc6813}\label{class_tree_model_a59b4eab1351437da4359e33927dc6813}} 
+Q\+String {\bfseries singularform} (Q\+String name) const
+\item 
+\mbox{\Hypertarget{class_tree_model_ac2fd76c1ec763036fbba7f1e4b6dd7fb}\label{class_tree_model_ac2fd76c1ec763036fbba7f1e4b6dd7fb}} 
+\hyperlink{class_tree_item}{Tree\+Item} $\ast$ {\bfseries entity\+Parent\+Itemfrom\+Type} (Q\+String type) const
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tree_model_ac33c7e5a18ad5193984456d677c59c4d}\label{class_tree_model_ac33c7e5a18ad5193984456d677c59c4d}} 
+\hyperlink{class_graph_widget}{Graph\+Widget} $\ast$ {\bfseries Parent}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 15 of file treemodel.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+G\+U\+I/treemodel.\+h\item 
+G\+U\+I/treemodel.\+cpp\end{DoxyCompactItemize}

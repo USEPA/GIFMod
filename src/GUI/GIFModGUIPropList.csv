@@ -1,0 +1,440 @@
+//ModelSpace,Gui,Type,SubType,Description,Name,Code,Unit,Model Default Unit,Type,Defaults,Delegate,Category,Input,Experiment Dependent,Description Code,Condition,WE,Warning
+//1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,Acceptance rate parameter for MCMC sampling,stucklimit                 ,!,!,integer,20,TextBox,Global,Input,No,100186,>10,E,Acceptance rate parameter must be greater than 10
+1,Block,*,*,Block Name,Name,id,!,!,string,!,TextBox,Geometry,Input,Yes,100001,,,
+1,Block,*,*,Block Type,Type,!,!,!,string,populate at runtime; Type,ComboBox,Geometry,Select,Yes,100002,,,
+1,Block,*,*,Default  Values Template,SubType,!,!,!,string,populate at runtime; SubType,ComboBox,Geometry,Select,Yes,100003,,,
+1,Connector,*,*,Connector Name,Name,id,!,!,string,!,TextBox,Geometry,Input,Yes,100004,,,
+1,Connector,*,*,Connector Type,Type,!,!,!,string,populate at runtime; Type,ComboBox,Geometry,Select,Yes,100005,,,
+1,Block,Soil,*,!,Bottom area,a,m~^2;cm~^2;ft~^2,m~^2,float+Estimate,0,UnitBox,Geometry,Input,Yes,100006,>0,E,Area must be greater than zero
+1,Block,Catchment,Catchment,!,Area,a,m~^2;ft~^2,m~^2,float+Estimate,0,UnitBox,Geometry,Input,Yes,100006,>0,E,Area must be greater than zero
+1,Block,Pond,Pond,!,Bottom area,a,m~^2;cm~^2;ft~^2,m~^2,float+Estimate,0,UnitBox,Geometry,Input,Yes,100006,>0,E,Area must be greater than zero
+1,Block,Darcy,Darcy,!,Bottom area,a,m~^2;cm~^2;ft~^2,m~^2,float+Estimate,0,UnitBox,Geometry,Input,Yes,100006,>0,E,Area must be greater than zero
+1,Block,Stream,Stream,!,Bottom area,a,m~^2;cm~^2;ft~^2,m~^2,float+Estimate,1,UnitBox,Geometry,Input,Yes,100006,>0,E,Area must be greater than zero
+1,Block,Storage,Storage,!,Bottom area,a,m~^2;cm~^2;ft~^2,m~^2,float+Estimate,0,UnitBox,Geometry,Input,Yes,100006,>0,E,Area must be greater than zero
+1,Block,Plant,Plant,!,Bottom area,a,m~^2;cm~^2;ft~^2,m~^2,float+Estimate,0,UnitBox,Geometry,Input,Yes,100006,>0,E,Area must be greater than zero
+1,Block,Catchment,Catchment,!,Bottom elevation,z0,m;cm;ft;in,m,float+Estimate,0,UnitBox,Material,Input,Yes,100013,,,
+1,Block,Pond,Pond,!,Bottom elevation,z0,m;cm;ft;in,m,float+Estimate,0,UnitBox,Geometry,Input,Yes,100013,,,
+1,Block,Soil,*,!,Bottom elevation,z0,m;cm;ft;in,m,float+Estimate,0,UnitBox,Material,Input,Yes,100013,,,
+1,Block,Darcy,Darcy,!,Bottom elevation,z0,m;cm;ft;in,m,float+Estimate,0,UnitBox,Material,Input,Yes,100013,,,
+1,Block,Stream,Stream,!,Bottom elevation,z0,m;cm;ft;in,m,float+Estimate,0,UnitBox,Geometry,Input,Yes,100013,,,
+1,Block,Storage,Storage,!,Bottom elevation,z0,m;cm;ft;in,m,float+Estimate,0,UnitBox,Material,Input,Yes,100013,,,
+1,Block,*,*,!,Build-up,buildup,!,!,string,populate at runtime; blank+build-up,ComboBox,Global,Select,Yes,100018,,,
+1,Block,Soil,*,!,Bulk density,bd,kg/m~^3;g/cm~^3;lb/ft~^3,kg/m~^3,float+Estimate,1500,UnitBox,Material,Input,Yes,100019,>=0,W,A non-negative bulk density should be provided if a sorbing constituent is present
+//1,Block,Catchment,Catchment,!,Bulk density,bd,kg/m~^3;g/cm~^3;lb/ft~^3,kg/m~^3,float+Estimate,1500,UnitBox,Material,Input,Yes,100019,>=0,W,A non-negative bulk density should be provided if a sorbing constituent is present
+1,Block,Darcy,Darcy,!,Bulk density,bd,kg/m~^3;g/cm~^3;lb/ft~^3,kg/m~^3,float+Estimate,1500,UnitBox,Material,Input,Yes,100324,>=0,W,A non-negative bulk density should be provided if a sorbing constituent is present
+//1,Block,Stream,Stream,!,Bulk density,bd,kg/m~^3;g/cm~^3;lb/ft~^3,kg/m~^3,float+Estimate,1500,UnitBox,Material,Input,Yes,100019,>=0,W,A non-negative bulk density should be provided if a sorbing constituent is present
+1,Block,Storage,Storage,!,Bulk density,bd,kg/m~^3;g/cm~^3;lb/ft~^3,kg/m~^3,float+Estimate,1500,UnitBox,Material,Input,Yes,100329,>=0,W,A non-negative bulk density should be provided if a sorbing constituent is present
+1,Block,*,*,!,Constituent initial concentration,!,!,!,dialog,...; Constituent,PushButton,Initial State,Select,Yes,100020,,,
+1,Block,Catchment,Catchment,!,Depression storage,depression,m;cm;ft;in,m,float+Estimate,0,UnitBox,Material,Input,Yes,100021,>=0,E,depression depth must be non-negative
+1,Block,Pond,Pond,!,Depression storage,depression,m;cm;ft;in,m,float+Estimate,0,UnitBox,Material,Input,Yes,100021,>=0,E,depression depth must be non-negative
+1,Block,*,*,!,External flux,externalflux,!,!,string,populate at runtime;blank+external flux,MultiComboBox,Global,Select,Yes,100023,,,
+1,Block,Soil,Userdefined,!,Flow expression,flow_expression,!,!,float+Estimate,!,UnitBox,Material,Input,Yes,100024,,,
+1,Block,*,*,!,Head-storage relationship,h_s_expression,!,!,string,!,expressionEditor,Global,Input,Yes,100025,,,
+1,Block,*,*,!,Inflow time series,inflow,!,!,filename,populate at runtime; blank+Inflow,Browser;time series,Environment,Select,Yes,100026,inflow format,E,Inflow file format is invalid.
+1,Block,Soil,*,!,moisture content (~theta),theta,!,!,float+Estimate,0.2,TextBox,Material,Input,Yes,100027,>=0;<1,E;W,Moiture content must be non-negative; moisture content is greater than 1
+1,Block,Darcy,Darcy,!,Initial moisture content (~theta),Theta,!,!,float+Estimate,!,TextBox,Material,Input,Yes,100325,>=0;={theta_s},E;W,Moiture content must be non-negative;moisture content is different than saturated moisture content for a Darcy block.
+1,Block,Catchment,Catchment,!,Initial water depth,h0,m;cm;ft;in,m,float+Estimate,0,UnitBox,Material,Input,Yes,100336,>=0,E,Initial water depth must be non-negative
+1,Block,Pond,Pond,!,Initial water depth,h0,m;cm;ft;in,m,float+Estimate,0,UnitBox,Geometry,Input,Yes,100028,>=0,E,Initial water depth must be non-negative
+1,Block,Stream,Stream,!,Initial water depth,h0,m;cm;ft;in,m,float+Estimate,!,UnitBox,Geometry,Input,Yes,100340,>=0,E,Initial water depth must be non-negative
+1,Block,Storage,Storage,!,Initial water depth,h0,m;cm;ft;in,m,float+Estimate,0.01,UnitBox,Material,Input,Yes,100330,>0,E,Initial water depth must be positive
+//1,Block,Soil,Userdefined,!,Length,d,m;cm;ft;in,m,float+Estimate,0,UnitBox,Geometry,Input,Yes,100032,,,
+1,Block,Darcy,Darcy,!,Depth,depth,m;cm;ft;in,m,float+Estimate,0,UnitBox,Geometry,Input,Yes,100034,>0,E,Block depth must be greater than zero
+1,Block,Soil,*,!,Depth,depth,m;cm;ft;in,m,float,0,UnitBox,Geometry,Input,Yes,100034,>0,E,Block depth must be greater than zero
+1,Block,Storage,Storage,!,Depth,depth,m;cm;ft;in,m,float+Estimate,0,UnitBox,Geometry,Input,Yes,100331,>0,E,Block depth must be greater than zero
+1,Block,*,*,!,Particle initial concentration,!,!,!,dialog,...; Particle,PushButton,Initial State,Select,Yes,100040,,,
+1,Block,Soil,*,!,Precipitation,precipitation,!,!,integer,No;Yes,ComboBox,Environment,Select,Yes,100041,,,
+1,Block,Pond,*,!,Precipitation,precipitation,!,!,integer,Yes;No,ComboBox,Environment,Select,Yes,100041,,,
+1,Block,Stream,*,!,Precipitation,precipitation,!,!,integer,Yes;No,ComboBox,Environment,Select,Yes,100041,,,
+1,Block,Catchment,*,!,Precipitation,precipitation,!,!,integer,Yes;No,ComboBox,Environment,Select,Yes,100041,,,
+1,Block,Storage,*,!,Precipitation,precipitation,!,!,integer,No;Yes,ComboBox,Environment,Select,Yes,100041,,,
+1,Block,Darcy,*,!,Precipitation,precipitation,!,!,integer,No;Yes,ComboBox,Environment,Select,Yes,100041,,,
+1,Block,Soil,Sand,!,Residual moisture content (~thetar),theta_r,!,!,float+Estimate,0.045,TextBox,Material,Input,Yes,100047,[0:{theta_s}),E,Residual moisure content must be between zero and ~thetas
+1,Block,Darcy,Darcy,!,Saturated hydraulic conductivity (ks),ks,m/day;cm/day;cm/s;mm/s;ft/day;in/day;in/s,m/day,float+Estimate,1,UnitBox,Material,Input,Yes,100048,!=0; >=0,W;E,Hydraulic conductivity is zero; Hydraulic conductivity must me non-negative
+1,Block,Storage,Storage,!,Saturated hydraulic conductivity (ks),ks,m/day;cm/day;cm/s;mm/s;ft/day;in/day;in/s,m/day,float+Estimate,1,UnitBox,Material,Input,Yes,100333,!=0; >=0,W;E,Hydraulic conductivity is zero; Hydraulic conductivity must me non-negative
+//1,Block,Stream,Stream,!,Saturated moisture content (~thetas),theta_s,!,!,float+Estimate,1,TextBox,Material,Input,Yes,100051,(0:1],E,Saturation moisure content must be between zero and one
+1,Block,Darcy,Darcy,!,Saturated moisture content (~thetas),theta_s,!,!,float+Estimate,!,TextBox,Material,Input,Yes,100328,(0:1],E,Saturation moisure content must be between zero and one
+1,Block,Storage,Storage,!,Saturated moisture content (~thetas),theta_s,!,!,float+Estimate,0.4,TextBox,Material,Input,Yes,100334,(0:1],E,Saturation moisure content must be between zero and one
+1,Block,*,*,!,Vapor diffusion coefficient,vapor_diffusion,m~^2/day; m~^2/s; cm~^2/s; cm~^2/day ,m~^2/day,float+Estimate,0,UnitBox,Material,Input,Yes,100059,>=0,E,Vapor Diffusion Coefficient must be non-negative
+1,Connector,Default,non-Porous,!,Flow exponent,exponent,!,!,float+Estimate,!,TextBox,Geometry,Input,Yes,100061,,,
+1,Connector,Default,non-Porous,!,Manning's roughness coefficient,nmanning,s/~^3~radicm,day/~^3~radicm,float+Estimate,!,UnitBox,Material,Input,Yes,100062,>0,E,Manning's roughness coefficient must be positive
+1,Connector,Default,*,!,Width,width,m;cm;ft;in,m,float+Estimate,!,UnitBox,Geometry,Input,Yes,100063,!=0; >=0,W;E,Width is assigned to be zero; Width must be positive and non-zero
+1,Connector,Default,non-Porous,!,Dam elevation,dam,m;cm;ft;in,m,float+Estimate,!,UnitBox,Geometry,Input,Yes,100064,,,
+1,Connector,Default,Porous,!,Saturated hydraulic conductivity (ks),ks,m/day; cm/day;cm/s;mm/s;ft/day;in/day;in/s,m/day,float+Estimate,!,UnitBox,Material,Input,Yes,100066,>=0;!=0,E;W,Hydraulic conductivity must me non-negative;Saturated hydraulic conductivity will be assigned based on the connected blocks
+1,Connector,*,*,!,Interface/cross sectional area,a,m~^2;ft~^2,m~^2,float+Estimate,!,UnitBox,Geometry,Input,Yes,100067,!=0;>=0,W;E,"The interface area is not specified, the area will be calculated based on the connected blocks;Area must be greater than zero"
+1,Connector,Pipe,*,!,Diameter,diameter,m;cm;ft;in,m,float+Estimate,!,UnitBox,Geometry,Input,Yes,100069,>0,E,Pipe diameter must be greater than zero
+1,Connector,*,*,!,Dispersion expression,dispersion_expression,!,!,expression,!,expressionEditor,Material,Input,Yes,100070,,,
+1,Connector,*,*,!,Dispersivity (~alpha),alpha,m;cm;ft;in,m,float+Estimate,!,UnitBox,Material,Input,Yes,100071,>=0,E,Dispersivity must be non-negative
+1,Connector,Pipe,*,!,Start elevation,z1,m;cm;ft;in,m,float+Estimate,!,UnitBox,Geometry,Input,Yes,100072,,,
+1,Connector,Pipe,*,!,End elevation,z2,m;cm;ft;in,m,float+Estimate,!,UnitBox,Geometry,Input,Yes,100073,,,
+1,Connector,Rating Curve,*,!,Exponent,rating_curve_power,!,!,float+Estimate,!,TextBox,Geometry,Input,Yes,100074,>=0,E,Exponent must be non-negative
+1,Connector,Normal Flow,*,!,Flow exponent,exponent,!,!,float+Estimate,!,TextBox,Geometry,Input,Yes,100076,,,
+1,Connector,Pipe,*,!,Hazen-Williams roughness factor c,pipe_c,SI,SI,float+Estimate,100,UnitBox,Material,Input,Yes,100077,>=0,E,Hazen Williams roughness factor C must be non-negative
+1,Connector,Default,*,!,Length,d,m;cm;ft;in,m,float+Estimate,!,UnitBox,Geometry,Input,Yes,100078,>0,E,Connector length must be greater than zero
+1,Connector,Pipe,*,!,Length,d,m;cm;ft;in,m,float+Estimate,!,UnitBox,Geometry,Input,Yes,100078,>0,E,Connector length must be greater than zero
+1,Connector,Normal Flow,*,!,Length,d,m;cm;ft;in,m,float+Estimate,!,UnitBox,Geometry,Input,Yes,100078,>0,E,Connector length must be greater than zero
+1,Connector,Darcy,*,!,Length,d,m;cm;ft;in,m,float+Estimate,!,UnitBox,Geometry,Input,Yes,100078,>0,E,Connector length must be greater than zero
+1,Connector,Userdefined,*,!,Length,d,m;cm;ft;in,m,float+Estimate,!,UnitBox,Geometry,Input,Yes,100078,>0,E,Connector length must be greater than zero
+1,Connector,Rating Curve,*,!,Length,d,m;cm;ft;in,m,float+Estimate,!,UnitBox,Geometry,Input,Yes,100078,>0,E,Connector length must be greater than zero
+1,Connector,Prescribed flow,*,!,Length,d,m;cm;ft;in,m,float+Estimate,1,UnitBox,Geometry,Input,Yes,100078,>0,E,Connector length must be greater than zero
+1,Connector,Quasi steady,*,!,Length,d,m;cm;ft;in,m,float+Estimate,!,UnitBox,Geometry,Input,Yes,100078,>0,E,Connector length must be greater than zero
+1,Connector,Controlled,*,!,Length,d,m;cm;ft;in,m,float+Estimate,!,UnitBox,Geometry,Input,Yes,100078,>0,E,Connector length must be greater than zero
+1,Connector,Normal Flow,*,!,Manning's roughness coefficient,nmanning,s/~^3~radicm,day/~^3~radicm,float+Estimate,!,UnitBox,Material,Input,Yes,100079,>0,E,Manning's roughness coefficient must be positive
+1,Connector,Darcy,*,!,Saturated hydraulic conductivity (ks),ks,m/day;cm/day;cm/s;mm/s;ft/day;in/day;in/s,m/day,float+Estimate,!,UnitBox,Material,Input,Yes,100327,>=0,E,Hydraulic conductivity must me non-negative
+1,Connector,*,*,!,Settling,settling,!,!,string,No;Yes,ComboBox,Geometry,Select,Yes,100081,,,
+1,Connector,Normal Flow,*,!,Width,width,m;cm;ft;in,m,float+Estimate,!,UnitBox,Geometry,Input,Yes,100082,!=0; >=0,W;E,Width is assigned to be zero; Width must be non-negative
+1,Connector,Userdefined,*,!,Area expression,area_expression,m~^2;ft~^2,m~^2,expression,!,expressionEditor,Geometry,Input,Yes,100083,,,
+1,Connector,Userdefined,*,!,Flow expression,flow_expression,!,!,expression,!,expressionEditor,Geometry,Input,Yes,100084,,,
+1,Entity,Build-up,Build-up,!,Name,Name,!,!,string,!,TextBox,Global,Input,No,100085,,,
+1,Entity,Constituent,*,!,Name,Name,!,!,string,!,TextBox,Global,Input,No,100086,,,
+1,Entity,External flux,External flux,!,Name,!,!,!,string,!,TextBox,Global,Input,No,100087,,,
+1,Entity,Observation,*,!,Name,!,!,!,string,!,TextBox,Global,Input,No,100088,,,
+1,Entity,Parameter,Parameter,!,Name,!,!,!,string,!,TextBox,Global,Input,No,100089,,,
+1,Entity,Particle,*,!,Name,Name,!,!,string,!,TextBox,Global,Input,No,100090,,,
+1,Entity,Particle,*,Default  Values Template,SubType,!,!,!,string,populate at runtime; SubType,ComboBox,Geometry,Select,No,100224,,,
+1,Entity,Reaction,Reaction,!,Name,name,!,!,string,!,TextBox,Global,Input,No,100091,,,
+1,Entity,Reaction parameter,Reaction parameter,!,Name,Name,!,!,string,!,TextBox,Global,Input,No,100092,,,
+1,Entity,Build-up,Build-up,!,Accumulation rate,acc_rate,!,!,string,!,TextBox,Global,Input,No,100093,!=0; >=0,W;E,Accumulation rate is zero. No accumulation will occure.; Accumulation rate must be non-negative
+1,Entity,Solver settings,Solver settings,!,Allow negative concentration,negative_concentration_allowed,!,!,string,No;Yes,ComboBox,Global,Select,No,100094,,,
+1,Entity,Precipitation,Precipitation,!,Apply precipitation,NA,!,!,string,Yes; No,ComboBox,Global,Select,No,100095,,,
+//1,Entity,Parameter,Parameter,!,Apply to All Cases,applytoall,!,!,string,Yes;No,CheckBox,Global,Select,No,100096,,,
+1,Entity,Observation,*,!,Standard deviation ID,std_no,!,!,integer,!,TextBox,Global,Input,No,100151,>=0,E,Standard deviation ID must be non-negative
+1,Entity,Reaction parameter,Reaction parameter,!,Temperature correction factor (Arrhenius constant),temperature_correction,!,!,float+Estimate,1,TextBox,Global,Input,No,100152,>=0,E,Temperature correction factor must be non-negative
+1,Entity,Solver settings,Solver settings,!,Time step change coefficient in case of non-convergance,dt_change_failure,!,!,float+Estimate,0.5,TextBox,Global,Input,No,100153,(0:1),E,time step change coefficient in case of non-convergance must be greater than zero
+1,Entity,Solver settings,Solver settings,!,Time step change rate coefficient,dt_change_rate,!,!,float+Estimate,0.95,TextBox,Global,Input,No,100154,(0:1),E,time step change coefficient in case of non-convergance must be greater than zero
+1,Entity,External flux,External flux,!,Transfer rate expression,expression,!,!,expression,!,expressionEditor,Global,Input,No,100155,,,
+1,Entity,Solver settings,Solver settings,!,Uniform output interval,uniformoutput,!,!,integer,Yes;No,ComboBox,Global,Select,No,100156,,,
+1,Entity,Reaction parameter,Reaction parameter,!,Value,value,!,!,float+Estimate,0,TextBox,Global,Input,No,100157,,,
+1,Entity,External flux,External flux,!,Velocity exponent,velocity_exponent,!,!,float+Estimate,!,TextBox,Global,Input,No,100158,,,
+1,Entity,Project settings,Project settings,!,Working path,path,!,!,directory,.,DirBrowser,Global,Input,No,100159,,,
+1,Entity,Solver settings,Solver settings,!,Write solution details,write_details,!,!,string,No;Yes,ComboBox,Global,Select,No,100160,,,
+1,Block,Catchment,Catchment,!,Manning's roughness coefficient,nmanning,s/~^3~radicm,day/~^3~radicm,float+Estimate,!,UnitBox,Material,Input,Yes,100337,>0,W,Manning's roughness coefficient must be positive
+1,Entity,Climate settings,Climate settings,!,Solar-radiation,light,!,!,filename,!,Browser;time series,Global,Select,No,100177,,,
+1,Entity,Climate settings,Climate settings,!,Humidity,humidity,!,!,filename,!,Browser;time series,Global,Select,No,100178,,,
+1,Entity,Observation,*,!,SubType,loc_type,!,!,string,Block;Connector,ComboBox,Global,Select,No,100183,,,
+1,Entity,Parameter,Parameter,!,Value,value,!,!,float,!,TextBox,Global,Input,No,100184,,,
+1,Block,Soil,Loam,!,Residual moisture content (~thetar),theta_r,!,!,float+Estimate,0.078,TextBox,Material,Input,Yes,100047,[0:{theta_s}),E,Residual moisure content must be between zero and ~thetas
+1,Block,Stream,Stream,!,Manning's roughness coefficient,nmanning,s/~^3~radicm,day/~^3~radicm,float+Estimate,!,UnitBox,Material,Input,Yes,100341,>0,W,Manning's roughness coefficient must be positive
+//1,Block,Stream,Stream,!,Width,width,m;cm;ft;in,m,float+Estimate,!,UnitBox,Geometry,Input,Yes,100342,!=0; >=0,W;W,Width is assigned to be zero; Width must be positive and non-zero
+1,Block,Soil,Silt,!,Residual moisture content (~thetar),theta_r,!,!,float+Estimate,0.034,TextBox,Material,Input,Yes,100047,[0:{theta_s}),E,Residual moisure content must be between zero and ~thetas
+1,Block,Soil,Silt loam,!,Residual moisture content (~thetar),theta_r,!,!,float+Estimate,0.067,TextBox,Material,Input,Yes,100047,[0:{theta_s}),E,Residual moisure content must be between zero and ~thetas
+1,Block,Stream,Stream,!,Solar-radiation,light,!,!,integer,Yes;No,ComboBox,Environment,Select,Yes,100165,,,
+1,Block,Soil,Sandy clay loam,!,Residual moisture content (~thetar),theta_r,!,!,float+Estimate,0.1,TextBox,Material,Input,Yes,100047,[0:{theta_s}),E,Residual moisure content must be between zero and ~thetas
+1,Block,Storage,Storage,!,Solar-radiation,light,!,!,integer,No;Yes,ComboBox,Environment,Select,Yes,100165,,,
+1,Block,Darcy,Darcy,!,Solar-radiation,light,!,!,integer,No;Yes,ComboBox,Environment,Select,Yes,100165,,,
+1,Block,Soil,Clay loam,!,Residual moisture content (~thetar),theta_r,!,!,float+Estimate,0.095,TextBox,Material,Input,Yes,100047,[0:{theta_s}),E,Residual moisure content must be between zero and ~thetas
+//1,Block,Pond,pond,!,Temperature,temperature,!,!,integer,Yes;No,ComboBox,Environment,Select,Yes,100172,,,
+//1,Block,Stream,Stream,!,Temperature,temperature,!,!,integer,Yes;No,ComboBox,Environment,Select,Yes,100173,,,
+1,Block,Soil,Silty clay loam,!,Residual moisture content (~thetar),theta_r,!,!,float+Estimate,0.089,TextBox,Material,Input,Yes,100047,[0:{theta_s}),E,Residual moisure content must be between zero and ~thetas
+1,Entity,Genetic algorithm,Genetic algorithm,!,Name,Name,!,!,string,!,TextBox,Global,Input,No,100185,,,
+1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,Create output realization including observation errors,noise_realization_writeout ,!,!,string,No;Yes,ComboBox,Global,Select,No,100187,,,
+1,Block,Soil,Sandy clay,!,Residual moisture content (~thetar),theta_r,!,!,float+Estimate,0.1,TextBox,Material,Input,Yes,100047,[0:{theta_s}),E,Residual moisure content must be between zero and ~thetas
+1,Block,Darcy,*,!,Specific storage,storativity,1/m;1/cm;1/ft;1/in,1/m,float+Estimate,0.01,UnitBox,Material,Input,Yes,100326,>=0,E,Specific storage moisure content must be non-negative
+1,Block,Storage,*,!,Specific storage,storativity,1/m;1/cm;1/ft;1/in,1/m,float+Estimate,0.01,UnitBox,Material,Input,Yes,100332,>=0,E,Specific storage moisure content must be non-negative
+1,Connector,Rating Curve,*,!,Coefficient,rating_curve_coeff,!,!,float+Estimate,!,TextBox,Material,Input,Yes,100181,,,
+1,Connector,Rating Curve,*,!,Datum,rating_curve_datum,m;cm;ft;in,m,float+Estimate,!,UnitBox,Material,Input,Yes,100182,,,
+1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,Calculate posterior correlation,calculate_correlation      ,!,!,string,Yes;No,ComboBox,Global,Select,No,100188,,,
+1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,Calculate posterior distributions,calc_distributions         ,!,!,string,Yes;No,ComboBox,Global,Select,No,100189,,,
+1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,Calculate posterior percentiles,calculate_percentile       ,!,!,string,Yes;No,ComboBox,Global,Select,No,100190,,,
+1,Entity,Markov chain Monte Carlo,Markov Chain Monte Carlo,!,Calculate realization percentiles,calc_output_percentiles    ,!,!,string+estimates,0.025:0.05:0.10:0.25:0.50:0.75:0.90:0.95:0.975,MultiComboBox,Global,Input,No,100191,,,
+1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,Continue MCMC sampling,continuemcmc               ,!,!,string,No;Yes,ComboBox,Global,Select,No,100192,,,
+1,Entity,Genetic algorithm,Genetic algorithm,!,Cross-over probability,pcross                     ,!,!,float+Estimate,1,TextBox,Global,Input,No,100193,(0:1],E,Cross-over probability must be between 0 and 1 and non-zero
+1,Entity,Genetic algorithm,Genetic algorithm,!,GA output file,outputfile                 ,!,!,filename,./GAout.txt,Browser,Global,Input,No,100194,not empty,W,GA output file is not defined.
+1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,Generate output realizations,mcmc_realization           ,!,!,string,Yes;No,ComboBox,Global,Select,No,100195,,,
+1,Entity,Genetic algorithm,Genetic algorithm,!,Initial GA population,initial_population         ,!,!,filename,!,Browser,Global,Select,No,100196,notempty,W,initial GA population input file is not defined.
+1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,Initial purturbation,noinipurt                  ,!,!,string,Yes;No,ComboBox,Global,Select,No,100197,,,
+1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,MCMC burn-in  number,burnout                    ,!,!,integer,50,TextBox,Global,Input,No,100198,>=0;<{nmcmcsamples},E;E,burn-out must be non-negative;burn-out must be less than number of MCMC samples
+1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,MCMC number of chains,nchains                    ,!,!,integer,8,TextBox,Global,Input,No,100199,>0;<{nmcmcsamples},E;E,Number of chains must be a positive number;Number of chains must be less than number of MCMC samples
+1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,MCMC data file,mcmcoutputfile             ,!,!,filename,./mcmcoutput.txt,Browser,Global,Input,No,100200,not empty,W,MCMC output file is not defined.
+1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,MCMC purturbation scale,purtfac                    ,!,!,float+Estimate,0.05,TextBox,Global,Input,No,100202,>0,E,Purturbation scale must be positive
+1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,MCMC purturbation scale rate of change,purtscale                    ,!,!,float+Estimate,0.75,TextBox,Global,Input,No,100501,>0,E,Rate of change of purturbation scale must be positive
+1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,MCMC sample output interval,writeinterval              ,!,!,integer,1,TextBox,Global,Input,No,100203,>0,E,MCMC sample output interval must be greater than 0
+1,Entity,Genetic algorithm,Genetic algorithm,!,Mutation probability,pmute                      ,!,!,float+Estimate,0.008,TextBox,Global,Input,No,100204,(0:0.01],E,Mutation probability must be between 0 and 0.01
+1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,Number of bins used for calculating posterior distributions,no_bins                    ,!,!,integer,20,TextBox,Global,Input,No,100205,>0,E,Number of bins must be positive integer
+1,Entity,Genetic algorithm,Genetic algorithm,!,Number of generations,ngen                       ,!,!,integer,50,TextBox,Global,Input,No,100206,>0,E,Number of generations must be a postive integer
+1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,Number of MCMC samples,nmcmcsamples               ,!,!,integer,500,TextBox,Global,Input,No,100207,>0,E,Number of MCMC samples must be positive integer
+1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,Number of realization for MCMC post-processing,nrealizations              ,!,!,integer,100,TextBox,Global,Input,No,100208,>0,E,number of realization for MCMC post-processing must be positive
+1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,Only read the MCMC outputs from file,justreadmcmc               ,!,!,string,No;Yes,ComboBox,Global,Select,No,100209,,,
+1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,Perform global sensitivity analysis,global_sensitivity         ,!,!,string,No;Yes,ComboBox,Global,Select,No,100210,,,
+1,Entity,Genetic algorithm,Genetic algorithm,!,Perform local sensitivity analysis,calculate_sensitivity      ,!,!,string,No;Yes,ComboBox,Global,Select,No,100211,,,
+1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,Perform MCMC simulation,mcmc_run                   ,!,!,string,Yes;No,ComboBox,Global,Select,No,100212,,,
+1,Entity,Genetic algorithm,Genetic algorithm,!,Population,maxpop                     ,!,!,integer,40,TextBox,Global,Input,No,100213,>1,E,Population must be greater than equal to two and an even number
+1,Entity,Genetic algorithm,Genetic algorithm,!,Read GA analysis from file,readfromgafile             ,!,!,filename,!,Browser,Global,Select,No,100214,notempty,W,GA input file is not defined.
+1,Entity,Genetic algorithm,Genetic algorithm,!,Save realization outputs in a file,obs_realization_writeout   ,!,!,string,Yes;No,ComboBox,Global,Select,No,100215,,,
+1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,Sensititivy-based purturbation factor,sensbasedpurt              ,!,!,string,No;Yes,ComboBox,Global,Select,No,100216,,,
+1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,Sensitivity purturbation factor,dp_sensitivity             ,!,!,float+Estimate,0.001,TextBox,Global,Input,No,100217,>0,E,Sensitivity purturbation factor must be greater than zero
+1,Entity,Genetic algorithm,Genetic algorithm,!,Shake-scale,shakescale                 ,!,!,float+Estimate,0.05,TextBox,Global,Input,No,100218,>=0,E,Shake-scale must be non-negative
+1,Entity,Genetic algorithm,Genetic algorithm,!,Shake-scale reduction factor,shakescalered              ,!,!,float+Estimate,0.2,TextBox,Global,Input,No,100219,(0:1),E,Shake-scale reduction factor must be between 0 and 1
+1,Entity,Genetic algorithm,Genetic algorithm,!,Number of threads,number_of_threads,!,!,integer,16,TextBox,Global,Input,No,100220,>0,E,Number of threads should be positive
+1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,Realized parameters Output File,realizedparam,!,!,string,!,Browser,Global,Input,No,100221,,,
+1,Entity,Evapotranspiration,*,!,Name,!,!,!,string,!,TextBox,Global,Input,No,100222,,,
+1,Entity,Evapotranspiration,*,Default  Values Template,SubType,!,!,!,string,populate at runtime; SubType,ComboBox,Geometry,Select,No,100224,,,
+1,Entity,Evapotranspiration,*,!,Rate expression,expression,!,!,expression,!,expressionEditor,Global,Select,No,100225,,,
+1,Entity,Evapotranspiration,Time Series,!,Time series,time_series,!,!,filename,!,Browser;time series,Global,Select,No,100226,,,
+1,Entity,Evapotranspiration,FAO-56,!,FAO-56 crop coefficient time series,fao_56_kc_coefficient,!,!,filename,!,Browser;time series,Global,Select,No,100502,"!=""""",,
+1,Entity,Evapotranspiration,Time Series,!,Uptake constituents,uptake_constituents,!,!,string,No;Yes,ComboBox,Global,Select,No,100227,,,
+1,Entity,Evapotranspiration,Aerodynamic,!,Uptake constituents,uptake_constituents,!,!,string,No;Yes,ComboBox,Global,Select,No,100227,,,
+1,Entity,Evapotranspiration,Transpiration Based on moisture content,!,Uptake constituents,uptake_constituents,!,!,string,Yes;No,ComboBox,Global,Select,No,100227,,,
+1,Entity,Evapotranspiration,Transpiration Based on Matric Potential,!,Uptake constituents,uptake_constituents,!,!,string,Yes;No,ComboBox,Global,Select,No,100227,,,
+1,Entity,Evapotranspiration,Priestley-Taylor,!,Uptake constituents,uptake_constituents,!,!,string,No;Yes,ComboBox,Global,Select,No,100227,,,
+1,Entity,Evapotranspiration,Penman,!,Uptake constituents,uptake_constituents,!,!,string,No;Yes,ComboBox,Global,Select,No,100227,,,
+1,Entity,Evapotranspiration,FAO-56,!,Uptake constituents,uptake_constituents,!,!,string,No;Yes,ComboBox,Global,Select,No,100227,,,
+1,Entity,Evapotranspiration,Aerodynamic,!,Coefficient,coefficient,!,!,float+Estimate,!,TextBox,Global,Input,No,100233,!=0;>0,W;E,Coefficient is zero;Coefficient must be non-negative
+1,Entity,Evapotranspiration,Transpiration Based on moisture content,!,Coefficient,coefficient,!,!,float+Estimate,!,TextBox,Global,Input,No,100233,!=0;>0,W;E,Coefficient is zero;Coefficient must be non-negative
+1,Entity,Evapotranspiration,Transpiration Based on Matric Potential,!,Coefficient,coefficient,!,!,float+Estimate,!,TextBox,Global,Input,No,100233,!=0;>0,W;E,Coefficient is zero;Coefficient must be non-negative
+1,Entity,Evapotranspiration,FAO-56,!,Wind coefficient,coefficient,!,!,float+Estimate,!,TextBox,Global,Input,No,100233,!=0;>=0,W;E,Coefficient is zero;Coefficient must be non-negative
+1,Entity,Evapotranspiration,Transpiration Based on moisture content,!,Wilting point water content,wilting_point_water_content,!,!,float+Estimate,!,TextBox,Global,Input,No,100236,(0:1),E,Wilting point should be between zero and one
+1,Entity,Evapotranspiration,Transpiration Based on moisture content,!,Field capacity moisture content,field_capacity_moisture,!,!,float+Estimate,!,TextBox,Global,Input,No,100237,(0:1),E,Field Capacity should be between zero and one
+1,Entity,Evapotranspiration,Transpiration Based on Matric Potential,!,Wilting point matric potential,wilting_point_matric_potential,!,!,float+Estimate,!,TextBox,Global,Input,No,100238,<0,E,Wilting point should be between zero and one
+1,Entity,Evapotranspiration,Transpiration Based on Matric Potential,!,Field capacity matric potential,field_capacity_matric_potential,!,!,float+Estimate,!,TextBox,Global,Input,No,100239,<0,E,Field Capacity matric potential should be negative
+1,Entity,Evapotranspiration,FAO-56,!,Field capacity moisture content,field_capacity_matric_potential,!,!,float+Estimate,!,TextBox,Global,Input,No,100239,(0:1),E,Field Capacity should be between zero and one
+1,Entity,Evapotranspiration,FAO-56,!,Wilting point water content,wilting_point_water_content,!,!,float+Estimate,!,TextBox,Global,Input,No,100236,(0:1),E,Wilting point should be between zero and one
+1,Entity,Climate settings,Climate settings,!,Temperature,temperature,!,!,filename,!,Browser;time series,Global,Select,No,100240,,,
+1,Entity,Climate settings,Climate settings,!,Wind,wind,!,!,filename,!,Browser;time series,Global,Select,No,100241,,,
+1,Entity,Constituent,*,!,Settling velocity,vs,m/day;cm/day;cm/s;mm/s;ft/day;in/day;in/s,m/day,float+Estimate,!,UnitBox,Material,Input,No,100250,>=0,E,settling velocity must be non-negative
+//1,Block,Catchment,Catchment,!,Maximum depth,depth,m;cm;ft;in,m,float+Estimate,0,UnitBox,Geometry,Input,Yes,100253,>0,E,Block depth must be greater than zero
+//1,Entity,Global settings,Global settings,!,Evaporation time series,evaporation,!,!,directory,.,Browser;time series,Global,Input,No,100258,,,
+//1,Entity,Evapotranspiration,*,!,Model,model,!,!,string,Aerodynamic; Time series; Transpiration based on moisture content; Transpiration based on matric potential,ComboBox,Global,Select,No,100244,,,
+1,Block,*,*,!,Evapotranspiration,evapotranspiration,!,!,string,populate at runtime;blank+evapotranspiration,ComboBox,Global,Select,Yes,100242,,,
+1,Block,Soil,Silty clay,!,Residual moisture content (~thetar),theta_r,!,!,float+Estimate,0.07,TextBox,Material,Input,Yes,100047,[0:{theta_s}),E,Residual moisure content must be between zero and ~thetas
+1,Block,Pond,*,!,Solar-radiation,light,!,!,integer,Yes;No,ComboBox,Environment,Select,Yes,100165,,,
+//1,Block,Stream,*,!,Solar-radiation,light,!,!,integer,Yes;No,ComboBox,Environment,Select,Yes,100165,,,
+1,Block,Soil,Clay,!,Residual moisture content (~thetar),theta_r,!,!,float+Estimate,0.068,TextBox,Material,Input,Yes,100047,[0:{theta_s}),E,Residual moisure content must be between zero and ~thetas
+//1,Block,Storage,*,!,Solar-radiation,light,!,!,integer,No;Yes,ComboBox,Environment,Select,Yes,100165,,,
+//1,Block,Darcy,*,!,Solar-radiation,light,!,!,integer,No;Yes,ComboBox,Environment,Select,Yes,100165,,,
+//1,Block,*,*,!,Temperature,temperature,!,!,integer,Yes;No,ComboBox,Environment,Select,Yes,100249,,,
+1,Block,Soil,Loamy sand,!,Residual moisture content (~thetar),theta_r,!,!,float+Estimate,0.057,TextBox,Material,Input,Yes,100047,[0:{theta_s}),E,Residual moisure content must be between zero and ~thetas
+//1,Connector,*,*,!,Use prescribed flow,presc_flow,!,!,string,No;Yes,ComboBox,Geometry,Select,Yes,100251,,,
+1,Connector,Prescribed flow,*,!,Prescribed flow time series,pre_flow_filename,!,!,filename,!,Browser;time series,Geometry,Select,Yes,100252,,,
+1,Block,Soil,Userdefined,!,Residual moisture content (~thetar),theta_r,!,!,float+Estimate,!,TextBox,Material,Input,Yes,100047,[0:{theta_s}),E,Residual moisure content must be between zero and ~thetas
+//1,Block,Stream,Stream,!,Maximum depth,depth,m;cm;ft;in,m,float+Estimate,0,UnitBox,Geometry,Input,Yes,100254,>0,E,Block depth must be greater than zero
+//1,Block,Pond,Pond,!,Maximum height,depth,m;cm;ft;in,m,float+Estimate,0,UnitBox,Geometry,Input,Yes,100255,>0,E,Block depth must be greater than zero
+1,Block,Soil,Sandy loam,!,Residual moisture content (~thetar),theta_r,!,!,float+Estimate,0.065,TextBox,Material,Input,Yes,100047,[0:{theta_s}),E,Residual moisure content must be between zero and ~thetas
+//1,Block,Catchment,Catchment,!,Length,d,m;cm;ft;in,m,float,!,UnitBox,Geometry,Input,Yes,100339,!=0; >=0,W;W,Length is assigned to be zero; Length must be positive and non-zero
+1,Block,Soil,Sand,!,Saturated hydraulic conductivity (ks),ks,m/day;cm/day;cm/s;mm/s;ft/day;in/day;in/s,m/day,float+Estimate,7.128,UnitBox,Material,Input,Yes,100048,!=0; >=0,W;E,Hydraulic conductivity is zero; Hydraulic conductivity must me non-negative
+1,Block,Soil,Loamy sand,!,Saturated hydraulic conductivity (ks),ks,m/day;cm/day;cm/s;mm/s;ft/day;in/day;in/s,m/day,float+Estimate,3.5016,UnitBox,Material,Input,Yes,100048,!=0; >=0,W;E,Hydraulic conductivity is zero; Hydraulic conductivity must me non-negative
+1,Block,Soil,Sandy loam,!,Saturated hydraulic conductivity (ks),ks,m/day;cm/day;cm/s;mm/s;ft/day;in/day;in/s,m/day,float+Estimate,1.0608,UnitBox,Material,Input,Yes,100048,!=0; >=0,W;E,Hydraulic conductivity is zero; Hydraulic conductivity must me non-negative
+1,Block,Soil,Loam,!,Saturated hydraulic conductivity (ks),ks,m/day;cm/day;cm/s;mm/s;ft/day;in/day;in/s,m/day,float+Estimate,0.2496,UnitBox,Material,Input,Yes,100048,!=0; >=0,W;E,Hydraulic conductivity is zero; Hydraulic conductivity must me non-negative
+1,Block,Soil,Silt,!,Saturated hydraulic conductivity (ks),ks,m/day;cm/day;cm/s;mm/s;ft/day;in/day;in/s,m/day,float+Estimate,0.06,UnitBox,Material,Input,Yes,100048,!=0; >=0,W;E,Hydraulic conductivity is zero; Hydraulic conductivity must me non-negative
+1,Block,Soil,Silt loam,!,Saturated hydraulic conductivity (ks),ks,m/day;cm/day;cm/s;mm/s;ft/day;in/day;in/s,m/day,float+Estimate,0.108,UnitBox,Material,Input,Yes,100048,!=0; >=0,W;E,Hydraulic conductivity is zero; Hydraulic conductivity must me non-negative
+1,Block,Soil,Sandy clay loam,!,Saturated hydraulic conductivity (ks),ks,m/day;cm/day;cm/s;mm/s;ft/day;in/day;in/s,m/day,float+Estimate,0.3144,UnitBox,Material,Input,Yes,100048,!=0; >=0,W;E,Hydraulic conductivity is zero; Hydraulic conductivity must me non-negative
+1,Block,Soil,Clay loam,!,Saturated hydraulic conductivity (ks),ks,m/day;cm/day;cm/s;mm/s;ft/day;in/day;in/s,m/day,float+Estimate,0.0624,UnitBox,Material,Input,Yes,100048,!=0; >=0,W;E,Hydraulic conductivity is zero; Hydraulic conductivity must me non-negative
+1,Block,Soil,Silty clay loam,!,Saturated hydraulic conductivity (ks),ks,m/day;cm/day;cm/s;mm/s;ft/day;in/day;in/s,m/day,float+Estimate,0.0168,UnitBox,Material,Input,Yes,100048,!=0; >=0,W;E,Hydraulic conductivity is zero; Hydraulic conductivity must me non-negative
+1,Block,Soil,Sandy clay,!,Saturated hydraulic conductivity (ks),ks,m/day;cm/day;cm/s;mm/s;ft/day;in/day;in/s,m/day,float+Estimate,0.0288,UnitBox,Material,Input,Yes,100048,!=0; >=0,W;E,Hydraulic conductivity is zero; Hydraulic conductivity must me non-negative
+1,Block,Soil,Silty clay,!,Saturated hydraulic conductivity (ks),ks,m/day;cm/day;cm/s;mm/s;ft/day;in/day;in/s,m/day,float+Estimate,0.0048,UnitBox,Material,Input,Yes,100048,!=0; >=0,W;E,Hydraulic conductivity is zero; Hydraulic conductivity must me non-negative
+1,Block,Soil,Clay,!,Saturated hydraulic conductivity (ks),ks,m/day;cm/day;cm/s;mm/s;ft/day;in/day;in/s,m/day,float+Estimate,0.048,UnitBox,Material,Input,Yes,100048,!=0; >=0,W;E,Hydraulic conductivity is zero; Hydraulic conductivity must me non-negative
+1,Block,Soil,Userdefined,!,Saturated hydraulic conductivity (ks),ks,m/day;cm/day;cm/s;mm/s;ft/day;in/day;in/s,m/day,float+Estimate,!,UnitBox,Material,Input,Yes,100048,!=0; >=0,W;E,Hydraulic conductivity is zero; Hydraulic conductivity must me non-negative
+1,Block,Soil,Sand,!,Saturated moisture content (~thetas),theta_s,!,!,float+Estimate,0.43,TextBox,Material,Input,Yes,100051,(0:1],E,Saturation moisure content must be between zero and one
+1,Block,Soil,Loamy sand,!,Saturated moisture content (~thetas),theta_s,!,!,float+Estimate,0.41,TextBox,Material,Input,Yes,100051,(0:1],E,Saturation moisure content must be between zero and one
+1,Block,Soil,Sandy loam,!,Saturated moisture content (~thetas),theta_s,!,!,float+Estimate,0.41,TextBox,Material,Input,Yes,100051,(0:1],E,Saturation moisure content must be between zero and one
+1,Block,Soil,Loam,!,Saturated moisture content (~thetas),theta_s,!,!,float+Estimate,0.43,TextBox,Material,Input,Yes,100051,(0:1],E,Saturation moisure content must be between zero and one
+1,Block,Soil,Silt,!,Saturated moisture content (~thetas),theta_s,!,!,float+Estimate,0.46,TextBox,Material,Input,Yes,100051,(0:1],E,Saturation moisure content must be between zero and one
+1,Block,Soil,Silt loam,!,Saturated moisture content (~thetas),theta_s,!,!,float+Estimate,0.45,TextBox,Material,Input,Yes,100051,(0:1],E,Saturation moisure content must be between zero and one
+1,Block,Soil,Sandy clay loam,!,Saturated moisture content (~thetas),theta_s,!,!,float+Estimate,0.39,TextBox,Material,Input,Yes,100051,(0:1],E,Saturation moisure content must be between zero and one
+1,Block,Soil,Clay loam,!,Saturated moisture content (~thetas),theta_s,!,!,float+Estimate,0.41,TextBox,Material,Input,Yes,100051,(0:1],E,Saturation moisure content must be between zero and one
+1,Block,Soil,Silty clay loam,!,Saturated moisture content (~thetas),theta_s,!,!,float+Estimate,0.43,TextBox,Material,Input,Yes,100051,(0:1],E,Saturation moisure content must be between zero and one
+1,Block,Soil,Sandy clay,!,Saturated moisture content (~thetas),theta_s,!,!,float+Estimate,0.38,TextBox,Material,Input,Yes,100051,(0:1],E,Saturation moisure content must be between zero and one
+1,Block,Soil,Silty clay,!,Saturated moisture content (~thetas),theta_s,!,!,float+Estimate,0.36,TextBox,Material,Input,Yes,100051,(0:1],E,Saturation moisure content must be between zero and one
+1,Block,Soil,Clay,!,Saturated moisture content (~thetas),theta_s,!,!,float+Estimate,0.38,TextBox,Material,Input,Yes,100051,(0:1],E,Saturation moisure content must be between zero and one
+1,Block,Soil,Userdefined,!,Saturated moisture content (~thetas),theta_s,!,!,float+Estimate,!,TextBox,Material,Input,Yes,100051,(0:1],E,Saturation moisure content must be between zero and one
+//1,Block,Soil,*,!,Solar-radiation,light,!,!,integer,No;Yes,ComboBox,Environment,Select,Yes,100165,,,
+1,Block,Catchment,Catchment,!,Solar-radiation,light,!,!,integer,Yes;No,ComboBox,Environment,Select,Yes,100165,,,
+1,Block,Soil,*,!,Solar-radiation,light,!,!,integer,No;Yes,ComboBox,Environment,Select,Yes,100165,,,
+//1,Block,Catchment,*,!,Solar-radiation,light,!,!,integer,Yes;No,ComboBox,Environment,Select,Yes,100165,,,
+1,Block,Soil,*,!,Specific storage,storativity,1/m;1/cm;1/ft;1/in,1/m,float+Estimate,0.01,UnitBox,Material,Input,Yes,100179,>=0,E,Specific storage moisure content must be non-negative
+//1,Block,Soil,*,!,Temperature,temperature,!,!,integer,No;Yes,ComboBox,Environment,Select,Yes,100171,,,
+//1,Block,Catchment,Catchment,!,Temperature,temperature,!,!,integer,Yes;No,ComboBox,Environment,Select,Yes,100174,,,
+1,Block,Soil,Sand,!,Van-Genuchten ~alpha parameter,vg_alpha,1/m;1/cm;1/ft;1/in,1/m,float+Estimate,14.5,UnitBox,Material,Input,Yes,100056,>0,E,Van Genuchten ~alpha parameter must be positive
+1,Block,Soil,Loamy sand,!,Van-Genuchten ~alpha parameter,vg_alpha,1/m;1/cm;1/ft;1/in,1/m,float+Estimate,12.4,UnitBox,Material,Input,Yes,100056,>0,E,Van Genuchten ~alpha parameter must be positive
+1,Block,Soil,Sandy loam,!,Van-Genuchten ~alpha parameter,vg_alpha,1/m;1/cm;1/ft;1/in,1/m,float+Estimate,7.5,UnitBox,Material,Input,Yes,100056,>0,E,Van Genuchten ~alpha parameter must be positive
+1,Block,Soil,Loam,!,Van-Genuchten ~alpha parameter,vg_alpha,1/m;1/cm;1/ft;1/in,1/m,float+Estimate,3.6,UnitBox,Material,Input,Yes,100056,>0,E,Van Genuchten ~alpha parameter must be positive
+1,Block,Soil,Silt,!,Van-Genuchten ~alpha parameter,vg_alpha,1/m;1/cm;1/ft;1/in,1/m,float+Estimate,1.6,UnitBox,Material,Input,Yes,100056,>0,E,Van Genuchten ~alpha parameter must be positive
+1,Block,Soil,Silt loam,!,Van-Genuchten ~alpha parameter,vg_alpha,1/m;1/cm;1/ft;1/in,1/m,float+Estimate,2,UnitBox,Material,Input,Yes,100056,>0,E,Van Genuchten ~alpha parameter must be positive
+1,Block,Soil,Sandy clay loam,!,Van-Genuchten ~alpha parameter,vg_alpha,1/m;1/cm;1/ft;1/in,1/m,float+Estimate,5.9,UnitBox,Material,Input,Yes,100056,>0,E,Van Genuchten ~alpha parameter must be positive
+1,Block,Soil,Clay loam,!,Van-Genuchten ~alpha parameter,vg_alpha,1/m;1/cm;1/ft;1/in,1/m,float+Estimate,1.9,UnitBox,Material,Input,Yes,100056,>0,E,Van Genuchten ~alpha parameter must be positive
+1,Block,Soil,Silty clay loam,!,Van-Genuchten ~alpha parameter,vg_alpha,1/m;1/cm;1/ft;1/in,1/m,float+Estimate,1,UnitBox,Material,Input,Yes,100056,>0,E,Van Genuchten ~alpha parameter must be positive
+1,Block,Soil,Sandy clay,!,Van-Genuchten ~alpha parameter,vg_alpha,1/m;1/cm;1/ft;1/in,1/m,float+Estimate,2.7,UnitBox,Material,Input,Yes,100056,>0,E,Van Genuchten ~alpha parameter must be positive
+1,Block,Soil,Silty clay,!,Van-Genuchten ~alpha parameter,vg_alpha,1/m;1/cm;1/ft;1/in,1/m,float+Estimate,0.5,UnitBox,Material,Input,Yes,100056,>0,E,Van Genuchten ~alpha parameter must be positive
+1,Block,Soil,Clay,!,Van-Genuchten ~alpha parameter,vg_alpha,1/m;1/cm;1/ft;1/in,1/m,float+Estimate,0.8,UnitBox,Material,Input,Yes,100056,>0,E,Van Genuchten ~alpha parameter must be positive
+1,Block,Soil,Userdefined,!,Van-Genuchten ~alpha parameter,vg_alpha,1/m;1/cm;1/ft;1/in,1/m,float+Estimate,!,UnitBox,Material,Input,Yes,100056,>0,E,Van Genuchten ~alpha parameter must be positive
+1,Block,Soil,*,!,Van-Genuchten ~lambda parameter,lambda,!,!,float+Estimate,0.5,TextBox,Material,Input,Yes,100057,>=0,E,Van Genuchten ~lambda parameter must be non-negative
+1,Block,Soil,Sand,!,Van-Genuchten n parameter,vg_n,!,!,float+Estimate,2.68,TextBox,Material,Input,Yes,100058,>0,E,Van Genuchten n parameter must be positive
+1,Block,Soil,Loamy sand,!,Van-Genuchten n parameter,vg_n,!,!,float+Estimate,2.28,TextBox,Material,Input,Yes,100264,>0,E,Van Genuchten n parameter must be positive
+1,Block,Soil,Sandy loam,!,Van-Genuchten n parameter,vg_n,!,!,float+Estimate,1.89,TextBox,Material,Input,Yes,100269,>0,E,Van Genuchten n parameter must be positive
+1,Block,Soil,Loam,!,Van-Genuchten n parameter,vg_n,!,!,float+Estimate,1.56,TextBox,Material,Input,Yes,100274,>0,E,Van Genuchten n parameter must be positive
+1,Block,Soil,Silt,!,Van-Genuchten n parameter,vg_n,!,!,float+Estimate,1.37,TextBox,Material,Input,Yes,100279,>0,E,Van Genuchten n parameter must be positive
+1,Block,Soil,Silt loam,!,Van-Genuchten n parameter,vg_n,!,!,float+Estimate,1.41,TextBox,Material,Input,Yes,100284,>0,E,Van Genuchten n parameter must be positive
+1,Block,Soil,Sandy clay loam,!,Van-Genuchten n parameter,vg_n,!,!,float+Estimate,1.48,TextBox,Material,Input,Yes,100289,>0,E,Van Genuchten n parameter must be positive
+1,Block,Soil,Clay loam,!,Van-Genuchten n parameter,vg_n,!,!,float+Estimate,1.31,TextBox,Material,Input,Yes,100294,>0,E,Van Genuchten n parameter must be positive
+1,Block,Soil,Silty clay loam,!,Van-Genuchten n parameter,vg_n,!,!,float+Estimate,1.23,TextBox,Material,Input,Yes,100299,>0,E,Van Genuchten n parameter must be positive
+1,Block,Soil,Sandy clay,!,Van-Genuchten n parameter,vg_n,!,!,float+Estimate,1.23,TextBox,Material,Input,Yes,100304,>0,E,Van Genuchten n parameter must be positive
+1,Block,Soil,Silty clay,!,Van-Genuchten n parameter,vg_n,!,!,float+Estimate,1.09,TextBox,Material,Input,Yes,100309,>0,E,Van Genuchten n parameter must be positive
+1,Block,Soil,Clay,!,Van-Genuchten n parameter,vg_n,!,!,float+Estimate,1.09,TextBox,Material,Input,Yes,100314,>0,E,Van Genuchten n parameter must be positive
+1,Block,Soil,Userdefined,!,Van-Genuchten n parameter,vg_n,!,!,float+Estimate,!,TextBox,Material,Input,Yes,100314,>0,E,Van Genuchten n parameter must be positive
+1,Block,Pond,Pond,!,Manning's roughness coefficient,nmanning,s/~^3~radicm,day/~^3~radicm,float+Estimate,!,UnitBox,Material,Input,Yes,100161,>0,W,Manning's roughness coefficient must be positive
+1,Block,*,*,!,Solar-radiation reduction factor,light_reduction_factor,!,!,float+Estimate,1,TextBox,Material,Input,Yes,100315,>=0,E,Solar-radiation reduction factor must be non-negative
+//1,Block,Pond,Pond,!,Width,width,m;cm;ft;in,m,float+Estimate,!,UnitBox,Geometry,Input,Yes,100163,!=0; >=0,W;W,Width is assigned to be zero; Width must be positive and non-zero
+1,Block,*,*,!,Conduct reactions,perform_rxn,!,!,string,Yes;No,ComboBox,Material,Select,Yes,100316,,,
+//1,Block,Catchment,Catchment,!,Width,width,m;cm;ft;in,m,float,!,UnitBox,Geometry,Input,Yes,100338,>=0,E,Dimension must be non-negative
+1,Entity,Project settings,Project settings,!,Steady state hydraulics,steady_state_hydro,!,!,string,No;Yes,ComboBox,Global,Select,No,100317,,,
+1,Entity,Evapotranspiration,Priestley-Taylor,,Coefficient,coefficient_light,!,!,string,!,TextBox,Global,Input,No,100233,!=0;>0,W;E,Coefficient is zero;Coefficient must be non-negative
+1,Entity,Project settings,Project settings,!,Description,!,!,!,string,!,Memo,Global,Input,No,100318,,,
+1,Entity,Constituent,*,!,Exchange rate,rate,!,!,dialog,...;Solid aqueous exchange parameters,PushButton,Global,Input,No,100318,,,
+1,Entity,Evapotranspiration,Priestley-Taylor,,Psychrometric constant,psychrometric_constant,Pa/~degreeC,Pa/~degreeC,string,66.8,UnitBox,Global,Select,No,100319,>0,E,Psychrometric constant must be non-negative
+//1,Block,Pond,Pond,!,Length,d,m;cm;ft;in,m,float+Estimate,!,UnitBox,Geometry,Input,Yes,100319,,,
+1,Entity,Evapotranspiration,Penman,,Wind coefficient,coefficient,!,!,string,!,TextBox,Global,Select,No,100320,!=0;>=0,W;E,Coefficient is zero;Coefficient must be non-negative
+1,Block,Storage,Storage,!,Suction head coefficient under dry condition,storage_epsilon,m;cm;ft;in,m,float+Estimate,0.01,UnitBox,Geometry,Input,Yes,100320,>0,E,Suction head coefficient should be positive
+1,Entity,Evapotranspiration,Penman,,Solar-radiation coefficient,coefficient_light,!,!,string,!,TextBox,Global,Select,No,100321,!=0;>=0,W;E,Coefficient is zero;Coefficient must be non-negative
+1,Block,Storage,Storage,!,Suction head power under dry condition,storage_n,!,!,float+Estimate,2,TextBox,Geometry,Input,Yes,100321,>0,E,Suction head power should be positive
+1,Entity,Evapotranspiration,Penman,,Psychrometric constant,psychrometric_constant,Pa/~degreeC,Pa/~degreeC,string,66.8,UnitBox,Global,Select,No,100319,>0,E,Psychrometric constant must be non-negative
+1,Connector,Quasi steady,non-Porous,!,Width,width,m;cm;ft;in,m,float+Estimate,!,UnitBox,Geometry,Input,Yes,100063,!=0; >=0,W;E,Width is assigned to be zero; Width must be positive and non-zero
+1,Entity,Solver settings,Solver settings,!,Check positive definiteness,pos_def_limit,!,!,string,No;Yes,ComboBox,Global,Select,No,100099,,,
+1,Entity,External flux,External flux,!,Coefficient,coefficient,!,!,float+Estimate+Control,!,TextBox,Global,Input,No,100100,>=0,E,The exchange coefficient must be non-negative
+1,Entity,Build-up,Build-up,!,Constituent,Constituent,!,!,string,populate at runtime; constituent+particle,ComboBox,Global,Select,No,100102,,,
+1,Entity,Build-up,Build-up,!,Model,Model,!,!,string,Linear;Exponential,ComboBox,Global,Select,No,100122,,,
+1,Entity,Build-up,Build-up,!,Satuation,saturation,!,!,string,!,TextBox,Global,Input,No,100140,!=0; >=0,W;E,Saturation is zero; Saturation must be non-negative
+1,Entity,Build-up,Build-up,!,Sorbed/attached,sorb,!,!,string,Yes; No,ComboBox,Global,Select,No,100149,,,
+1,Entity,Climate settings,Climate settings,!,Precipitation time series,precipitation,!,!,filename;precipitation,!,Browser;precipitation;time series,Global,Select,No,100132,,,
+1,Entity,Constituent,*,!,Diffusion coefficient,diffusion,m~^2/day; m~^2/s; cm~^2/s; cm~^2/day ,m~^2/day,float+Estimate,!,UnitBox,Global,Input,No,100107,>=0,E,Diffusion coefficient must be non-negative
+1,Entity,Constituent,*,!,Exchange rate factor,exchange_rate_factor,!,!,expression,1,expressionEditor,Global,Input,No,100112,,,
+1,Entity,Constituent,*,!,Partitioning coefficient,kd,!,!,dialog,...;Solid aqueous exchange parameters,PushButton,Global,Input,No,100128,,,
+1,Entity,Constituent,*,!,SubType,settling_model,!,!,float+Estimate,Constant velocity; Double Exponential,ComboBox,Material,Select,No,100358,,,
+1,Entity,Constituent,Double Exponential,!,Hindered zone settling parameter,r_hin,!,!,float+Estimate,!,TextBox,Material,Input,No,100359,>=0,E,Hindered zone settling parameter must be non-negative
+1,Entity,Constituent,Double Exponential,!,Flocculant zone settling parameter,r_floc,!,!,float+Estimate,!,TextBox,Material,Input,No,100359,>=0,E,Flocculant zone settling parameter must be non-negative
+1,Entity,Constituent,Double Exponential,!,Minimum concentration for double exponential settling,x_min,!,!,float+Estimate,!,TextBox,Material,Input,No,100359,>=0,E,Minimum concentration for double exponential settling must be non-negative
+1,Entity,External flux,External flux,!,Constituent,constituent,!,!,string,populate at runtime; constituent,ComboBox,Global,Select,No,100103,,,
+1,Entity,External flux,External flux,!,Depth exponent,depth_exponent,!,!,float+Estimate,!,TextBox,Global,Input,No,100106,,,
+1,Entity,External flux,External flux,!,Model,!,!,!,string,Soil; Free surface; Constant rate; Constant influx,ComboBox,Global,Select,No,100123,,,
+1,Entity,External flux,External flux,!,Saturation,saturation,!,!,float+Estimate,!,TextBox,Global,Input,No,100141,!=0; >=0,W;E,Saturation is zero; Saturation must be non-negative
+1,Entity,External flux,External flux,!,Solid,solid,!,!,string,populate at runtime;particle,ComboBox,Global,Select,No,100146,,,
+1,Entity,Observation,*,!,Error distribution,error_structure,!,!,string,Normal;Log-Normal,ComboBox,Global,Select,No,100110,,,
+1,Entity,Observation,Block,!,Location,id,!,!,string,populate at runtime;Block,ComboBox,Global,Select,No,100118,,,
+1,Entity,Observation,*,!,Experiment,experiment,!,!,string,populate at runtime;Experiment,ComboBox,Global,Select,No,100323,,,
+1,Entity,Observation,*,!,Observed data,observed_data,!,!,filename,!,Browser;time series,Global,Select,No,100126,,,
+1,Entity,Observation,Block,!,Quantity,quan,!,!,string,h;S;Z0;Se;~theta;add at runtime particle phases;add at runtime constituent phases,ObservedComboBox,Global,Select,No,100136,,,
+1,Entity,Parameter,Parameter,!,Maximum value,high,!,!,float,!,TextBox,Global,Input,No,100119,>{low},E,Upper limit must be larger than the lower limit
+1,Entity,Parameter,Parameter,!,Minimum value,low,!,!,float,!,TextBox,Global,Input,No,100121,not empty,,
+1,Entity,Parameter,Parameter,!,Prior distribution,log,!,!,string,Normal;Log-Normal,ComboBox,Global,Select,No,100135,,,
+1,Entity,Project settings,Project settings,!,Simulation start time,time_min,!,!,datetime+getnumber,0,DateTime,Global,Input,Yes,100144,,,
+1,Entity,Reaction,Reaction,!,Rate,rate,!,!,string,!,reaction,Global,Input,No,100137,,,
+1,Entity,Solver settings,Solver settings,!,Failure criteria number of interations,nr_failure_criteria,!,!,integer,200,TextBox,Global,Input,No,100113,>0,E,Failure criteria number of interations must be positive
+1,Entity,Solver settings,Solver settings,!,Maximum number of matrix inversions allowed,epoch_limit,!,!,integer,20000,TextBox,Global,Input,No,100350,>0,E,Maximum Matrix inversions allowed must be positive
+1,Entity,Solver settings,Solver settings,!,Maximum simulation time,maximum_run_time,!,!,float,864000,TextBox,Global,Input,No,100504,>0,E,Maximum simulation time must be positive
+1,Entity,Solver settings,Solver settings,!,Initial time step size,dt,day;hr;min;s,day,float,0.01,UnitBox,Global,Input,No,100115,>0,E,Initial time step must be greater than zero
+1,Entity,Solver settings,Solver settings,!,Jackobian update interval,max_j_update_interval,!,!,integer,40,TextBox,Global,Input,No,100117,>=0,E,Jackobian matrix update interval must be non-negative
+1,Entity,Solver settings,Solver settings,!,Newton-Raphson acceptance tolerance,tol,!,!,float,0.001,TextBox,Global,Input,No,100125,>0,E,Newton-Raphson acceptance tolerance must be positive
+1,Entity,Project settings,Project settings,!,Simulation end time,time_max,!,!,datetime+getnumber,1,DateTime,Global,Input,Yes,100145,>{time_min},E,Simulation End time must be greater than simulation start time
+1,Entity,Project settings,Project settings,!,Perform mass balance check,mass_balance_check,!,!,string,Yes;No,ComboBox,Global,Select,No,100129,,,
+1,Entity,Project settings,Project settings,!,Perform particle transport simulation,colloid_transport,!,!,string,Yes;No,ComboBox,Global,Select,No,100130,,,
+1,Entity,Project settings,Project settings,!,Perform water quality simulation,water_quality,!,!,string,Yes;No,ComboBox,Global,Select,No,100131,,,
+1,Entity,Solver settings,Solver settings,!,Preferred lower limit of NR iterations,nr_iteration_treshold_min,!,!,integer,20,TextBox,Global,Input,No,100133,>0,E,Prefered lower limit of NR iterations must be positive
+1,Entity,Solver settings,Solver settings,!,Preferred upper limit of NR iterations,nr_iteration_treshold_max,!,!,integer,50,TextBox,Global,Input,No,100134,>0,E,Prefered upper limit of NR iterations must be positive
+1,Entity,Solver settings,Solver settings,!,Restore interval,restore_interval,!,!,integer,20,TextBox,Global,Input,No,100139,,,
+1,Entity,Project settings,Project settings,!,Solution method,solution_method,!,!,string,Quasi implicit Newton-Raphson,ComboBox,Global,Select,No,100147,,,
+1,Entity,Project settings,Project settings,!,Sorption,sorption,!,!,string,Yes;No,ComboBox,Global,Select,No,100360,,,
+1,Entity,Solver settings,Solver settings,!,Solution oscillation tolerance,wiggle_tolerance,!,!,float,0.01,TextBox,Global,Input,No,100148,>0;>=0.01,E;W,Solution Oscillation tolerance must be positive;Solution Oscillation tolerance less than 0.01 lead to more computational cost
+1,Entity,Solver settings,Solver settings,!,Time weighting factor,w,!,!,float,0,TextBox,Global,Input,No,100104,[0:1],E,Crank-Nicholson time weighting must be between 0 and 1
+1,Entity,Particle,Single phase,!,Diffusion coefficient,diffusion,m~^2/day; m~^2/s; cm~^2/s; cm~^2/day ,m~^2/day,float+Estimate,!,UnitBox,Material,Input,No,100108,>=0,E,Diffusion coefficient must be non-negative
+1,Entity,Particle,Single phase,!,Dispersivity,dispersivity,m; cm; ft; in,m,float+Estimate,!,UnitBox,Material,Input,No,100109,>=0,E,Dispersivity must be non-negative
+1,Entity,Particle,Single phase,!,Medium bulk density,bulkdensity,kg/m~^3;g/cm~^3;lb/ft~^3,kg/m~^3,float+Estimate,!,UnitBox,Material,Input,No,100120,>=0,W,A non-negative bulk density should be provided if a sorbing constituent is present
+//1,Entity,Particle,Single phase,!,Model,Model,!,!,string,Single phase; Dual phase; Triple phase,ComboBox,Global,Select,No,100124,,,
+1,Entity,Particle,Single phase,!,Partitioning coefficient to air-water interface,kair,!,!,float+Estimate,!,TextBox,Material,Input,No,100127,>=0,E,Partitioning coefficient to air-water interface must be non-negative
+1,Entity,Particle,Single phase,!,Saturation attachment concentration,gmax,!,!,float+Estimate,!,TextBox,Material,Input,No,100142,>0,E,Saturation attachment concentration must be non-negative
+1,Entity,Particle,Single phase,!,Settling velocity,vs,m/day;cm/day;cm/s;mm/s;ft/day;in/day;in/s,m/day,float+Estimate,!,UnitBox,Material,Input,No,100143,>=0,E,settling velocity must be non-negative
+1,Entity,Particle,*,!,Settling model,settling_model,!,!,float+Estimate,Constant velocity; Double Exponential,ComboBox,Material,Select,No,100358,,,
+1,Entity,Particle,*,!,Hindered zone settling parameter,r_hin,!,!,float+Estimate,!,TextBox,Material,Input,No,100359,>=0,E,Hindered zone settling parameter must be non-negative
+1,Entity,Particle,*,!,Flocculant zone settling parameter,r_floc,!,!,float+Estimate,!,TextBox,Material,Input,No,100359,>=0,E,Flocculant zone settling parameter must be non-negative
+1,Entity,Particle,*,!,Minimum concentration for double exponential settling,x_min,!,!,float+Estimate,!,TextBox,Material,Input,No,100359,>=0,E,Minimum concentration for double exponential settling must be non-negative
+1,Entity,Particle,Dual phase,!,Attachment efficiency,attachmenteff,!,!,float+Estimate,!,TextBox,Material,Input,No,100097,>=0,E,attachment efficiency must be non-negative
+1,Entity,Particle,Dual phase,!,Collection efficiency ,collectioneff,!,!,float+Estimate,!,TextBox,Material,Input,No,100101,>=0,E,collection coefficient must be non-negative
+1,Entity,Particle,Dual phase,!,Critical velocity for release,critvel,!,!,float+Estimate,!,TextBox,Material,Input,No,100105,>=0,E,critical velocity must be non-negative
+1,Entity,Particle,Dual phase,!,Diffusion coefficient,diffusion,m~^2/day; m~^2/s; cm~^2/s; cm~^2/day ,m~^2/day,float+Estimate,!,UnitBox,Material,Input,No,100108,>=0,E,Diffusion coefficient must be non-negative
+1,Entity,Particle,Dual phase,!,Dispersivity,dispersivity,m; cm; ft; in,m,float+Estimate,!,UnitBox,Material,Input,No,100109,>=0,E,Dispersivity must be non-negative
+1,Entity,Particle,Dual phase,!,Medium bulk density,bulkdensity,kg/m~^3;g/cm~^3;lb/ft~^3,kg/m~^3,float+Estimate,!,UnitBox,Material,Input,No,100120,>=0,W,A non-negative bulk density should be provided if a sorbing constituent is present
+//1,Entity,Particle,Dual phase,!,Model,Model,!,!,string,Single phase; Dual phase; Triple phase,ComboBox,Global,Select,No,100124,,,
+1,Entity,Particle,Dual phase,!,Partitioning coefficient to air-water interface,kair,!,!,float+Estimate,!,TextBox,Material,Input,No,100127,>=0,E,Partitioning coefficient to air-water interface must be non-negative
+1,Entity,Particle,Dual phase,!,Release rate coefficient,releasecoeff,1/day; 1/s; 1/hr; 1/min,1/day,float+Estimate,!,UnitBox,Material,Input,No,100138,>=0,E,Release coefficient must 
+1,Entity,Particle,Dual phase,!,Saturation attachment concentration,gmax,!,!,float+Estimate,!,TextBox,Material,Input,No,100142,>0,E,Saturation attachment concentration must be non-negative
+1,Entity,Particle,Dual phase,!,Settling velocity,vs,m/day;cm/day;cm/s;mm/s;ft/day;in/day;in/s,m/day,float+Estimate,!,UnitBox,Material,Input,No,100143,>=0,E,settling velocity must be non-negative
+1,Entity,Particle,Dual phase,!,Specific surface area ,specsurfarea,1/m;1/cm;1/ft;1/in,1/m,float+Estimate,!,UnitBox,Material,Input,No,100150,>=0,E,Specific surface area must be non-negative
+1,Entity,Particle,Triple phase,!,Attachment efficiency,attachmenteff,!,!,float+Estimate,!,TextBox,Material,Input,No,100097,>=0,E,attachment efficiency must be non-negative
+1,Entity,Particle,Triple phase,!,Collection efficiency ,collectioneff,!,!,float+Estimate,!,TextBox,Material,Input,No,100101,>=0,E,collection coefficient must be non-negative
+1,Entity,Particle,Triple phase,!,Critical velocity for release,critvel,!,!,float+Estimate,!,TextBox,Material,Input,No,100105,>=0,E,critical velocity must be non-negative
+1,Entity,Particle,Triple phase,!,Diffusion coefficient,diffusion,m~^2/day; m~^2/s; cm~^2/s; cm~^2/day ,m~^2/day,float+Estimate,!,UnitBox,Material,Input,No,100108,>=0,E,Diffusion coefficient must be non-negative
+1,Entity,Particle,Triple phase,!,Dispersivity,dispersivity,m; cm; ft; in,m,float+Estimate,!,UnitBox,Material,Input,No,100109,>=0,E,Dispersivity must be non-negative
+1,Entity,Particle,Triple phase,!,Irreversible collection fraction,irrevcolfraction,!,!,float+Estimate,!,TextBox,Material,Input,No,100116,[0:1],E,Irreversible collection fraction must be between 0 and 1
+1,Entity,Particle,Triple phase,!,Medium bulk density,bulkdensity,kg/m~^3;g/cm~^3;lb/ft~^3,kg/m~^3,float+Estimate,!,UnitBox,Material,Input,No,100120,>=0,W,A non-negative bulk density should be provided if a sorbing constituent is present
+//1,Entity,Particle,Triple phase,!,Model,Model,!,!,string,Single phase; Dual phase; Triple phase,ComboBox,Global,Select,No,100124,,,
+1,Entity,Particle,Triple phase,!,Partitioning coefficient to air-water interface,kair,!,!,float+Estimate,!,TextBox,Material,Input,No,100127,>=0,E,Partitioning coefficient to air-water interface must be non-negative
+1,Entity,Particle,Triple phase,!,Release rate coefficient,releasecoeff,1/day; 1/s; 1/hr; 1/min,1/day,float+Estimate,!,UnitBox,Material,Input,No,100138,>=0,E,Release coefficient must 
+1,Entity,Particle,Triple phase,!,Saturation attachment concentration,gmax,!,!,float+Estimate,!,TextBox,Material,Input,No,100142,>0,E,Saturation attachment concentration must be non-negative
+1,Entity,Particle,Triple phase,!,Settling velocity,vs,m/day;cm/day;cm/s;mm/s;ft/day;in/day;in/s,m/day,float+Estimate,!,UnitBox,Material,Input,No,100143,>=0,E,settling velocity must be non-negative
+1,Entity,Particle,Triple phase,!,Specific surface area ,specsurfarea,1/m;1/cm;1/ft;1/in,1/m,float+Estimate,!,UnitBox,Material,Input,No,100150,>=0,E,Specific surface area must be non-negative
+1,Entity,Markov chain Monte Carlo,Markov chain Monte Carlo,!,Acceptance rate parameter for MCMC sampling,acceptance_rate,!,!,float,0.2,TextBox,Global,Input,No,100151,(0:1),E,Acceptance rate parameter must be between zero and one
+1,Entity,Solver settings,Solver settings,!,Oscillation control,check_oscillation,!,!,string,Yes;No,ComboBox,Global,Select,No,100152,,,
+1,Entity,Observation,Connector,!,Location,id,!,!,string,populate at runtime;Connector,ComboBox,Global,Select,No,100118,,,
+1,Entity,Observation,Connector,!,Quantity,quan,!,!,string,q;v;A,ObservedComboBox,Global,Select,No,100136,,,
+1,Entity,Sensor,*,!,Name,name,!,!,string,!,TextBox,Global,Input,No,100343,,,
+1,Entity,Sensor,*,!,SubType,loc_type,!,!,string,Block;Connector,ComboBox,Global,Select,No,100344,,,
+1,Entity,Sensor,Block,!,Location,id,!,!,string,populate at runtime;Block,ComboBox,Global,Select,No,100347,,,
+1,Entity,Sensor,Connector,!,Location,id,!,!,string,populate at runtime;Connector,ComboBox,Global,Select,No,100348,,,
+1,Entity,Sensor,*,!,Quantity,quan,!,!,string,!,expressionEditor,Global,Input,No,100345,,,
+1,Entity,Sensor,*,!,Error distribution,error_structure,!,!,string,Normal-additive;Lognormal-multiplicative,ComboBox,Global,Select,No,100346,,,
+1,Entity,Sensor,*,!,Interval,interval,min;s;hr;day;wk,day,float,!,UnitBox,Global,Input,No,100349,>0,E,Interval must be positive
+1,Entity,Sensor,*,!,Error Standard deviation,std,!,!,float,0,TextBox,Global,Input,No,100349,>=0,E,Error Standard deviation must be positive
+1,Entity,Controller,*,!,Name,!,!,!,string,!,TextBox,Global,Input,No,100350,,,
+1,Block,*,*,!,Width,width,m;cm;ft;in,m,float+Estimate,!,UnitBox,Geometry,Input,Yes,100342,!=0; >=0,W;W,Width is assigned to be zero; Width must be positive and non-zero
+1,Block,*,*,!,Length,d,m;cm;ft;in,m,float,!,UnitBox,Geometry,Input,Yes,100339,!=0; >=0,W;W,Length is assigned to be zero; Length must be positive and non-zero
+1,Entity,Controller,*,!,Type,type,!,!,string,populate at runtime; SubType,ComboBox,Global,Select,No,100351,,,
+1,Entity,Controller,*,!,Sensor,sensor,!,!,string,populate at runtime;Blank+Sensor,ComboBox,Global,Select,No,100352,,,
+1,Entity,Controller,*,!,Setpoint,setpoint,!,!,float,!,TextBox,Global,Input,No,100353,,,
+1,Entity,Controller,PID-Manual,!,kp,k_p,!,!,float,!,TextBox,Global,Input,No,100354,,,
+1,Entity,Controller,PID-Manual,!,ki,K_i,!,!,float,!,TextBox,Global,Input,No,100355,,,
+1,Entity,Controller,PID-Manual,!,kd,k_d,!,!,float,!,TextBox,Global,Input,No,100356,,,
+1,Entity,Controller,*,!,Interval,interval,min;s;hr;day;wk,day,float,!,UnitBox,Global,Input,No,100357,>0,E,Interval must be positive
+1,Connector,Controlled,*,!,Controller,contoller_id,!,!,string,populate at runtime;Blank+Controller,ComboBox,Geometry,Select,Yes,100252,,,
+1,Block,*,*,!,Dispersivity (~alpha),alpha,m;cm;ft;in,m,float+Estimate,!,UnitBox,Material,Input,Yes,100071,>=0,E,Dispersivity must be non-negative
+1,Entity,Controller,*,!,Initial value,value,!,!,float,!,TextBox,Global,Input,Yes,100356,,,
+1,Entity,Controller,*,!,Minimum value,min_value,!,!,float,!,TextBox,Global,Input,Yes,100356,,,
+1,Entity,Controller,*,!,Maximum value,max_value,!,!,float,!,TextBox,Global,Input,Yes,100356,,,
+1,Entity,Controller,Ziegler-Nichols,!,ku,k_u,!,!,float,!,TextBox,Global,Input,No,100354,,,
+1,Entity,Controller,Ziegler-Nichols,!,Tu,T_u,!,!,float,!,TextBox,Global,Input,No,100355,,,
+1,Entity,Controller,Ziegler-Nichols,!,Controller Type,zn_controller_type,!,!,string,P;PI;PD;PID;PID-No-overshoot,ComboBox,Global,Select,No,100355,,,
+1,Entity,Objective function,*,!,Name,!,!,!,string,!,TextBox,Global,Input,No,100345,,,
+1,Entity,Objective function,*,!,Objective function,objective_function,!,!,string,!,expressionEditor,Global,Input,No,100345,,,
+1,Entity,Objective function,*,!,SubType,loc_type,!,!,string,Block;Connector,ComboBox,Global,Select,No,100344,,,
+1,Entity,Objective function,Block,!,Location,id,!,!,string,populate at runtime;Block,ComboBox,Global,Select,No,100347,,,
+1,Entity,Objective function,Connector,!,Location,id,!,!,string,populate at runtime;Connector,ComboBox,Global,Select,No,100348,,,
+1,Entity,Evapotranspiration,FAO-56,,Psychrometric constant,psychrometric_constant,Pa/~degreeC,Pa/~degreeC,string,66.8,UnitBox,Global,Select,No,100319,>0,E,Psychrometric constant must be non-negative
+1,Entity,Evapotranspiration,FAO-56,,Solar-radiation coefficient,coefficient_light,!,!,string,!,TextBox,Global,Select,No,100321,!=0;>=0,W;E,Coefficient is zero;Coefficient must be non-negative
+1,Entity,Constituent,*,!,Mobile,mobile,!,!,string,Yes;No,ComboBox,Material,Select,No,100503,,,
+1,Block,Plant,Plant,!,Bottom elevation,z0,m;cm;ft;in,m,float+Estimate,0,UnitBox,Material,Input,Yes,100013,,,
+1,Block,Plant,Plant,!,Flow expression,flow_expression,!,!,float+Estimate,!,UnitBox,Material,Input,Yes,100024,,,
+1,Block,Plant,Plant,!,moisture content (~theta),theta,!,!,float+Estimate,0.2,TextBox,Material,Input,Yes,100027,>=0;<1,E;W,Moiture content must be non-negative; moisture content is greater than 1
+1,Block,Plant,Plant,!,Initial biomass,v,m~^3;cm~^3;ft~^3;in~^3,m~^3,float,0.01,UnitBox,Geometry,Input,Yes,100034,>0,E,Block depth must be greater than zero
+1,Block,Plant,Plant,!,Root resitivity ,ks,1/m/day;1/cm/day;1/cm/s;1/mm/s;1/ft/day;1/in/day;1/in/s,m/day,float+Estimate,7.128,UnitBox,Material,Input,Yes,100048,!=0; >=0,W;E,Hydraulic conductivity is zero; Hydraulic conductivity must me non-negative
+1,Block,Plant,Plant,!,Maximum moisture content (~thetas),theta_s,!,!,float+Estimate,0.6,TextBox,Material,Input,Yes,100051,(0:1],E,Maximum moisure content must be between zero and one
+1,Block,Plant,Plant,!,Solar-radiation,light,!,!,integer,Yes;No,ComboBox,Environment,Select,Yes,100165,,,
+1,Block,Plant,Plant,!,Matric suction coefficient (~alpha),vg_alpha,1/m;1/cm;1/ft;1/in,1/m,float+Estimate,14.5,UnitBox,Material,Input,Yes,100056,>0,E,Matric suction coefficient ~alpha must be positive
+1,Block,Plant,Plant,!,Matric suction exponent (n),vg_n,!,!,float+Estimate,2,TextBox,Material,Input,Yes,100314,>0,E,Matric suction exponent must be positive
+1,Block,Plant,*,!,Initial leaf area index,lai,!,!,float+Estimate,0.01,TextBox,Material,Input,Yes,100314,>0,E,Initial leaf area index must be greater than zero
+1,Entity,Evapotranspiration,Aerodynamic (plant),!,Uptake constituents,uptake_constituents,!,!,string,No;Yes,ComboBox,Global,Select,No,100227,,,
+1,Entity,Evapotranspiration,Priestley-Taylor (plant),!,Uptake constituents,uptake_constituents,!,!,string,No;Yes,ComboBox,Global,Select,No,100227,,,
+1,Entity,Evapotranspiration,Penman (plant),!,Uptake constituents,uptake_constituents,!,!,string,No;Yes,ComboBox,Global,Select,No,100227,,,
+1,Entity,Evapotranspiration,Aerodynamic (plant),!,Coefficient,coefficient,!,!,float+Estimate,!,TextBox,Global,Input,No,100233,!=0;>0,W;E,Coefficient is zero;Coefficient must be non-negative
+1,Entity,Evapotranspiration,Priestley-Taylor (plant),,Coefficient,coefficient,!,!,string,!,TextBox,Global,Input,No,100233,!=0;>0,W;E,Coefficient is zero;Coefficient must be non-negative
+1,Entity,Evapotranspiration,Priestley-Taylor (plant),,Psychrometric constant,psychrometric_constant,Pa/~degreeC,Pa/~degreeC,string,66.8,UnitBox,Global,Select,No,100319,>0,E,Psychrometric constant must be non-negative
+1,Entity,Evapotranspiration,Penman (plant),,Wind coefficient,coefficient,!,!,string,!,TextBox,Global,Select,No,100320,!=0;>=0,W;E,Coefficient is zero;Coefficient must be non-negative
+1,Entity,Evapotranspiration,Penman (plant),,Solar-radiation coefficient,coefficient_light,!,!,string,!,TextBox,Global,Select,No,100321,!=0;>=0,W;E,Coefficient is zero;Coefficient must be non-negative
+1,Entity,Evapotranspiration,Penman (plant),,Half evaporation LAI (kLAI),half_evaporation_lai,!,!,string,1.5,UnitBox,Global,Select,No,100319,>0,E,Half evaporation LAI must be positive
+1,Entity,Evapotranspiration,Priestley-Taylor (plant),,Half evaporation LAI (kLAI),half_evaporation_lai,!,!,string,1.5,UnitBox,Global,Select,No,100319,>0,E,Half evaporation LAI must be positive
+1,Entity,Evapotranspiration,Aerodynamic (plant),,Half evaporation LAI (kLAI),half_evaporation_lai,!,!,string,1.5,UnitBox,Global,Select,No,100319,>0,E,Half evaporation LAI must be positive
+1,Block,Plant,*,!,Maximum leaf area index,lai_max,!,!,float+Estimate,8,TextBox,Material,Input,Yes,100512,>0,E,Maximum leaf area index (LAI_max) must be a positive number
+1,Block,Plant,*,!,Leaf area index growth rate coefficient,k_lai,1/day/~degreeC,1/day/~degreeC,float+Estimate,0.1,TextBox,Material,Input,Yes,100507,>0,E,Leaf growth rate constant must be greater than zero
+1,Block,Plant,*,!,Plant biomass to energy ratio,plant_growth_rate_coefficient,m~^3/J,m~^3/J,float+Estimate,0.01,TextBox,Material,Input,Yes,100506,>0,E,Plant growth rate coefficient
+1,Block,Plant,*,!,Base temperature,temperature_base,~degreeC,~degreeC,float+Estimate,10,TextBox,Material,Input,Yes,100507,,,
+1,Block,Plant,*,!,Temperature spread coefficient,temperature_spread_factor,~degreeC,~degreeC,float+Estimate,4,TextBox,Material,Input,Yes,100508,>0,E,Temperature spread coefficient must be positive
+1,Block,Plant,*,!,Plant maximum biomass decay coefficient,plant_biomass_decay_factor,1/day; 1/s; 1/hr; 1/min,1/day,float+Estimate,0.01,TextBox,Material,Input,Yes,100509,>=0,E,Plant maximum decay coefficient must be positive
+1,Block,Plant,*,!,Plant maximum leaf decay coefficient,plant_leaf_decay_factor,1/day; 1/s; 1/hr; 1/min,1/day,float+Estimate,0.02,TextBox,Material,Input,Yes,100510,>=0,E,Plant maximum leaf decay coefficient must be positive
+1,Block,Plant,*,!,Optimal temperature,optimal_temperature,~degreeC,~degreeC,float+Estimate,30,TextBox,Material,Input,Yes,100511,,,
+1,Entity,Solver settings,Solver settings,!,Minimum acceptable negative concentration,minimum_acceptable_negative_conc,!,!,float,1.00E-13,TextBox,Global,Input,No,100153,,,
+1,Block,Plant,*,!,Limiting Nutrients,!,!,!,dialog,...; PlantHalfSaturation,PushButton,Initial State,Select,Yes,100505,,,

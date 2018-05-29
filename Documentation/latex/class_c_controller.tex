@@ -1,0 +1,84 @@
+\hypertarget{class_c_controller}{}\section{C\+Controller Class Reference}
+\label{class_c_controller}\index{C\+Controller@{C\+Controller}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_c_controller_a10b9908dd6d736572c7a08c3d435f551}\label{class_c_controller_a10b9908dd6d736572c7a08c3d435f551}} 
+{\bfseries C\+Controller} (const \hyperlink{class_c_controller}{C\+Controller} \&M)
+\item 
+\mbox{\Hypertarget{class_c_controller_ae2331f62d9ce269d39825728483b1a12}\label{class_c_controller_ae2331f62d9ce269d39825728483b1a12}} 
+\hyperlink{class_c_controller}{C\+Controller} \& {\bfseries operator=} (const \hyperlink{class_c_controller}{C\+Controller} \&BB)
+\item 
+\mbox{\Hypertarget{class_c_controller_a78945b236f0efb67f54d061ddc6ca36e}\label{class_c_controller_a78945b236f0efb67f54d061ddc6ca36e}} 
+double {\bfseries calc\+\_\+value} (double t, int experiment\+\_\+id)
+\item 
+\mbox{\Hypertarget{class_c_controller_a865ba40e1c6ee7c63182d6a43b6498f7}\label{class_c_controller_a865ba40e1c6ee7c63182d6a43b6498f7}} 
+void {\bfseries append} (double t, double C)
+\item 
+\mbox{\Hypertarget{class_c_controller_a26e0cfe180287501808183b2dd44c9fb}\label{class_c_controller_a26e0cfe180287501808183b2dd44c9fb}} 
+double {\bfseries P} (double t, int experiment\+\_\+id)
+\item 
+\mbox{\Hypertarget{class_c_controller_ad7e18de6c04e96d6fd00c21b641adaee}\label{class_c_controller_ad7e18de6c04e96d6fd00c21b641adaee}} 
+double {\bfseries I} (double t, int experiment\+\_\+id)
+\item 
+\mbox{\Hypertarget{class_c_controller_afe696331bf43c93c8ca918e1f3d95eb5}\label{class_c_controller_afe696331bf43c93c8ca918e1f3d95eb5}} 
+double {\bfseries D} (double t, int experiment\+\_\+id)
+\item 
+\mbox{\Hypertarget{class_c_controller_a266e57f698512f236134fd1700e058d2}\label{class_c_controller_a266e57f698512f236134fd1700e058d2}} 
+void {\bfseries set\+\_\+val} (string S, double val)
+\item 
+\mbox{\Hypertarget{class_c_controller_aeffa1db55135b0c1c8489d4205fa07e4}\label{class_c_controller_aeffa1db55135b0c1c8489d4205fa07e4}} 
+void {\bfseries set\+\_\+zn} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_c_controller_af91771903257fab37066f68ff3073329}\label{class_c_controller_af91771903257fab37066f68ff3073329}} 
+string {\bfseries name}
+\item 
+\mbox{\Hypertarget{class_c_controller_a269f76bb80e78c28c79ef9bd6d40234d}\label{class_c_controller_a269f76bb80e78c28c79ef9bd6d40234d}} 
+\hyperlink{class_c_b_t_c}{C\+B\+TC} {\bfseries output}
+\item 
+\mbox{\Hypertarget{class_c_controller_a39cecf968ff8b94013fa2dc998817d44}\label{class_c_controller_a39cecf968ff8b94013fa2dc998817d44}} 
+string {\bfseries type}
+\item 
+\mbox{\Hypertarget{class_c_controller_aa19322b4e864838be892594c846ea26f}\label{class_c_controller_aa19322b4e864838be892594c846ea26f}} 
+\hyperlink{class_c_sensor}{C\+Sensor} $\ast$ {\bfseries Sensor}
+\item 
+\mbox{\Hypertarget{class_c_controller_a81ac1239d13b5cbd7271e2e2e2a0deac}\label{class_c_controller_a81ac1239d13b5cbd7271e2e2e2a0deac}} 
+string {\bfseries sensor\+\_\+id}
+\item 
+\mbox{\Hypertarget{class_c_controller_a25ac0322b87d15c0a7203e8b5846f585}\label{class_c_controller_a25ac0322b87d15c0a7203e8b5846f585}} 
+vector$<$ double $>$ {\bfseries params}
+\item 
+\mbox{\Hypertarget{class_c_controller_aa95db3ac45117fff36b81f377357a323}\label{class_c_controller_aa95db3ac45117fff36b81f377357a323}} 
+double {\bfseries value}
+\item 
+\mbox{\Hypertarget{class_c_controller_a5b29d25d4794a88f10f5ba235fe4965b}\label{class_c_controller_a5b29d25d4794a88f10f5ba235fe4965b}} 
+double {\bfseries interval}
+\item 
+\mbox{\Hypertarget{class_c_controller_a141e7d1c8eec08bc32e63f71e53f9e85}\label{class_c_controller_a141e7d1c8eec08bc32e63f71e53f9e85}} 
+double {\bfseries min\+\_\+val} = 0
+\item 
+\mbox{\Hypertarget{class_c_controller_ac2cbcf8e08c00ad8ae605ca89c18baf6}\label{class_c_controller_ac2cbcf8e08c00ad8ae605ca89c18baf6}} 
+double {\bfseries max\+\_\+val} = 1e12
+\item 
+\mbox{\Hypertarget{class_c_controller_a4583b9a3b90e02badcb901a6b703378e}\label{class_c_controller_a4583b9a3b90e02badcb901a6b703378e}} 
+string {\bfseries zn\+\_\+controller\+\_\+type}
+\item 
+\mbox{\Hypertarget{class_c_controller_a4c3811c65d39682d5348fb95d0b051a9}\label{class_c_controller_a4c3811c65d39682d5348fb95d0b051a9}} 
+double {\bfseries integral} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 6 of file Controller.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+G\+U\+I/Controller.\+h\item 
+G\+U\+I/Controller.\+cpp\end{DoxyCompactItemize}

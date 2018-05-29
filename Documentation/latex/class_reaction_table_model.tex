@@ -1,0 +1,102 @@
+\hypertarget{class_reaction_table_model}{}\section{Reaction\+Table\+Model Class Reference}
+\label{class_reaction_table_model}\index{Reaction\+Table\+Model@{Reaction\+Table\+Model}}
+Inheritance diagram for Reaction\+Table\+Model\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_reaction_table_model}
+\end{center}
+\end{figure}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_reaction_table_model_a932ce5eecbd4fdbb3fc2153e2887bb0f}\label{class_reaction_table_model_a932ce5eecbd4fdbb3fc2153e2887bb0f}} 
+void {\bfseries invalid\+Expressoin\+Detected} (const Q\+String \&msg)
+\item 
+\mbox{\Hypertarget{class_reaction_table_model_a684bb949e63733630d74064346bd5789}\label{class_reaction_table_model_a684bb949e63733630d74064346bd5789}} 
+void {\bfseries wrong\+Symbol\+Detected} (const Q\+Model\+Index \&, const Q\+String \&sym)
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_reaction_table_model_a4f73fa7f2a8632da30b4da4eddb78c6c}\label{class_reaction_table_model_a4f73fa7f2a8632da30b4da4eddb78c6c}} 
+{\bfseries Reaction\+Table\+Model} (\hyperlink{class_graph_widget}{Graph\+Widget} $\ast$main\+Graph\+Widget, const Q\+String\+List \&constituents, const Q\+String\+List \&parameters, const Q\+String\+List \&functions, const Q\+String\+List \&physical, const Q\+List$<$ Q\+String\+List $>$ \&data=Q\+List$<$ Q\+String\+List $>$(), Q\+Object $\ast$p=0)
+\item 
+\mbox{\Hypertarget{class_reaction_table_model_acfc612b2b1106c12b001c5485a90a4ec}\label{class_reaction_table_model_acfc612b2b1106c12b001c5485a90a4ec}} 
+Q\+String\+List {\bfseries constituents} () const
+\item 
+\mbox{\Hypertarget{class_reaction_table_model_ad33eea5a65509b066b2cbfa6c4c4a328}\label{class_reaction_table_model_ad33eea5a65509b066b2cbfa6c4c4a328}} 
+Q\+String\+List {\bfseries functions} () const
+\item 
+\mbox{\Hypertarget{class_reaction_table_model_a809ac6d2c272ae8d91e6f87e8d0df8f7}\label{class_reaction_table_model_a809ac6d2c272ae8d91e6f87e8d0df8f7}} 
+Q\+String\+List {\bfseries physicals} () const
+\item 
+\mbox{\Hypertarget{class_reaction_table_model_ab84817f8b955eeb973e5e328e4764a3d}\label{class_reaction_table_model_ab84817f8b955eeb973e5e328e4764a3d}} 
+Q\+String\+List {\bfseries parameters} () const
+\item 
+\mbox{\Hypertarget{class_reaction_table_model_a8fae39999c584226ea5e64969f082c05}\label{class_reaction_table_model_a8fae39999c584226ea5e64969f082c05}} 
+Q\+String\+List {\bfseries operators} () const
+\item 
+\mbox{\Hypertarget{class_reaction_table_model_abffd5d675ae33097be1f46c98ffe08ce}\label{class_reaction_table_model_abffd5d675ae33097be1f46c98ffe08ce}} 
+bool {\bfseries validate\+Exp} (const Q\+String \&exp) const
+\item 
+\mbox{\Hypertarget{class_reaction_table_model_a0fa1e50e642cc6ab9d84fde9db20c03d}\label{class_reaction_table_model_a0fa1e50e642cc6ab9d84fde9db20c03d}} 
+Q\+Variant {\bfseries header\+Data} (int section, Qt\+::\+Orientation orientation, int role=Qt\+::\+Display\+Role) const
+\item 
+\mbox{\Hypertarget{class_reaction_table_model_a3519a7d8467bbbfe57e179b6fb40aea7}\label{class_reaction_table_model_a3519a7d8467bbbfe57e179b6fb40aea7}} 
+int {\bfseries row\+Count} (const Q\+Model\+Index \&parentt=Q\+Model\+Index()) const
+\item 
+\mbox{\Hypertarget{class_reaction_table_model_aa9535a90b7360edd2375bd66909e84d3}\label{class_reaction_table_model_aa9535a90b7360edd2375bd66909e84d3}} 
+int {\bfseries column\+Count} (const Q\+Model\+Index \&parent=Q\+Model\+Index()) const
+\item 
+\mbox{\Hypertarget{class_reaction_table_model_a914f5bbaed263184864e321bd9bce1ed}\label{class_reaction_table_model_a914f5bbaed263184864e321bd9bce1ed}} 
+Q\+Variant {\bfseries data} (const Q\+Model\+Index \&index, int role) const
+\item 
+\mbox{\Hypertarget{class_reaction_table_model_a76c5b3c48f7021a66205c654b643792d}\label{class_reaction_table_model_a76c5b3c48f7021a66205c654b643792d}} 
+Qt\+::\+Item\+Flags {\bfseries flags} (const Q\+Model\+Index \&index) const
+\item 
+\mbox{\Hypertarget{class_reaction_table_model_ab6d1ff64ff0410449dcf19454ffa2adb}\label{class_reaction_table_model_ab6d1ff64ff0410449dcf19454ffa2adb}} 
+bool {\bfseries set\+Data} (const Q\+Model\+Index \&index, const Q\+Variant \&value, int role)
+\item 
+\mbox{\Hypertarget{class_reaction_table_model_a7ac445b758081f1d51e32423cf33d161}\label{class_reaction_table_model_a7ac445b758081f1d51e32423cf33d161}} 
+bool {\bfseries insert\+Rows} (int position, int rows, const Q\+Model\+Index \&parent=Q\+Model\+Index())
+\item 
+\mbox{\Hypertarget{class_reaction_table_model_a084dce8001b85e1a548b742e42fd56b2}\label{class_reaction_table_model_a084dce8001b85e1a548b742e42fd56b2}} 
+bool {\bfseries remove\+Rows} (int position, int rows, const Q\+Model\+Index \&parent=Q\+Model\+Index())
+\item 
+\mbox{\Hypertarget{class_reaction_table_model_a291902fa1a4e7c859eacbc76c91ae679}\label{class_reaction_table_model_a291902fa1a4e7c859eacbc76c91ae679}} 
+bool {\bfseries remove\+Row} (Q\+String process\+Name, int row)
+\item 
+\mbox{\Hypertarget{class_reaction_table_model_a205efa32146d8a7f8406a983f21446e2}\label{class_reaction_table_model_a205efa32146d8a7f8406a983f21446e2}} 
+void {\bfseries add\+Item} (int row\+Index, bool after)
+\item 
+\mbox{\Hypertarget{class_reaction_table_model_a4e3cf39a764c25fdc1c5c905fd615fdb}\label{class_reaction_table_model_a4e3cf39a764c25fdc1c5c905fd615fdb}} 
+void {\bfseries remove\+Item} (int current\+Row)
+\item 
+\mbox{\Hypertarget{class_reaction_table_model_a0ba5c064f5b8da56a0f267be05f7afc9}\label{class_reaction_table_model_a0ba5c064f5b8da56a0f267be05f7afc9}} 
+Q\+List$<$ Q\+String\+List $>$ {\bfseries export\+To\+Expession} () const
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_reaction_table_model_a4870cb81bf2efc0ddf9d6a79f48d44fe}\label{class_reaction_table_model_a4870cb81bf2efc0ddf9d6a79f48d44fe}} 
+static bool {\bfseries validate\+Network\+R\+X\+N\+Exp} (const Q\+String \&exp, \hyperlink{class_graph_widget}{Graph\+Widget} $\ast$gw, const Q\+String\+List \&functions, const Q\+String\+List \&physicals)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_reaction_table_model_aca74a7fb1fa1913968785b46e18b8c9c}\label{class_reaction_table_model_aca74a7fb1fa1913968785b46e18b8c9c}} 
+\hyperlink{class_graph_widget}{Graph\+Widget} $\ast$ {\bfseries main\+Graph\+Widget}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 11 of file reactiontablemodel.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+G\+U\+I/reactiontablemodel.\+h\item 
+G\+U\+I/reactiontablemodel.\+cpp\end{DoxyCompactItemize}

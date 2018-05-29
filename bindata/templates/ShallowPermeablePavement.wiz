@@ -1,0 +1,93 @@
+name: Shallow Permeable Pavement
+icon: ShallowPermablePavement.png
+description: This wizard simulates a simple shallow permeable pavement which infiltrates, treats, and/or stores rainwater where it falls.<br> The model consisits of a layer of catchment which recieves percipitation on top of a shallow layer of permeable paver, storage aggregate layer, and one or more layers of native soil above the ground water table. The model discharges possible Run off into a pond.
+settings: {type=Project settings, Simulation start time = param[project_start_date], Simulation end time=param[project_end_date]}
+settings: {type=Climate settings,Precipitation time series=param[precipitation_filename]}
+settings: {type=Solver settings,Maximum number of matrix inversions allowed=150000}
+
+major_block: {name=value[Catchment (1)], x=-100, y=500, type=value[Catchment], Width=expression[Section_width/5], Length=param[Street_L], area=expression[Street_L*Section_width/5], Bottom elevation=expression[2*Section_Slope*Section_width/500], Manning's roughness coefficient=param[Manning_Coeff]}
+major_block: {name=value[Catchment (2)], x=150, y=550, type=value[Catchment], Width=expression[Section_width/5], Length=param[Street_L], area=expression[Street_L*Section_width/5], Bottom elevation=expression[Section_Slope*Section_width/500], Manning's roughness coefficient=param[Manning_Coeff]}
+major_block: {name=value[Catchment (3)], x=400, y=600, type=value[Catchment], Width=expression[Section_width/5], Length=param[Street_L], area=expression[Street_L*Section_width/5], Bottom elevation=value[0], Manning's roughness coefficient=param[Manning_Coeff]}
+major_block: {name=value[Catchment (4)], x=650, y=550, type=value[Catchment], Width=expression[Section_width/5], Length=param[Street_L], area=expression[Street_L*Section_width/5], Bottom elevation=expression[Section_Slope*Section_width/500], Manning's roughness coefficient=param[Manning_Coeff]}
+major_block: {name=value[Catchment (5)], x=900, y=500, type=value[Catchment], Width=expression[Section_width/5], Length=param[Street_L], area=expression[Street_L*Section_width/5], Bottom elevation=expression[2*Section_Slope*Section_width/500], Manning's roughness coefficient=param[Manning_Coeff]}
+major_block: {name=value[Pavement (1)], x=-100, y=650, type=value[Storage], depth=param[D_Pavement], area=expression[Street_L*Section_width/5], Bottom elevation=expression[((2*Section_Slope*Section_width)/500)-D_Pavement],Saturated hydraulic conductivity (ks)= param[ks_pavement], Saturated moisture content (~thetas)=param[thetas_Pavement]}
+major_block: {name=value[Pavement (2)], x=150, y=700, type=value[Storage], depth=param[D_Pavement], area=expression[Street_L*Section_width/5], Bottom elevation=expression[((Section_Slope*Section_width)/500)-D_Pavement] ,Saturated hydraulic conductivity (ks)= param[ks_pavement], Saturated moisture content (~thetas)=param[thetas_Pavement]}
+major_block: {name=value[Pavement (3)], x=400, y=750, type=value[Storage], depth=param[D_Pavement], area=expression[Street_L*Section_width/5], Bottom elevation=expression[0-D_Pavement],Saturated hydraulic conductivity (ks)= param[ks_pavement], Saturated moisture content (~thetas)=param[thetas_Pavement]}
+major_block: {name=value[Pavement (4)], x=650, y=700, type=value[Storage], depth=param[D_Pavement], area=expression[Street_L*Section_width/5], Bottom elevation=expression[((Section_Slope*Section_width)/500)-D_Pavement],Saturated hydraulic conductivity (ks)= param[ks_pavement], Saturated moisture content (~thetas)=param[thetas_Pavement]}
+major_block: {name=value[Pavement (5)], x=900, y=650, type=value[Storage],  depth=param[D_Pavement], area=expression[Street_L*Section_width/5], Bottom elevation=expression[((2*Section_Slope*Section_width)/500)-D_Pavement],Saturated hydraulic conductivity (ks)=param[ks_pavement] , Saturated moisture content (~thetas)=param[thetas_Pavement]}
+major_block: {name=value[Gravel (1)], x=-100, y=800, type=value[Storage],  depth=param[D_Gravel], area=expression[Street_L*Section_width/5], Bottom elevation=expression[((2*Section_Slope*Section_width)/500)-D_Pavement-D_Gravel],Saturated hydraulic conductivity (ks)= value[80], Saturated moisture content (~thetas)=param[thetas_Gravel]}
+major_block: {name=value[Gravel (2)], x=150, y=850, type=value[Storage], depth=param[D_Gravel], area=expression[Street_L*Section_width/5], Bottom elevation=expression[((Section_Slope*Section_width)/500)-D_Pavement-D_Gravel],Saturated hydraulic conductivity (ks)= value[80], Saturated moisture content (~thetas)=param[thetas_Gravel]}
+major_block: {name=value[Gravel (3)], x=400, y=900, type=value[Storage], depth=param[D_Gravel], area=expression[Street_L*Section_width/5], Bottom elevation=expression[0-D_Pavement-D_Gravel],Saturated hydraulic conductivity (ks)= value[80], Saturated moisture content (~thetas)=param[thetas_Gravel]}
+major_block: {name=value[Gravel (4)], x=650, y=850, type=value[Storage], depth=param[D_Gravel], area=expression[Street_L*Section_width/5], Bottom elevation=expression[((Section_Slope*Section_width)/500)-D_Pavement-D_Gravel],Saturated hydraulic conductivity (ks)= value[80], Saturated moisture content (~thetas)=param[thetas_Gravel]}
+major_block: {name=value[Gravel (5)], x=900, y=800, type=value[Storage], depth=param[D_Gravel], area=expression[Street_L*Section_width/5], Bottom elevation=expression[((2*Section_Slope*Section_width)/500)-D_Pavement-D_Gravel],Saturated hydraulic conductivity (ks)= value[80], Saturated moisture content (~thetas)=param[thetas_Gravel]}
+major_block: {name=value[Soil (1)], x=-100, y=1050, appwidth=1200, type=value[soil], SubType=param[Nativesoil_type], area=expression[Street_L*Section_width], Depth=expression[((D_WT-D_Gravel-D_Pavement)/n_soil)+((Section_width*Section_Slope)/400)], Bottom elevation=expression[0-D_Gravel-D_Pavement-(((D_WT-D_Gravel)-D_Pavement)/n_soil)]}
+major_block: {name=value[Soil], first_index=2, x=-100, y=1200, appwidth=1200, type=value[soil], SubType=param[Nativesoil_type], area=expression[Street_L*Section_width], configuration=value[1DV], Depth=expression[((D_WT-D_Gravel-D_Pavement)/n_soil)], Bottom elevation=expression[0-D_WT], n=expression[n_soil-1],direction=down}
+major_block: {name=value[GW], x=-100, y=expression[1200+(n_soil-1)*150], appwidth=1200, type=value[Darcy], depth=1, Head-storage relationship=expression[0-D_WT], area=expression[Street_L*Section_width], Bottom elevation=expression[0-D_WT-1], Initial moisture content (~theta)=value[0.35], Saturated moisture content (~thetas)=value[0.35]}
+major_block: {name=value[Pond], x=300, y=350, appwidth=400, type=value[Pond], area=value[100], Head-storage relationship= expression[0-(Street_L*Street_Slope/200)], Bottom elevation=expression[0-(Street_L*Street_Slope/200)-1], Precipitation=value[No]}
+
+major_connection: {name=value[Catchment (1)- Catchment (2)], source=Catchment (1), target=Catchment (2), Length=expression[Section_width/5], Manning's roughness coefficient=param[Manning_Coeff], Width=param[Street_L], configuration=s2s}
+major_connection: {name=value[Catchment (2)- Catchment (3)], source=Catchment (2), target=Catchment (3), Length=expression[Section_width/5], Manning's roughness coefficient=param[Manning_Coeff], Width=param[Street_L], configuration=s2s}
+major_connection: {name=value[Catchment (3)- Catchment (4)], source=Catchment (4), target=Catchment (3), Length=expression[Section_width/5], Manning's roughness coefficient=param[Manning_Coeff], Width=param[Street_L], configuration=s2s}
+major_connection: {name=value[Catchment (4)- Catchment (5)], source=Catchment (5), target=Catchment (4), Length=expression[Section_width/5], Manning's roughness coefficient=param[Manning_Coeff], Width=param[Street_L], configuration=s2s}
+major_connection: {name=value[Pavement (1)- Pavement (2)], source=Pavement (1), target=Pavement (2), Length=expression[Section_width/5], Interface/cross sectional area=expression[Street_L*D_Pavement], configuration=s2s}
+major_connection: {name=value[Pavement (2)- Pavement (3)], source=Pavement (2), target=Pavement (3), Length=expression[Section_width/5], Interface/cross sectional area=expression[Street_L*D_Pavement], configuration=s2s}
+major_connection: {name=value[Pavement (3)- Pavement (4)], source=Pavement (4), target=Pavement (3), Length=expression[Section_width/5], Interface/cross sectional area=expression[Street_L*D_Pavement], configuration=s2s}
+major_connection: {name=value[Pavement (4)- Pavement (5)], source=Pavement (5), target=Pavement (4), Length=expression[Section_width/5], Interface/cross sectional area=expression[Street_L*D_Pavement], configuration=s2s}
+major_connection: {name=value[Gravel (1)- Gravel (2)], source=Gravel (1), target=Gravel (2), Length=expression[Section_width/5], Interface/cross sectional area=expression[Street_L*D_Gravel], configuration=s2s}
+major_connection: {name=value[Gravel (2)- Gravel (3)], source=Gravel (2), target=Gravel (3), Length=expression[Section_width/5], Interface/cross sectional area=expression[Street_L*D_Gravel], configuration=s2s}
+major_connection: {name=value[Gravel (3)- Gravel (4)], source=Gravel (4), target=Gravel (3), Length=expression[Section_width/5], Interface/cross sectional area=expression[Street_L*D_Gravel], configuration=s2s}
+major_connection: {name=value[Gravel (4)- Gravel (5)], source=Gravel (5), target=Gravel (4), Length=expression[Section_width/5], Interface/cross sectional area=expression[Street_L*D_Gravel], configuration=s2s}
+major_connection: {name=value[Catchment (1)- Pavement (1)], source=Catchment (1), target= Pavement (1), Length=expression[D_Pavement/2],Interface/cross sectional area=expression[Street_L*Section_width/5], Saturated hydraulic conductivity (ks)= param[ks_pavement],configuration=s2s}
+major_connection: {name=value[Catchment (2)- Pavement (2)], source=Catchment (2), target= Pavement (2), Length=expression[D_Pavement/2],Interface/cross sectional area=expression[Street_L*Section_width/5],Saturated hydraulic conductivity (ks)= param[ks_pavement], configuration=s2s}
+major_connection: {name=value[Catchment (3)- Pavement (3)], source=Catchment (3), target= Pavement (3), Length=expression[D_Pavement/2],Interface/cross sectional area=expression[Street_L*Section_width/5],Saturated hydraulic conductivity (ks)= param[ks_pavement], configuration=s2s}
+major_connection: {name=value[Catchment (4)- Pavement (4)], source=Catchment (4), target= Pavement (4), Length=expression[D_Pavement/2],Interface/cross sectional area=expression[Street_L*Section_width/5],Saturated hydraulic conductivity (ks)= param[ks_pavement], configuration=s2s}
+major_connection: {name=value[Catchment (5)- Pavement (5)], source=Catchment (5), target= Pavement (5), Length=expression[D_Pavement/2],Interface/cross sectional area=expression[Street_L*Section_width/5],Saturated hydraulic conductivity (ks)= param[ks_pavement], configuration=s2s}
+major_connection: {name=value[Pavement (1)- Gravel (1)], source=Pavement (1), target= Gravel (1), Length=expression[(D_Pavement+D_Gravel)/2], Interface/cross sectional area=expression[Street_L*Section_width/5], configuration=s2s}
+major_connection: {name=value[Pavement (2)- Gravel (2)], source=Pavement (2), target= Gravel (2), Length=expression[(D_Pavement+D_Gravel)/2], Interface/cross sectional area=expression[Street_L*Section_width/5], configuration=s2s}
+major_connection: {name=value[Pavement (3)- Gravel (3)], source=Pavement (3), target= Gravel (3), Length=expression[(D_Pavement+D_Gravel)/2], Interface/cross sectional area=expression[Street_L*Section_width/5], configuration=s2s}
+major_connection: {name=value[Pavement (4)- Gravel (4)], source=Pavement (4), target= Gravel (4), Length=expression[(D_Pavement+D_Gravel)/2], Interface/cross sectional area=expression[Street_L*Section_width/5], configuration=s2s}
+major_connection: {name=value[Pavement (5)- Gravel (5)], source=Pavement (5), target= Gravel (5), Length=expression[(D_Pavement+D_Gravel)/2], Interface/cross sectional area=expression[Street_L*Section_width/5],  configuration=s2s}
+major_connection: {name=value[Gravel (1)- Soil (1)], source=Gravel (1), target= Soil (1), Length=expression[(D_Gravel+((D_WT-D_Gravel-D_Pavement)/n_soil)+(Section_Slope*Section_width/400))/2], Interface/cross sectional area=expression[Street_L*Section_width/5], configuration=e2s}
+major_connection: {name=value[Gravel (2)- Soil (1)], source=Gravel (2), target= Soil (1), Length=expression[(D_Gravel+((D_WT-D_Gravel-D_Pavement)/n_soil)+(Section_Slope*Section_width/400))/2],Interface/cross sectional area=expression[Street_L*Section_width/5], configuration=e2s}
+major_connection: {name=value[Gravel (3)- Soil (1)], source=Gravel (3), target= Soil (1), Length=expression[(D_Gravel+((D_WT-D_Gravel-D_Pavement)/n_soil)+(Section_Slope*Section_width/400))/2],Interface/cross sectional area=expression[Street_L*Section_width/5], configuration=e2s}
+major_connection: {name=value[Gravel (4)- Soil (1)], source=Gravel (4), target= Soil (1), Length=expression[(D_Gravel+((D_WT-D_Gravel-D_Pavement)/n_soil)+(Section_Slope*Section_width/400))/2],Interface/cross sectional area=expression[Street_L*Section_width/5], configuration=e2s}
+major_connection: {name=value[Gravel (5)- Soil (1)], source=Gravel (5), target= Soil (1), Length=expression[(D_Gravel+((D_WT-D_Gravel-D_Pavement)/n_soil)+(Section_Slope*Section_width/400))/2], Interface/cross sectional area=expression[Street_L*Section_width/5],configuration=e2s}
+major_connection: {name=value[Soil (1)- Soil (2)], source=Soil (1), target=Soil, Length=expression[((D_WT-D_Gravel-D_Pavement)/n_soil)+(Section_Slope*Section_width/800)], Interface/cross sectional area=expression[Street_L*Section_width],configuration=e2s}
+major_connection: {name=value[Soil- GW], source=Soil, target=GW, Length=expression[((D_WT-D_Gravel-D_Pavement)/n_soil)/2], Interface/cross sectional area=expression[Street_L*Section_width],configuration=e2s}
+major_connection: {name=value[Pond stream], source=value[Catchment (3)], target=value[Pond], Length=expression[Street_L/2], Width=expression[Section_width/5],Manning's roughness coefficient=param[Manning_Coeff], configuration=s2s}
+
+parameter: {name= project_start_date, delegate=date_time, question=Projet's start date}
+parameter: {name= project_end_date, delegate=date_time, question=Projet's end date}
+parameter: {name=precipitation_filename, delegate=filename, question= Precipitation time series file, prop_list_item=Precipitation time series}
+parameter: {name=Section_width, delegate=float, question= Width of the shallow permeable pavement, prop_list_item=Length}
+parameter: {name=Manning_Coeff, delegate=float, question= Manning roughness of the pavement, prop_list_item=Manning's roughness coefficient, default=0.01}
+parameter: {name=Section_Slope, delegate=float, question= Side slope of the cross section of the pavement (%), default=2}
+parameter: {name=Street_Slope, delegate=float, question= Slope alognside the street (%)}
+parameter: {name=Street_L, delegate=float, question= Length of the pavement, prop_list_item=Length}
+parameter: {name=D_Pavement, delegate=float, question=Thickness of the concrete paver, prop_list_item=Depth}
+parameter: {name=D_Gravel, delegate=float, question=Thickness of the gravel bedding underneath the pavement, prop_list_item=Depth}
+parameter: {name=D_WT, delegate=float, question=Depth to groundwater table, prop_list_item=depth}
+parameter: {name=n_soil, delegate=integer, question= Number of the layers that the native soil is divided to, default=4}
+parameter: {name=Nativesoil_type, delegate=combo_box, question=Type of the underneath native soil, object_type=Soil, prop_list_item=Sub Type}
+parameter: {name=ks_pavement, delegate=float, question=Saturated hydraulic conductivity of the pavement layer, prop_list_item=Saturated hydraulic conductivity (ks), default=300}
+parameter: {name=thetas_Pavement, delegate=float, question=Saturated moisture content of the  pavement layer, prop_list_item=Saturated moisture content (~thetas), default=.4}
+parameter: {name=thetas_Gravel, delegate=float, question=Saturated moisture content of the  gravel layer, prop_list_item=Saturated moisture content (~thetas), default=.4}
+parameter: {name=Description1, delegate=memo, question= This wizard simulates a simple shallow permeable pavement which infiltrates# treats# and/or stores rainwater where it falls.<br> The elements of the model from top to bottom include a layer of catchmet which recieves percipitation# a shallow layer of porous pavement# a layer of storage aggregate# unstaurated native soil# and saturated native soil beneath the water table.<br> A water recieving body of water collects the excess runoff. 
+
+parameter_group: {name=g1, description= Introduction, parameter=Description1}
+parameter_group: {name=g2, description=Geometry of the system, parameter=Section_width, parameter=Section_Slope, parameter=Street_L, parameter=Street_Slope, parameter=D_Pavement, parameter=D_Gravel, parameter=D_WT, parameter=n_soil}
+parameter_group: {name=g3, description=Physical properties of the system, parameter=Manning_Coeff, parameter=ks_pavement, parameter=thetas_Pavement, parameter=thetas_Gravel, parameter=Nativesoil_type}
+parameter_group: {name=g4, description=Climate and general settings of the project, parameter=project_start_date, parameter=project_end_date, parameter=precipitation_filename}
+
+
+
+
+
+
+
+
+
+
+
+
+

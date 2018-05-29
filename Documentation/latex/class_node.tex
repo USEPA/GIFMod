@@ -1,0 +1,270 @@
+\hypertarget{class_node}{}\section{Node Class Reference}
+\label{class_node}\index{Node@{Node}}
+Inheritance diagram for Node\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_node}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_node_a794d640fba92f31b21a3b5394373acb1}\label{class_node_a794d640fba92f31b21a3b5394373acb1}} 
+enum \{ {\bfseries Type} = User\+Type + 1
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_node_abb49e9ed6007ab9bcfaf983d4e1d365a}\label{class_node_abb49e9ed6007ab9bcfaf983d4e1d365a}} 
+void {\bfseries hover\+Move\+Event} (Q\+Graphics\+Scene\+Hover\+Event $\ast$event)
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_node_a860d582568a195255427dc9063f92f0b}\label{class_node_a860d582568a195255427dc9063f92f0b}} 
+{\bfseries Node} (\hyperlink{class_graph_widget}{Graph\+Widget} $\ast$gwidget, Q\+String \+\_\+type=\char`\"{}Not Defined\char`\"{}, Q\+String \+\_\+name=\char`\"{}No Name\char`\"{}, int \+\_\+\+ID=-\/1, int \+\_\+xx=0, int \+\_\+yy=0, int \+\_\+width=200, int \+\_\+height=100)
+\item 
+\mbox{\Hypertarget{class_node_a1341bb2c32032a678a2b9d027886f8bd}\label{class_node_a1341bb2c32032a678a2b9d027886f8bd}} 
+{\bfseries Node} (\hyperlink{classmodel_item}{model\+Item} \&item, \hyperlink{class_graph_widget}{Graph\+Widget} $\ast$gwidget)
+\item 
+\mbox{\Hypertarget{class_node_a4053c6deca192c41824fad14c4f4eb76}\label{class_node_a4053c6deca192c41824fad14c4f4eb76}} 
+{\bfseries Node} (const \hyperlink{class_node}{Node} \&)
+\item 
+\mbox{\Hypertarget{class_node_a3a9125b1ed10ea87bc2452fb668e6e07}\label{class_node_a3a9125b1ed10ea87bc2452fb668e6e07}} 
+\hyperlink{class_node}{Node} {\bfseries operator=} (const \hyperlink{class_node}{Node} \&)
+\item 
+\mbox{\Hypertarget{class_node_af761aaef36a761a90c4f148a6add914d}\label{class_node_af761aaef36a761a90c4f148a6add914d}} 
+void {\bfseries add\+Edge} (\hyperlink{class_edge}{Edge} $\ast$edge)
+\item 
+\mbox{\Hypertarget{class_node_a770daa31ae9d7ed05c5f2ed7217f8d3a}\label{class_node_a770daa31ae9d7ed05c5f2ed7217f8d3a}} 
+Q\+List$<$ \hyperlink{class_edge}{Edge} $\ast$ $>$ {\bfseries edges} () const
+\item 
+\mbox{\Hypertarget{class_node_a2cd2bd34494ba5eea41f0e22136334bd}\label{class_node_a2cd2bd34494ba5eea41f0e22136334bd}} 
+\hyperlink{classm_prop_list}{m\+Prop\+List} {\bfseries getm\+List} (const \hyperlink{classm_prop}{m\+Prop} \&\+\_\+filter) const
+\item 
+\mbox{\Hypertarget{class_node_ae27761ad8e4377b3a5fc1a381ce6a6a9}\label{class_node_ae27761ad8e4377b3a5fc1a381ce6a6a9}} 
+\hyperlink{classm_prop_list}{m\+Prop\+List} {\bfseries getm\+List} (const Q\+List$<$ \hyperlink{classm_prop}{m\+Prop} $>$\+\_\+filter) const
+\item 
+\mbox{\Hypertarget{class_node_a5ff23cc2756595673d0379f19b9a0de9}\label{class_node_a5ff23cc2756595673d0379f19b9a0de9}} 
+int {\bfseries type} () const Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+DE
+\item 
+\mbox{\Hypertarget{class_node_a91b9aa621ce72fd974ab972ffeb6ec52}\label{class_node_a91b9aa621ce72fd974ab972ffeb6ec52}} 
+Q\+RectF {\bfseries bounding\+Rect} () const Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+DE
+\item 
+\mbox{\Hypertarget{class_node_aa1a523740f6a0694abbe690e07eb1d36}\label{class_node_aa1a523740f6a0694abbe690e07eb1d36}} 
+Q\+Painter\+Path {\bfseries shape} () const Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+DE
+\item 
+\mbox{\Hypertarget{class_node_afa10e3bbea7f308c3eddcc6097748d13}\label{class_node_afa10e3bbea7f308c3eddcc6097748d13}} 
+void {\bfseries paint} (Q\+Painter $\ast$painter, const Q\+Style\+Option\+Graphics\+Item $\ast$option, Q\+Widget $\ast$widget) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+DE
+\item 
+\mbox{\Hypertarget{class_node_ad6d5827aeaed23cc7889a54d3b75835f}\label{class_node_ad6d5827aeaed23cc7889a54d3b75835f}} 
+\hyperlink{classm_prop_list}{m\+Prop\+List} {\bfseries mprop\+List} () const
+\item 
+\mbox{\Hypertarget{class_node_ae1a9b6aa1fd2700ab1d4e67461b7973f}\label{class_node_ae1a9b6aa1fd2700ab1d4e67461b7973f}} 
+Q\+String {\bfseries Name} () const
+\item 
+\mbox{\Hypertarget{class_node_a39dcb26df3972052abd391c10b724df3}\label{class_node_a39dcb26df3972052abd391c10b724df3}} 
+bool {\bfseries set\+Name} (const Q\+String \&Name)
+\item 
+\mbox{\Hypertarget{class_node_a6ade75c93fb3fbde74cff92f5efcdeb4}\label{class_node_a6ade75c93fb3fbde74cff92f5efcdeb4}} 
+void {\bfseries set\+Bold} (const bool \+\_\+\+Bold=true)
+\item 
+\mbox{\Hypertarget{class_node_a5dbe9d4db8f76987f5d1dcdf9a86daef}\label{class_node_a5dbe9d4db8f76987f5d1dcdf9a86daef}} 
+bool {\bfseries set\+Object\+Type} (const Q\+String \&)
+\item 
+\mbox{\Hypertarget{class_node_ae48f6d68f5f4364aea64449a85fa45f2}\label{class_node_ae48f6d68f5f4364aea64449a85fa45f2}} 
+bool {\bfseries set\+Object\+Sub\+Type} (const Q\+String \&)
+\item 
+\mbox{\Hypertarget{class_node_aa3489a9f7a6fadde097cf605dd6cafbc}\label{class_node_aa3489a9f7a6fadde097cf605dd6cafbc}} 
+\hyperlink{classm_prop}{m\+Prop} {\bfseries Object\+Type} () const
+\item 
+\mbox{\Hypertarget{class_node_a330010a6a9297b8fe467414a16bf3cda}\label{class_node_a330010a6a9297b8fe467414a16bf3cda}} 
+int {\bfseries Width} () const
+\item 
+\mbox{\Hypertarget{class_node_ade605979719283a6b00b877e349d76fb}\label{class_node_ade605979719283a6b00b877e349d76fb}} 
+int {\bfseries Height} () const
+\item 
+\mbox{\Hypertarget{class_node_a3b25cddb17e55bbd728cb26df920426b}\label{class_node_a3b25cddb17e55bbd728cb26df920426b}} 
+void {\bfseries set\+Width} (const int \&Width)
+\item 
+\mbox{\Hypertarget{class_node_a5f473b71eb08e5d72b862d36e294079c}\label{class_node_a5f473b71eb08e5d72b862d36e294079c}} 
+void {\bfseries set\+Height} (const int \&Height)
+\item 
+\mbox{\Hypertarget{class_node_ad9ca2cb4534cb8c0167d3836a4d0b11b}\label{class_node_ad9ca2cb4534cb8c0167d3836a4d0b11b}} 
+\hyperlink{classm_prop}{m\+Prop} {\bfseries Filter} () const
+\item 
+\mbox{\Hypertarget{class_node_a1dda0bc1c44bc8b14119d111e037a193}\label{class_node_a1dda0bc1c44bc8b14119d111e037a193}} 
+Q\+List$<$ \hyperlink{classm_prop}{m\+Prop} $>$ {\bfseries Filter} (const Q\+List$<$ \hyperlink{class_node}{Node} $\ast$$>$ nodes) const
+\item 
+\mbox{\Hypertarget{class_node_ad669a1f8e075cbee76da51075d6f3a22}\label{class_node_ad669a1f8e075cbee76da51075d6f3a22}} 
+Q\+Variant {\bfseries get\+Prop} (const Q\+String \&prop\+Name, const int role=Qt\+::\+Display\+Role) const
+\item 
+\mbox{\Hypertarget{class_node_a4167aea31aee47f272bed2e86f6128c2}\label{class_node_a4167aea31aee47f272bed2e86f6128c2}} 
+Q\+Variant {\bfseries get\+Prop} (const Q\+String \&prop\+Name, const Q\+List$<$ \hyperlink{class_node}{Node} $\ast$$>$ nodes, const int role=Qt\+::\+Display\+Role) const
+\item 
+\mbox{\Hypertarget{class_node_ad894ffe949a3af71de38af0cee64aaab}\label{class_node_ad894ffe949a3af71de38af0cee64aaab}} 
+\hyperlink{class_x_string}{X\+String} {\bfseries get\+Value} (const Q\+String \&prop\+Name) const
+\item 
+\mbox{\Hypertarget{class_node_a5c7936111fc0e7247267c69c911f96c0}\label{class_node_a5c7936111fc0e7247267c69c911f96c0}} 
+bool {\bfseries set\+Prop} (const Q\+String \&prop\+Name, const Q\+Variant \&Value, const int role=Qt\+::\+Edit\+Role)
+\item 
+\mbox{\Hypertarget{class_node_a7a1df9d234e2dc7e3cd517957d03a5f9}\label{class_node_a7a1df9d234e2dc7e3cd517957d03a5f9}} 
+bool {\bfseries set\+Value} (const Q\+String \&prop\+Name, const \hyperlink{class_x_string}{X\+String} \&Value)
+\item 
+\mbox{\Hypertarget{class_node_afb3b8da1e1b42a7798eef14a6072019f}\label{class_node_afb3b8da1e1b42a7798eef14a6072019f}} 
+\hyperlink{classm_prop_list}{m\+Prop\+List} $\ast$ {\bfseries m\+List} () const
+\item 
+\mbox{\Hypertarget{class_node_a5209d30aa6f82764e4acbb7b6deeb60a}\label{class_node_a5209d30aa6f82764e4acbb7b6deeb60a}} 
+corners {\bfseries corner} (const int x, const int y)
+\item 
+\mbox{\Hypertarget{class_node_a9fee6708a499f3adf7ace32e9d94a853}\label{class_node_a9fee6708a499f3adf7ace32e9d94a853}} 
+edgesides {\bfseries edge} (const int x, const int y)
+\item 
+\mbox{\Hypertarget{class_node_a1a663b6e69ff25b315454c96ad1672b0}\label{class_node_a1a663b6e69ff25b315454c96ad1672b0}} 
+Q\+Model\+Index {\bfseries index} (Q\+Model\+Index \&parent) const
+\item 
+\mbox{\Hypertarget{class_node_a7ee7146af9c104f8ac217859df04d1fb}\label{class_node_a7ee7146af9c104f8ac217859df04d1fb}} 
+void {\bfseries update} (bool fast=false)
+\item 
+\mbox{\Hypertarget{class_node_a5b05a96c9250a02ef942fac17f81ca25}\label{class_node_a5b05a96c9250a02ef942fac17f81ca25}} 
+Q\+String {\bfseries g} (Q\+String experiment\+Name=\char`\"{}\char`\"{}) const
+\item 
+\mbox{\Hypertarget{class_node_ad487b56adeb9a726928e135864dcd061}\label{class_node_ad487b56adeb9a726928e135864dcd061}} 
+Q\+String {\bfseries cg} (Q\+String experiment\+Name=\char`\"{}\char`\"{}) const
+\item 
+\mbox{\Hypertarget{class_node_ae56f5b0cd8095c96f00956c3e50a634e}\label{class_node_ae56f5b0cd8095c96f00956c3e50a634e}} 
+Q\+String {\bfseries new\+Node\+Name} (const Q\+String name, Q\+List$<$ \hyperlink{class_node}{Node} $\ast$$>$ \&nodes) const
+\item 
+\mbox{\Hypertarget{class_node_a67d3a97280a38f8cca0341587fbce986}\label{class_node_a67d3a97280a38f8cca0341587fbce986}} 
+Q\+List$<$ \hyperlink{struct_particle_initial_condition_item}{Particle\+Initial\+Condition\+Item} $>$ \& {\bfseries particle\+Initial\+Condition} (Q\+String experiment\+Name=\char`\"{}\char`\"{}) const
+\item 
+\mbox{\Hypertarget{class_node_ad6f529587aec9820370c967a4f74171c}\label{class_node_ad6f529587aec9820370c967a4f74171c}} 
+Q\+List$<$ \hyperlink{struct_particle_initial_condition_item}{Particle\+Initial\+Condition\+Item} $>$ \& {\bfseries particle\+Initial\+Condition} (Q\+String experiment\+Name=\char`\"{}\char`\"{})
+\item 
+\mbox{\Hypertarget{class_node_a7f91ffa3d7a796b7efe18e4b26508c9c}\label{class_node_a7f91ffa3d7a796b7efe18e4b26508c9c}} 
+Q\+List$<$ \hyperlink{struct_constituent_initial_condition_item}{Constituent\+Initial\+Condition\+Item} $>$ \& {\bfseries constituent\+Initial\+Condition} (Q\+String experiment\+Name=\char`\"{}\char`\"{}) const
+\item 
+\mbox{\Hypertarget{class_node_a9707cfb63ffd15f87cdb69dbdc1434ec}\label{class_node_a9707cfb63ffd15f87cdb69dbdc1434ec}} 
+Q\+List$<$ \hyperlink{struct_constituent_initial_condition_item}{Constituent\+Initial\+Condition\+Item} $>$ \& {\bfseries constituent\+Initial\+Condition} (Q\+String experiment\+Name=\char`\"{}\char`\"{})
+\item 
+\mbox{\Hypertarget{class_node_a5ae0679148a37c84945c16931402514a}\label{class_node_a5ae0679148a37c84945c16931402514a}} 
+Q\+Map$<$ Q\+String, Q\+Variant $>$ {\bfseries compact} () const
+\item 
+\mbox{\Hypertarget{class_node_acb29585d670afcc9bc640e80c6ae9402}\label{class_node_acb29585d670afcc9bc640e80c6ae9402}} 
+Q\+String\+List {\bfseries codes} () const
+\item 
+\mbox{\Hypertarget{class_node_ac19b768ec03ee51a9eecb284d378e514}\label{class_node_ac19b768ec03ee51a9eecb284d378e514}} 
+Q\+Map$<$ Q\+String, \hyperlink{structcondition}{condition} $>$ {\bfseries variable\+Name\+Conditions} () const
+\item 
+\mbox{\Hypertarget{class_node_a06f0514068f267a9ef4ba8aced5f84da}\label{class_node_a06f0514068f267a9ef4ba8aced5f84da}} 
+bool {\bfseries error\+Detected} () const
+\item 
+\mbox{\Hypertarget{class_node_a8fdf7d7ec5ab5e2cfb7ba76a504a29f3}\label{class_node_a8fdf7d7ec5ab5e2cfb7ba76a504a29f3}} 
+Q\+String\+List {\bfseries variable\+Names} () const
+\item 
+\mbox{\Hypertarget{class_node_aa686dbf4544cb9963643863cf38d124e}\label{class_node_aa686dbf4544cb9963643863cf38d124e}} 
+Q\+String {\bfseries variable\+Name} (Q\+String code) const
+\item 
+\mbox{\Hypertarget{class_node_a80073dafa7fc56e594ff376e1ad22827}\label{class_node_a80073dafa7fc56e594ff376e1ad22827}} 
+int {\bfseries experiment\+ID} ()
+\item 
+\mbox{\Hypertarget{class_node_a27ca0eb31b2632370d73c1c2fd1a473c}\label{class_node_a27ca0eb31b2632370d73c1c2fd1a473c}} 
+Q\+String {\bfseries experiment\+Name} () const
+\item 
+\mbox{\Hypertarget{class_node_a9a6fe654ea429d5ca063b872819c9a9f}\label{class_node_a9a6fe654ea429d5ca063b872819c9a9f}} 
+void {\bfseries copy\+Props} (Q\+String source\+Experiment, Q\+String dest\+Experiment)
+\item 
+\mbox{\Hypertarget{class_node_a27d9d577321b6b4f074b241139f17ceb}\label{class_node_a27d9d577321b6b4f074b241139f17ceb}} 
+\hyperlink{class_x_string}{X\+String} {\bfseries val} (const Q\+String \&code) const
+\item 
+\mbox{\Hypertarget{class_node_a29900087a20d05c189747aeb0ece86c5}\label{class_node_a29900087a20d05c189747aeb0ece86c5}} 
+bool {\bfseries is\+Porous} ()
+\item 
+\mbox{\Hypertarget{class_node_ad3920a2e48e99b8fd474f880737f9fe4}\label{class_node_ad3920a2e48e99b8fd474f880737f9fe4}} 
+void {\bfseries changed} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_node_a2888b565e623fb5665725a5d53464000}\label{class_node_a2888b565e623fb5665725a5d53464000}} 
+static \hyperlink{class_node}{Node} $\ast$ {\bfseries un\+Compact} (Q\+Map$<$ Q\+String, Q\+Variant $>$, \hyperlink{class_graph_widget}{Graph\+Widget} $\ast$gwidget, bool old\+Version=false)
+\item 
+\mbox{\Hypertarget{class_node_aef0d803205b20fafd7e39143108bcc3b}\label{class_node_aef0d803205b20fafd7e39143108bcc3b}} 
+static \hyperlink{class_node}{Node} $\ast$ {\bfseries un\+Compact10} (Q\+Map$<$ Q\+String, Q\+Variant $>$, \hyperlink{class_graph_widget}{Graph\+Widget} $\ast$gwidget)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_node_a0666a219217b1391517874969f6e11f9}\label{class_node_a0666a219217b1391517874969f6e11f9}} 
+\hyperlink{structobject_color}{object\+Color} {\bfseries color}
+\item 
+\mbox{\Hypertarget{class_node_a6c4b06e830b14e849a444261c4809585}\label{class_node_a6c4b06e830b14e849a444261c4809585}} 
+\hyperlink{class_graph_widget}{Graph\+Widget} $\ast$ {\bfseries parent}
+\item 
+\mbox{\Hypertarget{class_node_a0b9671a414292b511645370a0eb9bc0e}\label{class_node_a0b9671a414292b511645370a0eb9bc0e}} 
+Q\+String {\bfseries G\+UI}
+\item 
+\mbox{\Hypertarget{class_node_acade8e66cf2c1be76bcaf61b53af611d}\label{class_node_acade8e66cf2c1be76bcaf61b53af611d}} 
+Object\+\_\+\+Types {\bfseries item\+Type}
+\item 
+\mbox{\Hypertarget{class_node_a44620ce5d638f77d2f0d51df959327c8}\label{class_node_a44620ce5d638f77d2f0d51df959327c8}} 
+Q\+Map$<$ Q\+String, Q\+List$<$ \hyperlink{struct_particle_initial_condition_item}{Particle\+Initial\+Condition\+Item} $>$ $>$ $\ast$ {\bfseries particle\+Initial\+Conditions}
+\item 
+\mbox{\Hypertarget{class_node_abebd6f16b652673b2787272ee70a0a57}\label{class_node_abebd6f16b652673b2787272ee70a0a57}} 
+Q\+Map$<$ Q\+String, Q\+List$<$ \hyperlink{struct_constituent_initial_condition_item}{Constituent\+Initial\+Condition\+Item} $>$ $>$ $\ast$ {\bfseries constituent\+Initial\+Conditions}
+\item 
+\mbox{\Hypertarget{class_node_a4d82cd8e549018cdfcb12f6aa1971027}\label{class_node_a4d82cd8e549018cdfcb12f6aa1971027}} 
+\hyperlink{class_prop_list}{Prop\+List}$<$ \hyperlink{class_node}{Node} $>$ {\bfseries props}
+\item 
+\mbox{\Hypertarget{class_node_a06395c469e45dd4837d1715f8f714250}\label{class_node_a06395c469e45dd4837d1715f8f714250}} 
+\hyperlink{classm_prop}{m\+Prop} {\bfseries object\+Type}
+\item 
+\mbox{\Hypertarget{class_node_aa3d4ff6b0ff70dfe1650fb5d07426032}\label{class_node_aa3d4ff6b0ff70dfe1650fb5d07426032}} 
+Q\+List$<$ \hyperlink{class_edge}{Edge} $\ast$ $>$ {\bfseries edge\+List}
+\item 
+\mbox{\Hypertarget{class_node_ac261eb82efc0bf615aa0a21cb7e013fb}\label{class_node_ac261eb82efc0bf615aa0a21cb7e013fb}} 
+\hyperlink{class_prop_model}{Prop\+Model}$<$ \hyperlink{class_node}{Node} $>$ $\ast$ {\bfseries model}
+\item 
+\mbox{\Hypertarget{class_node_ae4143b3ef5ddef1934c4ac0bd3478c4c}\label{class_node_ae4143b3ef5ddef1934c4ac0bd3478c4c}} 
+Q\+Map$<$ Q\+String, Q\+String $>$ {\bfseries warnings}
+\item 
+\mbox{\Hypertarget{class_node_aa8380985ec20abc4f8c925f3c45001ac}\label{class_node_aa8380985ec20abc4f8c925f3c45001ac}} 
+Q\+Map$<$ Q\+String, Q\+String $>$ {\bfseries errors}
+\item 
+\mbox{\Hypertarget{class_node_ada48cdb657f8a15862e1f455e40f3668}\label{class_node_ada48cdb657f8a15862e1f455e40f3668}} 
+int {\bfseries minH} = 30
+\item 
+\mbox{\Hypertarget{class_node_a5f16069a428af9af9540eeb5d2bb5bac}\label{class_node_a5f16069a428af9af9540eeb5d2bb5bac}} 
+int {\bfseries minW} = 40
+\item 
+\mbox{\Hypertarget{class_node_a705fa440b0f0d9c84559e6ef5193654a}\label{class_node_a705fa440b0f0d9c84559e6ef5193654a}} 
+bool {\bfseries old\+Version\+Load} = false
+\item 
+\mbox{\Hypertarget{class_node_a55d59a6f2e2cd8ebcfefe9d678e0b56d}\label{class_node_a55d59a6f2e2cd8ebcfefe9d678e0b56d}} 
+Q\+String {\bfseries middle\+Text} = \char`\"{}\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_node_a5030285fe1ef2188dbe6b3d7a5a1b6c2}\label{class_node_a5030285fe1ef2188dbe6b3d7a5a1b6c2}} 
+Q\+Variant {\bfseries item\+Change} (Graphics\+Item\+Change change, const Q\+Variant \&value) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+DE
+\item 
+\mbox{\Hypertarget{class_node_abbacd4d6a5e9acb8d013817c585b482e}\label{class_node_abbacd4d6a5e9acb8d013817c585b482e}} 
+void {\bfseries context\+Menu\+Event} (Q\+Graphics\+Scene\+Context\+Menu\+Event $\ast$event)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 28 of file node.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+G\+U\+I/node.\+h\item 
+G\+U\+I/G\+Widget.\+cpp\item 
+G\+U\+I/modelconfig.\+cpp\item 
+G\+U\+I/node.\+cpp\end{DoxyCompactItemize}

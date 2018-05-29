@@ -1,0 +1,28 @@
+name: Steam Sediment
+icon: stream_sediment.png
+settings: {type=Project settings, Simulation start time = param[project_start_date], Simulation end time=param[project_end_date]}
+major_block: {name=value[Stream], type=value[Stream], configuration=value[1DH], Initial water depth=param[ini_Depth], Length=expression[Length/n_Segments], Width=param[Width], n=param[n_Segments], Bottom elevation=param[B_elev], Bottom area=Expression[Length/n_Segments*Width], Slope=param[Slope], Manning's roughness coefficient=param[Manning_Coeff]}
+major_block: {name=value[Sediments], type=value[Darcy], configuration=value[1DH], Bottom area=Expression[Length/n_Segments*Width], Depth=param[Sed_Depth], Saturated moisture content (~thetas)=param[sat_m_cont], Saturated hydraulic conductivity (ks)=param[Ks],n=param[n_Segments], Bottom elevation=expression[B_elev-Sed_Depth], Width=param[Width], Length=expression[Length/n_Segments],Slope=param[Slope], Initial moisture content (~theta)=param[sat_m_cont] }
+major_connection: {source=Stream, target=Sediments, name=value[Stream-Sediment], Length=expression[Sed_Depth/2], Area = expression[Length/n_Segments*Width], configuration=a2a}
+entity: {type=Constituent, name=Dissolved Oxygen, Diffusion coefficient=param[Diff_coeff]}
+entity: {type=Particle, name=TSS, Diffusion coefficient=param[p_Diff_coeff]}
+parameter: {name=project_start_date, delegate=date_time, question=Enter Project Start Date, prop_list_item=Simulation start date}
+parameter: {name=project_end_date, delegate=date_time, question=Enter Project End Dateprop_list_item=Simulation elevation}
+parameter: {name=ini_Depth, delegate=float, question=Initial Water Depth in the Stream, object_type=Stream, prop_list_item=Initial water depth}
+parameter: {name=Length, delegate=float, question=Total Stream Length, object_type=Stream, prop_list_item=length}
+parameter: {name=Width, delegate=float, question=Stream Width, object_type=Stream, prop_list_item=Width}
+parameter: {name=B_elev, delegate=float, question=Enter the bottom elevation of the stream at the upstream boundary, prop_list_item=Bottom elevation, default=0}
+parameter: {name=n_Segments, delegate=integer, question=Enter number stream segments, default=10}
+parameter: {name=Sed_Depth, delegate=float, question=Sediment Layer Depth, object_type=Darcy, prop_list_item=Depth}
+parameter: {name=sat_m_cont, delegate=float, question=Sediment Porosity, object_type=Darcy, prop_list_item=Saturated moisture content (~thetas)}
+parameter: {name=Ks, delegate=float, question=Sediment Hydraulic Conductivity, object_type=Darcy, prop_list_item=Saturated hydraulic conductivity (ks)}
+parameter: {name=Diff_coeff, delegate=float, question=Enter Diffusion Coefficient for Dissolved Oxygen, prop_list_item=Diffusion coefficient}
+parameter: {name=p_Diff_coeff, delegate=float, question=Enter Diffusion Coefficient for suspended solids, prop_list_item=Diffusion coefficient}
+parameter: {name=Manning_Coeff, delegate=float, question=Manning's roughness coefficient, prop_list_item=Manning's roughness coefficient}
+parameter: {name=Slope, delegate=float, question=Channel Slope}
+parameter_group: {name=g1, description=Geometric Charachteristics, parameter=ini_Depth, parameter=Length, parameter=Width, parameter=n_Segments, parameter=Sed_Depth, parameter=B_elev, parameter=Manning_Coeff, parameter=Slope}
+parameter_group: {name=g2, description=Sediment Properties, parameter=sat_m_cont, parameter=Ks}
+parameter_group: {name=g3, description=Water Quality parameters, parameter=Diff_coeff, parameter=p_Diff_coeff}
+parameter_group: {name=g4, description=Project Settings, parameter=project_start_date, parameter=project_end_date}
+
+

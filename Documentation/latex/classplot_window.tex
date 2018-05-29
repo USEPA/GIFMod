@@ -1,0 +1,147 @@
+\hypertarget{classplot_window}{}\section{plot\+Window Class Reference}
+\label{classplot_window}\index{plot\+Window@{plot\+Window}}
+Inheritance diagram for plot\+Window\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classplot_window}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classplot_window_a2d18548d53b26ad9c2890a81f86c984f}\label{classplot_window_a2d18548d53b26ad9c2890a81f86c984f}} 
+{\bfseries plot\+Window} (\hyperlink{class_graph_widget}{Graph\+Widget} $\ast$parent=0, Q\+String window\+Title=\char`\"{}Plot Window\char`\"{}, Q\+String graph\+Title=\char`\"{}\char`\"{})
+\item 
+\mbox{\Hypertarget{classplot_window_ad34133a14e7b54719730bf332d90ee49}\label{classplot_window_ad34133a14e7b54719730bf332d90ee49}} 
+\hyperlink{class_q_c_p_graph}{Q\+C\+P\+Graph} $\ast$ {\bfseries add\+Scatter\+Plot} (Q\+String name, Q\+Vector$<$ double $>$ x, Q\+Vector$<$ double $>$ y, \hyperlink{structplotformat}{plotformat} format=\hyperlink{structplotformat}{plotformat}())
+\item 
+\mbox{\Hypertarget{classplot_window_ad579aa87b21c36626b6f687aabbefc64}\label{classplot_window_ad579aa87b21c36626b6f687aabbefc64}} 
+\hyperlink{class_q_c_p_graph}{Q\+C\+P\+Graph} $\ast$ {\bfseries add\+Scatter\+Plot} (\hyperlink{class_q_c_p_graph}{Q\+C\+P\+Graph} $\ast$g, \hyperlink{structplotformat}{plotformat} format)
+\item 
+\mbox{\Hypertarget{classplot_window_ace822896c90f6a11f21fa1cf79c28779}\label{classplot_window_ace822896c90f6a11f21fa1cf79c28779}} 
+\hyperlink{class_q_c_p_graph}{Q\+C\+P\+Graph} $\ast$ {\bfseries add\+Dot\+Plot} (vector$<$ double $>$ \&x, vector$<$ double $>$ \&y, const Q\+String \&name, \hyperlink{structplotformat}{plotformat} format=\hyperlink{structplotformat}{plotformat}())
+\item 
+\mbox{\Hypertarget{classplot_window_a9bbf3bc5134d8ee22eea006e05b3c01e}\label{classplot_window_a9bbf3bc5134d8ee22eea006e05b3c01e}} 
+\hyperlink{class_q_c_p_graph}{Q\+C\+P\+Graph} $\ast$ {\bfseries add\+Scatter\+Dot\+Plot} (\hyperlink{class_c_b_t_c_set}{C\+B\+T\+C\+Set} \&A\+NS, int index, Q\+String name=\char`\"{}\char`\"{}, \hyperlink{structplotformat}{plotformat} format=\hyperlink{structplotformat}{plotformat}())
+\item 
+\mbox{\Hypertarget{classplot_window_a386e6a43374ce73eab8ca946c6a0ec3e}\label{classplot_window_a386e6a43374ce73eab8ca946c6a0ec3e}} 
+\hyperlink{class_q_c_p_graph}{Q\+C\+P\+Graph} $\ast$ {\bfseries add\+Scatter\+Plot} (\hyperlink{class_c_b_t_c_set}{C\+B\+T\+C\+Set} \&A\+NS, int index, Q\+String name=\char`\"{}\char`\"{}, double coefficient=1, double offset=0, \hyperlink{structplotformat}{plotformat} format=\hyperlink{structplotformat}{plotformat}())
+\item 
+\mbox{\Hypertarget{classplot_window_af48fc09607698ae702a93cd39e99ef20}\label{classplot_window_af48fc09607698ae702a93cd39e99ef20}} 
+\hyperlink{class_q_c_p_graph}{Q\+C\+P\+Graph} $\ast$ {\bfseries add\+Histogram\+Plot} (Q\+String name, Q\+Vector$<$ double $>$ t, Q\+Vector$<$ double $>$ y, \hyperlink{structplotformat}{plotformat} format=\hyperlink{structplotformat}{plotformat}())
+\item 
+\mbox{\Hypertarget{classplot_window_a203fb0f974f9c632ee153e2d725dd3e3}\label{classplot_window_a203fb0f974f9c632ee153e2d725dd3e3}} 
+\hyperlink{class_q_c_p_graph}{Q\+C\+P\+Graph} $\ast$ {\bfseries add\+Histogram\+Plot} (Q\+String name, vector$<$ double $>$ t, vector$<$ double $>$ y, \hyperlink{structplotformat}{plotformat} format=\hyperlink{structplotformat}{plotformat}())
+\item 
+\mbox{\Hypertarget{classplot_window_a35b2a8eaeae225944067341f78f5c47e}\label{classplot_window_a35b2a8eaeae225944067341f78f5c47e}} 
+\hyperlink{class_q_c_p_graph}{Q\+C\+P\+Graph} $\ast$ {\bfseries add\+Percentile\+Plot} (Q\+String name, Q\+Map$<$ Q\+String, double $>$ data, \hyperlink{structplotformat}{plotformat} format=\hyperlink{structplotformat}{plotformat}())
+\item 
+\mbox{\Hypertarget{classplot_window_aece0fd514b3a0653faad1d0736156ae1}\label{classplot_window_aece0fd514b3a0653faad1d0736156ae1}} 
+\hyperlink{class_q_c_p_graph}{Q\+C\+P\+Graph} $\ast$ {\bfseries add\+Scatter\+Plot} (\hyperlink{class_c_b_t_c}{C\+B\+TC} data, Q\+String name, double coefficient=1, double offset=0, bool convert\+Xto\+Time=true, \hyperlink{structplotformat}{plotformat} format=\hyperlink{structplotformat}{plotformat}())
+\item 
+\mbox{\Hypertarget{classplot_window_ae12910b35299ddcb32dfec58c31e00fe}\label{classplot_window_ae12910b35299ddcb32dfec58c31e00fe}} 
+\hyperlink{class_q_c_p_graph}{Q\+C\+P\+Graph} $\ast$ {\bfseries add\+Scatter\+Plot} (\hyperlink{class_c_b_t_c}{C\+B\+TC} \&A\+NS, Q\+String name=\char`\"{}\char`\"{}, \hyperlink{structplotformat}{plotformat} format=\hyperlink{structplotformat}{plotformat}())
+\item 
+\mbox{\Hypertarget{classplot_window_adcd3da3dcefc6d05e93c46c0ba260655}\label{classplot_window_adcd3da3dcefc6d05e93c46c0ba260655}} 
+double {\bfseries xto\+Time} (const double \&x)
+\item 
+\mbox{\Hypertarget{classplot_window_a33456c0c494ada0065f885883ba4e135}\label{classplot_window_a33456c0c494ada0065f885883ba4e135}} 
+double {\bfseries timetoX} (const double \&time)
+\item 
+\mbox{\Hypertarget{classplot_window_a6a55923749ca45728b4ba73a87273082}\label{classplot_window_a6a55923749ca45728b4ba73a87273082}} 
+vector$<$ \hyperlink{class_q_c_p_graph}{Q\+C\+P\+Graph} $\ast$ $>$ {\bfseries add\+Scatter\+Plot} (\hyperlink{class_c_b_t_c_set}{C\+B\+T\+C\+Set} Data\+Set, \hyperlink{structplotformat}{plotformat} format=\hyperlink{structplotformat}{plotformat}())
+\item 
+\mbox{\Hypertarget{classplot_window_ade44370e5cd2646dce0e57056aaa8bd3}\label{classplot_window_ade44370e5cd2646dce0e57056aaa8bd3}} 
+void {\bfseries setup\+Demo} (int demo\+Index)
+\item 
+\mbox{\Hypertarget{classplot_window_aac95a46d0a4633d6425af9129754aa39}\label{classplot_window_aac95a46d0a4633d6425af9129754aa39}} 
+void {\bfseries setup\+Quadratic\+Demo} (\hyperlink{class_custom_plot_zoom}{Custom\+Plot\+Zoom} $\ast$custom\+Plot)
+\item 
+\mbox{\Hypertarget{classplot_window_a5e8d0a58e982a2ee833aebca2cc7e65d}\label{classplot_window_a5e8d0a58e982a2ee833aebca2cc7e65d}} 
+void {\bfseries setup\+Simple\+Demo} (\hyperlink{class_custom_plot_zoom}{Custom\+Plot\+Zoom} $\ast$custom\+Plot)
+\item 
+\mbox{\Hypertarget{classplot_window_a5e1b6d6cdfa829cef6cbc54da054b5cd}\label{classplot_window_a5e1b6d6cdfa829cef6cbc54da054b5cd}} 
+void {\bfseries setup\+Sinc\+Scatter\+Demo} (\hyperlink{class_custom_plot_zoom}{Custom\+Plot\+Zoom} $\ast$custom\+Plot)
+\item 
+\mbox{\Hypertarget{classplot_window_aeb5102c5042301503a6f6a3f8dc1ffbf}\label{classplot_window_aeb5102c5042301503a6f6a3f8dc1ffbf}} 
+void {\bfseries setup\+Scatter\+Style\+Demo} (\hyperlink{class_custom_plot_zoom}{Custom\+Plot\+Zoom} $\ast$custom\+Plot)
+\item 
+\mbox{\Hypertarget{classplot_window_af744193bf71613185311ba739304f410}\label{classplot_window_af744193bf71613185311ba739304f410}} 
+void {\bfseries setup\+Line\+Style\+Demo} (\hyperlink{class_custom_plot_zoom}{Custom\+Plot\+Zoom} $\ast$custom\+Plot)
+\item 
+\mbox{\Hypertarget{classplot_window_aa0c47f80ff816d9dd2e9ce4a08d44f43}\label{classplot_window_aa0c47f80ff816d9dd2e9ce4a08d44f43}} 
+void {\bfseries setup\+Scatter\+Pixmap\+Demo} (\hyperlink{class_custom_plot_zoom}{Custom\+Plot\+Zoom} $\ast$custom\+Plot)
+\item 
+\mbox{\Hypertarget{classplot_window_a4dad71c1688a9179b05f798675aa5393}\label{classplot_window_a4dad71c1688a9179b05f798675aa5393}} 
+void {\bfseries setup\+Date\+Demo} (\hyperlink{class_custom_plot_zoom}{Custom\+Plot\+Zoom} $\ast$custom\+Plot)
+\item 
+\mbox{\Hypertarget{classplot_window_a7f3f8735323077129897a6e591dc94b6}\label{classplot_window_a7f3f8735323077129897a6e591dc94b6}} 
+void {\bfseries setup\+Texture\+Brush\+Demo} (\hyperlink{class_custom_plot_zoom}{Custom\+Plot\+Zoom} $\ast$custom\+Plot)
+\item 
+\mbox{\Hypertarget{classplot_window_aa6607be4d296fa3af225f7c9f62d82f4}\label{classplot_window_aa6607be4d296fa3af225f7c9f62d82f4}} 
+void {\bfseries setup\+Multi\+Axis\+Demo} (\hyperlink{class_custom_plot_zoom}{Custom\+Plot\+Zoom} $\ast$custom\+Plot)
+\item 
+\mbox{\Hypertarget{classplot_window_a5a7eb2c23850320a443f8bbd07c72a2c}\label{classplot_window_a5a7eb2c23850320a443f8bbd07c72a2c}} 
+void {\bfseries setup\+Logarithmic\+Demo} (\hyperlink{class_custom_plot_zoom}{Custom\+Plot\+Zoom} $\ast$custom\+Plot)
+\item 
+\mbox{\Hypertarget{classplot_window_af482dc8bae6298a7d5ebdeea75aaf00d}\label{classplot_window_af482dc8bae6298a7d5ebdeea75aaf00d}} 
+void {\bfseries setup\+Realtime\+Data\+Demo} (\hyperlink{class_custom_plot_zoom}{Custom\+Plot\+Zoom} $\ast$custom\+Plot)
+\item 
+\mbox{\Hypertarget{classplot_window_a040953042af1f7eb58a57c6664885102}\label{classplot_window_a040953042af1f7eb58a57c6664885102}} 
+void {\bfseries setup\+Parametric\+Curve\+Demo} (\hyperlink{class_custom_plot_zoom}{Custom\+Plot\+Zoom} $\ast$custom\+Plot)
+\item 
+\mbox{\Hypertarget{classplot_window_aab06ef4b489f07afdde85a2c638743f0}\label{classplot_window_aab06ef4b489f07afdde85a2c638743f0}} 
+void {\bfseries setup\+Bar\+Chart\+Demo} (\hyperlink{class_custom_plot_zoom}{Custom\+Plot\+Zoom} $\ast$custom\+Plot)
+\item 
+\mbox{\Hypertarget{classplot_window_a471d768598485989c12436522cfc8f53}\label{classplot_window_a471d768598485989c12436522cfc8f53}} 
+void {\bfseries setup\+Statistical\+Demo} (\hyperlink{class_custom_plot_zoom}{Custom\+Plot\+Zoom} $\ast$custom\+Plot)
+\item 
+\mbox{\Hypertarget{classplot_window_a4ae41d9a84a60a5a52a74b27d92ea05b}\label{classplot_window_a4ae41d9a84a60a5a52a74b27d92ea05b}} 
+void {\bfseries setup\+Simple\+Item\+Demo} (\hyperlink{class_custom_plot_zoom}{Custom\+Plot\+Zoom} $\ast$custom\+Plot)
+\item 
+\mbox{\Hypertarget{classplot_window_a3a7df4962ccac8a3f9905b0a650bd071}\label{classplot_window_a3a7df4962ccac8a3f9905b0a650bd071}} 
+void {\bfseries setup\+Item\+Demo} (\hyperlink{class_custom_plot_zoom}{Custom\+Plot\+Zoom} $\ast$custom\+Plot)
+\item 
+\mbox{\Hypertarget{classplot_window_a850c9c888e5aef32668ae9fa4bdb47cf}\label{classplot_window_a850c9c888e5aef32668ae9fa4bdb47cf}} 
+void {\bfseries setup\+Styled\+Demo} (\hyperlink{class_custom_plot_zoom}{Custom\+Plot\+Zoom} $\ast$custom\+Plot)
+\item 
+\mbox{\Hypertarget{classplot_window_a01c7a27c11073cc2b4956c49a595bc90}\label{classplot_window_a01c7a27c11073cc2b4956c49a595bc90}} 
+void {\bfseries setup\+Advanced\+Axes\+Demo} (\hyperlink{class_custom_plot_zoom}{Custom\+Plot\+Zoom} $\ast$custom\+Plot)
+\item 
+\mbox{\Hypertarget{classplot_window_a7b4245e1806486e1cd1536656e706e26}\label{classplot_window_a7b4245e1806486e1cd1536656e706e26}} 
+void {\bfseries setup\+Color\+Map\+Demo} (\hyperlink{class_custom_plot_zoom}{Custom\+Plot\+Zoom} $\ast$custom\+Plot)
+\item 
+\mbox{\Hypertarget{classplot_window_a716be64dc447e667e29de1a40d0662d8}\label{classplot_window_a716be64dc447e667e29de1a40d0662d8}} 
+void {\bfseries setup\+Financial\+Demo} (\hyperlink{class_custom_plot_zoom}{Custom\+Plot\+Zoom} $\ast$custom\+Plot)
+\item 
+\mbox{\Hypertarget{classplot_window_abef8838aa313956a34abd01042b17abc}\label{classplot_window_abef8838aa313956a34abd01042b17abc}} 
+void {\bfseries setup\+Playground} (\hyperlink{class_custom_plot_zoom}{Custom\+Plot\+Zoom} $\ast$custom\+Plot)
+\item 
+\mbox{\Hypertarget{classplot_window_a7a3d455e341c673aaeff7cbb741f09fb}\label{classplot_window_a7a3d455e341c673aaeff7cbb741f09fb}} 
+void {\bfseries refresh\+Format} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classplot_window_aa6775bd7bf9a8f72709241933136d1e0}\label{classplot_window_aa6775bd7bf9a8f72709241933136d1e0}} 
+\hyperlink{class_graph_widget}{Graph\+Widget} $\ast$ {\bfseries parent}
+\item 
+\mbox{\Hypertarget{classplot_window_a6fcb7b5377400a777ceb7b89581a5f16}\label{classplot_window_a6fcb7b5377400a777ceb7b89581a5f16}} 
+vector$<$ \hyperlink{structplotformat}{plotformat} $>$ {\bfseries format}
+\item 
+\mbox{\Hypertarget{classplot_window_a9cfa52fe210ff06bea1217639da37712}\label{classplot_window_a9cfa52fe210ff06bea1217639da37712}} 
+vector$<$ \hyperlink{structplotformat}{plotformat} $>$ {\bfseries previous\+Format}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 42 of file plot\+Window.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+G\+U\+I/plot\+Window.\+h\item 
+G\+U\+I/plot\+Window.\+cpp\end{DoxyCompactItemize}

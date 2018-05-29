@@ -1,0 +1,138 @@
+//H-S relationships
+h-s, soil, _frs[(f[5]-(((1/f[53])*(((_max(_min(f[9]:1):0.001)^(f[54]/(1-f[54])))-1)^(1/f[54])))*((1-_min(f[9]:1))/(0.01+1-_min(f[9]:1))))+(_mon((f[9]-1):0.05)*(_pos(f[9]-1)*f[51]/f[57])))]
+h-s, darcy, f[6]+f[5]+((f[10]-f[51])/f[57])
+h-s, storage, f[5]+(_pos(f[4])/(f[2]*f[51]))+_frs[((_mon((f[9]-1):0.01)*(f[9]-1)*f[51]/f[57])-(f[65]/((f[9]+0.0000001)^f[66])))]
+h-s, pond, f[5]+(f[4]/f[2])
+h-s, catchment, f[5]+(f[4]/f[2])
+h-s, stream , f[5]+(f[4]/f[2])
+h-s, plant, f[5]-((1/f[53])*((_min(_max(f[9]:0.00001):1)^(-f[54]))-1))+(_pos(f[9]-1)*f[51]/f[57])
+//Vapor Exchange
+vapor, soil, soil, 1
+vapor, soil, pond, 1
+vapor, soil, storage, 1
+vapor, soil, darcy, 1
+vapor, soil, stream, 1
+vapor, soil, catchment, 1
+vapor, pond, soil, 1
+vapor, storage, soil, 1
+vapor, darcy, soil, 1
+vapor, stream, soil, 1
+vapor, catchment, soil, 1
+//Settling
+settling, storage, storage, 1
+settling, pond, soil, 1
+settling, soil, pond, 1
+settling, stream, darcy, 1
+settling, darcy, stream, 1
+settling, pond, darcy, 1
+settling, darcy, pond, 1
+//Area
+area, Catchment, Catchment, 0.5*f[85]*((s[1]-s[5])+(e[1]-e[5]))
+area, Catchment, Pond, f[85]*(s[1]-s[5])
+area, Pond, Catchment, f[85]*(e[1]-e[5])
+area, Catchment, Stream, f[85]*(s[1]-s[5])
+area, Stream, Catchment, f[85]*(e[1]-e[5])
+area, Stream, Stream, 0.5*f[85] * (_pos(s[1] - _max(s[5]:f[60])) + _pos(e[1] - _max(e[5]:f[60])))
+area, Stream, Pond, f[85]*_pos(s[1]-_max(s[5]:f[60]))
+area, Pond, Pond, 0.5*f[85]*(_pos(s[1]-_max(s[5]:f[60]))+_pos(e[1]-_max(e[5]:f[60])))
+area, Storage, Storage, 0.5*f[85]*((s[4]/(s[2]*s[51]))+(e[4]/(e[2]*e[51])))
+area, Storage, Storage, 0.5*f[85]*((s[4]/(s[2]*s[51]))+(e[1]-e[5]))
+//Constant Area
+const_area, Catchment, Catchment, 0
+const_area, Catchment, Pond, 0
+const_area, Pond, Catchment, 0
+const_area, Catchment, Stream, 0
+const_area, Stream, Catchment, 0
+const_area, Stream, Stream, 0
+const_area, Stream, Pond, 0
+const_area, Pond, Pond, 0
+const_area, Storage, Storage, 0
+const_area, Storage, Pond, 0
+//Flow
+// ******* soil ********
+flow, Soil,Storage,(_frs[(f[50]*(_max(_min(f[9]:1):0)^f[56])*((1-((1-(_max(_min(f[9]:1):0)^(1/f[55])))^f[55]))^2))]*(_pos(s[1]-_max(e[1]:s[5]))-_pos(e[1]-s[1]))/f[6]*f[2])
+flow, Soil,Soil,(_frs[(f[50]*(_max(_min(f[9]:1):0)^f[56])*((1-((1-(_max(_min(f[9]:1):0)^(1/f[55])))^f[55]))^2)/f[6]*f[2])]*(s[1]-e[1]))
+flow, Soil,Pond,0
+flow, Soil,Darcy,(_frs[(f[50]*(_max(_min(f[9]:1):0)^s[56])*((1-((1-(_max(_min(f[9]:1):0)^(1/s[55])))^s[55]))^2))]*(s[1]-e[1])/f[6]*f[2])
+flow, Soil,Catchment,(_frs[(s[50]*(_max(_min(s[9]:1):0)^s[56])*((1-((1-(_max(_min(s[9]:1):0)^(1/s[55])))^s[55]))^2))]*(s[1]-e[1])/f[6]*f[2])
+flow, Soil,Plant,f[3]*f[50]*(s[1]-e[1])
+
+flow2, Soil,Soil,(_frs[(f[50]*(_max(_min(f[9]:1):0)^f[56])*((1-((1-(_max(_min(f[9]:1):0)^(1/f[55])))^f[55]))^2)/f[6]*f[2])]*(s[1]-e[1]))
+flow2, Soil,Storage,(_frs[(f[50]*(_max(_min(f[9]:1):0)^f[56])*((1-((1-(_max(_min(f[9]:1):0)^(1/f[55])))^f[55]))^2))]*(s[1]-e[1])/f[6]*f[2])
+flow2, Soil,Pond,0.5*(_frs[(-f[50]*(_max(_min(f[9]:1):0)^f[56])*((1-((1-(_max(_min(f[9]:1):0)^(1/f[55])))^f[55]))^2))]-(f[50]))*(e[1]-s[1])/f[6]*f[2]
+flow, Soil,Pond,0.5*(_frs[(f[50]*(_max(_min(f[9]:1):0)^f[56])*((1-((1-(_max(_min(f[9]:1):0)^(1/f[55])))^f[55]))^2))]+(f[50]))*(s[1]-e[1])/f[6]*f[2]
+flow2, Soil,Darcy,(_frs[(f[50]*(_max(_min(f[9]:1):0)^s[56])*((1-((1-(_max(_min(f[9]:1):0)^(1/s[55])))^s[55]))^2))]*(s[1]-e[1])/f[6]*f[2])
+flow2, Soil,Catchment,-(f[50]*(s[1]-e[1])/f[6]*f[2])
+flow2, Soil,Plant,f[3]*f[50]*(s[1]-e[1])
+
+// ******* pond *******
+flow, Pond,Pond,f[85]/f[56]*((_sq2(_pos((s[1]-e[1])/f[6]):0.001)*_mon((s[1]-_max(s[5]:f[60])):0.01))-(_sq2(_pos((e[1]-s[1])/f[6]):0.001)*_mon((e[1]-_max(e[5]:f[60])):0.01)))*(((_pos(s[1]-_max(s[5]:f[60])-s[62])+_pos(e[1]-_max(e[5]:f[60])-s[62]))/2)^1.66667)
+flow2, Pond,Pond,f[85]/f[56]*((_sq2(_pos((s[1]-e[1])/f[6]):0.001)*_mon((s[1]-_max(s[5]:f[60])):0.01))-(_sq2(_pos((e[1]-s[1])/f[6]):0.001)*_mon((e[1]-_max(e[5]:f[60])):0.01)))*(((_pos(s[1]-_max(s[5]:f[60])-s[62])+_pos(e[1]-_max(e[5]:f[60])-s[62]))/2)^1.66667)
+flow, Pond,Soil,0.5*(_frs[(f[50]*(_max(_min(f[9]:1):0)^f[56])*((1-((1-(_max(_min(f[9]:1):0)^(1/f[55])))^f[55]))^2))]+(f[50]))*(s[1]-e[1])/f[6]*f[2]
+flow, Pond,Storage,f[50]*(s[1]-e[1])/f[6]*f[2]
+flow, Pond,Stream,f[85]/f[56]*((_sq2(_pos((s[1]-e[1])/f[6]):0.001)*_mon((s[1]-_max(s[5]:f[60])):0.01))-(_sq2(_pos((e[1]-s[1])/f[6]):0.001)*_mon((e[1]-_max(e[5]:f[60])):0.01)))*(((_pos(s[1]-_max(s[5]:f[60]))+_pos(e[1]-_max(e[5]:f[60])))/2)^1.66667)
+flow, Pond,Catchment,0
+
+flow2, Pond,Stream,f[85]/f[56]*((_sq2(_pos((s[1]-e[1])/f[6]):0.001)*_mon((s[1]-_max(s[5]:f[60])):0.01))-(_sq2(_pos((e[1]-s[1])/f[6]):0.001)*_mon((e[1]-_max(e[5]:f[60])):0.01)))*(((_pos(s[1]-_max(s[5]:f[60]))+_pos(e[1]-_max(e[5]:f[60])))/2)^1.66667)
+flow2, Pond,Darcy,f[50]*(s[1]-e[1])/f[6]*f[2]
+flow2, Pond,Storage,f[50]*(s[1]-e[1])/f[6]*f[2]
+flow2, Pond,Soil,0
+flow2, Pond,Catchment,(-f[85])/f[56]*_sqs((e[1]-s[1])/f[6])*_mon((_abs(e[1]-s[1])/f[6]):0.0001)*((_pos(e[1]-e[5]-e[62])^(1+f[58]))
+
+// ****** Stream ******
+flow, Stream,Stream,f[85]/f[56]*((_sq2(_pos((s[1]-e[1])/f[6]):0.001)*_mon((s[1]-_max(s[5]:f[60])):0.01))-(_sq2(_pos((e[1]-s[1])/f[6]):0.001)*_mon((e[1]-_max(e[5]:f[60])):0.01)))*(((_pos(s[1]-_max(s[5]:f[60]))+_pos(e[1]-_max(e[5]:f[60])))/2)^1.66667)
+flow, Stream,Darcy,f[50]*(s[1]-e[1])/f[6]*f[2]
+flow2, Stream,Stream,f[85]/f[56]*((_sq2(_pos((s[1]-e[1])/f[6]):0.001)*_mon((s[1]-_max(s[5]:f[60])):0.01))-(_sq2(_pos((e[1]-s[1])/f[6]):0.001)*_mon((e[1]-_max(e[5]:f[60])):0.01)))*(((_pos(s[1]-_max(s[5]:f[60]))+_pos(e[1]-_max(e[5]:f[60])))/2)^1.66667)
+flow2, Stream,Pond,f[85]/f[56]*((_sq2(_pos((s[1]-e[1])/f[6]):0.001)*_mon((s[1]-_max(s[5]:f[60])):0.01))-(_sq2(_pos((e[1]-s[1])/f[6]):0.001)*_mon((e[1]-_max(e[5]:f[60])):0.01)))*(((_pos(s[1]-_max(s[5]:f[60]))+_pos(e[1]-_max(e[5]:f[60])))/2)^1.66667)
+
+// ****** Storage ******
+flow, Storage,Soil,(_frs[(f[50]*(_max(_min(f[9]:1):0)^f[56])*((1-((1-(_max(_min(f[9]:1):0)^(1/f[55])))^f[55]))^2))]*(s[1]-e[1])/f[6]*f[2])
+flow, Storage,Storage,f[50]*(s[1]-e[1])/f[6]*f[2]
+flow, Storage,Pond,f[50]*(s[1]-e[1])/f[6]*f[2]
+flow, Storage,Catchment,f[50]*(s[1]-e[1])/f[6]*f[2]
+flow, Storage,Catchment,0
+flow2, Storage,Storage,f[50]*(s[1]-e[1])/f[6]*f[2]
+flow2, Storage,Pond,f[50]*(s[1]-e[1])/f[6]*f[2]
+flow2, Storage,Catchment,f[50]*(s[1]-e[1])/f[6]*f[2]
+flow2, Storage,Soil,(_frs[((-f[50])*(_max(_min(f[9]:1):0)^f[56])*((1-((1-(_max(_min(f[9]:1):0)^(1/f[55])))^f[55]))^2))]*(_pos(e[1]-_max(s[1]:e[5]))-_pos(s[1]-e[1]))/f[6]*f[2])
+
+// ****** Darcy ******
+flow, Darcy,Darcy,f[50]*(s[1]-e[1])/f[6]*f[2]
+flow, Darcy,Pond,f[50]*(s[1]-e[1])/f[6]*f[2]
+flow, Darcy,Catchment,f[50]*(s[1]-e[1])/f[6]*f[2]
+flow, Darcy,Soil,(_frs[(f[50]*(_max(_min(f[9]:1):0)^e[56])*((1-((1-(_max(_min(f[9]:1):0)^(1/e[55])))^e[55]))^2))]*(s[1]-e[1])/f[6]*f[2])
+flow2, Darcy,Stream,f[50]*(s[1]-e[1])/f[6]*f[2]
+flow2, Darcy,Catchment,f[50]*(s[1]-e[1])/f[6]*f[2]
+flow2, Darcy,Soil,(_frs[(f[50]*(_max(_min(f[9]:1):0)^e[56])*((1-((1-(_max(_min(f[9]:1):0)^(1/e[55])))^e[55]))^2))]*(s[1]-e[1])/f[6]*f[2])
+
+// ****** Catchment ******
+flow, Catchment,Storage,f[50]*(s[1]-e[1])/f[6]*f[2]
+flow, Catchment,Darcy,f[50]*(s[1]-e[1])/f[6]*f[2]
+flow, Catchment,Catchment,f[85]/f[56]*((_sq2(_pos((s[1]-e[1])/f[6]):0.001)*_mon((s[1]-s[5]):0.01))-(_sq2(_pos((e[1]-s[1])/f[6]):0.001)*_mon((e[1]-e[5]):0.01)))*(((_hsd(s[1]-e[1])*_pos(s[1]-s[5]-s[62]))+(_hsd(e[1]-s[1])*_pos(e[1]-e[5]-s[62])))^(1+f[58]))
+flow, Catchment,Pond,f[85]/f[56]*_sqs((s[1]-e[1])/f[6])*_mon((_abs(s[1]-e[1])/f[6]):0.0001)*((_pos(s[1]-s[5]-s[62])^(1+f[58]))
+flow, Catchment,Stream,f[85]/f[56]*_sqs((s[1]-e[1])/f[6])*_mon((_abs(s[1]-e[1])/f[6]):0.0001)*((_pos(s[1]-s[5]-s[62])^(1+f[58]))
+flow, Catchment,Soil,(f[50]*(s[1]-e[1])/f[6]*f[2])
+flow2, Catchment,Storage,f[50]*(s[1]-e[1])/f[6]*f[2]
+flow2, Catchment,Darcy,f[50]*(s[1]-e[1])/f[6]*f[2]
+flow2, Catchment,Catchment,f[85]/f[56]*((_sq2(_pos((s[1]-e[1])/f[6]):0.001)*_mon((s[1]-s[5]):0.01))-(_sq2(_pos((e[1]-s[1])/f[6]):0.001)*_mon((e[1]-e[5]):0.01)))*(((_hsd(s[1]-e[1])*_pos(s[1]-s[5]-s[12]))+(_hsd(e[1]-s[1])*_pos(e[1]-e[5]-s[12])))^(1+f[58]))
+flow2, Catchment,Pond,0
+flow2, Catchment,Stream,0
+flow2, Catchment,Storage,0
+flow2, Catchment,Soil,(f[50]*(s[1]-e[1])/f[6]*f[2])
+
+// ****** Stream ******
+flow, Stream,Pond,f[85]/f[56]*((_sq2(_pos((s[1]-e[1])/f[6]):0.001)*_mon((s[1]-_max(s[5]:f[60])):0.01))-(_sq2(_pos((e[1]-s[1])/f[6]):0.001)*_mon((e[1]-_max(e[5]:f[60])):0.01)))*(((_pos(s[1]-_max(s[5]:f[60]))+_pos(e[1]-_max(e[5]:f[60])))/2)^1.66667)
+flow, Stream,Catchment,0
+flow2, Stream,Catchment,(-f[85])/f[56]*_sqs((e[1]-s[1])/f[6])*_mon((_abs(s[1]-e[1])/f[6]):0.0001)*((_pos(e[1]-e[5]-e[62])^(1+f[58]))
+
+// ****** plant *******
+flow, Plant,Soil,f[3]*f[50]*(s[1]-e[1])*(_max(_min(f[9]:0)^s[54])*f[2]*s[3]
+flow2, Soil,Plant,f[3]*f[50]*(s[1]-e[1])*(_max(_min(f[9]:0)^e[54])*f[2]*e[3]
+
+// Special Connectors
+connector, Normal,f[85]/f[56]*((_sq2(_pos((s[5]-e[5])/f[6]):0.001)*_mon((s[1]-s[5]):0.01))-(_sq2(_pos((e[5]-s[5])/f[6]):0.001)*_mon((e[1]-e[5]):0.01)))*(((_pos(s[1]-s[5])+_pos(e[1]-e[5]))/2)^(1+f[58])
+connector, QDarcy,f[50]*(s[1]-e[1])/f[6]*f[2]
+connector, Vapor,(((e[13]+s[13])/2*(s[10]-e[10])/f[6]*f[2]*(_pos(s[51]-s[10])+_pos(e[51]-e[10]))/2))
+connector, Pipe1,(f[52]^2.63)*23760*f[67]*((_pos(s[1]-f[61])/f[6])^0.54)*_hsd(s[1]-f[60])
+connector, Pipe2,(f[52]^2.63)*23760*f[67]*_ply(_max(((e[1]-f[61])/f[52]):((s[1]-f[60])/f[52])))*_mo1(((((_pos(s[1]-_max(e[1]:f[61]))/f[6])^0.54))-(((_pos(e[1]-_max(s[1]:f[60]))/f[6])^0.54))):0.001)
+connector, Rating_curve,(_hsd(s[1]-e[1])*f[62]*(_pos(s[1]-f[64])^f[63]))-(_hsd(e[1]-s[1])*f[62]*(_pos(e[1]-f[64])^f[63]))

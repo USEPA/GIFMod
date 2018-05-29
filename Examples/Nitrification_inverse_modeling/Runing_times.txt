@@ -1,3 +1,0 @@
- Genetic Run Time :  17.0362 min
- MCMC Run Time :  16.4168 min
- Post-MCMC Run Time :  2.52858 min

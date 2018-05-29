@@ -1,0 +1,46 @@
+************************************* Invoked: Sun Apr 29 09:47:28 2018
+[0] Arguments: /home/arash/GIFMOD_installer/build-setup-Desktop_Qt_5_8_0_GCC_64bit-Release/GIFModInstaller
+[0] Operations sanity check succeeded.
+[3595] Created warning message box "OverwriteTargetDirectory": "Warning", "You have selected an existing, non-empty directory for installation.\nNote that it will be completely wiped on uninstallation of this application.\nIt is not advisable to install into this directory as installation might fail.\nDo you want to continue?"
+[14625] Tmp and install directories are on the same volume. Volume mount point: "/" Free space available: "552.40 GiB"
+[14625] Installation space required: "94.56 MiB" Temporary space required: "0.00 bytes" Local repository size: "0.00 bytes"
+[15853] backup  operation: Mkdir
+[15853] 	- arguments: /home/arash/GIFMod
+[15853] Done
+[15854] perform  operation: Mkdir
+[15854] 	- arguments: /home/arash/GIFMod
+[15854] Done
+[15854] Install size: 1 components
+[15857] backup org.gifmod operation: Extract
+[15857] 	- arguments: installer://org.gifmod/1.0.0-1bindata.7z, /home/arash/GIFMod
+[15857] Done
+[15857] perform org.gifmod operation: Extract
+[15857] 	- arguments: installer://org.gifmod/1.0.0-1bindata.7z, /home/arash/GIFMod
+[16275] Done
+[16275] backup org.gifmod operation: Extract
+[16275] 	- arguments: installer://org.gifmod/1.0.0-1lib.7z, /home/arash/GIFMod
+[16275] Done
+[16275] perform org.gifmod operation: Extract
+[16275] 	- arguments: installer://org.gifmod/1.0.0-1lib.7z, /home/arash/GIFMod
+[17621] Done
+[17621] backup org.gifmod operation: Replace
+[17621] 	- arguments: /home/arash/GIFMod/bindata/GIFMod.desktop, $$TARGETDIR$$, /home/arash/GIFMod
+[17621] Done
+[17621] perform org.gifmod operation: Replace
+[17621] 	- arguments: /home/arash/GIFMod/bindata/GIFMod.desktop, $$TARGETDIR$$, /home/arash/GIFMod
+[17621] Done
+[17621] backup org.gifmod operation: Replace
+[17621] 	- arguments: /home/arash/GIFMod/bindata/GIFMod.sh, $$TARGETDIR$$, /home/arash/GIFMod
+[17621] Done
+[17621] perform org.gifmod operation: Replace
+[17621] 	- arguments: /home/arash/GIFMod/bindata/GIFMod.sh, $$TARGETDIR$$, /home/arash/GIFMod
+[17622] Done
+[17622] backup org.gifmod operation: Move
+[17622] 	- arguments: /home/arash/GIFMod/bindata/GIFMod.desktop, /home/arash/GIFMod/../.local/share/applications/GIFMod.desktop
+[17622] Done
+[17622] perform org.gifmod operation: Move
+[17622] 	- arguments: /home/arash/GIFMod/bindata/GIFMod.desktop, /home/arash/GIFMod/../.local/share/applications/GIFMod.desktop
+[17623] Done
+[17626] Writing maintenance tool: "/home/arash/GIFMod/maintenancetool.new"
+[17687] Wrote permissions for maintenance tool.
+[17751] Maintenance tool restart: false.

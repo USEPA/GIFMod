@@ -1,0 +1,463 @@
+\hypertarget{class_graph_widget}{}\section{Graph\+Widget Class Reference}
+\label{class_graph_widget}\index{Graph\+Widget@{Graph\+Widget}}
+Inheritance diagram for Graph\+Widget\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_graph_widget}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graph_widget_a7d6d1788eba5dcebe750ce08aee4d614}\label{class_graph_widget_a7d6d1788eba5dcebe750ce08aee4d614}} 
+void {\bfseries shuffle} ()
+\item 
+\mbox{\Hypertarget{class_graph_widget_a89aa46ebccc40f6ba1e25b2ef18b82cc}\label{class_graph_widget_a89aa46ebccc40f6ba1e25b2ef18b82cc}} 
+void {\bfseries zoom\+In} ()
+\item 
+\mbox{\Hypertarget{class_graph_widget_afccca31b4490ec38718b437e78740777}\label{class_graph_widget_afccca31b4490ec38718b437e78740777}} 
+void {\bfseries zoom\+Out} ()
+\item 
+\mbox{\Hypertarget{class_graph_widget_a05675ac4252ed34aa944e5979adfbd7a}\label{class_graph_widget_a05675ac4252ed34aa944e5979adfbd7a}} 
+void {\bfseries add\+\_\+to\+\_\+undo\+\_\+list} (Q\+List$<$ Q\+Map$<$ Q\+String, Q\+Variant $>$$>$ \&state=Q\+List$<$ Q\+Map$<$ Q\+String, Q\+Variant $>$$>$())
+\item 
+\mbox{\Hypertarget{class_graph_widget_aad13fb8f321642503491f21388e11d59}\label{class_graph_widget_aad13fb8f321642503491f21388e11d59}} 
+void {\bfseries settable\+Prop} (Q\+Table\+View $\ast$\+\_\+table\+Prop)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a53052eaaed3777d102e6659e3357983e}\label{class_graph_widget_a53052eaaed3777d102e6659e3357983e}} 
+void {\bfseries scale\+View} (qreal scale\+Factor)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a01350de0dbcabfe176b9b300b9d99ee8}\label{class_graph_widget_a01350de0dbcabfe176b9b300b9d99ee8}} 
+bool {\bfseries select} (const Q\+String \&name, const Q\+String type) const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a328e36038ac4c2bc050fa19426957eb2}\label{class_graph_widget_a328e36038ac4c2bc050fa19426957eb2}} 
+void {\bfseries node\+Context\+Menu\+Requested} (\hyperlink{class_node}{Node} $\ast$, Q\+PointF pos)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a5598498d73ac62d94f8928c6dcda5368}\label{class_graph_widget_a5598498d73ac62d94f8928c6dcda5368}} 
+void {\bfseries edge\+Context\+Menu\+Requested} (\hyperlink{class_edge}{Edge} $\ast$, Q\+PointF pos)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a1bb5e7e12a16d964e9f9d6b703080246}\label{class_graph_widget_a1bb5e7e12a16d964e9f9d6b703080246}} 
+void {\bfseries warning} (Q\+String)
+\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graph_widget_acdaf6aa353aa9b7be0df562f08f7ba5b}\label{class_graph_widget_acdaf6aa353aa9b7be0df562f08f7ba5b}} 
+void {\bfseries Mouse\+\_\+\+Pos} (int, int, Q\+String)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a9b94d72699fe23f47dcaf7dc9c380676}\label{class_graph_widget_a9b94d72699fe23f47dcaf7dc9c380676}} 
+void {\bfseries changed} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graph_widget_aef9c79d5d073072f36eb0b3dde3ed5eb}\label{class_graph_widget_aef9c79d5d073072f36eb0b3dde3ed5eb}} 
+{\bfseries Graph\+Widget} (Q\+Widget $\ast$parent, Q\+String application\+Short\+Name, Q\+String metafilename, \hyperlink{classlog_window}{log\+Window} $\ast$log, \hyperlink{class_main_window}{Main\+Window} $\ast$main\+Window)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a3151de180b65d71f424aba5bc274978e}\label{class_graph_widget_a3151de180b65d71f424aba5bc274978e}} 
+void {\bfseries item\+Moved} ()
+\item 
+\mbox{\Hypertarget{class_graph_widget_abed30d75072287b9ad60c7e4a4eefe44}\label{class_graph_widget_abed30d75072287b9ad60c7e4a4eefe44}} 
+void {\bfseries undo} ()
+\item 
+\mbox{\Hypertarget{class_graph_widget_ad0f40cc5d665cf71f0ec8edab01e020f}\label{class_graph_widget_ad0f40cc5d665cf71f0ec8edab01e020f}} 
+void {\bfseries redo} ()
+\item 
+\mbox{\Hypertarget{class_graph_widget_a4635bed9ea5ddbfe0085c82a65781adf}\label{class_graph_widget_a4635bed9ea5ddbfe0085c82a65781adf}} 
+void {\bfseries deselect\+All} (Q\+String items=\char`\"{}Nodes Edges Entities (\hyperlink{class_entity}{Entity})\char`\"{}) const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a0e90eeed7cc2d948f3a7e89954a6ef69}\label{class_graph_widget_a0e90eeed7cc2d948f3a7e89954a6ef69}} 
+void {\bfseries delete\+Selected} ()
+\item 
+\mbox{\Hypertarget{class_graph_widget_ac6e7cb4d92f226ba931a136c33fe887a}\label{class_graph_widget_ac6e7cb4d92f226ba931a136c33fe887a}} 
+Q\+String\+List {\bfseries selected\+Items} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_abacd01d2946e304ed433a8bb59c1250c}\label{class_graph_widget_abacd01d2946e304ed433a8bb59c1250c}} 
+Q\+String {\bfseries type\+Of\+Seleceted\+Items} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a84ad6e8fe26027632744d37ee41197b0}\label{class_graph_widget_a84ad6e8fe26027632744d37ee41197b0}} 
+Q\+List$<$ \hyperlink{class_node}{Node} $\ast$ $>$ {\bfseries selected\+Nodes} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_ad33db964dd1fa6bf9ed574bf04fd3d43}\label{class_graph_widget_ad33db964dd1fa6bf9ed574bf04fd3d43}} 
+Q\+List$<$ \hyperlink{class_edge}{Edge} $\ast$ $>$ {\bfseries selected\+Edges} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a2baa039b26ef13b12bc79264ecd4426c}\label{class_graph_widget_a2baa039b26ef13b12bc79264ecd4426c}} 
+Q\+List$<$ \hyperlink{class_entity}{Entity} $\ast$ $>$ {\bfseries selected\+Entities} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a7dfb5058122e9e84a9becde7420e0943}\label{class_graph_widget_a7dfb5058122e9e84a9becde7420e0943}} 
+void {\bfseries update} (bool fast=false)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a9d2cf64be81bb0f0bfa3f07133c27cea}\label{class_graph_widget_a9d2cf64be81bb0f0bfa3f07133c27cea}} 
+void {\bfseries Props\+Populate} (\hyperlink{class_node}{Node} $\ast$node, Q\+Standard\+Item\+Model $\ast$prop\+Model)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a24a9c0a4910bd8b9050df9399f3f6297}\label{class_graph_widget_a24a9c0a4910bd8b9050df9399f3f6297}} 
+Operation\+\_\+\+Modes {\bfseries set\+Mode} (Operation\+\_\+\+Modes O\+Mode=Operation\+\_\+\+Modes\+::\+Normal\+Mode, bool back=false)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a25f9580a2740452511081512b870739f}\label{class_graph_widget_a25f9580a2740452511081512b870739f}} 
+Operation\+\_\+\+Modes {\bfseries set\+Mode} (int i)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a771dbfe146b575c1e6f2e5bcf0d3fdda}\label{class_graph_widget_a771dbfe146b575c1e6f2e5bcf0d3fdda}} 
+Operation\+\_\+\+Modes {\bfseries set\+Mode\+Cursor} (void)
+\item 
+\mbox{\Hypertarget{class_graph_widget_ada2db7600c06003029051e19c3ac41e9}\label{class_graph_widget_ada2db7600c06003029051e19c3ac41e9}} 
+Q\+List$<$ \hyperlink{class_node}{Node} $\ast$ $>$ {\bfseries Nodes} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a09efd16533da2fda657cbb735d0dc6fe}\label{class_graph_widget_a09efd16533da2fda657cbb735d0dc6fe}} 
+Q\+List$<$ \hyperlink{class_edge}{Edge} $\ast$ $>$ {\bfseries Edges} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_adb46a922d70f2eaa62174d6a4ca48a02}\label{class_graph_widget_adb46a922d70f2eaa62174d6a4ca48a02}} 
+Q\+List$<$ \hyperlink{class_entity}{Entity} $\ast$ $>$ {\bfseries entities\+By\+Type} (const Q\+String \&type) const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a8d2a8c07f1ab60e462e753bacbe3c789}\label{class_graph_widget_a8d2a8c07f1ab60e462e753bacbe3c789}} 
+Q\+List$<$ \hyperlink{class_node}{Node} $\ast$ $>$ {\bfseries nodes\+By\+Type} (const Q\+String \&type) const
+\item 
+\mbox{\Hypertarget{class_graph_widget_ad03328de00095afcb1d7ce563067f3e4}\label{class_graph_widget_ad03328de00095afcb1d7ce563067f3e4}} 
+Q\+String\+List {\bfseries node\+Names} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a76817fe57531c137ce2af29a43c3e2b3}\label{class_graph_widget_a76817fe57531c137ce2af29a43c3e2b3}} 
+Q\+String\+List {\bfseries node\+Names} (const Q\+String \&type) const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a8492634bc8057e97a8ff8b52eab1c547}\label{class_graph_widget_a8492634bc8057e97a8ff8b52eab1c547}} 
+Q\+String\+List {\bfseries edge\+Names} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a6f58b0ec8a1612229dc9d1ad9689b86b}\label{class_graph_widget_a6f58b0ec8a1612229dc9d1ad9689b86b}} 
+\hyperlink{class_node}{Node} $\ast$ {\bfseries node} (const Q\+String \&name) const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a469639e439e97fcf000c261c80464dbc}\label{class_graph_widget_a469639e439e97fcf000c261c80464dbc}} 
+\hyperlink{class_edge}{Edge} $\ast$ {\bfseries edge} (const Q\+String \&name) const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a7b421e34e1442c32ad90dc11ec5e42ae}\label{class_graph_widget_a7b421e34e1442c32ad90dc11ec5e42ae}} 
+\hyperlink{class_entity}{Entity} $\ast$ {\bfseries entity} (const Q\+String \&name, const Q\+String \&type=\char`\"{}$\ast$\char`\"{}) const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a63ab5e098336d4703fc45ef4e67c08d2}\label{class_graph_widget_a63ab5e098336d4703fc45ef4e67c08d2}} 
+\hyperlink{class_process}{Process} $\ast$ {\bfseries process} (const Q\+String \&name) const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a3981dd84b826ad1a64abb6ce41a8a06b}\label{class_graph_widget_a3981dd84b826ad1a64abb6ce41a8a06b}} 
+void {\bfseries delete\+Node} (const Q\+String \&name)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a467ef6a7cb8e175618c948a13487f3c7}\label{class_graph_widget_a467ef6a7cb8e175618c948a13487f3c7}} 
+void {\bfseries delete\+Node} (\hyperlink{class_node}{Node} $\ast$node)
+\item 
+\mbox{\Hypertarget{class_graph_widget_ae54dfe1c6719e49838d4f8b5174964ab}\label{class_graph_widget_ae54dfe1c6719e49838d4f8b5174964ab}} 
+void {\bfseries delete\+Edge} (const Q\+String \&name)
+\item 
+\mbox{\Hypertarget{class_graph_widget_af79a21281cca11afbb994604270a0fe7}\label{class_graph_widget_af79a21281cca11afbb994604270a0fe7}} 
+void {\bfseries delete\+Edge} (\hyperlink{class_edge}{Edge} $\ast$edge)
+\item 
+\mbox{\Hypertarget{class_graph_widget_aedb11a4a9823bfb499e3d88ca1aa4ac6}\label{class_graph_widget_aedb11a4a9823bfb499e3d88ca1aa4ac6}} 
+void {\bfseries delete\+Entity} (const Q\+String \&name)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a1bd878d346b1b1f0a1f7a746b82d925b}\label{class_graph_widget_a1bd878d346b1b1f0a1f7a746b82d925b}} 
+void {\bfseries delete\+Entity} (\hyperlink{class_entity}{Entity} $\ast$entity)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a77a080507badb848604891706b3e5fdb}\label{class_graph_widget_a77a080507badb848604891706b3e5fdb}} 
+void {\bfseries delete\+Process} (const Q\+String \&name)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a87068066b6177b8cd38f6bbdc01395b1}\label{class_graph_widget_a87068066b6177b8cd38f6bbdc01395b1}} 
+void {\bfseries delete\+Process} (\hyperlink{class_process}{Process} $\ast$process)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a81930cfac993a5c68472af7075e3497e}\label{class_graph_widget_a81930cfac993a5c68472af7075e3497e}} 
+Q\+String\+List {\bfseries Entity\+Names} (const Q\+String \&type) const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a47411c5a99d9e61573d62fc8aac3df89}\label{class_graph_widget_a47411c5a99d9e61573d62fc8aac3df89}} 
+void {\bfseries set\+Proj\+Exp} (Q\+Tree\+View $\ast$p)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a00f97f7d5b40070eabe75ab6d942d29a}\label{class_graph_widget_a00f97f7d5b40070eabe75ab6d942d29a}} 
+Q\+Abstract\+Item\+Model $\ast$ {\bfseries prop\+Model} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a49856df1e5d61b7a18a708d4500d5f1f}\label{class_graph_widget_a49856df1e5d61b7a18a708d4500d5f1f}} 
+\hyperlink{class_entity}{Entity} $\ast$ {\bfseries entity\+By\+Name} (const Q\+String \&name) const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a2eb58954dcd1f34e2282ea2493ab729d}\label{class_graph_widget_a2eb58954dcd1f34e2282ea2493ab729d}} 
+Q\+List$<$ Q\+Map$<$ Q\+String, Q\+Variant $>$ $>$ {\bfseries compact} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a2756c3611af9cca2dec78b2a39f240d0}\label{class_graph_widget_a2756c3611af9cca2dec78b2a39f240d0}} 
+Q\+List$<$ Q\+Map$<$ Q\+String, Q\+Variant $>$ $>$ {\bfseries compact\+R\+XN} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a8c011147faa4f1174011e23190b742c6}\label{class_graph_widget_a8c011147faa4f1174011e23190b742c6}} 
+\hyperlink{class_graph_widget}{Graph\+Widget} $\ast$ {\bfseries un\+Compact} (Q\+List$<$ Q\+Map$<$ Q\+String, Q\+Variant $>$$>$ \&, bool old\+Version\+Load=false)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a00777e623cbdede802e53e0edc1290e3}\label{class_graph_widget_a00777e623cbdede802e53e0edc1290e3}} 
+\hyperlink{class_graph_widget}{Graph\+Widget} $\ast$ {\bfseries un\+Compact12} (Q\+List$<$ Q\+Map$<$ Q\+String, Q\+Variant $>$$>$ \&, bool old\+Version\+Load=false)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a58b1fd7f37e56294baece09cf400fb4c}\label{class_graph_widget_a58b1fd7f37e56294baece09cf400fb4c}} 
+\hyperlink{class_graph_widget}{Graph\+Widget} $\ast$ {\bfseries un\+Compact10} (Q\+List$<$ Q\+Map$<$ Q\+String, Q\+Variant $>$$>$)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a0d4f7499ffd070e417ea31bfca508560}\label{class_graph_widget_a0d4f7499ffd070e417ea31bfca508560}} 
+void {\bfseries clear} ()
+\item 
+\mbox{\Hypertarget{class_graph_widget_ae1e67dfe15be48730df36070cdd0a6c7}\label{class_graph_widget_ae1e67dfe15be48730df36070cdd0a6c7}} 
+void {\bfseries clear\+R\+XN} ()
+\item 
+\mbox{\Hypertarget{class_graph_widget_aa42a639144731c671a73c6525a2e023e}\label{class_graph_widget_aa42a639144731c671a73c6525a2e023e}} 
+void {\bfseries expand\+Node} (const Q\+Model\+Index \&parent\+Index, bool expand)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a4c5fd66b82e26f3363c6f5139294b674}\label{class_graph_widget_a4c5fd66b82e26f3363c6f5139294b674}} 
+void {\bfseries copy\+Props} (Q\+String source\+Experiment, Q\+String dest\+Experiment)
+\item 
+\mbox{\Hypertarget{class_graph_widget_aa07e70f46795397af51f8b81096b1aa5}\label{class_graph_widget_aa07e70f46795397af51f8b81096b1aa5}} 
+void {\bfseries delete\+Solution\+Results} ()
+\item 
+\mbox{\Hypertarget{class_graph_widget_af939589ae965f6e3e276ff9e18dcf411}\label{class_graph_widget_af939589ae965f6e3e276ff9e18dcf411}} 
+Q\+String {\bfseries model\+Pathname} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a7f3ab74c08061ed51173a18f30b675b0}\label{class_graph_widget_a7f3ab74c08061ed51173a18f30b675b0}} 
+Q\+String {\bfseries update\+Relative\+Paths} (Q\+String old\+Path, Q\+String new\+Path)
+\item 
+\mbox{\Hypertarget{class_graph_widget_acb8bc4f2e272992ac5fb42ba2406e7ed}\label{class_graph_widget_acb8bc4f2e272992ac5fb42ba2406e7ed}} 
+Q\+String {\bfseries default\+Dir} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_ad63bfab8cf84845a650064ac535016c7}\label{class_graph_widget_ad63bfab8cf84845a650064ac535016c7}} 
+void {\bfseries log} (Q\+String text) const
+\item 
+\mbox{\Hypertarget{class_graph_widget_aa33e35bb783f51832132a5c283f84bdb}\label{class_graph_widget_aa33e35bb783f51832132a5c283f84bdb}} 
+void {\bfseries new\+Error} (Q\+String message)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a80f4ef856d0d8c11c5b38a63d33f5c7c}\label{class_graph_widget_a80f4ef856d0d8c11c5b38a63d33f5c7c}} 
+Q\+String\+List {\bfseries variable\+Values\+Has\+Error} ()
+\item 
+\mbox{\Hypertarget{class_graph_widget_af8b10dad9f29f85af8e5a616cb2ab8e5}\label{class_graph_widget_af8b10dad9f29f85af8e5a616cb2ab8e5}} 
+bool {\bfseries has\+Changed} ()
+\item 
+\mbox{\Hypertarget{class_graph_widget_a1acb4fe4c9a453f2fa4ddca0c654b5d8}\label{class_graph_widget_a1acb4fe4c9a453f2fa4ddca0c654b5d8}} 
+void {\bfseries start\+Editing\+Delegate} (Q\+String variable\+Name)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a97fce8450a75477dea78c8be4fc9d3a9}\label{class_graph_widget_a97fce8450a75477dea78c8be4fc9d3a9}} 
+void {\bfseries end\+Editing\+Delegate} ()
+\item 
+\mbox{\Hypertarget{class_graph_widget_adec6ced81557b5f79ec1b23bd0c5cebc}\label{class_graph_widget_adec6ced81557b5f79ec1b23bd0c5cebc}} 
+int {\bfseries experiment\+ID} ()
+\item 
+\mbox{\Hypertarget{class_graph_widget_ade6955d2ca2d6a69fcee5487141d4aec}\label{class_graph_widget_ade6955d2ca2d6a69fcee5487141d4aec}} 
+Q\+String {\bfseries experiment\+Name} ()
+\item 
+\mbox{\Hypertarget{class_graph_widget_a47f0b454ebc3a2fee3364e865f7869f7}\label{class_graph_widget_a47f0b454ebc3a2fee3364e865f7869f7}} 
+Q\+String {\bfseries first\+Experiment\+Name} ()
+\item 
+\mbox{\Hypertarget{class_graph_widget_a31363738b54bc525322e01b9f00e01f8}\label{class_graph_widget_a31363738b54bc525322e01b9f00e01f8}} 
+Q\+String\+List {\bfseries experiments\+List} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a21c998848809bc306085eba0c197ad67}\label{class_graph_widget_a21c998848809bc306085eba0c197ad67}} 
+void {\bfseries experiments\+Combo\+Clear} (bool add\+Experiment1=true)
+\item 
+\mbox{\Hypertarget{class_graph_widget_abe039a6a818bf275ca1d1f8f543608b1}\label{class_graph_widget_abe039a6a818bf275ca1d1f8f543608b1}} 
+void {\bfseries update\+Node\+Coordinates} ()
+\item 
+\mbox{\Hypertarget{class_graph_widget_aee8ac163711fc0c8337630adcece58db}\label{class_graph_widget_aee8ac163711fc0c8337630adcece58db}} 
+Q\+String\+List {\bfseries script} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a9f97bcc963af07d8df3da1edb56ebb15}\label{class_graph_widget_a9f97bcc963af07d8df3da1edb56ebb15}} 
+Q\+String\+List {\bfseries s\+\_\+get\+\_\+params} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a93d7eb424aa9e111d04d4cce70d98a60}\label{class_graph_widget_a93d7eb424aa9e111d04d4cce70d98a60}} 
+Q\+String\+List {\bfseries s\+\_\+get\+\_\+observed} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a4ccc41a89fafe27e82b1ebfb47e40311}\label{class_graph_widget_a4ccc41a89fafe27e82b1ebfb47e40311}} 
+Q\+String\+List {\bfseries s\+\_\+get\+\_\+environmental\+\_\+params} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_aba18b14c803cbc3ed971824681eeab69}\label{class_graph_widget_aba18b14c803cbc3ed971824681eeab69}} 
+Q\+String\+List {\bfseries s\+\_\+get\+\_\+model\+\_\+configuration} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a7f8bac894a6ba57b2ed935ca177b117e}\label{class_graph_widget_a7f8bac894a6ba57b2ed935ca177b117e}} 
+Q\+String\+List {\bfseries s\+\_\+get\+\_\+particle\+\_\+types} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_adecb00d55f11b01780c211189c1bfe36}\label{class_graph_widget_adecb00d55f11b01780c211189c1bfe36}} 
+Q\+String\+List {\bfseries s\+\_\+get\+\_\+constituents} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a5f0b8920e55972f54c52c38ed7a8ced2}\label{class_graph_widget_a5f0b8920e55972f54c52c38ed7a8ced2}} 
+Q\+String\+List {\bfseries s\+\_\+get\+\_\+reactions} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a07b801aced3b720277a67dea489f898d}\label{class_graph_widget_a07b801aced3b720277a67dea489f898d}} 
+Q\+String\+List {\bfseries s\+\_\+get\+\_\+buildup} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_aeecfdc2841f230eb9b877dacc5cdf846}\label{class_graph_widget_aeecfdc2841f230eb9b877dacc5cdf846}} 
+Q\+String\+List {\bfseries s\+\_\+get\+\_\+external\+\_\+flux} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a22cfc2b19ead953e2a5a1c4718a01c19}\label{class_graph_widget_a22cfc2b19ead953e2a5a1c4718a01c19}} 
+double {\bfseries minX} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_aa71f28002f8a61b84415ff951c169f82}\label{class_graph_widget_aa71f28002f8a61b84415ff951c169f82}} 
+double {\bfseries minY} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_afd96614be11b3cf7102dfd74f4738c33}\label{class_graph_widget_afd96614be11b3cf7102dfd74f4738c33}} 
+double {\bfseries maxX} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a55b5191409a6e63a5dbeab58cc47ab4d}\label{class_graph_widget_a55b5191409a6e63a5dbeab58cc47ab4d}} 
+double {\bfseries maxY} () const
+\item 
+\mbox{\Hypertarget{class_graph_widget_a9cec8dc4ada862d70cca06eaf39f80c1}\label{class_graph_widget_a9cec8dc4ada862d70cca06eaf39f80c1}} 
+void {\bfseries scene\+Changed} ()
+\item 
+\mbox{\Hypertarget{class_graph_widget_a39aa37cc671b4b632b0f4aa049a9116e}\label{class_graph_widget_a39aa37cc671b4b632b0f4aa049a9116e}} 
+void {\bfseries gw\+Changed} ()
+\item 
+\mbox{\Hypertarget{class_graph_widget_acf64142bcde5e075fa437fb634797ef4}\label{class_graph_widget_acf64142bcde5e075fa437fb634797ef4}} 
+void {\bfseries node\+Changed} (\hyperlink{class_node}{Node} $\ast$)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a6a0eafea9d8486d5f47fc5bf23f83749}\label{class_graph_widget_a6a0eafea9d8486d5f47fc5bf23f83749}} 
+void {\bfseries edge\+Changed} (\hyperlink{class_edge}{Edge} $\ast$)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a68b621d612b0acc8da36473e5c6932d8}\label{class_graph_widget_a68b621d612b0acc8da36473e5c6932d8}} 
+void {\bfseries entity\+Changed} (\hyperlink{class_entity}{Entity} $\ast$)
+\item 
+\mbox{\Hypertarget{class_graph_widget_a9600ad4929f57659b664bc2975cfcf05}\label{class_graph_widget_a9600ad4929f57659b664bc2975cfcf05}} 
+void {\bfseries delegate\+Date\+Picked} (Q\+Calendar\+Widget $\ast$calendar=0, Q\+Model\+Index index=Q\+Model\+Index())
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graph_widget_a7e10f35f59a43d87694c218212604329}\label{class_graph_widget_a7e10f35f59a43d87694c218212604329}} 
+\hyperlink{class_main_window}{Main\+Window} $\ast$ {\bfseries main\+Window}
+\item 
+\mbox{\Hypertarget{class_graph_widget_ac34853b98bb0c769b6fff9effa5d6fb2}\label{class_graph_widget_ac34853b98bb0c769b6fff9effa5d6fb2}} 
+Q\+Widget $\ast$ {\bfseries parent}
+\item 
+\mbox{\Hypertarget{class_graph_widget_a56cbcb6b31e785c0b1bb64e76fa7a97e}\label{class_graph_widget_a56cbcb6b31e785c0b1bb64e76fa7a97e}} 
+Q\+String {\bfseries application\+Short\+Name} = \char`\"{}\char`\"{}
+\item 
+\mbox{\Hypertarget{class_graph_widget_abb7a87dbdf2237d8fd3e5783a1162a27}\label{class_graph_widget_abb7a87dbdf2237d8fd3e5783a1162a27}} 
+int {\bfseries node\+\_\+id}
+\item 
+\mbox{\Hypertarget{class_graph_widget_a7e27ab3b07f2c2abea1a5836b03fe988}\label{class_graph_widget_a7e27ab3b07f2c2abea1a5836b03fe988}} 
+int {\bfseries edge\+\_\+id}
+\item 
+\mbox{\Hypertarget{class_graph_widget_ab7fa6ef7a90b5136fbd74038422ccf34}\label{class_graph_widget_ab7fa6ef7a90b5136fbd74038422ccf34}} 
+Q\+Graphics\+Scene $\ast$ {\bfseries Main\+Graphics\+Scene}
+\item 
+\mbox{\Hypertarget{class_graph_widget_a50960360aa798d88bcde2eeee6ff91fa}\label{class_graph_widget_a50960360aa798d88bcde2eeee6ff91fa}} 
+int {\bfseries undo\+\_\+counter}
+\item 
+\mbox{\Hypertarget{class_graph_widget_abc8fbdb6df9d47b275e65ef2fc1c5791}\label{class_graph_widget_abc8fbdb6df9d47b275e65ef2fc1c5791}} 
+bool {\bfseries tracking\+Undo} = false
+\item 
+\mbox{\Hypertarget{class_graph_widget_a6b189dd631714651292c5f39fa286577}\label{class_graph_widget_a6b189dd631714651292c5f39fa286577}} 
+int {\bfseries \+\_\+x}
+\item 
+\mbox{\Hypertarget{class_graph_widget_a4e3d9b1e7dfd5f6a18a701447acbb742}\label{class_graph_widget_a4e3d9b1e7dfd5f6a18a701447acbb742}} 
+int {\bfseries \+\_\+y}
+\item 
+\mbox{\Hypertarget{class_graph_widget_a8fffafff3013a4b4b8d61f9d3c1f83ad}\label{class_graph_widget_a8fffafff3013a4b4b8d61f9d3c1f83ad}} 
+\hyperlink{structcolor_code_data}{color\+Code\+Data} {\bfseries color\+Code}
+\item 
+\mbox{\Hypertarget{class_graph_widget_abfb0a8186032e32c3b0c03eb953e2452}\label{class_graph_widget_abfb0a8186032e32c3b0c03eb953e2452}} 
+Q\+List$<$ \hyperlink{class_entity}{Entity} $\ast$ $>$ {\bfseries Entities}
+\item 
+\mbox{\Hypertarget{class_graph_widget_a97be14dd86070a1d854eff597657621a}\label{class_graph_widget_a97be14dd86070a1d854eff597657621a}} 
+Q\+List$<$ \hyperlink{class_process}{Process} $\ast$ $>$ {\bfseries Processes}
+\item 
+\mbox{\Hypertarget{class_graph_widget_a20b5262f7b7622f7a41d33060b41c700}\label{class_graph_widget_a20b5262f7b7622f7a41d33060b41c700}} 
+Q\+Tree\+View $\ast$ {\bfseries project\+Explorer}
+\item 
+\mbox{\Hypertarget{class_graph_widget_a555956acf7ef4119f610f8d8d85e998e}\label{class_graph_widget_a555956acf7ef4119f610f8d8d85e998e}} 
+\hyperlink{classm_prop_list}{m\+Prop\+List} $\ast$ {\bfseries m\+List}
+\item 
+\mbox{\Hypertarget{class_graph_widget_afd918663c58c2e2179b195c9f96b5f1a}\label{class_graph_widget_afd918663c58c2e2179b195c9f96b5f1a}} 
+Q\+Table\+View $\ast$ {\bfseries table\+Prop}
+\item 
+\mbox{\Hypertarget{class_graph_widget_ac9fdd9434c36ca03893de7552ba142ba}\label{class_graph_widget_ac9fdd9434c36ca03893de7552ba142ba}} 
+Q\+List$<$ Q\+List$<$ Q\+Map$<$ Q\+String, Q\+Variant $>$ $>$ $>$ {\bfseries undolist}
+\item 
+\mbox{\Hypertarget{class_graph_widget_a17aa6424cc2863313c05f1dfb6ca2230}\label{class_graph_widget_a17aa6424cc2863313c05f1dfb6ca2230}} 
+\hyperlink{class_node}{Node} $\ast$ {\bfseries Node1}
+\item 
+\mbox{\Hypertarget{class_graph_widget_a92c1cd5a8fe7e0426a745f5cbafc75b2}\label{class_graph_widget_a92c1cd5a8fe7e0426a745f5cbafc75b2}} 
+\hyperlink{class_ray}{Ray} $\ast$ {\bfseries temp\+Ray}
+\item 
+\mbox{\Hypertarget{class_graph_widget_a1ec9353287f825c76d97715fad33a4dd}\label{class_graph_widget_a1ec9353287f825c76d97715fad33a4dd}} 
+\hyperlink{classm_prop}{m\+Prop} {\bfseries Model\+Space}
+\item 
+\mbox{\Hypertarget{class_graph_widget_aadea7a05529fab7c8a367bc36929d921}\label{class_graph_widget_aadea7a05529fab7c8a367bc36929d921}} 
+\hyperlink{class_delegate}{Delegate} $\ast$ {\bfseries m\+Delegate}
+\item 
+\mbox{\Hypertarget{class_graph_widget_aa8eef8aa881d63cc9c67950b86799220}\label{class_graph_widget_aa8eef8aa881d63cc9c67950b86799220}} 
+Q\+String\+List {\bfseries inflow\+File\+Names}
+\item 
+\mbox{\Hypertarget{class_graph_widget_a63a2ec518934e6d15b511684300ee123}\label{class_graph_widget_a63a2ec518934e6d15b511684300ee123}} 
+\hyperlink{class_tree_model}{Tree\+Model} $\ast$ {\bfseries tree\+Model}
+\item 
+\mbox{\Hypertarget{class_graph_widget_a82273ec64a087561a921749f96829c16}\label{class_graph_widget_a82273ec64a087561a921749f96829c16}} 
+\hyperlink{class_results}{Results} $\ast$ {\bfseries results} = 0
+\item 
+\mbox{\Hypertarget{class_graph_widget_ab0dff11cbefa39451fc2fccb51294022}\label{class_graph_widget_ab0dff11cbefa39451fc2fccb51294022}} 
+\hyperlink{classhelp_window}{help\+Window} $\ast$ {\bfseries help} = 0
+\item 
+\mbox{\Hypertarget{class_graph_widget_a9fdfcfe4ce3bb3c2d008d26b244ab6e6}\label{class_graph_widget_a9fdfcfe4ce3bb3c2d008d26b244ab6e6}} 
+Q\+Map$<$ \hyperlink{class_q_c_p_graph}{Q\+C\+P\+Graph} $\ast$, \hyperlink{structplotformat}{plotformat} $>$ {\bfseries graphs\+Clipboard}
+\item 
+\mbox{\Hypertarget{class_graph_widget_aa055326989a3742d881784ab2dd49742}\label{class_graph_widget_aa055326989a3742d881784ab2dd49742}} 
+Q\+String {\bfseries model\+Filename} = \char`\"{}\char`\"{}
+\item 
+\mbox{\Hypertarget{class_graph_widget_a6321ee07e9d11f76aac37c43149c21be}\label{class_graph_widget_a6321ee07e9d11f76aac37c43149c21be}} 
+\hyperlink{classlog_window}{log\+Window} $\ast$ {\bfseries logW}
+\item 
+\mbox{\Hypertarget{class_graph_widget_a9ce6613bd03604d6a022123bc39e1d5c}\label{class_graph_widget_a9ce6613bd03604d6a022123bc39e1d5c}} 
+Q\+String\+List {\bfseries function\+List}
+\item 
+\mbox{\Hypertarget{class_graph_widget_ab2c90f425135bf3e7c73d06f2d8e711f}\label{class_graph_widget_ab2c90f425135bf3e7c73d06f2d8e711f}} 
+Q\+String\+List {\bfseries Physical\+Characteristics\+List}
+\item 
+\mbox{\Hypertarget{class_graph_widget_ab81bb0dddd9d8bda033f64e97ee3107f}\label{class_graph_widget_ab81bb0dddd9d8bda033f64e97ee3107f}} 
+bool {\bfseries changed\+State} = false
+\item 
+\mbox{\Hypertarget{class_graph_widget_af3bbd1a7b76e5af87df7f5e29ad939a9}\label{class_graph_widget_af3bbd1a7b76e5af87df7f5e29ad939a9}} 
+bool {\bfseries allow\+Run} = true
+\item 
+\mbox{\Hypertarget{class_graph_widget_a1fc3a36c834a44f186c4741e04023d6c}\label{class_graph_widget_a1fc3a36c834a44f186c4741e04023d6c}} 
+Q\+String {\bfseries allow\+Run\+Variable\+Name}
+\item 
+\mbox{\Hypertarget{class_graph_widget_a641a6cae2f04a47412b0fd8c0efa2508}\label{class_graph_widget_a641a6cae2f04a47412b0fd8c0efa2508}} 
+Q\+Combo\+Box $\ast$ {\bfseries experiments}
+\item 
+\mbox{\Hypertarget{class_graph_widget_a641c181833163b7ed9802ea720990f63}\label{class_graph_widget_a641c181833163b7ed9802ea720990f63}} 
+bool {\bfseries has\+Results} = false
+\item 
+\mbox{\Hypertarget{class_graph_widget_a692acd7da70406a30837451ae0dc3968}\label{class_graph_widget_a692acd7da70406a30837451ae0dc3968}} 
+Q\+Map$<$ Q\+String, Q\+Map$<$ Q\+String, Q\+String $>$ $>$ {\bfseries specs}
+\item 
+\mbox{\Hypertarget{class_graph_widget_abdaf70bf121df076aa2a3ece35dc8d37}\label{class_graph_widget_abdaf70bf121df076aa2a3ece35dc8d37}} 
+Q\+Slider $\ast$ {\bfseries legend\+Slider\+Time} = 0
+\item 
+\mbox{\Hypertarget{class_graph_widget_a82b3da3f06e672c7b7332691673e2cb1}\label{class_graph_widget_a82b3da3f06e672c7b7332691673e2cb1}} 
+\hyperlink{structcolorlegend}{colorlegend} {\bfseries colors}
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graph_widget_aec782f01795f0b6720cc5e5fa2ff332f}\label{class_graph_widget_aec782f01795f0b6720cc5e5fa2ff332f}} 
+void {\bfseries key\+Press\+Event} (Q\+Key\+Event $\ast$event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+DE
+\item 
+\mbox{\Hypertarget{class_graph_widget_ac0f376b61b13fd270dc4837c8df93abb}\label{class_graph_widget_ac0f376b61b13fd270dc4837c8df93abb}} 
+void {\bfseries timer\+Event} (Q\+Timer\+Event $\ast$event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+DE
+\item 
+\mbox{\Hypertarget{class_graph_widget_a828c433b131cf77048592b62ba179de0}\label{class_graph_widget_a828c433b131cf77048592b62ba179de0}} 
+void {\bfseries mouse\+Move\+Event} (Q\+Mouse\+Event $\ast$event)
+\item 
+\mbox{\Hypertarget{class_graph_widget_affa04e91a793579fa277c956bb4683db}\label{class_graph_widget_affa04e91a793579fa277c956bb4683db}} 
+void {\bfseries mouse\+Press\+Event} (Q\+Mouse\+Event $\ast$event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+DE
+\item 
+\mbox{\Hypertarget{class_graph_widget_a13c186f835c9ce9d7f5ad1d7bfd64418}\label{class_graph_widget_a13c186f835c9ce9d7f5ad1d7bfd64418}} 
+void {\bfseries mouse\+Release\+Event} (Q\+Mouse\+Event $\ast$event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+DE
+\item 
+\mbox{\Hypertarget{class_graph_widget_ae1a7340213221478e1697f168c2e3054}\label{class_graph_widget_ae1a7340213221478e1697f168c2e3054}} 
+void {\bfseries wheel\+Event} (Q\+Wheel\+Event $\ast$event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+DE
+\item 
+\mbox{\Hypertarget{class_graph_widget_a5502df84f36544e050252e2b3a446dc6}\label{class_graph_widget_a5502df84f36544e050252e2b3a446dc6}} 
+void {\bfseries draw\+Background} (Q\+Painter $\ast$painter, const Q\+RectF \&rect) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+DE
+\item 
+\mbox{\Hypertarget{class_graph_widget_a79f3a2349429d58c614f65f690c19dfc}\label{class_graph_widget_a79f3a2349429d58c614f65f690c19dfc}} 
+void {\bfseries rubber\+Band\+Changed} (Q\+Rect rubber\+Band\+Rect, Q\+PointF from\+Scene\+Point, Q\+PointF to\+Scene\+Point)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 86 of file G\+Widget.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+G\+U\+I/G\+Widget.\+h\item 
+G\+U\+I/G\+Widget.\+cpp\item 
+G\+U\+I/script\+Export.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,370 @@
+#pragma once
+
+#ifdef QT_version
+#include "qgraphicsview.h"
+#endif // QT_version
+
+#include <enums.h>
+//#include "modelconfig.h"
+#include "mProp.h"
+#include <qstandarditemmodel.h>
+#include "qtableview.h"
+#include "logwindow.h"
+#include "qcalendarwidget.h"
+#include "mainwindow.h"
+#include "qcombobox.h"
+#include "PropModel.h"
+#include "XString.h"
+//#include "helpWindow.h"
+#include "colorScheme.h"
+#include "Command.h"
+
+//class MainWindow;
+class helpWindow;
+class QCPGraph;
+class Ray;
+class Node;
+class Edge;
+class Entity;
+class Process;
+class Delegate;
+class mPropList;
+class QTreeView;
+class TreeModel;
+class CMedium;
+class CMediumSet;
+class CGWA;
+class CGWASet;
+class Results;
+struct plotformat;
+
+
+//class logWindow;
+
+
+struct scatterPlotData
+{
+	QString name;
+	QVector<double> t;
+	QVector<double> y;
+};
+
+struct propertyItem
+{
+	QString objectType;
+	QString objectName;
+	QString description;
+	QString propertyName;
+	XString value;
+	QString valueType;
+	QString minRange = "-#inf", maxRange = "#inf";
+};
+
+struct modelBlocks
+{
+	QString name, type, subType;
+	QList<propertyItem> properties;
+};
+
+struct modelConnectors
+{
+	QString name, type, subType;
+	QString start, end;
+	QList<propertyItem> properties;
+};
+struct colorCodeData
+{
+	bool nodes = false, edges = false;
+};
+struct command
+{
+	QString name;
+	QString description;
+	QList<modelBlocks> blocks;
+	QList<modelConnectors> connectors;
+	QList<propertyItem> properties;
+	bool askUser = true;
+};
+
+
+class GraphWidget : public QGraphicsView
+{
+	Q_OBJECT
+
+public:
+	GraphWidget(QWidget *parent, QString applicationShortName, QString metafilename, logWindow *log, MainWindow* mainWindow);
+	MainWindow* mainWindow;
+	QWidget* parent;
+	QString applicationShortName = "";
+	//	void refresh();
+//	vector<Node*> Nodes;
+	int node_id, edge_id;
+	void itemMoved();
+	QGraphicsScene *MainGraphicsScene;
+//	QList<QGraphicsScene> UndoScenes;
+	int undo_counter;
+	void undo();
+	void redo();
+	bool trackingUndo = false;
+	void deselectAll(QString items = "Nodes Edges Entities (Entity)") const;
+	void deleteSelected();
+
+	//names of selected Items
+	QStringList selectedItems()const;
+	QString typeOfSelecetedItems()const;
+
+	QList<Node*> selectedNodes() const;
+	QList<Edge*> selectedEdges() const;
+	QList<Entity*> selectedEntities()const;
+
+	void update(bool fast = false);
+//	void PropsPopulate(const Node *node, QTableView *tableProp);
+	void PropsPopulate(Node *node, QStandardItemModel *propModel);
+	int _x, _y;
+	colorCodeData colorCode;
+	Operation_Modes setMode(Operation_Modes OMode = Operation_Modes::NormalMode, bool back = false);
+	Operation_Modes setMode(int i);
+    Operation_Modes setModeCursor(void);
+	QList<Node *> Nodes() const;
+	QList<Edge *> Edges() const;
+	QList<Entity *> Entities;
+	QList<Process *> Processes;
+
+	QList<Entity *> entitiesByType(const QString &type) const;
+	QList<Node *> nodesByType(const QString &type) const;
+	QStringList nodeNames() const;
+	QStringList nodeNames(const QString &type) const;
+	QStringList edgeNames() const;
+
+	Node* node(const QString &name) const;
+	Edge* edge(const QString &name) const;
+	Entity* entity(const QString &name, const QString &type ="*") const;
+	Process * process(const QString &name) const;
+
+	void deleteNode(const QString &name) {deleteNode(node(name));}
+	void deleteNode(Node *node);
+	void deleteEdge(const QString &name) { deleteEdge(edge(name)); }
+	void deleteEdge(Edge *edge);
+	void deleteEntity(const QString &name) { deleteEntity(entity(name)); }
+	void deleteEntity(Entity *entity);
+	void deleteProcess(const QString &name) { deleteProcess(process(name)); }
+	void deleteProcess(Process *process);
+
+	QStringList EntityNames(const QString &type) const;
+	QTreeView *projectExplorer;
+	void setProjExp(QTreeView *p){ projectExplorer = p; };
+	//void setProjExpModel(QAbstractItemModel *p){ projectExplorer = p; };
+
+	mPropList *mList;
+	QTableView *tableProp;
+//	PropModel *propModel;
+	QAbstractItemModel *propModel() const { return tableProp->model(); };
+	//PropModel *propModel() const { return static_cast<PropModel*>(tableProp->model()); };
+	//	QList<modelConfig> undo_list;
+	QList<QList<QMap<QString, QVariant>>> undolist;
+	//modelConfig active_model_config;
+	Node *Node1; // , *Node2;
+	Ray *tempRay;
+	mProp ModelSpace;
+	Delegate *mDelegate;
+	Entity* entityByName(const QString &name) const;
+	QStringList inflowFileNames;
+
+	QList<QMap<QString, QVariant>> compact() const;// QDataStream &out = QDataStream(), bool toFile = false) const;
+	QList<QMap<QString, QVariant>> compactRXN() const;
+	GraphWidget* unCompact(QList<QMap<QString, QVariant>>&, bool oldVersionLoad = false);//, QWidget *parent = 0);
+	//GraphWidget* unCompact(QDataStream &in);
+	GraphWidget* unCompact12(QList<QMap<QString, QVariant>>&, bool oldVersionLoad = false);//, QWidget *parent = 0);
+	GraphWidget* unCompact10(QList<QMap<QString, QVariant>>);//, QWidget *parent = 0);
+	void clear();
+	void clearRXN();
+	TreeModel *treeModel;
+	void expandNode(const QModelIndex &parentIndex, bool expand);
+	QMap<QString, QString> find_objects(QString name);
+
+    QString setprop(Node * n, QString  propname, XString  value, QString experiment);
+    QString setprop(Edge * ed, QString  propname, XString  value, QString experiment);
+    QString setprop(Entity * en, QString  propname, XString  value, QString experiment);
+	/*	QString getInflowFileName(){
+		return QFileDialog::getOpenFileName(
+			qApp->activeWindow(),
+			tr("Select the File"),
+			QDir::currentPath(),
+			tr("Time Series Input Files (*.txt *.csv)"));
+	};
+*/
+	void copyProps(QString sourceExperiment, QString destExperiment);
+#ifdef GIFMOD
+	CMediumSet* modelSet = 0;
+	CMedium *model = 0;
+	vector<Results *> resultsSet;
+	bool wizard(QList<command>&commands);
+    QVariant runCommand(CCommand command); //runs the commands submitted into script window
+	QList<QVariant> runCommands(QList<CCommand> &command); //run commands sequentially
+											 //QVariant runCommand(QString command);
+	//QVariant runCommand(QString command, QList<XString> arguments);// = QList<XString>());
+#endif
+#ifdef GWA
+	CGWA *model = 0;
+	CGWASet* modelSet = 0;
+	vector<Results *> resultsSet;
+
+#endif
+	Results *results = 0;
+	helpWindow* help = 0;
+
+	void deleteSolutionResults(){
+	/*	if (model)
+			delete model;
+		if (modelSet)
+			delete modelSet;
+		if (results)
+			delete results;
+		if (resultsSet.size())
+			resultsSet.clear();
+	*/	model = 0;		results = 0;
+
+	modelSet = 0;
+	hasResults = false;
+	}
+	QMap<QCPGraph *, plotformat> graphsClipboard; // scatterPlotsList;
+	QString modelFilename = "";
+	QString modelPathname() const;
+	QString updateRelativePaths(QString oldPath, QString newPath);
+	QString defaultDir() const;
+	void log(QString text) const {
+		(*logW)(text); };
+	logWindow *logW;
+	void newError(QString message){
+		logW->append(message);
+	}
+	QStringList functionList, PhysicalCharacteristicsList;
+	// #Errors, #Warnings
+	QStringList variableValuesHasError();
+	bool hasChanged() {
+		return changedState;
+	};
+	bool changedState = false;
+
+	void startEditingDelegate(QString variableName){
+		//qDebug() << "start editing " << variableName;
+		allowRunVariableName = variableName;
+		allowRun = false;
+	}
+	void endEditingDelegate() {
+		//qDebug() << "end editing " << allowRunVariableName;
+		allowRunVariableName = "";
+		allowRun = true;
+	}
+	bool allowRun = true;
+	QString allowRunVariableName;
+	int experimentID();
+	QString experimentName();
+	QString firstExperimentName(){
+		if (experiments->count() < 2)
+			return QString();
+		return experiments->itemText(1);
+	}
+	QStringList experimentsList() const {
+		QStringList r;
+		if (!experiments)
+			return QStringList();
+		for (int i = 1; i < experiments->count(); i++)
+			r.append(experiments->itemText(i));
+		return r;
+	}
+	QComboBox *experiments;
+	bool hasResults = false;
+    void experimentsComboClear(bool addExperiment1 = true);
+    void updateNodeCoordinates();
+	QMap<QString, QMap<QString, QString>> specs;
+	QSlider *legendSliderTime = 0;
+	colorlegend colors;
+
+	public slots:
+
+#ifdef GIFMOD
+	void updateNodesColorCodes(QString propertyItem, bool logged = false, QString colorTheme = "Green", vector<double> predifinedMinMax = vector<double>(), float time = -1);
+	void updateNodesColorCodes_WaterQuality(QStringList property, bool logged = false, QString colorTheme = "Green", vector<double> predifinedMinMax = vector<double>(), float time = -1);
+	void updateEdgesColorCodes(QString propertyItem, bool logged = false, QString colorTheme = "Green", vector<double> predifinedMinMax = vector<double>(), float time = -1);
+	void colorSchemeLegend_closed();
+	void legendSliderChanged_Nodes(int value);
+	void legendSliderChanged_Edges(int value);
+	void applyColorstoNodes();
+	void applyColorstoEdges();
+	void experimentSelect(const QString &experimentName);
+
+#endif
+	void shuffle();
+	void zoomIn();
+	void zoomOut();
+    void add_to_undo_list(QList<QMap<QString, QVariant>> state = QList<QMap<QString, QVariant>>());
+	void settableProp(QTableView*_tableProp);
+	//void setpropModel(PropModel *_propModel);
+	void scaleView(qreal scaleFactor);
+	bool select(const QString &name, const QString type) const;
+	void nodeContextMenuRequested(Node* ,QPointF pos, QMenu *menu=NULL);
+	void edgeContextMenuRequested(Edge*, QPointF pos, QMenu *menu=NULL);
+	void warning(QString){};
+	QList<CCommand> script() const;
+	QList<CCommand> s_get_params() const;
+	QList<CCommand> s_get_observed() const;
+	QList<CCommand> s_get_environmental_params() const;
+	QList<CCommand> s_get_model_blocks() const;
+	QList<CCommand> s_get_model_connectors() const;
+	QList<CCommand> s_get_particle_types() const;
+	QList<CCommand> s_get_constituents() const;
+	QList<CCommand> s_get_reactions() const;
+//	QStringList s_set_default_connector_expressions() const;
+//	QStringList s_set_default_block_expressions() const;
+	QList<CCommand> s_get_buildup() const;
+	QList<CCommand> s_get_evapotranspiration() const;
+	QList<CCommand> s_get_MCMC() const;
+	QList<CCommand> s_get_genetic_algorithm() const;
+	QList<CCommand> s_get_external_flux() const;
+//	QStringList s_load_inflows() const;
+	double minX() const;
+	double minY() const;
+	double maxX() const;
+	double maxY() const;
+	void sceneChanged();
+
+	void gwChanged();
+	void nodeChanged(Node*);
+	void edgeChanged(Edge*);
+	void entityChanged(Entity*);
+	void delegateDatePicked(QCalendarWidget *calendar = 0, QModelIndex index = QModelIndex());
+	//QComboBox* experiments;
+
+signals:
+	void Mouse_Pos(int, int, QString);
+	void changed();
+
+protected:
+	void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
+	void timerEvent(QTimerEvent *event) Q_DECL_OVERRIDE;
+	void mouseMoveEvent(QMouseEvent *event);
+	void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+	void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+#ifndef QT_NO_WHEELEVENT
+	void wheelEvent(QWheelEvent *event) Q_DECL_OVERRIDE;
+#endif
+	void drawBackground(QPainter *painter, const QRectF &rect) Q_DECL_OVERRIDE;
+//	void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+	void rubberBandChanged(QRect rubberBandRect, QPointF fromScenePoint, QPointF toScenePoint);
+
+private:
+	int timerId;
+	Node *centerNode;
+	Operation_Modes Operation_Mode;
+	void draw_temp_edge(Node *source, QPoint point);
+	Node *resizenode;
+	corners resizecorner;
+	bool sceneReady = false;
+	QList<Node*> nodes(const QList<QGraphicsItem*>items) const;
+	QList<Edge*> edges(const QList<QGraphicsItem*>items) const;
+};
+bool validInflowFile(QString file);
+QString getTime(bool reset=true);
+
+bool isFuzzyEqual(double a, double b, double allowableError = 0.05);

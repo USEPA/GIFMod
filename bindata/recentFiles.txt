@@ -1,0 +1,4 @@
+/home/arash/documents/gifmod
+/home/arash/dropbox/alger park/raingarden_data/samanehpavement.gifm
+/home/arash/documents/test
+/home/arash/Documents/test.gifm

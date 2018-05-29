@@ -1,0 +1,89 @@
+\hypertarget{class_prop_model}{}\section{Prop\+Model$<$ T $>$ Class Template Reference}
+\label{class_prop_model}\index{Prop\+Model$<$ T $>$@{Prop\+Model$<$ T $>$}}
+Inheritance diagram for Prop\+Model$<$ T $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_prop_model}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_prop_model_a801f9bc9ebfed212160c5943cc766cbf}\label{class_prop_model_a801f9bc9ebfed212160c5943cc766cbf}} 
+void {\bfseries browser\+Check} (Q\+String)
+\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_prop_model_a1785325d4209a2a99c3eb10a4e8c7ef5}\label{class_prop_model_a1785325d4209a2a99c3eb10a4e8c7ef5}} 
+void {\bfseries changed} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_prop_model_a0fd200289ce88fa4e44635f2a5867fef}\label{class_prop_model_a0fd200289ce88fa4e44635f2a5867fef}} 
+{\bfseries Prop\+Model} (\hyperlink{class_node}{Node} $\ast$parent)
+\item 
+\mbox{\Hypertarget{class_prop_model_a67c22fe953dc06e5f50a428dda87997b}\label{class_prop_model_a67c22fe953dc06e5f50a428dda87997b}} 
+{\bfseries Prop\+Model} (\hyperlink{class_edge}{Edge} $\ast$parent)
+\item 
+\mbox{\Hypertarget{class_prop_model_aaf3a266b7f36e8e2cdd896de8274d66d}\label{class_prop_model_aaf3a266b7f36e8e2cdd896de8274d66d}} 
+{\bfseries Prop\+Model} (\hyperlink{class_entity}{Entity} $\ast$parent)
+\item 
+\mbox{\Hypertarget{class_prop_model_ad7cf4ce6f6c0e64d756fffe69cc6bc5d}\label{class_prop_model_ad7cf4ce6f6c0e64d756fffe69cc6bc5d}} 
+{\bfseries Prop\+Model} (Q\+List$<$ T $\ast$$>$ items)
+\item 
+\mbox{\Hypertarget{class_prop_model_a34bdcb9b51e397916cc665c65aeb6814}\label{class_prop_model_a34bdcb9b51e397916cc665c65aeb6814}} 
+Q\+List$<$ T $\ast$ $>$ {\bfseries items\+List} ()
+\item 
+\mbox{\Hypertarget{class_prop_model_afa5cbc01067ad498eb139be457c7a13e}\label{class_prop_model_afa5cbc01067ad498eb139be457c7a13e}} 
+Q\+Variant {\bfseries data} (const Q\+Model\+Index \&index, int role=Qt\+::\+Display\+Role) const
+\item 
+\mbox{\Hypertarget{class_prop_model_a5dedd5a680557ee0e039790f67532e34}\label{class_prop_model_a5dedd5a680557ee0e039790f67532e34}} 
+bool {\bfseries set\+Data} (const Q\+Model\+Index \&index, const Q\+Variant \&value, int role=Qt\+::\+Edit\+Role)
+\item 
+\mbox{\Hypertarget{class_prop_model_a85dfa91c6ca190c0ae199fd65daecbc4}\label{class_prop_model_a85dfa91c6ca190c0ae199fd65daecbc4}} 
+int {\bfseries rows} (const Q\+Model\+Index \&index=Q\+Model\+Index()) const
+\item 
+\mbox{\Hypertarget{class_prop_model_ae13591f82708c811050c473aef287145}\label{class_prop_model_ae13591f82708c811050c473aef287145}} 
+int {\bfseries row\+Count} (const Q\+Model\+Index \&index=Q\+Model\+Index()) const
+\item 
+\mbox{\Hypertarget{class_prop_model_a453532d8b93a09531efc3b83de053b2e}\label{class_prop_model_a453532d8b93a09531efc3b83de053b2e}} 
+int {\bfseries column\+Count} (const Q\+Model\+Index \&parent=Q\+Model\+Index()) const
+\item 
+\mbox{\Hypertarget{class_prop_model_a176bdcd7c1e3704d577a7f25815b09b4}\label{class_prop_model_a176bdcd7c1e3704d577a7f25815b09b4}} 
+Q\+Variant {\bfseries header\+Data} (int section, Qt\+::\+Orientation orientation, int role=Qt\+::\+Display\+Role) const
+\item 
+\mbox{\Hypertarget{class_prop_model_a1c5fdff007e9390a9f86560cea0b8709}\label{class_prop_model_a1c5fdff007e9390a9f86560cea0b8709}} 
+Qt\+::\+Item\+Flags {\bfseries flags} (const Q\+Model\+Index \&index) const
+\item 
+\mbox{\Hypertarget{class_prop_model_abcc6a15671a1fc3682104f9d092d9026}\label{class_prop_model_abcc6a15671a1fc3682104f9d092d9026}} 
+\hyperlink{class_graph_widget}{Graph\+Widget} $\ast$ {\bfseries main\+Graph\+Widget} () const
+\item 
+\mbox{\Hypertarget{class_prop_model_ae4e124f8dd6576ffcbc3ba65f5fc252c}\label{class_prop_model_ae4e124f8dd6576ffcbc3ba65f5fc252c}} 
+void {\bfseries update} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_prop_model_a93b1e57cb5778e2311b0a162fb3e5112}\label{class_prop_model_a93b1e57cb5778e2311b0a162fb3e5112}} 
+T $\ast$ {\bfseries parent}
+\item 
+\mbox{\Hypertarget{class_prop_model_a80125c04fc5afbd6d8c97f8ffe9be72a}\label{class_prop_model_a80125c04fc5afbd6d8c97f8ffe9be72a}} 
+Q\+List$<$ T $\ast$ $>$ {\bfseries items}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class T$>$\newline
+class Prop\+Model$<$ T $>$}
+
+
+
+Definition at line 11 of file Prop\+Model.\+h.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+G\+U\+I/Prop\+Model.\+h\end{DoxyCompactItemize}
